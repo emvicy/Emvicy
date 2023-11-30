@@ -32,5 +32,5 @@ _gitPush.sh.example
 _phanlistcreate.sh
 _curl.php
 Changelog.md
-**/*.min.css
-**/*.min.js
+#**/*.min.css
+#**/*.min.js
