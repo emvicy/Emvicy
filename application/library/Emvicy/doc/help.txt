@@ -8,7 +8,7 @@ help
 
 version | v
     command:    php emvicy.php v
-        displays myMVC version
+        displays Emvicy version
 
 serve | s
     command:    php emvicy.php s
@@ -56,10 +56,10 @@ datatype | dt
 update | up
     command:    php emvicy.php up
         updates
-            - myMVC Framework and its vendor installed libraries
+            - Emvicy Framework and its vendor installed libraries
             - vendor installed libraries of existing modules
         requires:
-            - myMVC installed via `git clone` command
+            - Emvicy installed via `git clone` command
             - bash, git
 
 log
@@ -89,8 +89,8 @@ lint | l
                 {
                   "bSuccess": false,
                   "aMessage": [
-                    "PHP Parse error:  syntax error, unexpected token \"}\" in /var/www/myMVC_3.2.x/modules/Foo/Controller/Index.php on line 30",
-                    "Errors parsing /var/www/myMVC_3.2.x/modules/Foo/Controller/Index.php"
+                    "PHP Parse error:  syntax error, unexpected token \"}\" in /var/www/Emvicy/modules/Foo/Controller/Index.php on line 30",
+                    "Errors parsing /var/www/Emvicy/modules/Foo/Controller/Index.php"
                   ]
                 }
         requires:
