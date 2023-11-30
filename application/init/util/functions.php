@@ -182,7 +182,7 @@ function mvcConfigLoader(array $aConfig = array())
     #-----------------------------
     # main config
 
-    // place of main myMVC config
+    // place of main Emvicy config
     $aConfig['MVC_CONFIG_DIR'] = realpath(__DIR__ . '/../../../') . '/config';
 
     // load main config from /config/*.php

@@ -21,7 +21,7 @@ MVC_RUNTIME_SETTINGS: {
 
     // enable exit on "kill" command and CLI break (CTRL-C)
     // This command needs the pcntl extension to run.
-    // do not provide if php's builtin webserver is running (using e.g. php myMVC.phar)
+    // do not provide if php's builtin webserver is running (using e.g. php emvicy.php)
     if (true === isset($_SERVER['HTTP_HOST']) && '127.0.0.1:1969' !== $_SERVER['HTTP_HOST'])
     {
         (function_exists('pcntl_async_signals')) ? pcntl_async_signals(true) : false;
@@ -95,7 +95,7 @@ MVC_APPLICATION_SETTINGS_I: {
     $aConfig['MVC_LIBRARY'] = $aConfig['MVC_APPLICATION_PATH'] . '/library';
     $aConfig['MVC_MODULES_DIR'] = $aConfig['MVC_BASE_PATH'] . '/modules';
 
-    // Main myMVC config directory
+    // Main Emvicy config directory
     $aConfig['MVC_CONFIG_DIR'] = $aConfig['MVC_BASE_PATH'] . '/config';
 
     /**
@@ -184,14 +184,14 @@ MVC_APPLICATION_SETTINGS_I: {
      */
     // session directory and
     // Session options @see http://php.net/manual/de/session.configuration.php
-    $aConfig['MVC_SESSION_NAMESPACE'] = 'myMVC';
+    $aConfig['MVC_SESSION_NAMESPACE'] = 'Emvicy';
     $aConfig['MVC_SESSION_PATH'] = $aConfig['MVC_APPLICATION_PATH'] . '/session';
     $aConfig['MVC_SESSION_OPTIONS'] = array(
         'cookie_httponly' => true,
         'auto_start' => 0,
         'save_path' => $aConfig['MVC_SESSION_PATH'],
         'cookie_secure' => $aConfig['MVC_SECURE_REQUEST'],
-        'name' => 'myMVC' . (($aConfig['MVC_SECURE_REQUEST']) ? '_secure' : ''),
+        'name' => 'Emvicy' . (($aConfig['MVC_SECURE_REQUEST']) ? '_secure' : ''), // @see /public/.htaccess
         'save_handler' => 'files',
         'cookie_lifetime' => 0,
 

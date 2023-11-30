@@ -73,7 +73,7 @@ MVC_AUTOLOADING: {
      *
      * For example:
      * 		$aConfig['MVC_COMPOSER_DIR'] = $aConfig['MVC_CONFIG_DIR'];
-     * 		or, even better, using a subdirectory - here, it is called "myMVC":
+     * 		or, even better, using a subdirectory - here, it is called "Emvicy":
      * 		$aConfig['MVC_COMPOSER_DIR'] = $aConfig['MVC_CONFIG_DIR'] . '/myMvc/';
      */
     if (isset ($aConfig['MVC_COMPOSER_DIR']) && file_exists ($aConfig['MVC_COMPOSER_DIR'] . '/vendor/autoload.php'))

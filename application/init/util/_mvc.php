@@ -16,7 +16,7 @@ current(
 
 $aConfig['MVC_CORE'] = array(
 
-    // myMVC
+    // Emvicy
     // @see /.version
     'version' => $sVersion,
 
