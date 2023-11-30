@@ -22,7 +22,7 @@ application/library/MVC/DB/DataType/test
 gen
 *.tar.gz
 vendor
-#modules/*
+modules/*
 public/.env
 public/openapi
 public/api
