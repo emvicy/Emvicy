@@ -1188,6 +1188,8 @@ class Db
             return false;
         }
 
+        Event::run('db.model.db.update.before', $oTableDataType);
+
         $oDTArrayObjectSet = DTArrayObject::create();
 
         foreach ($oTableDataType->getPropertyArray() as $sProperty => $sValue)
