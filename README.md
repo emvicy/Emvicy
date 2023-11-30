@@ -1,4 +1,4 @@
-# <img src="https://mymvc.ueffing.net/myMVC.png" width="60" align="left"> Emvicy
+# <img src="https://emvicy.ueffing.net/myMVC.png" width="60" align="left"> Emvicy
 
 a PHP Framework
 
@@ -10,5 +10,5 @@ a PHP Framework
 - DataType Creation
 - PHP >= 8.0
 
-Documentation:  [https://emvicy.ueffing.net/](https://emvicy.ueffing.net/)
+Documentation:  [https://emvicy.ueffing.net/](https://emvicy.ueffing.net/)  
 github:  [https://github.com/emvicy/emvicy/](https://github.com/emvicy/emvicy/)
