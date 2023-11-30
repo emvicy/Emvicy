@@ -34,10 +34,10 @@ class Controller implements \MVC\MVCInterface\Controller
      */
     public function __construct(DTRequestCurrent $oDTRequestCurrent, DTRoute $oDTRoute)
     {
-        // get .version of myMVC Framework
+        // get .version of Emvicy Framework
         mvcStoreEnv(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
 
-        // get .version of myMVC Modules if available
+        // get .version of Emvicy Modules if available
         foreach (glob(Config::get_MVC_MODULES_DIR() . '/*', GLOB_ONLYDIR) as $sModuleAbs)
         {
             $sVersionAbs = $sModuleAbs . '/.version';

@@ -265,8 +265,8 @@ class Session
 
         if (true == $bEnable
             && false == $bDisable
-            && isset($_COOKIE['myMVC_cookieConsent'])
-            && "true" == $_COOKIE['myMVC_cookieConsent']
+            && isset($_COOKIE['Emvicy_cookieConsent'])
+            && "true" == $_COOKIE['Emvicy_cookieConsent']
         )
         {
             Config::set_MVC_SESSION_ENABLE();

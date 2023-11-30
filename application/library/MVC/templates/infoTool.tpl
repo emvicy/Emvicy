@@ -10,7 +10,7 @@ blue: hsl(210,50%,50%)
 
 {* value for css automatic generation parts *}
 {$iStyleIteration=81}
-<link href="/Emvicy/styles/myMVCInfoTool.min.css" rel="stylesheet" type="text/css">
+<link href="/Emvicy/styles/EmvicyInfoTool.min.css" rel="stylesheet" type="text/css">
 <style>
 	{section name=columns start=0 step=1 loop=$iStyleIteration}
 	#tab{$smarty.section.columns.iteration}:checked ~ figure .tab{$smarty.section.columns.iteration},
@@ -60,7 +60,7 @@ blue: hsl(210,50%,50%)
 	<div id="myMvcToolbar_head" class="myMvcToolbar_expand">
 		<span>
 			PHP {$aToolbar.sPHP}, Operating System {$aToolbar.sOS}, {$aToolbar.sEnvOfRequest}, Construction Time: {$aToolbar.sConstructionTime} s,
-			<a href="https://mymvc.ueffing.net/" target="_blank">Documentation</a>
+			<a href="https://emvicy.ueffing.net/" target="_blank">Documentation</a>
 		</span>
 		<br>
 		<span>{$aToolbar.sMyMvcVersion}, MVC_ENV={$aToolbar.sEnv}, MVC_UNIQUE_ID={$aToolbar.sUniqueId}, session_id()={$aToolbar.session_id}</span>
@@ -608,7 +608,7 @@ Request::getPathParam( $sKey )</pre>
 	<!-- Main menu -->
 	<navi>
 		<label for="tab2">
-			<i class="fa fa-cube"></i> myMVC
+			<i class="fa fa-cube"></i> Emvicy
 		</label>
 		<label for="tab1">
 			<i class="fa fa-cubes"></i> Variables
@@ -636,4 +636,4 @@ Request::getPathParam( $sKey )</pre>
 		<label id="myMvcToolbar_toggle" class="myMvcToolbar-bg-info" title="toggle"><b>&larr;&rarr;</b></label>
 	</navi>
 </div>
-<script src="/Emvicy/scripts/myMVCInfoTool.min.js" type="text/javascript"></script>
+<script src="/Emvicy/scripts/EmvicyInfoTool.min.js" type="text/javascript"></script>

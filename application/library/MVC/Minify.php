@@ -23,8 +23,8 @@ class Minify
      * minifies all *css and *.js files found in the given folder and beneath (recursively!)
      * @param array $aContentFilterMinify [optional] default=MVC_PUBLIC_PATH
      * example: array(
-            $aConfig['MVC_PUBLIC_PATH'] . '/myMVC/styles/',
-            $aConfig['MVC_PUBLIC_PATH'] . '/myMVC/scripts/',
+            $aConfig['MVC_PUBLIC_PATH'] . '/Emvicy/styles/',
+            $aConfig['MVC_PUBLIC_PATH'] . '/Emvicy/scripts/',
         )
      * @return bool
      * @throws \ReflectionException

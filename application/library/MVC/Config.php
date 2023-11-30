@@ -518,7 +518,7 @@ class Config
             return (string) Registry::get('MVC_SESSION_NAMESPACE');
         }
 
-        return get($GLOBALS['aConfig']['MVC_SESSION_NAMESPACE'], 'myMVC');
+        return get($GLOBALS['aConfig']['MVC_SESSION_NAMESPACE'], 'Emvicy');
     }
 
     /**

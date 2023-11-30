@@ -462,7 +462,7 @@ class Emvicy
             : false
         ;
 
-        // sort with awk on 8. field (myMVC Log increment number)
+        // sort with awk on 8. field (Emvicy Log increment number)
         $sCmd = "cd " . Config::get_MVC_LOG_FILE_DIR() . "; "
                 . whereis('grep') .  " " . $sLogId . " *.log "
                 . "| " . whereis('awk') . " '{ print $0 | \"" . whereis('sort') . " -nk8\"}'";

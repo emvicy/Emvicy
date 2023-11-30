@@ -205,7 +205,7 @@ img {
 	page-break-after: always
 }
 
-#myMVC_cookieConsent {
+#Emvicy_cookieConsent {
 	position: fixed !important;
 	bottom: 0px;
 	left: 0px;
@@ -218,22 +218,22 @@ img {
 	z-index: 99999999;
 }
 
-#myMVC_cookieConsent label {
+#Emvicy_cookieConsent label {
 	cursor: pointer;
 }
 
-#myMVC_cookieConsent input {
+#Emvicy_cookieConsent input {
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
 }
 
-#myMVC_cookieConsent a {
+#Emvicy_cookieConsent a {
 	color: #fff !important;
 	text-decoration: underline !important;
 }
 
-#myMVC_cookieConsent button {
+#Emvicy_cookieConsent button {
 	padding: 5px 10px;
 	color: #333;
 	cursor: pointer;

@@ -233,7 +233,7 @@ class MyMVCInstaller
      */
     protected function placeMarkup()
     {
-        $sMarkup = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Foo</title><link href="/Emvicy/assets/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="/Emvicy/assets/fontawesome-free-6.4.2-web/css/all.min.css" rel="stylesheet" type="text/css"><link href="/Emvicy/styles/myMVC.min.css" rel="stylesheet" type="text/css"><style>body {padding-top: 7rem;/* Move down content because of fixed navbar */}</style></head>'
+        $sMarkup = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><title>Foo</title><link href="/Emvicy/assets/bootstrap-5.3.2-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"><link href="/Emvicy/assets/fontawesome-free-6.4.2-web/css/all.min.css" rel="stylesheet" type="text/css"><link href="/Emvicy/styles/Emvicy.min.css" rel="stylesheet" type="text/css"><style>body {padding-top: 7rem;/* Move down content because of fixed navbar */}</style></head>'
                    . '<body><a name="top"></a>'
                    . '<div class="container">'
                    . '<div class="header shadow"><h3 class="text-muted bg-white padding20"><img src="android-chrome-192x192.png" width="50" style="margin: 0;border: none;">Emvicy</h3></div><br>'
