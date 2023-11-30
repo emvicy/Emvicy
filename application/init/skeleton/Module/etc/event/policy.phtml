@@ -1,0 +1,49 @@
+<?php
+
+# List of myMVC Standard Events
+# @see https://mymvc.ueffing.net/3.4.x/events#myMVCStandardEvents
+
+
+\MVC\Event::processBindConfigStack([
+
+    'policy.index.requestMethodHasToMatchRouteMethod.after' => [
+
+        /**
+         * this is Middleware to
+         * \{module}\Policy\Index::requestMethodHasToMatchRouteMethod
+         */
+        function (\MVC\DataType\DTArrayObject $oDTArrayObject) {
+
+            // build message
+            $sMessage = $oDTArrayObject->getDTKeyValueByKey('sMethod')->get_sValue()
+                        . ', ' . ((true === $oDTArrayObject->getDTKeyValueByKey('bGrant')->get_sValue()) ? 'ALLOW' : 'DENY') . ', '
+                        . 'Has to be: '. implode('|',\MVC\Route::getCurrent()->get_methodsAssigned())
+                        . ' - Is: ' . \MVC\Request::getCurrentRequest()->get_requestmethod();
+
+            // write message back to object
+            $oDTArrayObject->setDTKeyValueByKey(
+                \MVC\DataType\DTKeyValue::create()
+                    ->set_sKey('sMessage')
+                    ->set_sValue($sMessage)
+            );
+
+            // log request
+            \MVC\Log::write(
+                \MVC\Request::getCurrentRequest()->get_path()
+                . ' (' . \MVC\Request::getCurrentRequest()->get_requestmethod() . ') => '
+                . \MVC\Route::getCurrent()->get_method() . ' '
+                . \MVC\Route::getCurrent()->get_path(),
+                \MVC\Config::get_MVC_LOG_FILE_POLICY(),
+                false
+            );
+
+            // log policy rule result
+            \MVC\Log::write(
+                $oDTArrayObject->getDTKeyValueByKey('sMessage')
+                    ->get_sValue(),
+                \MVC\Config::get_MVC_LOG_FILE_POLICY(),
+                false
+            );
+        },
+    ],
+]);

@@ -1,0 +1,40 @@
+<?php
+
+# List of myMVC Standard Events
+# @see https://mymvc.ueffing.net/3.4.x/events#myMVCStandardEvents
+
+
+\MVC\Event::processBindConfigStack([
+
+    'mvc.event.init.after' => [
+        /**
+         * at this early stage
+         * create "Assets" object with given config
+         */
+        function(){
+            \MVC\Asset::init(\MVC\Config::get_MVC_MODULE_PRIMARY_STAGING_CONFIG_DIR() . '/_asset.yaml');
+        },
+    ],
+
+    /**
+     * after current request was get
+     */
+    'mvc.request.getCurrentRequest.after' => [
+        /*
+         * logging requests
+         */
+        function(\MVC\DataType\DTArrayObject $oDTArrayObject, \MVC\DataType\DTEventContext $oDTEventContext) {
+
+            if (false === \MVC\Config::get_MVC_LOG_REQUEST())
+            {
+                return false;
+            }
+
+            /** @var \MVC\DataType\DTRequestCurrent $oDTRequestCurrent */
+            $oDTRequestCurrent = $oDTArrayObject->flatten()['oDTRequestCurrent'];
+
+            \MVC\Log::write($oDTRequestCurrent, \MVC\Config::get_MVC_LOG_FILE_REQUEST());
+        },
+    ],
+
+]);

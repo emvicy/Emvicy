@@ -1,0 +1,74 @@
+<?php
+/**
+ * Index.php
+ *
+ * @package myMVC
+ * @copyright ueffing.net
+ * @author Guido K.B.W. Üffing <mymvc@ueffing.net>
+ * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
+ */
+
+/**
+ * @name ${module}Controller
+ */
+namespace {module}\Controller;
+
+use MVC\DataType\DTRequestCurrent;
+use MVC\DataType\DTRoute;
+
+/**
+ * @extends \{module}\Controller\_Master
+ */
+class Index extends _Master
+{
+    /**
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function __preconstruct()
+    {
+        parent::__preconstruct();
+    }
+
+    /**
+     * @param \MVC\DataType\DTRequestCurrent $oDTRequestCurrent
+     * @param \MVC\DataType\DTRoute          $oDTRoute
+     * @throws \ReflectionException
+     */
+    public function __construct(DTRequestCurrent $oDTRequestCurrent, DTRoute $oDTRoute)
+    {
+        parent::__construct($oDTRequestCurrent, $oDTRoute);
+    }
+
+    /**
+     * @param \MVC\DataType\DTRequestCurrent $oDTRequestCurrent
+     * @param \MVC\DataType\DTRoute          $oDTRoute
+     * @return void
+     * @throws \ReflectionException
+     */
+	public function index(DTRequestCurrent $oDTRequestCurrent, DTRoute $oDTRoute)
+	{
+        view()->autoAssign();
+	}
+
+    /**
+     * @param \MVC\DataType\DTRequestCurrent $oDTRequestCurrent
+     * @param \MVC\DataType\DTRoute          $oDTRoute
+     * @return void
+     * @throws \ReflectionException
+     */
+    public function notFound(DTRequestCurrent $oDTRequestCurrent, DTRoute $oDTRoute)
+    {
+        http_response_code(404);
+        view()->autoAssign();
+    }
+
+    /**
+     * @throws \ReflectionException
+     * @throws \SmartyException
+     */
+    public function __destruct ()
+    {
+        view()->render();
+    }
+}

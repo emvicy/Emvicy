@@ -1,0 +1,17 @@
+{
+    "name": "emvicy/emvicy",
+    "type": "framework",
+    "description": "MVC Framework, written in PHP. MVC Structure, +Events, +Policies, +DataTypes, Smarty Template Engine, Modular, Expandable. https://emvicy.ueffing.net/",
+    "keywords": ["framework","emvicy"],
+    "license": "GPL-3.0-or-later",
+    "homepage": "https://emvicy.ueffing.net/",
+    "require": {
+        "php": ">=8-0"
+    },
+    "authors": [
+        {
+            "name": "Guido K.B.W. Üffing"
+        }
+    ],
+    "minimum-stability": "dev"
+}

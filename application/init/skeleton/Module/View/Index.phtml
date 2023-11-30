@@ -1,0 +1,34 @@
+<?php
+/**
+ * Index.php
+ *
+ * @package myMVC
+ * @copyright ueffing.net
+ * @author Guido K.B.W. Üffing <mymvc@ueffing.net>
+ * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
+ */
+
+/**
+ * @name ${module}View
+ */
+namespace {module}\View;
+
+use App\View;
+
+/**
+ * Index
+ * @extends \MVC\View
+ */
+class Index extends View
+{
+    /**
+     * Index constructor.
+     * @throws \ReflectionException
+     */
+    protected function __construct()
+    {
+        parent::__construct();
+        $this->sendSecurityHeader();
+        $this->sContentVar = 'sContent';
+    }
+}

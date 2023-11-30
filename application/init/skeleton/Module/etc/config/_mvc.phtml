@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @package myMVC
+ * @copyright ueffing.net
+ * @author Guido K.B.W. Üffing <mymvc@ueffing.net>
+ * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
+ *
+ * these configs here do extend and overwrite:
+ * `/config/_mvc.php`
+ */
+
+//-------------------------------------------------------------------------------------
+// Module
+
+
+//-------------------------------------------------------------------------------------
+// MVC
+
+// override default fallback routing
+$aConfig['MVC_ROUTING_FALLBACK'] = $aConfig['MVC_ROUTE_QUERY_PARAM_MODULE'] . '=' . $aConfig['MVC_MODULE_PRIMARY_NAME'] . '&'
+                                   . $aConfig['MVC_ROUTE_QUERY_PARAM_C'] . '=index&'
+                                   . $aConfig['MVC_ROUTE_QUERY_PARAM_M'] . '=notFound';
+
+// Add Location of Smarty PlugIns
+$aConfig['MVC_SMARTY_PLUGINS_DIR'][] = realpath(__DIR__ . '/../../') . '/etc/smartyPlugins';

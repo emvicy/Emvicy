@@ -1,0 +1,20 @@
+ 
+#-----------------------------------------------------------------------------------------------------------------------
+
+
+# @usage
+#   creating
+#     have a look at `modules/Foo/etc/event/request.php`:
+#     \MVC\Asset::init(\MVC\Config::get_MVC_MODULE_PRIMARY_STAGING_CONFIG_DIR() . '/_asset.yaml');
+#   accessing
+#     Asset::init()->get('User.email.form.markup')
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+# assets
+
+
+#-----------------------------------------------------------------------------------------------------------------------
+# define filter objects
+# using assets defined above
+

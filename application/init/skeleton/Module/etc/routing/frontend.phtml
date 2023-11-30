@@ -1,0 +1,47 @@
+<?php
+
+/*
+ * modify this Datatype `DTRoutingAdditional` to your needs in:
+ *      `modules/{module}/etc/config/{module}/config/_dataType.php`
+ * create the Datatype class finally on cli:
+ *      `php emvicy.php datatype`
+ */
+
+// template
+$oDTRoutingAdditional = \{module}\DataType\DTRoutingAdditional::create()
+    ->set_sTitle('{module}')
+    ->set_sLayout('Frontend/layout/index.tpl')
+    ->set_sMainmenu('Frontend/layout/menu.tpl')
+    ->set_sContent('Frontend/content/index.tpl')
+    ->set_sHeader('Frontend/layout/header.tpl')
+    ->set_sNoscript('Frontend/content/_noscript.tpl')
+    ->set_sCookieConsent('Frontend/content/_cookieConsent.tpl')
+    ->set_sFooter('Frontend/layout/footer.tpl')
+    ->set_aStyle(array (
+        '/Emvicy/assets/bootstrap-5.3.2-dist/css/bootstrap.min.css',
+        '/Emvicy/assets/fontawesome-free-6.4.2-web/css/all.min.css',
+        '/Emvicy/styles/myMVC.min.css',
+    ))
+    ->set_aScript(array (
+        '/Emvicy/assets/jquery-3.7.1/jquery-3.7.1.min.js',
+        '/Emvicy/assets/jquery-cookie-1.4.1/jquery.cookie.min.js',
+        '/Emvicy/assets/bootstrap-5.3.2-dist/js/bootstrap.min.js',
+        '/Emvicy/scripts/cookieConsent.min.js',
+    ));
+
+/*
+ * Routes
+ */
+\MVC\Route::mix(
+    ['GET', 'POST'],
+    '/',
+    '\{module}\Controller\Index::index',
+    clone $oDTRoutingAdditional
+);
+\MVC\Route::get(
+    '/404/',
+    '\{module}\Controller\Index::notFound',
+    clone $oDTRoutingAdditional
+        ->set_sTitle('404')
+        ->set_sContent('Frontend/content/404.tpl')
+);

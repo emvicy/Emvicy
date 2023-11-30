@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * Policies are processed in order;
+ * what is at the top is processed first - what is at the bottom is processed last.
+ */
+//------------------------------------------------------------------------------
+// Index
+\MVC\Policy::set(
+    '\{module}\Controller\Index',
+    '*', [
+        '\{module}\Policy\Index::requestMethodHasToMatchRouteMethod',
+    ]
+);

@@ -1,0 +1,49 @@
+<?php
+
+# List of myMVC Standard Events
+# @see https://mymvc.ueffing.net/3.4.x/events#myMVCStandardEvents
+
+
+\MVC\Event::processBindConfigStack([
+
+    'mvc.application.setSession.before' => [
+        // enable Session
+        function() {
+            \MVC\Session::applySessionRules();
+        }
+    ],
+    'mvc.reflex.reflect.targetObject.before' => [
+        // minify css/js files
+        function(\MVC\DataType\DTArrayObject $oDTArrayObject) {
+            \MVC\Minify::init();
+        }
+    ],
+    'mvc.reflex.reflect.targetObject.after' => [
+        // switch on InfoTool
+        function (\MVC\DataType\DTArrayObject $oDTArrayObject) {
+            if (true === \MVC\Config::get_MVC_INFOTOOL_ENABLE()) {
+                new \MVC\InfoTool(\{module}\View\Index::init());
+            }
+        }
+    ],
+    'mvc.debug.stop.after' => [
+        // Logging stops
+        function (\MVC\DataType\DTArrayObject $oDTArrayObject) {
+            \MVC\Log::write(
+                "\n\n*** STOP ***\n" . print_r($oDTArrayObject->get_akeyvalue()[0]->get_sValue(), true),
+                \MVC\Config::get_MVC_LOG_FILE_DEFAULT(),
+                false
+            );
+        }
+    ],
+    'mvc.error' => [
+        // write errors into error log file
+        function(\MVC\DataType\DTArrayObject $oDTArrayObject) {
+            \MVC\Log::write(
+                $oDTArrayObject,
+                \MVC\Config::get_MVC_LOG_FILE_ERROR(),
+                false
+            );
+        }
+    ],
+]);
