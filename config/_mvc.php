@@ -115,12 +115,6 @@ MVC_APPLICATION_SETTINGS_I: {
     // anyway this might be useful for a develop environment, as it helps debugging and understanding
     $aConfig['MVC_EVENT_LOG_RUN'] = false;
 
-    // logging request into request.log
-    $aConfig['MVC_LOG_REQUEST'] = false;
-
-    // logging of SQL Statements
-    $aConfig['MVC_LOG_SQL'] = false;
-
     /**
      * Log
      * consider a logrotate mechanism for these logfiles as they may grow quickly
@@ -155,6 +149,12 @@ MVC_APPLICATION_SETTINGS_I: {
 
     // force linebreaks in logfiles no matter what
     $aConfig['MVC_LOG_FORCE_LINEBREAK'] = false;
+
+    // logging request into request.log
+    $aConfig['MVC_LOG_REQUEST'] = false;
+
+    // logging of SQL Statements
+    $aConfig['MVC_LOG_SQL'] = false;
 
     /**
      * Caching
