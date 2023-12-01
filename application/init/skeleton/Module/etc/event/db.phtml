@@ -26,6 +26,27 @@
             (true === empty($oTableDataType->get_stampChange())) ? $oTableDataType->set_stampChange(date('Y-m-d H:i:s')) : false;
         },
     ],
+    'mvc.db.model.db.construct.saveCache' => [
+        /*
+         * let create an openapi yaml file according to DB Table DataType Classes when the DataBase Tables setup changes
+         */
+        function() {
+            // one-timer
+            if (false === \MVC\Registry::isRegistered('DB::openapi'))
+            {
+                \MVC\Registry::set('DB::openapi', true);
+                // generate /modules/{MODULE}/DataType/DTTables.yaml
+                $sYamlFile = \MVC\DB\Model\Openapi::createDTYamlOnDTClasses(
+                // pass instance of your concrete DB Class
+                    \{MODULE}\Model\DB::init()
+                );
+            }
+        },
+    ],
+]);
+
+\MVC\Event::processBindConfigStack([
+
     'DT{module}ModelTableUser.set_password.before' => [
         /*
          * encrypt the transferred password
