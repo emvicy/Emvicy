@@ -6,22 +6,20 @@
 
 \MVC\Event::processBindConfigStack([
 
-    'db.model.db.create.before' => [
+    'mvc.db.model.db.create.before' => [
         /*
          * add timestamps if missing
          */
         function(MVC\DB\DataType\DB\TableDataType $oTableDataType) {
-
             (true === empty($oTableDataType->get_stampCreate())) ? $oTableDataType->set_stampCreate(date('Y-m-d H:i:s')) : false;
             (true === empty($oTableDataType->get_stampChange())) ? $oTableDataType->set_stampChange(date('Y-m-d H:i:s')) : false;
         },
     ],
-    'db.model.db.update.before' => [
+    'mvc.db.model.db.update.before' => [
         /*
          * add timestamps if missing
          */
         function(MVC\DB\DataType\DB\TableDataType $oTableDataType) {
-
             (true === empty($oTableDataType->get_stampCreate())) ? $oTableDataType->set_stampCreate(date('Y-m-d H:i:s')) : false;
             (true === empty($oTableDataType->get_stampChange())) ? $oTableDataType->set_stampChange(date('Y-m-d H:i:s')) : false;
         },
@@ -68,11 +66,11 @@
 if (true === \MVC\Config::get_MVC_LOG_SQL())
 {
     \MVC\Event::processBindConfigStack([
-        'db.model.db.create.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'db.model.db.insert.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'db.model.db.retrieve.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'db.model.db.update.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'db.model.db.delete.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'db.model.db.createTable.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.create.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.insert.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.retrieve.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.update.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.delete.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.createTable.sql' => array(function(\MVC\DataType\DTArrayObject $oDTArrayObject) {\MVC\Log::write($oDTArrayObject->getDTKeyValueByKey('sSql')->get_sValue(), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
     ]);
 }
