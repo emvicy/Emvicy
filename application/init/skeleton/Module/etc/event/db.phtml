@@ -37,8 +37,8 @@
                 \MVC\Registry::set('DB::openapi', true);
                 // generate /modules/{MODULE}/DataType/DTTables.yaml
                 $sYamlFile = \MVC\DB\Model\Openapi::createDTYamlOnDTClasses(
-                // pass instance of your concrete DB Class
-                    \{MODULE}\Model\DB::init()
+                    // pass instance of your concrete DB Class
+                    \{module}\Model\DB::init()
                 );
             }
         },
