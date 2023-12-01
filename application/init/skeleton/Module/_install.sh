@@ -38,8 +38,8 @@ $xPhp emvicy.php up;
 # generate DTClasses
 
 cd "$sHere";
-cd ./etc/config/DataType/;
-$xPhp *.php;
+cd ../../;
+$xPhp emvicy.php datatype;
 
 #------------------------------------------------------------
 # done
