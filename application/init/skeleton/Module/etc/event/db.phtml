@@ -20,7 +20,6 @@
          * add timestamps if missing
          */
         function(MVC\DB\DataType\DB\TableDataType $oTableDataType) {
-            (true === empty($oTableDataType->get_stampCreate())) ? $oTableDataType->set_stampCreate(date('Y-m-d H:i:s')) : false;
             (true === empty($oTableDataType->get_stampChange())) ? $oTableDataType->set_stampChange(date('Y-m-d H:i:s')) : false;
         },
     ],
