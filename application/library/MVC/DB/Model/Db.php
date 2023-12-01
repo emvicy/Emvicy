@@ -13,6 +13,7 @@
  */
 namespace MVC\DB\Model;
 
+use MVC\DataType\DTValue;
 use MVC\DB\DataType\DB\Constraint;
 use MVC\DB\DataType\DB\Foreign;
 use MVC\DB\DataType\DB\TableDataType;
@@ -177,7 +178,7 @@ class Db
 
             if (true === self::$bCaching)
             {
-                Event::run('db.model.db.construct.saveCache', $this->sTableName);
+                Event::run('mvc.db.model.db.construct.saveCache', $this->sTableName);
                 Cache::saveCache(
                     $this->sCacheKeyTableName,
                     $this->sCacheValueTableName
@@ -376,7 +377,7 @@ class Db
 		try
 		{
 			// Select 1 from table_name will return false if the table does not exist.
-			$aResult = $this->oDbPDO->fetchAll ("DESCRIBE `" . $sTable . "`");
+			$aResult = $this->oDbPDO->fetchAll("DESCRIBE `" . $sTable . "`");
 		}
 		catch (\Exception $oException)
 		{
@@ -409,9 +410,15 @@ class Db
      * @return bool|false|\PDOStatement
      * @throws \ReflectionException
      */
-	protected function createTable ($sTable, $aFields, $aAlterTable = array())
+	protected function createTable(string $sTable = '', array $aFields = array(), array $aAlterTable = array())
 	{
         $mState = false;
+
+        $oDTValue = DTValue::create()->set_mValue(array('sTable' => $sTable, 'aFields' => $aFields, 'aAlterTable' => $aAlterTable));
+        Event::run('mvc.db.model.db.createTable.before', $oDTValue);
+        $sTable = $oDTValue->get_mValue()['sTable'];
+        $aFields = $oDTValue->get_mValue()['aFields'];
+        $aAlterTable = $oDTValue->get_mValue()['aAlterTable'];
 
         // drop, create, add id
 		$sSql = "
@@ -447,7 +454,7 @@ class Db
         }
 
         Event::run(
-            'db.model.db.createTable.sql',
+            'mvc.db.model.db.createTable.sql',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()
@@ -548,7 +555,7 @@ class Db
                 if (false === empty($sSql))
                 {
                     Event::run(
-                        'db.model.db.delete.sql',
+                        'mvc.db.model.db.delete.sql',
                         DTArrayObject::create()
                             ->add_aKeyValue(
                                 DTKeyValue::create()
@@ -578,7 +585,7 @@ class Db
 				$sSql = "ALTER TABLE  `" . $this->sTableName  . "` ADD  `" . $sKey . "` " . $aValue . " AFTER  `id`\n";
 
                 Event::run(
-                    'db.model.db.insert.sql',
+                    'mvc.db.model.db.insert.sql',
                     DTArrayObject::create()
                         ->add_aKeyValue(
                             DTKeyValue::create()
@@ -607,7 +614,7 @@ class Db
                 $sSql = "ALTER TABLE `" . $this->sTableName . "` CHANGE  `" . $sKey . "`\n`" . $sKey . "` " . $sValue . ";\n";
 
                 Event::run(
-                    'db.model.db.update.sql',
+                    'mvc.db.model.db.update.sql',
                     DTArrayObject::create()
                         ->add_aKeyValue(
                             DTKeyValue::create()
@@ -815,7 +822,7 @@ class Db
             return $oTableDataType;
         }
 
-        Event::run('db.model.db.create.before', $oTableDataType);
+        Event::run('mvc.db.model.db.create.before', $oTableDataType);
 
         if (true === $bIfNotExist)
         {
@@ -884,7 +891,7 @@ class Db
         $sSqlExplain.= "); ";
 
         Event::run(
-            'db.model.db.create.sql',
+            'mvc.db.model.db.create.sql',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()
@@ -905,7 +912,7 @@ class Db
             Error::exception($oExc);
         }
 
-        Event::run('db.model.db.create.after', $oTableDataType);
+        Event::run('mvc.db.model.db.create.after', $oTableDataType);
 
         return $oTableDataType;
     }
@@ -985,6 +992,11 @@ class Db
      */
     public function retrieve(DTArrayObject $oDTArrayObject = null, DTArrayObject $oDTArrayObjectOption = null)
     {
+        $oDTValue = DTValue::create()->set_mValue(array('oDTArrayObject' => $oDTArrayObject, 'oDTArrayObjectOption' => $oDTArrayObjectOption));
+        Event::run('mvc.db.model.db.retrieve.before', $oDTValue);
+        $oDTArrayObject = $oDTValue->get_mValue()['oDTArrayObject'];
+        $oDTArrayObjectOption = $oDTValue->get_mValue()['oDTArrayObjectOption'];
+
         list($sModuleName) = explode('\\', get_class($this));
         $aObject = array();
         $sDTClassName = $sModuleName . '\DataType\\' . $this->getGenerateDataTypeClassName();
@@ -1021,7 +1033,7 @@ class Db
         }
 
         Event::run(
-            'db.model.db.retrieve.sql',
+            'mvc.db.model.db.retrieve.sql',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()
@@ -1082,6 +1094,10 @@ class Db
             Error::exception($oExc);
         }
 
+        $oDTValue = DTValue::create()->set_mValue($aObject);
+        Event::run('mvc.db.model.db.retrieve.after', $oDTValue);
+        $aObject = $oDTValue->get_mValue();
+
         return $aObject;
     }
 
@@ -1127,7 +1143,7 @@ class Db
         }
 
         Event::run(
-            'db.model.db.count.sql',
+            'mvc.db.model.db.count.sql',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()
@@ -1188,7 +1204,7 @@ class Db
             return false;
         }
 
-        Event::run('db.model.db.update.before', $oTableDataType);
+        Event::run('mvc.db.model.db.update.before', $oTableDataType);
 
         $oDTArrayObjectSet = DTArrayObject::create();
 
@@ -1234,7 +1250,7 @@ class Db
         $sSqlExplain.= $sWhere;
 
         Event::run(
-            'db.model.db.update.sql',
+            'mvc.db.model.db.update.sql',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()
@@ -1372,6 +1388,8 @@ class Db
             return false;
         }
 
+        Event::run('mvc.db.model.db.delete.before', $oDTArrayObject);
+
         $bDelete = false;
         $sSql = "DELETE FROM `" . $this->sTableName . "` WHERE 1\n";
         $sSqlExplain =  $sSql;
@@ -1389,7 +1407,7 @@ class Db
         }
 
         Event::run(
-            'db.model.db.delete.sql',
+            'mvc.db.model.db.delete.sql',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()

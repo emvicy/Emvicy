@@ -7,7 +7,7 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
  *
  * these configs here do extend and overwrite:
- * `/modules/{module}/etc/config/_mvc.php` (exists if module `{module}` is a primary module)
+ * `/modules/{module}/etc/config/_mvc.php`
  */
 
 //######################################################################################################################

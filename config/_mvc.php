@@ -157,6 +157,10 @@ MVC_APPLICATION_SETTINGS_I: {
     $aConfig['MVC_LOG_SQL'] = false;
 
     /**
+     * Database
+     */
+
+    /**
      * Caching
      */
     // cache directory

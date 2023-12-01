@@ -10,8 +10,6 @@
 
 namespace MVC;
 
-use MVC\DataType\DTArrayObject;
-
 /**
  * Session
  */

@@ -10,8 +10,6 @@
 
 namespace MVC;
 
-use Emvicy\Emvicy;
-
 class Strings
 {
     /**

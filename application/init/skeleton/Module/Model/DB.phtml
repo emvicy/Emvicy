@@ -1,5 +1,18 @@
 <?php
 
+/**
+ * - register your db table classes as static properties.
+ * - add a doctype to each static property
+ * - these doctypes must contain the vartype information about the certain class
+ * @example
+ *      @var Foo\Model\Table\User
+ *      public static $oFooModelTableUser;
+ * ---
+ * [!]  it is important to declare the vartype expanded with a full path
+ *      avoid to make use of `use ...` support
+ *      otherwise the classes could not be read correctly
+ */
+
 namespace {module}\Model;
 
 use MVC\DB\Model\DbInit;
