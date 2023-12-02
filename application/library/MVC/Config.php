@@ -1286,4 +1286,24 @@ class Config
         Registry::set('MVC_LOG_FILE_SQL', $sLogFileName);
         $GLOBALS['aConfig']['MVC_LOG_FILE_SQL'] = $sLogFileName;
     }
+
+    public static function get_MVC_PHP_SERVER() : string
+    {
+        if (Registry::isRegistered('MVC_PHP_SERVER'))
+        {
+            return (string) Registry::get('MVC_PHP_SERVER');
+        }
+
+        return '';
+    }
+
+    /**
+     * @param string $sLogFileName
+     * @return void
+     */
+    public static function set_MVC_PHP_SERVER(string $sLogFileName = '') : void
+    {
+        Registry::set('MVC_PHP_SERVER', $sLogFileName);
+        $GLOBALS['aConfig']['MVC_PHP_SERVER'] = $sLogFileName;
+    }
 }

@@ -1191,7 +1191,9 @@ class Db
 
     /**
      * UPDATE table SET x = y WHERE id
-     * @param \DB\DataType\DB\TableDataType|null $oTableDataType
+     * @deprecated
+     * @todo optimization required; does not work with $oTableDataType properly as it may have empty values
+     * @param TableDataType|null $oTableDataType
      * @param \MVC\DataType\DTArrayObject|null   $oDTArrayObjectWhere
      * @param bool                               $bStrict
      * @return bool
@@ -1219,9 +1221,11 @@ class Db
                 DTKeyValue::create()->set_sKey($sProperty)->set_mOptional1('=')->set_sValue($sValue)
             );
         }
+        info($oDTArrayObjectSet);
 
         $sSql = "UPDATE `" . $this->sTableName . "` SET \n";
         $sSqlExplain =  $sSql;
+
 
         /**
          * Set

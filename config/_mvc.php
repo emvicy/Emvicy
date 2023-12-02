@@ -43,6 +43,9 @@ MVC_RUNTIME_SETTINGS: {
 
     // Log autoloader actions
     $aConfig['MVC_LOG_AUTOLOADER'] = true;
+
+    // address the built-in php server will run on
+    $aConfig['MVC_PHP_SERVER'] = '127.0.0.1:1969';
 }
 
 MVC_BIN: {

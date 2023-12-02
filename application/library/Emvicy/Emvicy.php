@@ -313,11 +313,10 @@ class Emvicy
      */
     public static function serve()
     {
-        $sCmd="export MVC_ENV='" . getenv('MVC_ENV') . "'; "
-              . PHP_BINARY . " -S 127.0.0.1:1969 -t " . \MVC\Config::get_MVC_WEB_ROOT() . '/public/';
+        $sCmd = PHP_BINARY . " -S " . Config::get_MVC_PHP_SERVER() . " -t " . \MVC\Config::get_MVC_WEB_ROOT() . '/public/';
         echo $sCmd;
         hr();
-        self::shellExecute($sCmd, true);
+        self::shellExecute($sCmd);
     }
 
     /**

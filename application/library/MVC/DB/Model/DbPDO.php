@@ -42,7 +42,6 @@ class DbPDO extends \PDO
     }
 
     /**
-     * @deprecated
      * @param string $sSql
      * @return array
      */
@@ -61,7 +60,6 @@ class DbPDO extends \PDO
     }
 
     /**
-     * @deprecated
      * @param string $sSql
      * @return mixed
      */
