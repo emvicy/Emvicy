@@ -18,7 +18,7 @@ trait TraitDataType
      * @return string
      * @throws \ReflectionException
      */
-    function getDocCommentValueOfProperty(string $sProperty = '', string $sDocCommentKey = '@var')
+    function getDocCommentValueOfProperty(string $sProperty = '', string $sDocCommentKey = '@var') : string
     {
         // get array of properties
         $oReflectionClass = new \ReflectionClass($this);

@@ -54,7 +54,7 @@ class Db
     public $aFieldArrayComplete = array();
 
     /**
-     * @var \DB\Model\DbPDO
+     * @var \MVC\DB\Model\DbPDO
      */
 	public $oDbPDO;
 
@@ -185,21 +185,23 @@ class Db
                 );
             }
         }
-
 	}
 
     /**
      * Sets Caching state due to config
+     * @return void
      */
-    protected function setCachingState()
+    protected function setCachingState() : void
     {
         self::$bCaching = (isset($this->aConfig['caching']['enabled'])) ? $this->aConfig['caching']['enabled'] : false;
     }
 
     /**
      * Sets SQL state due to config
+     * @return void
+     * @throws \ReflectionException
      */
-    protected function setSqlLoggingState()
+    protected function setSqlLoggingState() : void
     {
         $sSql = '';
         (isset($this->aConfig['logging']['log_output'])) ? $sSql.= "SET GLOBAL log_output = '" . strtoupper($this->aConfig['logging']['log_output']) . "';" : false;
@@ -218,11 +220,11 @@ class Db
     }
 
     /**
-     * @param Foreign $oDtDbForeign
+     * @param \MVC\DB\DataType\DB\Foreign $oDtDbForeign
      * @return bool
      * @throws \ReflectionException
      */
-    protected function setForeignKey(Foreign $oDtDbForeign)
+    protected function setForeignKey(Foreign $oDtDbForeign) : bool
     {
         // add foreign to class property
         $this->aForeign[$oDtDbForeign->get_sForeignKey()] = $oDtDbForeign;
@@ -278,16 +280,17 @@ class Db
 
     /**
      * @param array $aReservedFieldName
+     * @return void
      */
-    protected function setReservedFieldNameArray(array $aReservedFieldName = array())
+    protected function setReservedFieldNameArray(array $aReservedFieldName = array()) : void
     {
         $this->aReservedFieldName = $aReservedFieldName;
     }
 
     /**
-     * @return array
+     * @return array|string[]
      */
-    protected function getReservedFieldNameArray()
+    protected function getReservedFieldNameArray() : array
     {
         return $this->aReservedFieldName;
     }
@@ -297,7 +300,7 @@ class Db
      * @return bool
      * @throws \ReflectionException
      */
-    protected function generateDataType()
+    protected function generateDataType() : bool
     {
         list($sModulename) = explode('\\', get_class($this));
         $sClassName = $this->getGenerateDataTypeClassName();
@@ -338,9 +341,9 @@ class Db
     /**
      * @return string
      */
-    protected function getGenerateDataTypeClassName()
+    protected function getGenerateDataTypeClassName() : string
     {
-        $sClassName = str_replace('\\', '', str_replace('_', '', 'DT' . get_class($this)));
+        $sClassName = (string) str_replace('\\', '', str_replace('_', '', 'DT' . get_class($this)));
 
         return $sClassName;
     }
@@ -348,7 +351,7 @@ class Db
     /**
      * @return array|string[]
      */
-    public static function getSqlTypeArray()
+    public static function getSqlTypeArray() : array
     {
         return self::$aSqlType;
     }
@@ -357,7 +360,7 @@ class Db
      * @param array $aField
      * @return bool equal
      */
-    protected function bFieldsAreEqual(array $aField = array())
+    protected function bFieldsAreEqual(array $aField = array()) : bool
     {
         $aParamFieldKey = array_keys($aField);
         $aDbFieldKey = array_keys($this->getFieldInfo());
@@ -372,7 +375,7 @@ class Db
      * @return bool
      * @throws \ReflectionException
      */
-	protected function checkIfTableExists ($sTable)
+	protected function checkIfTableExists ($sTable) : bool
 	{
 		try
 		{
@@ -404,13 +407,13 @@ class Db
      *      , 'deliverable'         => 'int(1)'
      *      , 'dateTimeDelivered'   => 'datetime'
      * );
-     * @param $sTable
-     * @param $aFields
-     * @param array $aAlterTable
-     * @return bool|false|\PDOStatement
+     * @param string $sTable
+     * @param array  $aFields
+     * @param array  $aAlterTable
+     * @return false|\PDOStatement
      * @throws \ReflectionException
      */
-	protected function createTable(string $sTable = '', array $aFields = array(), array $aAlterTable = array())
+	protected function createTable(string $sTable = '', array $aFields = array(), array $aAlterTable = array()) : false|\PDOStatement
 	{
         $mState = false;
 
@@ -465,7 +468,7 @@ class Db
 
 		try
 		{
-			$mState = $this->oDbPDO->query ($sSql);
+			$mState = $this->oDbPDO->query($sSql);
 		}
 		catch (\Exception $oException)
 		{
@@ -479,7 +482,7 @@ class Db
      * @return bool
      * @throws \ReflectionException
      */
-	protected function synchronizeFields ()
+	protected function synchronizeFields() : bool
 	{
 		$sSql = "SHOW COLUMNS FROM " . $this->sTableName;
 
@@ -643,17 +646,17 @@ class Db
 	 * returns settings array from extending child class, if set
 	 * @return array
 	 */
-    protected function getFieldArray()
+    protected function getFieldArray() : array
 	{
         return (isset($this->aField)) ? $this->aField : array();
 	}
 
     /**
      * @param string $sFieldName
-     * @param bool $bAvoidReserved
-     * @return array|mixed
+     * @param bool   $bAvoidReserved
+     * @return array
      */
-    public function getFieldInfo($sFieldName = '', $bAvoidReserved = true)
+    public function getFieldInfo(string $sFieldName = '', bool $bAvoidReserved = true) : array
     {
         $aResult = array();
         $sSql = "SHOW FIELDS FROM " . $this->sTableName;
@@ -664,6 +667,7 @@ class Db
 
         $oStmt->execute();
         $aFieldName = ('' === $sFieldName) ? $oStmt->fetchAll(\PDO::FETCH_ASSOC) : $oStmt->fetch(\PDO::FETCH_ASSOC);
+        (false === $aFieldName) ? $aFieldName = [] : false;
 
         if ('' === $sFieldName)
         {
@@ -718,23 +722,23 @@ class Db
 
     /**
      * @param string $sValue
-     * @param        $sType
-     * @return false|mixed
+     * @param string $sType
+     * @return int
      */
-    protected static function getIntegerFromType(string $sValue = '', $sType = 'char')
+    protected static function getIntegerFromType(string $sValue = '', string $sType = 'char') : int
     {
         $sPattern = '/' . $sType . '(\:|\.|\s)*\(([0-9]*)\)/i';
         preg_match_all($sPattern, $sValue, $aMatch);
-        $mValue = current($aMatch[2]);
+        $mValue = (int) current($aMatch[2]);
 
         return $mValue;
     }
 
     /**
      * @param string $sValue
-     * @return array|string[]
+     * @return array
      */
-    protected static function getArrayFromEnum(string $sValue = '')
+    protected static function getArrayFromEnum(string $sValue = '') : array
     {
         $sValue = trim($sValue);
         $sPattern = '/enum(\:|\.|\s)*\([\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}\p{C}]*\)/i';
@@ -756,10 +760,10 @@ class Db
 
     /**
      * @param string $sFieldName
-     * @return Constraint
+     * @return \MVC\DB\DataType\DB\Constraint
      * @throws \ReflectionException
      */
-    protected function getConstraintInfo($sFieldName = '')
+    protected function getConstraintInfo(string $sFieldName = '') : Constraint
     {
         $aConstraint = array();
         $sSql = "
@@ -797,15 +801,15 @@ class Db
 
     /**
      * @param string $sString
-     * @return mixed|string
+     * @return string
      */
-    protected static function createTableName($sString = '')
+    protected static function createTableName(string $sString = '') : string
 	{
         ('' === $sString) ? $sString = __CLASS__ : false;
 		$sString = str_replace('\\', '', $sString);
         $sString = str_replace('_', '', $sString);
 
-		return $sString;
+		return (string) $sString;
 	}
 
     /**
@@ -814,7 +818,7 @@ class Db
      * @return \MVC\DB\DataType\DB\TableDataType|null
      * @throws \ReflectionException
      */
-    public function create(TableDataType $oTableDataType = null, bool $bIfNotExist = false)
+    public function create(TableDataType $oTableDataType = null, bool $bIfNotExist = false) : TableDataType|null
     {
         if (null === $oTableDataType)
         {
@@ -837,7 +841,7 @@ class Db
         $aField = array_keys($oTableDataType->getPropertyArray());
 
         // STATEMENT
-        $sSql = "INSERT INTO  `" . $this->sTableName . "` (";
+        $sSql = "INSERT INTO `" . $this->sTableName . "` (";
         $sSqlExplain = $sSql;
 
         foreach ($aField as $iCnt => $sField)
@@ -917,31 +921,9 @@ class Db
     }
 
     /**
-     * Simple key{token}value Getter
-     * @param DTArrayObject $oDTArrayObject
-     * @param DTArrayObject $oDTArrayObjectOption
-     * @return DB\DataType\DB\TableDataType[]
-     * @example
-        * $oDTArrayObject = \MVC\DataType\DTArrayObject::create()
-            * ->add_aKeyValue(
-                * \MCC\DataType\DTKeyValue::create()
-                    * ->set_sKey(DTLCPModelTableLCP::getPropertyName_deliverable())
-                    * ->set_mOptional1('=')
-                    * ->set_sValue(1)
-            * )
-            * ->add_aKeyValue(
-                * \MCC\DataType\DTKeyValue::create()
-                    * ->set_sKey(DTLCPModelTableLCP::getPropertyName_dateTimeDelivered())
-                    * ->set_mOptional1('=')
-                    * ->set_sValue('0000-00-00 00:00:00')
-        * );
-        * $oDB->getArrayOfDTObjectsOnKeyHasValue($oDTDBArrayObject);
-     */
-
-    /**
      * @return int
      */
-    public function checksum()
+    public function checksum() : int
     {
         $sSql = 'CHECKSUM TABLE `' . $this->sTableName . '`';
         $aChecksum = $this->oDbPDO->fetchRow($sSql);
@@ -950,12 +932,12 @@ class Db
     }
 
     /**
-     * @param \DB\DataType\DB\TableDataType|null $oTableDataType
-     * @param bool                               $bStrict
-     * @return \DB\DataType\DB\TableDataType|false
+     * @param \MVC\DB\DataType\DB\TableDataType|null $oTableDataType
+     * @param bool                                   $bStrict
+     * @return \MVC\DB\DataType\DB\TableDataType
      * @throws \ReflectionException
      */
-    public function retrieveTupel(TableDataType $oTableDataType = null, bool $bStrict = false)
+    public function retrieveTupel(TableDataType $oTableDataType = null, bool $bStrict = false) : TableDataType
     {
         $oDTArrayObject = DTArrayObject::create();
 
@@ -984,12 +966,12 @@ class Db
     }
 
     /**
-     * @param DTArrayObject|null $oDTArrayObject
-     * @param DTArrayObject|null $oDTArrayObjectOption
+     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObject
+     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObjectOption
      * @return \DB\DataType\DB\TableDataType[]
      * @throws \ReflectionException
      */
-    public function retrieve(DTArrayObject $oDTArrayObject = null, DTArrayObject $oDTArrayObjectOption = null)
+    public function retrieve(DTArrayObject $oDTArrayObject = null, DTArrayObject $oDTArrayObjectOption = null) : array
     {
         $oDTValue = DTValue::create()->set_mValue(array('oDTArrayObject' => $oDTArrayObject, 'oDTArrayObjectOption' => $oDTArrayObjectOption));
         Event::run('mvc.db.model.db.retrieve.before', $oDTValue);
@@ -1101,12 +1083,12 @@ class Db
     }
 
     /**
-     * @param DTArrayObject|null $oDTArrayObject
-     * @param DTArrayObject|null $oDTArrayObjectOption
+     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObject
+     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObjectOption
      * @return int
      * @throws \ReflectionException
      */
-    public function count(DTArrayObject $oDTArrayObject = null, DTArrayObject $oDTArrayObjectOption = null)
+    public function count(DTArrayObject $oDTArrayObject = null, DTArrayObject $oDTArrayObjectOption = null) : int
     {
         $sDTClassName = Route::getCurrent()->get_module() . '\DataType\\' . $this->getGenerateDataTypeClassName();
         $aPossibleToken = array('=', '<', '<=', '>', '>=', 'LIKE', '!=');
@@ -1123,7 +1105,7 @@ class Db
 
                 if (false === in_array(strtoupper($oDTKeyValue->get_mOptional1()), $aPossibleToken))
                 {
-                    return new $sDTClassName();
+                    return 0;
                 }
 
                 $sSql.= "\nAND `" . $oDTKeyValue->get_sKey() . "` " . $oDTKeyValue->get_mOptional1() . " :" . $oDTKeyValue->get_sKey();
@@ -1191,14 +1173,14 @@ class Db
     /**
      * UPDATE table SET x = y WHERE id
      * @deprecated
-     * @todo optimization required; does not work with $oTableDataType properly as it may have empty values
-     * @param TableDataType|null $oTableDataType
-     * @param \MVC\DataType\DTArrayObject|null   $oDTArrayObjectWhere
-     * @param bool                               $bStrict
+     * @todo optimization required; does not work with $oTableDataType properly as that may have empty values
+     * @param \MVC\DB\DataType\DB\TableDataType|null $oTableDataType
+     * @param \MVC\DataType\DTArrayObject|null       $oDTArrayObjectWhere
+     * @param bool                                   $bStrict
      * @return bool
      * @throws \ReflectionException
      */
-    public function update(TableDataType $oTableDataType = null, DTArrayObject $oDTArrayObjectWhere = null, bool $bStrict = false)
+    public function update(TableDataType $oTableDataType = null, DTArrayObject $oDTArrayObjectWhere = null, bool $bStrict = false) : bool
     {
         if (is_null($oTableDataType))
         {
@@ -1299,11 +1281,11 @@ class Db
 
     /**
      * updates a single, concrete dataset (a tupel) identified by id
-     * @param \DB\DataType\DB\TableDataType $oTableDataType
+     * @param \MVC\DB\DataType\DB\TableDataType $oTableDataType
      * @return bool
      * @throws \ReflectionException
      */
-    public function updateTupel(TableDataType $oTableDataType)
+    public function updateTupel(TableDataType $oTableDataType) : bool
     {
         $oDTArrayObject = DTArrayObject::create()->add_aKeyValue(
             DTKeyValue::create()->set_sKey(TableDataType::getPropertyName_id())->set_mOptional1('=')->set_sValue($oTableDataType->get_id())
@@ -1319,12 +1301,12 @@ class Db
     }
 
     /**
-     * @param \DB\DataType\DB\TableDataType $oTableDataType
-     * @param bool                          $bStrict
+     * @param \MVC\DB\DataType\DB\TableDataType $oTableDataType
+     * @param bool                              $bStrict
      * @return bool
      * @throws \ReflectionException
      */
-    public function deleteTupel(TableDataType $oTableDataType, bool $bStrict = false)
+    public function deleteTupel(TableDataType $oTableDataType, bool $bStrict = false) : bool
     {
         $oDTArrayObject = DTArrayObject::create();
 
@@ -1349,9 +1331,9 @@ class Db
 
     /**
      * @param string $sSql
-     * @return array
+     * @return array|mixed
      */
-    public function fetchRow(string $sSql = '')
+    public function fetchRow(string $sSql = '') : mixed
     {
         if (true === empty($sSql))
         {
@@ -1367,7 +1349,7 @@ class Db
      * @param string $sSql
      * @return array
      */
-    public function fetchAll(string $sSql = '')
+    public function fetchAll(string $sSql = '') : array
     {
         if (true === empty($sSql))
         {
@@ -1380,11 +1362,11 @@ class Db
     }
 
     /**
-     * @param DTArrayObject|null $oDTArrayObject
+     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObject
      * @return bool
      * @throws \ReflectionException
      */
-    public function delete(DTArrayObject $oDTArrayObject = null)
+    public function delete(DTArrayObject $oDTArrayObject = null) : bool
     {
         if (is_null($oDTArrayObject))
         {
@@ -1454,6 +1436,7 @@ class Db
 
     /**
      * auto delete caches
+     * @throws \ReflectionException
      */
 	public function __destruct()
     {
