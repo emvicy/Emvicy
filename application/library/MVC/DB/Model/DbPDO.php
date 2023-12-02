@@ -32,12 +32,12 @@ class DbPDO extends \PDO
             . 'dbname=' . $aConfig['db']['dbname'] . ';',
             $aConfig['db']['username'],
             $aConfig['db']['password']
-        // if SSL
-//                ,array(
-//                        PDO::MYSQL_ATTR_SSL_KEY    =>'/path/to/client-key.pem',
-//                        PDO::MYSQL_ATTR_SSL_CERT=>'/path/to/client-cert.pem',
-//                        PDO::MYSQL_ATTR_SSL_CA    =>'/path/to/ca-cert.pem'
-//                )
+//            // if SSL
+//            ,array(
+//                    \PDO::MYSQL_ATTR_SSL_KEY    => '/path/to/client-key.pem',
+//                    \PDO::MYSQL_ATTR_SSL_CERT   => '/path/to/client-cert.pem',
+//                    \PDO::MYSQL_ATTR_SSL_CA     => '/path/to/ca-cert.pem'
+//            )
         );
     }
 
@@ -45,7 +45,7 @@ class DbPDO extends \PDO
      * @param string $sSql
      * @return array
      */
-    public function fetchAll($sSql = '')
+    public function fetchAll(string $sSql = '') : array
     {
         $oStmt = $this->query($sSql);
 
@@ -55,6 +55,7 @@ class DbPDO extends \PDO
         }
 
         $aResult = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
+        (false === $aResult) ? $aResult = [] : false;
 
         return $aResult;
     }

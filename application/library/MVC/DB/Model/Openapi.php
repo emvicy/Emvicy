@@ -25,7 +25,7 @@ class Openapi
      * @return string /absolute/path/to/file.yaml | empty=fail
      * @throws \ReflectionException
      */
-    public static function createDTYamlOnDTClasses(DbInit $oDB = null, string $sDtClassPrefix = 'DT', string $sOpenApiVersion = '3.0.1', string $sYamlFileName = 'DTTables.yaml')
+    public static function createDTYamlOnDTClasses(DbInit $oDB = null, string $sDtClassPrefix = 'DT', string $sOpenApiVersion = '3.0.1', string $sYamlFileName = 'DTTables.yaml') : string
     {
         if (null === $oDB)
         {
