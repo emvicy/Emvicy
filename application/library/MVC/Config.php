@@ -390,16 +390,6 @@ class Config
     }
 
     /**
-     * @deprecated use instead: Config::get_MVC_VIEW_TEMPLATE_DIR()
-     * @return string
-     * @throws \ReflectionException
-     */
-    public static function get_MVC_VIEW_TEMPLATES() : string
-    {
-        return self::get_MVC_VIEW_TEMPLATE_DIR();
-    }
-
-    /**
      * @return string
      * @throws \ReflectionException
      */

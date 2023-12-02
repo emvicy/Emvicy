@@ -76,13 +76,13 @@ class Event
             {
                 foreach ($mData as $oClosure)
                 {
-                    Event::bind($sEventName, $oClosure, null, debug_backtrace());
+                    Event::bind($sEventName, $oClosure, debug_backtrace());
                 }
 
                 continue;
             }
 
-            Event::bind($sEventName, $mData, null, debug_backtrace());
+            Event::bind($sEventName, $mData, debug_backtrace());
         }
     }
 
@@ -90,12 +90,11 @@ class Event
      * binds a callback closure to an event
      * @param string   $sEvent
      * @param \Closure $oClosure
-     * @param          $oObject @deprecated
      * @param array    $aDebug
      * @return void
      * @throws \ReflectionException
      */
-    public static function bind(string $sEvent, \Closure $oClosure, $oObject = null, array $aDebug = array()) : void
+    public static function bind(string $sEvent, \Closure $oClosure, array $aDebug = array()) : void
     {
         $sEvent = trim($sEvent);
 
@@ -114,7 +113,7 @@ class Event
         Event::addToRegistry('BIND', $sEvent, 'BIND (' . $sEvent . ', ' . Closure::dump($oClosure) . ')' . ' --> called in: ' . $sDebug);
 
         // add listener to event
-        self::addListenerToEvent($sEvent, $oClosure, $oObject, $sDebug);
+        self::addListenerToEvent($sEvent, $oClosure, $sDebug);
     }
 
     /**
@@ -122,32 +121,27 @@ class Event
      * @notice alternative writing to Event::bind()
      * @param string   $sEvent
      * @param \Closure $oClosure
-     * @param          $oObject
      * @param array    $aDebug
      * @return void
      * @throws \ReflectionException
      */
-    public static function listen(string $sEvent, \Closure $oClosure, $oObject = null, array $aDebug = array()) : void
+    public static function listen(string $sEvent, \Closure $oClosure, array $aDebug = array()) : void
     {
-        self::bind($sEvent, $oClosure, $oObject, $aDebug);
+        self::bind($sEvent, $oClosure, $aDebug);
     }
 
     /**
      * @param string   $sEvent
      * @param \Closure $oClosure
-     * @param          $oObject
      * @param string   $sDebug
      * @return void
      */
-    protected static function addListenerToEvent(string $sEvent, \Closure $oClosure, $oObject = null, string $sDebug = '') : void
+    protected static function addListenerToEvent(string $sEvent, \Closure $oClosure, string $sDebug = '') : void
     {
         // make $sSource a unique one
         $sDebug.= ' (' . uniqid() . ')';
         $sSource = serialize($sDebug);
-        self::$aEvent[$sEvent][$sSource] = ($oObject === NULL)
-            ? $oClosure
-            : array($oObject, $oClosure)
-        ;
+        self::$aEvent[$sEvent][$sSource] = $oClosure;
     }
 
     /**
@@ -364,15 +358,6 @@ class Event
         $aMvcEvent = Config::get_MVC_EVENT();
         $aMvcEvent[$sType][$sEvent][] = $sValue;
         Config::set_MVC_EVENT($aMvcEvent);
-    }
-
-    /**
-     * @deprecated use instead: \MVC\Event::getBonded
-     * @return array
-     */
-    public static function getEventArray() : array
-    {
-        return self::$aEvent;
     }
 
     /**

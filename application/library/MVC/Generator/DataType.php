@@ -873,22 +873,6 @@ class DataType
     }
 
     /**
-     * @deprecated
-     * @param \MVC\DataType\DTClass $oDTDataTypeGeneratorClass
-     * @return string
-     */
-    private function createGetDataTypeConfigJSON(\MVC\DataType\DTClass $oDTDataTypeGeneratorClass)
-    {
-        $sJson = json_encode($this->convertObjectToArray($oDTDataTypeGeneratorClass));
-        $sJson = preg_replace('/\\\\{1}/', '\\\\\\', $sJson);
-        $sContent = '';
-        $sContent.= "\t/**\r\n\t * @return " . 'string JSON' . "\r\n\t */\r\n\tpublic function getDataTypeConfigJSON()\r\n\t{";
-        $sContent.= "\r\n\t\t" . 'return ' . "'" . $sJson . "';" . "\r\n\t}\r\n\r\n";
-
-        return $sContent;
-    }
-
-    /**
      * @param \MVC\DataType\DTProperty $oProperty
      * @param string                   $sClassName
      * @return string

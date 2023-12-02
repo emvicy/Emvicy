@@ -2,6 +2,7 @@
 
 namespace Emvicy;
 
+use MVC\Config;
 use MVC\Dir;
 
 class Install
@@ -84,6 +85,7 @@ class Install
      * @param string $sControllerName
      * @param array  $aConfig
      * @return void
+     * @throws \ReflectionException
      */
     public static function createController(string $sModuleName = '', string $sControllerName = '', array $aConfig = array())
     {
@@ -100,21 +102,9 @@ class Install
         }
 
         // copy new module skeleton
-        Emvicy::shellExecute('cp ' . $aConfig['MVC_APPLICATION_INIT_DIR'] . '/skeleton/Module/Controller/Index.phtml' . ' ' . $sControllerFile);
-        Emvicy::shellExecute('find ' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/ -name "*.phtml" -exec rename \'s/.phtml$/.php/\' {} \;');
+        Emvicy::shellExecute(whereis('cp') . ' ' . $aConfig['MVC_APPLICATION_INIT_DIR'] . '/skeleton/Module/Controller/Index.phtml' . ' ' . $sControllerFile);
+        Emvicy::shellExecute(Config::get_MVC_BIN_FIND() . ' ' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/ -name "*.phtml" -exec rename \'s/.phtml$/.php/\' {} \;');
 
         echo " ✔ Controller created: " . $sControllerFile . "\n\n";
-    }
-
-    /**
-     * @deprecated use instead: \MVC\Dir::recursiveCopy
-     * @param string $sSource
-     * @param string $sDestination
-     * @return void
-     * @throws \ReflectionException
-     */
-    public static function recursiveCopy(string $sSource = '', string $sDestination = '')
-    {
-        Dir::recursiveCopy($sSource, $sDestination);
     }
 }

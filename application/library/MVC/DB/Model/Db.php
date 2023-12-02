@@ -695,7 +695,6 @@ class Db
 
             if (isset(self::$aSqlType[$sType]))
             {
-                $aResult[$sKey]['php'] = self::$aSqlType[$sType]; /** @deprecated  */
                 $aResult[$sKey]['_php'] = self::$aSqlType[$sType];
                 $aResult[$sKey]['_type'] = $sType;
 
