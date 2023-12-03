@@ -14,6 +14,7 @@
 namespace MVC\DB\Model;
 
 use MVC\ArrDot;
+use MVC\Config;
 use MVC\DataType\DTDBSet;
 use MVC\DataType\DTDBWhere;
 use MVC\DataType\DTValue;
@@ -800,11 +801,10 @@ class Db
 
     /**
      * @param \MVC\DB\DataType\DB\TableDataType|null $oTableDataType
-     * @param bool                                   $bIfNotExist
      * @return \MVC\DB\DataType\DB\TableDataType|null
      * @throws \ReflectionException
      */
-    public function create(TableDataType $oTableDataType = null, bool $bIfNotExist = false) : TableDataType|null
+    public function create(TableDataType $oTableDataType = null) : TableDataType|null
     {
         if (null === $oTableDataType)
         {
@@ -812,17 +812,6 @@ class Db
         }
 
         Event::run('mvc.db.model.db.create.before', $oTableDataType);
-
-        if (true === $bIfNotExist)
-        {
-            /** @var TableDataType $oTmp */
-            $oTmp = $this->retrieveTupel($oTableDataType);
-
-            if (false === (0 === $oTmp->get_id()))
-            {
-                return $oTmp;
-            }
-        }
 
         $aField = array_keys($oTableDataType->getPropertyArray());
 
@@ -913,84 +902,76 @@ class Db
 
     /**
      * @param \MVC\DB\DataType\DB\TableDataType|null $oTableDataType
-     * @param bool                                   $bStrict
      * @return \MVC\DB\DataType\DB\TableDataType
      * @throws \ReflectionException
      */
-    public function retrieveTupel(TableDataType $oTableDataType = null, bool $bStrict = false) : TableDataType
+    public function retrieveTupel(TableDataType $oTableDataType = null) : TableDataType
     {
-        $oDTArrayObject = DTArrayObject::create();
+        Event::run('mvc.db.model.db.retrieveTupel.before', $oTableDataType);
 
-        foreach ($oTableDataType->getPropertyArray() as $sProperty => $sValue)
+        if (0 === $oTableDataType->get_id())
         {
-            if (false === $bStrict && true === empty($sValue))
-            {
-                continue;
-            }
-
-            $oDTArrayObject->add_aKeyValue(
-                DTKeyValue::create()->set_sKey($sProperty)->set_mOptional1('=')->set_sValue($sValue)
-            );
+            $sTableDataType = get_class($oTableDataType);
+            return $sTableDataType::create();
         }
+
+        $aDTDBWhere = array();
+        $aDTDBWhere[] = DTDBWhere::create()
+            ->set_sKey(TableDataType::getPropertyName_id())
+            ->set_sRelation('=')
+            ->set_sValue($oTableDataType->get_id());
 
         $aResult = $this->retrieve(
-            $oDTArrayObject
+            $aDTDBWhere,
+            array(),
+            get_class($oTableDataType)
         );
-
-        if (true === empty($aResult))
-        {
-            return $oTableDataType::create();
-        }
 
         return current($aResult);
     }
 
     /**
-     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObject
-     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObjectOption
-     * @return \DB\DataType\DB\TableDataType[]
+     * @param \MVC\DataType\DTDBWhere[]  $aDTDBWhere
+     * @param \MVC\DataType\DTDBOption[] $aDTDBOption
+     * @return \MVC\DB\DataType\DB\TableDataType[]
      * @throws \ReflectionException
      */
-    public function retrieve(DTArrayObject $oDTArrayObject = null, DTArrayObject $oDTArrayObjectOption = null) : array
+    public function retrieve(array $aDTDBWhere = array(), array $aDTDBOption = array()) : array
     {
-        $oDTValue = DTValue::create()->set_mValue(array('oDTArrayObject' => $oDTArrayObject, 'oDTArrayObjectOption' => $oDTArrayObjectOption));
-        Event::run('mvc.db.model.db.retrieve.before', $oDTValue);
-        $oDTArrayObject = $oDTValue->get_mValue()['oDTArrayObject'];
-        $oDTArrayObjectOption = $oDTValue->get_mValue()['oDTArrayObjectOption'];
+        if (true === empty($aDTDBWhere))
+        {
+            return array();
+        }
 
-        list($sModuleName) = explode('\\', get_class($this));
-        $aObject = array();
-        $sDTClassName = $sModuleName . '\DataType\\' . $this->getGenerateDataTypeClassName();
-        $aPossibleToken = array('=', '<', '<=', '>', '>=', 'LIKE', '!=');
+        #---
+
+        $oDTValue = DTValue::create()->set_mValue(array('aDTDBWhere' => $aDTDBWhere, 'aDTDBOption' => $aDTDBOption));
+        Event::run('mvc.db.model.db.retrieve.before', $oDTValue);
+        /** @var \MVC\DataType\DTDBWhere[] $aDTDBWhere */
+        $aDTDBWhere = $oDTValue->get_mValue()['aDTDBWhere'];
+        /** @var \MVC\DataType\DTDBOption[] $aDTDBOption */
+        $aDTDBOption = $oDTValue->get_mValue()['aDTDBOption'];
+
+        #---
 
         $sSql = "SELECT * FROM `" . $this->sTableName . "` \nWHERE  1\n";
         $sSqlExplain = $sSql;
 
-        // add requirements
-        if (true === ($oDTArrayObject instanceof DTArrayObject))
+        /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
+        foreach ($aDTDBWhere as $oDTDBWhere)
         {
-            foreach ($oDTArrayObject->get_aKeyValue() as $iKey => $oDTKeyValue)
-            {
-                (empty($oDTKeyValue->get_mOptional1())) ? $oDTKeyValue->set_mOptional1('=') : false;
-
-                if (false === in_array(strtoupper($oDTKeyValue->get_mOptional1()), $aPossibleToken))
-                {
-                    return new $sDTClassName();
-                }
-
-                $sSql.= "\nAND `" . $oDTKeyValue->get_sKey() . "` " . $oDTKeyValue->get_mOptional1() . " :" . $oDTKeyValue->get_sKey();
-                $sSqlExplain.= "AND `" . $oDTKeyValue->get_sKey() . "` " . $oDTKeyValue->get_mOptional1() . " '" . $oDTKeyValue->get_sValue() . "' ";
-            }
+            $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+            $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
-        // options
-        if (true === ($oDTArrayObjectOption instanceof DTArrayObject))
+        $sSql = substr($sSql, 0,-1) . "\n";
+        $sSqlExplain = substr($sSqlExplain, 0,-1) . "\n";
+
+        /** @var \MVC\DataType\DTDBOption $oDTDBOption */
+        foreach ($aDTDBOption as $oDTDBOption)
         {
-            foreach ($oDTArrayObjectOption->get_aKeyValue() as $iKey => $oDTKeyValue)
-            {
-                $sSql.= "\n" . $oDTKeyValue->get_sValue() . " \n";
-                $sSqlExplain.= $oDTKeyValue->get_sValue() . ' ';
-            }
+            $sSql.= "\n" . $oDTDBOption->get_sValue() . " \n";
+            $sSqlExplain.= "\n" . $oDTDBOption->get_sValue() . " \n";
         }
 
         $oSql = new ArrDot();
@@ -999,21 +980,19 @@ class Db
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
-        (null === $oDTArrayObject) ? $oDTArrayObject = DTArrayObject::create() : false;
-
-        // bind Values
-        foreach ($oDTArrayObject->get_aKeyValue() as $iKey => $oDTKeyValue)
+        /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
+        foreach ($aDTDBWhere as $oDTDBWhere)
         {
             $iPdoParam = 0;
-            ('integer' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
-            ('string' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR : false;
-            ('object' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR: false;
-            ('boolean' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_BOOL : false;
-            ('null' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
+            ('integer' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
+            ('string' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR : false;
+            ('object' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR: false;
+            ('boolean' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_BOOL : false;
+            ('null' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
 
             $oStmt->bindValue(
-                ':' . $oDTKeyValue->get_sKey(),
-                $oDTKeyValue->get_sValue(),
+                ':' . $oDTDBWhere->get_sKey(),
+                $oDTDBWhere->get_sValue(),
                 $iPdoParam
             );
         }
@@ -1022,32 +1001,20 @@ class Db
         {
             $oStmt->execute();
             $aFetchAll = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
-
-            foreach ($aFetchAll as $aData)
-            {
-                $oObject = new $sDTClassName();
-
-                // set types properly
-                foreach ($aData as $sKey => $sValue)
-                {
-                    $sGetter = 'get_' . $sKey;
-                    $sSetter = 'set_' . $sKey;
-                    $sHasToBeType = (method_exists($oObject, $sGetter)) ? gettype($oObject->$sGetter()) : 'string';
-                    settype($sValue, $sHasToBeType);
-
-                    if (true === method_exists($oObject, $sSetter))
-                    {
-                        $oObject->$sSetter($sValue);
-                    }
-                }
-
-                $aObject[] = $oObject;
-            }
         }
-        catch (\Exception $oExc)
+        catch (\Exception $oException)
         {
-            Error::exception($oExc);
+            Error::exception($oException);
         }
+
+        $sDataTypeClass = strtok(get_class($this), '\\') . '\\DataType\\' . $this->getGenerateDataTypeClassName();
+
+        $aObject = array_map(
+            function($aData) use ($sDataTypeClass){
+                return $sDataTypeClass::create($aData);
+            },
+            $aFetchAll
+        );
 
         $oDTValue = DTValue::create()->set_mValue($aObject);
         Event::run('mvc.db.model.db.retrieve.after', $oDTValue);
@@ -1203,115 +1170,6 @@ class Db
         return true;
     }
 
-//    /**
-//     * UPDATE table SET x = y WHERE id
-//     * @deprecated
-//     * @todo optimization required; does not work with $oTableDataType properly as that may have empty values
-//     * @param \MVC\DB\DataType\DB\TableDataType|null $oTableDataType
-//     * @param \MVC\DataType\DTArrayObject|null       $oDTArrayObjectWhere
-//     * @param bool                                   $bStrict
-//     * @return bool
-//     * @throws \ReflectionException
-//     */
-//    public function update(TableDataType $oTableDataType = null, DTArrayObject $oDTArrayObjectWhere = null, bool $bStrict = false) : bool
-//    {
-//        if (is_null($oTableDataType))
-//        {
-//            return false;
-//        }
-//
-//        Event::run('mvc.db.model.db.update.before', $oTableDataType);
-//
-//        $oDTArrayObjectSet = DTArrayObject::create();
-//
-//        foreach ($oTableDataType->getPropertyArray() as $sProperty => $sValue)
-//        {
-//            if (false === $bStrict && true === empty($sValue))
-//            {
-//                continue;
-//            }
-//
-//            $oDTArrayObjectSet->add_aKeyValue(
-//                DTKeyValue::create()->set_sKey($sProperty)->set_mOptional1('=')->set_sValue($sValue)
-//            );
-//        }
-//        info($oDTArrayObjectSet);
-//
-//        $sSql = "UPDATE `" . $this->sTableName . "` SET \n";
-//        $sSqlExplain =  $sSql;
-//
-//
-//        /**
-//         * Set
-//         * @var integer $iKey
-//         * @var  DTKeyValue $oDTKeyValueSet
-//         */
-//        foreach ($oDTArrayObjectSet->get_aKeyValue() as $iKey => $oDTKeyValueSet)
-//        {
-//            $sSql.= '`' . $oDTKeyValueSet->get_sKey() . '` = :' . $oDTKeyValueSet->get_sKey() . ",";
-//            $sSqlExplain.= '`' . $oDTKeyValueSet->get_sKey() . '` = ' . "'" . $oDTKeyValueSet->get_sValue() . "',";
-//        }
-//
-//        $sSql = substr($sSql, 0,-1) . "\n";
-//        $sSqlExplain = substr($sSqlExplain, 0,-1) . "\n";
-//        $sWhere = "WHERE 1\n";
-//
-//        /**
-//         * Where
-//         */
-//        foreach ($oDTArrayObjectWhere->get_aKeyValue() as $iKey => $oDTDBKeyValueWhere)
-//        {
-//            $sWhere.= 'AND `' . $oDTDBKeyValueWhere->get_sKey() . '` = ' . "'" . $oDTDBKeyValueWhere->get_sValue() . "' \n";
-//        }
-//
-//        $sSql.= $sWhere;
-//        $sSqlExplain.= $sWhere;
-//
-//        Event::run(
-//            'mvc.db.model.db.update.sql',
-//            DTArrayObject::create()
-//                ->add_aKeyValue(
-//                    DTKeyValue::create()
-//                        ->set_sKey('sSql')
-//                        ->set_sValue(str_replace("\n", ' ', stripslashes($sSqlExplain)))
-//            )
-//        );
-//
-//        $oStmt = $this->oDbPDO->prepare($sSql);
-//
-//        /**
-//         * @var integer $iKey
-//         * @var  DTKeyValue $oDTDBKeyValue
-//         */
-//        foreach ($oDTArrayObjectSet->get_aKeyValue() as $iKey => $oDTKeyValueSet)
-//        {
-//            $iPdoParam = 0;
-//            ('integer' === gettype($oDTKeyValueSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
-//            ('string' === gettype($oDTKeyValueSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR : false;
-//            ('object' === gettype($oDTKeyValueSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR: false;
-//            ('boolean' === gettype($oDTKeyValueSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_BOOL : false;
-//            ('null' === gettype($oDTKeyValueSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
-//
-//            $oStmt->bindValue(
-//                ':' . $oDTKeyValueSet->get_sKey(),
-//                $oDTKeyValueSet->get_sValue(),
-//                $iPdoParam
-//            );
-//        }
-//
-//        try
-//        {
-//            $oStmt->execute();
-//        }
-//        catch (\Exception $oExc)
-//        {
-//            \MVC\Error::exception($oExc);
-//            return false;
-//        }
-//
-//        return true;
-//    }
-
     /**
      * updates a single, concrete dataset (a tupel) identified by id
      * @param \MVC\DB\DataType\DB\TableDataType $oTableDataType
@@ -1330,7 +1188,10 @@ class Db
             $aDTDBSet[] = DTDBSet::create()->set_sKey($sKey)->set_sValue($sValue);
         }
 
-        $aDTDBWhere[] = DTDBWhere::create()->set_sKey(TableDataType::getPropertyName_id())->set_sRelation('=')->set_sValue($oTableDataType->get_id());
+        $aDTDBWhere[] = DTDBWhere::create()
+            ->set_sKey(TableDataType::getPropertyName_id())
+            ->set_sRelation('=')
+            ->set_sValue($oTableDataType->get_id());
 
         $bUpdate = $this->update(
             $aDTDBSet,
