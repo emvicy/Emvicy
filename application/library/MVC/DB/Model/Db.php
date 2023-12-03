@@ -938,13 +938,6 @@ class Db
      */
     public function retrieve(array $aDTDBWhere = array(), array $aDTDBOption = array()) : array
     {
-        if (true === empty($aDTDBWhere))
-        {
-            return array();
-        }
-
-        #---
-
         $oDTValue = DTValue::create()->set_mValue(array('aDTDBWhere' => $aDTDBWhere, 'aDTDBOption' => $aDTDBOption));
         Event::run('mvc.db.model.db.retrieve.before', $oDTValue);
         /** @var \MVC\DataType\DTDBWhere[] $aDTDBWhere */
