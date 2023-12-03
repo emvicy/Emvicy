@@ -647,30 +647,19 @@ class Db
     {
         $aResult = array();
         $sSql = "SHOW FIELDS FROM " . $this->sTableName;
-        ('' !== $sFieldName) ? $sSql.= " where Field =:sFieldName" : false;
-
         $oStmt = $this->oDbPDO->prepare($sSql);
-        ('' !== $sFieldName) ? $oStmt->bindValue(':sFieldName', $sFieldName, \PDO::PARAM_STR) : false;
-
         $oStmt->execute();
-        $aFieldName = ('' === $sFieldName) ? $oStmt->fetchAll(\PDO::FETCH_ASSOC) : $oStmt->fetch(\PDO::FETCH_ASSOC);
+        $aFieldName = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
         (false === $aFieldName) ? $aFieldName = [] : false;
 
-        if ('' === $sFieldName)
+        foreach ($aFieldName as $aValue)
         {
-            foreach ($aFieldName as $aValue)
+            if (true === $bAvoidReserved && in_array($aValue['Field'], $this->aReservedFieldName))
             {
-                if (true === $bAvoidReserved && in_array($aValue['Field'], $this->aReservedFieldName))
-                {
-                    continue;
-                }
-
-                $aResult[$aValue['Field']] = $aValue;
+                continue;
             }
-        }
-        else
-        {
-            $aResult = $aFieldName;
+
+            $aResult[$aValue['Field']] = $aValue;
         }
 
         // add PHP Type equivalents
@@ -702,6 +691,11 @@ class Db
 
                 $aResult[$sKey]['_typeValue'] = $mValueType;
             }
+        }
+
+        if (false === empty($sFieldName) && false === empty(get($aResult[$sFieldName])))
+        {
+            return $aResult[$sFieldName];
         }
 
         return $aResult;
