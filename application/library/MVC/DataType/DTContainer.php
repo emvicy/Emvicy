@@ -6,6 +6,7 @@
 namespace MVC\DataType;
 
 
+use MVC\ArrDot;
 use MVC\Convert;
 
 /**
@@ -58,7 +59,7 @@ class DTContainer
     {
         $this->sIdentifier = microtime(true) . '.' . uniqid();
         $this->bSuccess = false;
-        $this->oMessage = new \MVC\ArrDot();
+        $this->oMessage = ArrDot::create();
         $this->mData = null;
     }
 
