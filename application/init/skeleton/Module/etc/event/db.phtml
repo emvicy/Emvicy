@@ -67,10 +67,11 @@ if (true === \MVC\Config::get_MVC_LOG_SQL())
 {
     \MVC\Event::processBindConfigStack([
         'mvc.db.model.db.create.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.createTable.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
         'mvc.db.model.db.insert.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
         'mvc.db.model.db.retrieve.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
         'mvc.db.model.db.update.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
         'mvc.db.model.db.delete.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.db.createTable.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+        'mvc.db.model.db.count.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
     ]);
 }

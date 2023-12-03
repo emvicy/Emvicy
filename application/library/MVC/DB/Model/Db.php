@@ -1057,70 +1057,47 @@ class Db
     }
 
     /**
-     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObject
-     * @param \MVC\DataType\DTArrayObject|null $oDTArrayObjectOption
+     * @param \MVC\DataType\DTDBWhere[] $aDTDBWhere
      * @return int
      * @throws \ReflectionException
      */
-    public function count(DTArrayObject $oDTArrayObject = null, DTArrayObject $oDTArrayObjectOption = null) : int
+    public function count(array $aDTDBWhere = array()) : int
     {
-        $sDTClassName = Route::getCurrent()->get_module() . '\DataType\\' . $this->getGenerateDataTypeClassName();
-        $aPossibleToken = array('=', '<', '<=', '>', '>=', 'LIKE', '!=');
+        $oDTValue = DTValue::create()->set_mValue($aDTDBWhere);
+        Event::run('mvc.db.model.db.count.before', $oDTValue);
+        $aDTDBWhere = $oDTValue->get_mValue();
 
         $sSql = "SELECT COUNT(id) AS iAmount FROM `" . $this->sTableName . "` \nWHERE  1\n";
         $sSqlExplain = $sSql;
 
-        // add requirements
-        if (true === ($oDTArrayObject instanceof DTArrayObject))
+        /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
+        foreach ($aDTDBWhere as $oDTDBWhere)
         {
-            foreach ($oDTArrayObject->get_aKeyValue() as $iKey => $oDTKeyValue)
-            {
-                (empty($oDTKeyValue->get_mOptional1())) ? $oDTKeyValue->set_mOptional1('=') : false;
-
-                if (false === in_array(strtoupper($oDTKeyValue->get_mOptional1()), $aPossibleToken))
-                {
-                    return 0;
-                }
-
-                $sSql.= "\nAND `" . $oDTKeyValue->get_sKey() . "` " . $oDTKeyValue->get_mOptional1() . " :" . $oDTKeyValue->get_sKey();
-                $sSqlExplain.= "AND `" . $oDTKeyValue->get_sKey() . "` " . $oDTKeyValue->get_mOptional1() . " '" . $oDTKeyValue->get_sValue() . "' ";
-            }
-        }
-
-        // options
-        if (true === ($oDTArrayObjectOption instanceof DTArrayObject))
-        {
-            foreach ($oDTArrayObjectOption->get_aKeyValue() as $iKey => $oDTKeyValue)
-            {
-                $sSql.= "\n" . $oDTKeyValue->get_sValue() . " \n";
-                $sSqlExplain.= $oDTKeyValue->get_sValue() . ' ';
-            }
+            $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+            $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
         $oSql = new ArrDot();
         $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSqlExplain)));
-        Event::run('mvc.db.model.db.count.sql', $oSql );
+        Event::run('mvc.db.model.db.count.sql', $oSql);
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
-        // bind Values
-        if (true === ($oDTArrayObject instanceof DTArrayObject))
+        /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
+        foreach ($aDTDBWhere as $oDTDBWhere)
         {
-            foreach ($oDTArrayObject->get_aKeyValue() as $iKey => $oDTKeyValue)
-            {
-                $iPdoParam = 0;
-                ('integer' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
-                ('string' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR : false;
-                ('object' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR: false;
-                ('boolean' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_BOOL : false;
-                ('null' === gettype($oDTKeyValue->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
+            $iPdoParam = 0;
+            ('integer' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
+            ('string' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR : false;
+            ('object' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR: false;
+            ('boolean' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_BOOL : false;
+            ('null' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
 
-                $oStmt->bindValue(
-                    ':' . $oDTKeyValue->get_sKey(),
-                    $oDTKeyValue->get_sValue(),
-                    $iPdoParam
-                );
-            }
+            $oStmt->bindValue(
+                ':' . $oDTDBWhere->get_sKey(),
+                $oDTDBWhere->get_sValue(),
+                $iPdoParam
+            );
         }
 
         try
@@ -1129,12 +1106,13 @@ class Db
             $aFetchAll = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
             $iAmount = (int) current($aFetchAll)['iAmount'];
         }
-        catch (\Exception $oExc)
+        catch (\Exception $oException)
         {
-            Error::exception($oExc);
+            Error::exception($oException);
+
+            return 0;
         }
 
-        /** integer */
         return $iAmount;
     }
 
