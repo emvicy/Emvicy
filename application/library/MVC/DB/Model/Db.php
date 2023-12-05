@@ -1343,6 +1343,26 @@ class Db
     }
 
     /**
+     * @param int    $iId
+     * @param string $sFieldName
+     * @return mixed
+     * @throws \ReflectionException
+     */
+    public function getOnId(int $iId = 0, string $sFieldName = '') : mixed
+    {
+        $oTableDataType = $this->retrieveTupel(TableDataType::create()->set_id($iId));
+
+        if ('' !== $sFieldName)
+        {
+            $aTableDataType = $oTableDataType->getPropertyArray();
+
+            return get($aTableDataType[$sFieldName]);
+        }
+
+        return $oTableDataType;
+    }
+
+    /**
      * auto delete caches
      * @throws \ReflectionException
      */
