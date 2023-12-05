@@ -556,15 +556,9 @@ class Db
 
                 if (false === empty($sSql))
                 {
-                    Event::run(
-                        'mvc.db.model.db.delete.sql',
-                        DTArrayObject::create()
-                            ->add_aKeyValue(
-                                DTKeyValue::create()
-                                    ->set_sKey('sSql')
-                                    ->set_sValue(str_replace("\n", ' ', stripslashes($sSql)))
-                            )
-                    );
+                    $oSql = new ArrDot();
+                    $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSql)));
+                    Event::run('mvc.db.model.db.delete.sql', $oSql);
 
                     try
                     {
