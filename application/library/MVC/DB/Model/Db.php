@@ -648,7 +648,7 @@ class Db
     public function getFieldInfo(string $sFieldName = '', bool $bAvoidReserved = true) : array
     {
         $aResult = array();
-        $sSql = "SHOW FIELDS FROM " . $this->sTableName;
+        $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
         $oStmt = $this->oDbPDO->prepare($sSql);
         $oStmt->execute();
         $aFieldName = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
