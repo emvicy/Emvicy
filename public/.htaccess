@@ -21,7 +21,7 @@ RedirectMatch 403 /\..*$
 
 # deny HTTP TRACE, HTTP TRACK Requests
 #RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
-RewriteRule .* - [F]
+#RewriteRule .* - [F]
 
 # pass-through files
 RewriteCond %{REQUEST_FILENAME} !-f
