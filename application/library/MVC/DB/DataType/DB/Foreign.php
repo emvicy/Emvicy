@@ -1,4 +1,5 @@
 <?php
+# 2023-12-05 14:09:41
 
 /**
  * @name $MVCDBDataTypeDB
@@ -12,7 +13,7 @@ class Foreign
 {
 	use TraitDataType;
 
-	public const DTHASH = '1d3b072dbb5785d0a6750e4b872fab07';
+	public const DTHASH = 'a1c4950e78e24c2519e039f75f530bdf';
 
 	public const UPDATE_CASCADE = " ON UPDATE CASCADE ";
 
@@ -67,6 +68,12 @@ class Foreign
 	protected $sOnUpdate;
 
 	/**
+	 * @required false
+	 * @var string
+	 */
+	protected $sComment;
+
+	/**
 	 * Foreign constructor.
 	 * @param array $aData
 	 * @throws \ReflectionException 
@@ -83,6 +90,7 @@ class Foreign
 		$this->sReferenceKey = "id";
 		$this->sOnDelete = " ON DELETE NO ACTION ";
 		$this->sOnUpdate = " ON UPDATE NO ACTION ";
+		$this->sComment = '';
 
 		foreach ($aData as $sKey => $mValue)
 		{
@@ -197,6 +205,20 @@ class Foreign
 	}
 
 	/**
+	 * @param string $mValue 
+	 * @return $this
+	 * @throws \ReflectionException
+	 */
+	public function set_sComment(string $mValue)
+	{
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('Foreign.set_sComment.before', $oDTValue);
+		$this->sComment = $oDTValue->get_mValue();
+
+		return $this;
+	}
+
+	/**
 	 * @return string
 	 * @throws \ReflectionException
 	 */
@@ -270,6 +292,18 @@ class Foreign
 
 	/**
 	 * @return string
+	 * @throws \ReflectionException
+	 */
+	public function get_sComment() : string
+	{
+		$oDTValue = DTValue::create()->set_mValue($this->sComment); 
+		\MVC\Event::run('Foreign.get_sComment.before', $oDTValue);
+
+		return $oDTValue->get_mValue();
+	}
+
+	/**
+	 * @return string
 	 */
 	public static function getPropertyName_sForeignKey()
 	{
@@ -314,6 +348,14 @@ class Foreign
 	public static function getPropertyName_sOnUpdate()
 	{
         return 'sOnUpdate';
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getPropertyName_sComment()
+	{
+        return 'sComment';
 	}
 
 	/**
