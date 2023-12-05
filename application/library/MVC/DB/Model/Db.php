@@ -641,6 +641,15 @@ class Db
     }
 
     /**
+     * @param string $sField
+     * @return string
+     */
+    public function getComment(string $sField = '') : string
+    {
+        return (string) get($this->getFieldInfo($sField)['Comment'], '');
+    }
+
+    /**
      * @param string $sFieldName
      * @param bool   $bAvoidReserved
      * @return array
