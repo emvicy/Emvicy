@@ -127,9 +127,11 @@ class DataType
                     (isset($aProperty['key']))
                         ? $oDTDataTypeGeneratorProperty->set_key(preg_replace('!\s+!', '_', $aProperty['key']))
                         : false;
+
                     (isset($aProperty['value']))
                         ? $oDTDataTypeGeneratorProperty->set_value($aProperty['value'])
-                        : false;
+                        : (('int' === get($aProperty['var'])) ? $oDTDataTypeGeneratorProperty->set_value(0) : false);
+
                     (isset($aProperty['var']))
                         ? $oDTDataTypeGeneratorProperty->set_var($aProperty['var'])
                         : false;
@@ -617,7 +619,9 @@ class DataType
 
                 if ('int' == substr(strtolower($oProperty->get_var()), 0, 3))
                 {
-                    $sContent.= (int)$oProperty->get_value() . ";\r\n";
+                    $sContent.= ('null' === $oProperty->get_value())
+                        ? 'null;' . "\r\n"
+                        : (int) $oProperty->get_value() . ';' . "\r\n";
                 }
 
                 if ('array' == strtolower($oProperty->get_var()))
@@ -891,11 +895,12 @@ class DataType
 
         if ('[]' !== $sRight2)
         {
-            $sContent.= "\t/**\r\n" . "\t * @param " . $sVar . ' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
+            $sContent.= "\t/**\r\n" . "\t * @param " . $sVar . (('null' === $oProperty->get_value()) ? '|null' : false) .' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
             $sContent.= "\tpublic function set_" . $oProperty->get_key() . '(';
             $sContent.= $sVar . ' ';
-
-            $sContent.= '$mValue)' . "\r\n" . "\t{" . "\r\n\t\t";
+            $sContent.= '$mValue';
+            (('null' === $oProperty->get_value()) ? $sContent.= ' = null' : false);
+            $sContent.= ')' . "\r\n" . "\t{" . "\r\n\t\t";
             $sContent.= '$oDTValue = DTValue::create()->set_mValue($mValue); ' . "\n\t\t";
 
             (true === $this->bCreateEvents) ? $sContent.="\MVC\Event::run('" . $sClassName . ".set_" . $oProperty->get_key() . ".before', " . '$oDTValue' . ");\n\t\t" : false;
@@ -926,12 +931,14 @@ class DataType
         // type is array
         else
         {
-            $sContent.= "\t/**\r\n" . "\t * @param " . $oProperty->get_var() . " " . ' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
+            $sContent.= "\t/**\r\n" . "\t * @param " . $oProperty->get_var() . (('null' === $oProperty->get_value()) ? '|null' : false) . " " . ' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
             $sContent.= "\tpublic function set_" . $oProperty->get_key() . '(';
 
             // place type for php7 and newer
             $sContent.= 'array ';
-            $sContent.= '$mValue)' . "\r\n" . "\t{\r\n\t\t";
+            $sContent.= '$mValue';
+            (('null' === $oProperty->get_value()) ? $sContent.= ' = null' : false);
+            $sContent.= ')' . "\r\n" . "\t{\r\n\t\t";
             $sContent.= '$oDTValue = DTValue::create()->set_mValue($mValue); ' . "\n\t\t";
 
             // add ArrayType Instancer
