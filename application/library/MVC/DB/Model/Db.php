@@ -491,7 +491,7 @@ class Db
      */
     protected function synchronizeFields() : bool
     {
-        $sSql = "SHOW COLUMNS FROM " . $this->sTableName;
+        $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
 
         try
         {
@@ -643,9 +643,18 @@ class Db
     /**
      * @param string $sField
      * @return string
+     * @throws \ReflectionException
      */
     public function getComment(string $sField = '') : string
     {
+        if (false === empty(get($this->aForeign[$sField])))
+        {
+            /** @var \MVC\DB\DataType\DB\Foreign $oDTForeign */
+            $oDTForeign = get($this->aForeign[$sField]);
+
+            return $oDTForeign->get_sComment();
+        }
+
         return (string) get($this->getFieldInfo($sField)['Comment'], '');
     }
 
@@ -653,6 +662,7 @@ class Db
      * @param string $sFieldName
      * @param bool   $bAvoidReserved
      * @return array
+     * @throws \ReflectionException
      */
     public function getFieldInfo(string $sFieldName = '', bool $bAvoidReserved = true) : array
     {
@@ -671,6 +681,18 @@ class Db
             }
 
             $aResult[$aValue['Field']] = $aValue;
+        }
+
+        // add comment from foreigns
+        if (!empty(get($this->aForeign[$sFieldName])))
+        {
+            /** @var \MVC\DB\DataType\DB\Foreign $oDTForeign */
+            $oDTForeign = get($this->aForeign[$sFieldName]);
+
+            if (!empty($oDTForeign->get_sComment()))
+            {
+                $aResult[$sFieldName]['Comment'] = $oDTForeign->get_sComment();
+            }
         }
 
         // add PHP Type equivalents
