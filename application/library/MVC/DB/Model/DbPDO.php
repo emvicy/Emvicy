@@ -44,9 +44,14 @@ class DbPDO extends \PDO
     /**
      * @param string $sSql
      * @return array
+     * @throws \ReflectionException
      */
     public function fetchAll(string $sSql = '') : array
     {
+        $oSql = new ArrDot();
+        $oSql->set('sSql', trim($sSql));
+        Event::run('mvc.db.model.dbpdo.fetchAll', $oSql);
+
         $oStmt = $this->query($sSql);
 
         if (gettype($oStmt) != 'object')
@@ -61,11 +66,16 @@ class DbPDO extends \PDO
     }
 
     /**
-     * @param string $sSql
+     * @param $sSql
      * @return mixed
+     * @throws \ReflectionException
      */
     public function fetchRow($sSql = '')
     {
+        $oSql = new ArrDot();
+        $oSql->set('sSql', trim($sSql));
+        Event::run('mvc.db.model.dbpdo.fetchRow', $oSql);
+
         $oStmt = $this->query($sSql);
         $aRow = $oStmt->fetch(\PDO::FETCH_ASSOC);
 
