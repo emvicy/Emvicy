@@ -13,6 +13,9 @@
  */
 namespace MVC\DB\Model;
 
+use MVC\ArrDot;
+use MVC\Event;
+
 /**
  * Class DbPDO
  * @package DB\Model
