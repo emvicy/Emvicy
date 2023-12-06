@@ -77,7 +77,7 @@ if (true === \MVC\Config::get_MVC_LOG_SQL())
         'mvc.db.model.db.update.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
         'mvc.db.model.db.delete.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
         'mvc.db.model.db.count.sql' => array(function(MVC\ArrDot $oSql) {\MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.dbpdo.fetch*' => array(function(MVC\ArrDot $oSql) {
+        'mvc.db.model.dbpdo.*' => array(function(MVC\ArrDot $oSql) {
             \MVC\Event::run('sql.log.filter', $oSql);
             \MVC\Log::write($oSql->get('sSql'), \MVC\Config::get_MVC_LOG_FILE_SQL());
         }),
