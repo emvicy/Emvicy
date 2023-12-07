@@ -125,6 +125,19 @@ class Strings
     }
 
     /**
+     * cleans up a string by removing newlines, multiple whitespaces
+     * @param string $sString
+     * @return string
+     */
+    public static function tidy(string $sString = '')
+    {
+        $sString = preg_replace('%\s+%', ' ', $sString);
+        $sString = trim($sString);
+
+        return $sString;
+    }
+
+    /**
      * returns a random uuid Version4 string (8-4-4-4-12)
      * @example 889abaf2-461d-42a1-86f4-07eb3e9876a5
      * @return string
@@ -160,7 +173,8 @@ class Strings
     }
 
     /**
-     * cuts off a string at given limit, appends a custom string if string to cut off is longer than limit, can purify broken markup string before return
+     * cuts off a string at given limit, appends a custom string if string to cut off is longer than limit, can purify
+     * broken markup string before return
      * @param string $sString
      * @param int    $iLimit
      * @param string $sAppendix

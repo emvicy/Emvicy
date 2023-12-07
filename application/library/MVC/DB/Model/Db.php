@@ -14,7 +14,6 @@
 namespace MVC\DB\Model;
 
 use MVC\ArrDot;
-use MVC\Config;
 use MVC\DataType\DTDBSet;
 use MVC\DataType\DTDBWhere;
 use MVC\DataType\DTValue;
@@ -22,16 +21,11 @@ use MVC\DB\DataType\DB\Constraint;
 use MVC\DB\DataType\DB\Foreign;
 use MVC\DB\DataType\DB\TableDataType;
 use MVC\Cache;
-use MVC\DataType\DTArrayObject;
-use MVC\DataType\DTKeyValue;
-use MVC\Debug;
 use MVC\Error;
 use MVC\Event;
 use MVC\Generator\DataType;
 use MVC\Log;
 use MVC\Registry;
-use MVC\Route;
-use function PHPUnit\Framework\isEmpty;
 
 /**
  * Class Db
@@ -491,6 +485,7 @@ class Db
      */
     protected function synchronizeFields() : bool
     {
+        $this->dropIndices();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
 
         try
@@ -918,6 +913,7 @@ class Db
 
     /**
      * @return int
+     * @throws \ReflectionException
      */
     public function checksum() : int
     {
@@ -1360,6 +1356,24 @@ class Db
         }
 
         return $oTableDataType;
+    }
+
+    /**
+     * drops indices from table
+     * @return void
+     * @throws \ReflectionException
+     */
+    protected function dropIndices()
+    {
+        // drop indeces
+        $aIndex = $this->fetchAll("SHOW INDEXES FROM `" . $this->sTableName . "`;");
+
+        foreach ($aIndex as $aSet)
+        {
+            if ('PRIMARY' === $aSet['Key_name'] || $aSet['Key_name'] === $aSet['Column_name']) {continue;}
+            $sSql = "ALTER TABLE `" . $this->sTableName . "` DROP INDEX `" . $aSet['Key_name'] . "`;";
+            $this->oDbPDO->query($sSql);
+        }
     }
 
     /**
