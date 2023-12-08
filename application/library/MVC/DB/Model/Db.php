@@ -220,6 +220,23 @@ class Db
     }
 
     /**
+     * @param string $sIndex
+     * @return bool
+     */
+    protected function indexExists(string $sIndex = '') : bool
+    {
+        $aIndex = $this->fetchAll("SHOW INDEXES FROM `" . $this->sTableName . "`;");
+        $bIndexExists = (boolean) array_search(
+            // what to search for
+            $sIndex,
+            // Array to search in & Key to look after
+            array_column($aIndex, 'Key_name')
+        );
+
+        return $bIndexExists;
+    }
+
+    /**
      * @param \MVC\DB\DataType\DB\Foreign $oDtDbForeign
      * @return bool
      * @throws \ReflectionException
@@ -485,12 +502,11 @@ class Db
      */
     protected function synchronizeFields() : bool
     {
-        $this->dropIndices();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
 
         try
         {
-            $aColumn = $this->oDbPDO->fetchAll ($sSql);
+            $aColumn = $this->oDbPDO->fetchAll($sSql);
         }
         catch (\Exception $oException)
         {
@@ -526,6 +542,7 @@ class Db
 
         if ($sCacheSyncValue === Cache::getCache($sCacheSyncKey))
         {
+            Event::run('mvc.db.model.db.synchronizeFields.after');
             return true;
         }
 
@@ -542,8 +559,9 @@ class Db
         $aInsertTmp = array_diff($aTableFieldDef, $aTableNoForeignKeys);
         foreach ($aInsertTmp as $sInsert) {(isset($this->aField[$sInsert])) ? $aInsert[$sInsert] = $this->aField[$sInsert] : false;}
 
-        DELETE: {
-
+        /*
+         * DELETE
+         */
         foreach ($aDelete as $sFieldName)
         {
             $oDTDBConstraint = $this->getConstraintInfo(get($sFieldName, ''));
@@ -551,8 +569,8 @@ class Db
 
             if ('' !== $oDTDBConstraint->get_CONSTRAINT_NAME())
             {
-                $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP FOREIGN KEY `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`;\n";
-                $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP INDEX `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`;\n";
+                $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP FOREIGN KEY `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`; -- " . __LINE__ . "\n";
+                $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP INDEX `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`; -- " . __LINE__ . "\n";
             }
 
             $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP  `" . $sFieldName . "`;\n";
@@ -575,10 +593,11 @@ class Db
                 }
             }
         }
-    }
+        $this->dropIndices();
 
-        INSERT: {
-
+        /*
+         * INSERT
+         */
         foreach ($aInsert as $sKey => $aValue)
         {
             $sSql = "ALTER TABLE  `" . $this->sTableName  . "` ADD  `" . $sKey . "` " . $aValue . " AFTER  `id`\n";
@@ -598,10 +617,10 @@ class Db
                 return false;
             }
         }
-    }
 
-        UPDATE: {
-
+        /*
+         * UPDATE
+         */
         foreach ($this->getFieldArray() as $sKey => $sValue)
         {
             $sSql = "ALTER TABLE `" . $this->sTableName . "` CHANGE  `" . $sKey . "`\n`" . $sKey . "` " . $sValue . ";\n";
@@ -621,7 +640,8 @@ class Db
                 return false;
             }
         }
-    }
+
+        Event::run('mvc.db.model.db.synchronizeFields.after');
 
         return true;
     }
@@ -1370,10 +1390,17 @@ class Db
 
         foreach ($aIndex as $aSet)
         {
+            if (false === $this->indexExists($aSet['Key_name']))
+            {
+                continue;
+            }
+
             if ('PRIMARY' === $aSet['Key_name'] || $aSet['Key_name'] === $aSet['Column_name']) {continue;}
-            $sSql = "ALTER TABLE `" . $this->sTableName . "` DROP INDEX `" . $aSet['Key_name'] . "`;";
+            $sSql = "ALTER TABLE `" . $this->sTableName . "` DROP INDEX `" . $aSet['Key_name'] . "`; -- " . __LINE__ . "\n";
             $this->oDbPDO->query($sSql);
         }
+
+        Event::run('mvc.db.model.db.dropIndices.after');
     }
 
     /**
