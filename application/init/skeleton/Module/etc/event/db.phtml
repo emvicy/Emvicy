@@ -61,18 +61,17 @@
 ]);
 
 /*
- * log SQL Statements, if enabled via config
+ * log all SQL Statements, if enabled via config
  */
 if (true === \MVC\Config::get_MVC_LOG_SQL())
 {
     \MVC\Event::processBindConfigStack([
-        'mvc.db.model.db.create.sql'        => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.db.createTable.sql'   => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.db.insert.sql'        => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.db.retrieve.sql'      => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.db.update.sql'        => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.db.delete.sql'        => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.db.count.sql'         => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
-        'mvc.db.model.dbpdo.*'              => array(function(string $sSql) {\MVC\Log::write(\MVC\Strings::tidy($sSql), \MVC\Config::get_MVC_LOG_FILE_SQL());}),
+
+        'mvc.db.model.*.sql' => array(function(string $sSql) {
+            MVC\Log::write(
+                \MVC\Strings::tidy($sSql),
+                \MVC\Config::get_MVC_LOG_FILE_SQL()
+            );
+        }),
     ]);
 }

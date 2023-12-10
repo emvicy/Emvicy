@@ -164,17 +164,14 @@ class Event
             #------------
             # run any possible wildcard listeners; "RUN+"
 
-            $aListener = self::getWildcardListenersOnEvent($sEvent);
+            $aPlaceholderListener = self::getPlaceholderListenerOnEvent($sEvent);
 
-            if (false === empty($aListener))
+            foreach ($aPlaceholderListener as $sPlaceholderListener)
             {
-                foreach ($aListener as $sListenerEvent)
-                {
-                    $sPreLogWildCard = ' (' . $sListenerEvent . ' [' . $sEvent . ']) --> called in: ' . $sDebug;
-                    Event::addToRegistry('RUN', $sEvent, $sPreLogWildCard);
-                    self::execute(self::$aEvent[$sListenerEvent], $mPackage, 'RUN+', $sPreLogWildCard, $sListenerEvent, $sEvent, $sDebug);
-                    $bReturn = true;
-                }
+                $sPreLogWildCard = ' (' . $sPlaceholderListener . ' [' . $sEvent . ']) --> called in: ' . $sDebug;
+                Event::addToRegistry('RUN', $sEvent, $sPreLogWildCard);
+                self::execute(self::$aEvent[$sPlaceholderListener], $mPackage, 'RUN+', $sPreLogWildCard, $sPlaceholderListener, $sEvent, $sDebug);
+                $bReturn = true;
             }
         }
 
@@ -205,7 +202,7 @@ class Event
      * @param string $sEvent
      * @return array
      */
-    protected static function getWildcardListenersOnEvent(string $sEvent = ''): array
+    protected static function getPlaceholderListenerOnEvent(string $sEvent = ''): array
     {
         $aListenerWithPlaceholder = array_map(
             'trim',
