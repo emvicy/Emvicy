@@ -13,7 +13,6 @@
  */
 namespace MVC\DB\Model;
 
-use MVC\ArrDot;
 use MVC\DataType\DTDBSet;
 use MVC\DataType\DTDBWhere;
 use MVC\DataType\DTValue;
@@ -463,9 +462,7 @@ class Db
             $sSql.= "ALTER TABLE `" . $sTable . "` ADD " . $sValue . ";\n";
         }
 
-        $oSql = new ArrDot();
-        $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSql)));
-        Event::run('mvc.db.model.db.createTable.sql', $oSql);
+        Event::run('mvc.db.model.db.createTable.sql', $sSql);
 
         try
         {
@@ -558,9 +555,7 @@ class Db
 
             if (false === empty($sSql))
             {
-                $oSql = new ArrDot();
-                $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSql)));
-                Event::run('mvc.db.model.db.delete.sql', $oSql);
+                Event::run('mvc.db.model.db.delete.sql', $sSql);
 
                 try
                 {
@@ -580,9 +575,7 @@ class Db
         {
             $sSql = "ALTER TABLE  `" . $this->sTableName  . "` ADD  `" . $sKey . "` " . $aValue . " AFTER  `id`\n";
 
-            $oSql = new ArrDot();
-            $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSql)));
-            Event::run('mvc.db.model.db.insert.sql', $oSql);
+            Event::run('mvc.db.model.db.insert.sql', $sSql);
 
             try
             {
@@ -601,9 +594,7 @@ class Db
         {
             $sSql = "ALTER TABLE `" . $this->sTableName . "` CHANGE  `" . $sKey . "`\n`" . $sKey . "` " . $sValue . ";\n";
 
-            $oSql = new ArrDot();
-            $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSql)));
-            Event::run('mvc.db.model.db.update.sql', $oSql);
+            Event::run('mvc.db.model.db.update.sql', $sSql);
 
             try
             {
@@ -884,9 +875,7 @@ class Db
         $sSqlExplain = rtrim($sSqlExplain, ',');
         $sSqlExplain.= "); ";
 
-        $oSql = new ArrDot();
-        $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSqlExplain)));
-        Event::run('mvc.db.model.db.create.sql', $oSql);
+        Event::run('mvc.db.model.db.create.sql', $sSqlExplain);
 
         try
         {
@@ -984,9 +973,7 @@ class Db
             $sSqlExplain.= "\n" . $oDTDBOption->get_sValue() . " \n";
         }
 
-        $oSql = new ArrDot();
-        $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSqlExplain)));
-        Event::run('mvc.db.model.db.retrieve.sql', $oSql);
+        Event::run('mvc.db.model.db.retrieve.sql', $sSqlExplain);
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
@@ -1054,9 +1041,7 @@ class Db
             $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
-        $oSql = new ArrDot();
-        $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSqlExplain)));
-        Event::run('mvc.db.model.db.count.sql', $oSql);
+        Event::run('mvc.db.model.db.count.sql', $sSqlExplain);
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
@@ -1142,9 +1127,7 @@ class Db
 
         #---
 
-        $oSql = new ArrDot();
-        $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSqlExplain)));
-        Event::run('mvc.db.model.db.update.sql', $oSql);
+        Event::run('mvc.db.model.db.update.sql', $sSqlExplain);
 
         #---
 
@@ -1295,9 +1278,7 @@ class Db
             $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
-        $oSql = new ArrDot();
-        $oSql->set('sSql', str_replace("\n", ' ', stripslashes($sSqlExplain)));
-        Event::run('mvc.db.model.db.delete.sql', $oSql);
+        Event::run('mvc.db.model.db.delete.sql', $sSqlExplain);
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
