@@ -462,7 +462,7 @@ class Db
             $sSql.= "ALTER TABLE `" . $sTable . "` ADD " . $sValue . ";\n";
         }
 
-        Event::run('mvc.db.model.db.createTable.sql', $sSql);
+        Event::run('mvc.db.model.db.createTable.sql', $sSql . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
         try
         {
@@ -551,11 +551,11 @@ class Db
                 $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP INDEX `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`;\n";
             }
 
-            $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP  `" . $sFieldName . "`;\n";
+            $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP  `" . $sFieldName . "`; \n";
 
             if (false === empty($sSql))
             {
-                Event::run('mvc.db.model.db.delete.sql', $sSql);
+                Event::run('mvc.db.model.db.delete.sql', $sSql . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
                 try
                 {
@@ -573,9 +573,9 @@ class Db
         // INSERT
         foreach ($aInsert as $sKey => $aValue)
         {
-            $sSql = "ALTER TABLE  `" . $this->sTableName  . "` ADD  `" . $sKey . "` " . $aValue . " AFTER  `id`\n";
+            $sSql = "ALTER TABLE  `" . $this->sTableName  . "` ADD  `" . $sKey . "` " . $aValue . " AFTER  `id` \n";
 
-            Event::run('mvc.db.model.db.insert.sql', $sSql);
+            Event::run('mvc.db.model.db.insert.sql', $sSql . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
             try
             {
@@ -592,9 +592,9 @@ class Db
         // UPDATE
         foreach ($this->getFieldArray() as $sKey => $sValue)
         {
-            $sSql = "ALTER TABLE `" . $this->sTableName . "` CHANGE  `" . $sKey . "`\n`" . $sKey . "` " . $sValue . ";\n";
+            $sSql = "ALTER TABLE `" . $this->sTableName . "` CHANGE  `" . $sKey . "`\n`" . $sKey . "` " . $sValue . "; \n";
 
-            Event::run('mvc.db.model.db.update.sql', $sSql);
+            Event::run('mvc.db.model.db.update.sql', $sSql . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
             try
             {
@@ -875,7 +875,7 @@ class Db
         $sSqlExplain = rtrim($sSqlExplain, ',');
         $sSqlExplain.= "); ";
 
-        Event::run('mvc.db.model.db.create.sql', $sSqlExplain);
+        Event::run('mvc.db.model.db.create.sql', $sSqlExplain . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
         try
         {
@@ -973,7 +973,7 @@ class Db
             $sSqlExplain.= "\n" . $oDTDBOption->get_sValue() . " \n";
         }
 
-        Event::run('mvc.db.model.db.retrieve.sql', $sSqlExplain);
+        Event::run('mvc.db.model.db.retrieve.sql', $sSqlExplain . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
@@ -1041,7 +1041,7 @@ class Db
             $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
-        Event::run('mvc.db.model.db.count.sql', $sSqlExplain);
+        Event::run('mvc.db.model.db.count.sql', $sSqlExplain . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
@@ -1127,7 +1127,7 @@ class Db
 
         #---
 
-        Event::run('mvc.db.model.db.update.sql', $sSqlExplain);
+        Event::run('mvc.db.model.db.update.sql', $sSqlExplain . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
         #---
 
@@ -1278,7 +1278,7 @@ class Db
             $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
-        Event::run('mvc.db.model.db.delete.sql', $sSqlExplain);
+        Event::run('mvc.db.model.db.delete.sql', $sSqlExplain . (' /* ' . __FILE__ . ', ' . __LINE__ . ' */ ') . "\n");
 
         $oStmt = $this->oDbPDO->prepare($sSql);
 
