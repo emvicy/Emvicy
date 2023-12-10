@@ -1,11 +1,10 @@
 <?php
 /**
  * Event.php
- *
- * @package Emvicy
+ * @package   Emvicy
  * @copyright ueffing.net
- * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
- * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
+ * @author    Guido K.B.W. Üffing <emvicy@ueffing.net>
+ * @license   GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
  */
 
 namespace MVC;
@@ -33,7 +32,7 @@ class Event
      * @return bool
      * @throws \ReflectionException
      */
-    public static function init() : bool
+    public static function init(): bool
     {
         $sEventDir = Config::get_MVC_MODULE_PRIMARY_ETC_DIR() . '/event';
 
@@ -59,16 +58,16 @@ class Event
 
     /**
      * bind multiple closures to multiple event at once via config array
-     * @see /modules/{module}/etc/event/
+     * @see      /modules/{module}/etc/event/
      * @param array $aEvent
      * @return void
      * @throws \ReflectionException
      * @example  $aEvent = ['mvc.reflex.reflect.targetObject.before' => array(
-     *              function(\MVC\DataType\DTArrayObject $oDTArrayObject) { // minify css/js files
+     *                  function(\MVC\DataType\DTArrayObject $oDTArrayObject) { // minify css/js files
      *                  \MVC\Minify::init();
-     *              })];
+     *                  })];
      */
-    public static function processBindConfigStack(array $aEvent = array()) : void
+    public static function processBindConfigStack(array $aEvent = array()): void
     {
         foreach ($aEvent as $sEventName => $mData)
         {
@@ -94,22 +93,20 @@ class Event
      * @return void
      * @throws \ReflectionException
      */
-    public static function bind(string $sEvent, \Closure $oClosure, array $aDebug = array()) : void
+    public static function bind(string $sEvent, \Closure $oClosure, array $aDebug = array()): void
     {
         $sEvent = trim($sEvent);
 
-        $sDebug = Log::prepareDebug(((true === empty($aDebug)) ? debug_backtrace() : $aDebug));
+        $sDebug = Log::prepareDebug(((true === empty($aDebug))
+            ? debug_backtrace()
+            : $aDebug));
 
         if (!isset (self::$aEvent[$sEvent]))
         {
             self::$aEvent[$sEvent] = array();
         }
 
-        Log::write(
-            'BIND (' . $sEvent . ', ' . Closure::dump($oClosure) . ')' . ' --> called in: ' . $sDebug,
-            Config::get_MVC_LOG_FILE_EVENT(),
-            false
-        );
+        Log::write('BIND (' . $sEvent . ', ' . Closure::dump($oClosure) . ')' . ' --> called in: ' . $sDebug, Config::get_MVC_LOG_FILE_EVENT(), false);
         Event::addToRegistry('BIND', $sEvent, 'BIND (' . $sEvent . ', ' . Closure::dump($oClosure) . ')' . ' --> called in: ' . $sDebug);
 
         // add listener to event
@@ -125,7 +122,7 @@ class Event
      * @return void
      * @throws \ReflectionException
      */
-    public static function listen(string $sEvent, \Closure $oClosure, array $aDebug = array()) : void
+    public static function listen(string $sEvent, \Closure $oClosure, array $aDebug = array()): void
     {
         self::bind($sEvent, $oClosure, $aDebug);
     }
@@ -136,10 +133,10 @@ class Event
      * @param string   $sDebug
      * @return void
      */
-    protected static function addListenerToEvent(string $sEvent, \Closure $oClosure, string $sDebug = '') : void
+    protected static function addListenerToEvent(string $sEvent, \Closure $oClosure, string $sDebug = ''): void
     {
         // make $sSource a unique one
-        $sDebug.= ' (' . uniqid() . ')';
+        $sDebug .= ' (' . uniqid() . ')';
         $sSource = serialize($sDebug);
         self::$aEvent[$sEvent][$sSource] = $oClosure;
     }
@@ -150,7 +147,7 @@ class Event
      * @return bool
      * @throws \ReflectionException
      */
-    public static function run(string $sEvent = '', mixed $mPackage = null) : bool
+    public static function run(string $sEvent = '', mixed $mPackage = null): bool
     {
         if (null === $mPackage)
         {
@@ -164,17 +161,6 @@ class Event
 
         if (true === Config::get_MVC_EVENT_ENABLE_WILDCARD())
         {
-            #------------
-            # run explicitly wildcard listener `*`; "RUN+"
-
-            if (true === isset(self::$aEvent['*']))
-            {
-                $sPreLogWildCard = ' (* [' . $sEvent . ']) --> called in: ' . $sDebug;
-                Event::addToRegistry('RUN', $sEvent, $sPreLogWildCard);
-                self::execute(self::$aEvent['*'], $mPackage, 'RUN+', $sPreLogWildCard, '*', $sEvent, $sDebug);
-                $bReturn = true;
-            }
-
             #------------
             # run any possible wildcard listeners; "RUN+"
 
@@ -219,31 +205,25 @@ class Event
      * @param string $sEvent
      * @return array
      */
-    protected static function getWildcardListenersOnEvent(string $sEvent = '') : array
+    protected static function getWildcardListenersOnEvent(string $sEvent = ''): array
     {
-        return array_filter(
-            array_filter(array_map(function($sValue){
+        $aListenerWithPlaceholder = array_map(
+            'trim',
+            preg_grep('/\*/', array_keys(self::$aEvent))
+        );
 
-                if (true === str_ends_with($sValue, '*')) // reduce to listeners with an * at the end
-                {
-                    return $sValue;
-                }
+        $aEventMatching = array_filter(
+            $aListenerWithPlaceholder,
+            function($sListenerWithPlaceholder) use ($sEvent) {
+                $sPattern = str_replace('*', '([a-zA-Z0-9_\.]*)', $sListenerWithPlaceholder);
+                preg_match('/^' . $sPattern . '/i', $sEvent, $aMatch);
+                $sMatch = current($aMatch);
 
-                return '';
-            }, array_map(
-                'trim',
-                preg_grep('/\*/', array_keys(self::$aEvent)) // get all listeners containing an *
-            ))), callback: function($sValue) use ($sEvent){
-                $sValue = str_replace('*', '', $sValue); // remove *
-
-                if (true === str_starts_with($sEvent, $sValue))
-                {
-                    return $sValue;
-                }
-
-                return '';
+                return (false === empty($sMatch) && $sMatch === $sEvent);
             }
         );
+
+        return $aEventMatching;
     }
 
     /**
@@ -257,7 +237,7 @@ class Event
      * @return void
      * @throws \ReflectionException
      */
-    protected static function execute(array $aBonded = array(), $mRunPackage = null, string $sRunType = '', string $sPreLog = '', string $sEvent = '', string $sEventOrigin = '', string $sCalledIn = '') : void
+    protected static function execute(array $aBonded = array(), $mRunPackage = null, string $sRunType = '', string $sPreLog = '', string $sEvent = '', string $sEventOrigin = '', string $sCalledIn = ''): void
     {
         foreach ($aBonded as $sKey => $sCallback)
         {
@@ -265,11 +245,7 @@ class Event
             if (true === filter_var(Closure::is($sCallback), FILTER_VALIDATE_BOOLEAN))
             {
                 $sMessage = $sRunType . $sPreLog . ' --> bonded by `' . unserialize($sKey) . ', try to run its Closure: ' . Closure::toString($sCallback);
-                Log::write(
-                    $sMessage,
-                    Config::get_MVC_LOG_FILE_EVENT(),
-                    false
-                );
+                Log::write($sMessage, Config::get_MVC_LOG_FILE_EVENT(), false);
 
                 $oDTEventContext = DTEventContext::create()
                     ->set_sEvent($sEvent)
@@ -278,21 +254,16 @@ class Event
                     ->set_aBonded($aBonded)
                     ->set_sBondedBy($sKey)
                     ->set_sCalledIn($sCalledIn)
-                    ->set_oCallback($sCallback) /** @info get closure alternative way: Event::$aEvent[$oDTEventContext->get_sEvent()][$oDTEventContext->get_sBondedBy()] */
+                    ->set_oCallback($sCallback)/** @info get closure alternative way: Event::$aEvent[$oDTEventContext->get_sEvent()][$oDTEventContext->get_sBondedBy()] */
                     ->set_sCallbackDumped(Closure::dump($sCallback))
-                    ->set_sMessage($sMessage)
-                ;
+                    ->set_sMessage($sMessage);
 
                 call_user_func($sCallback, $mRunPackage, $oDTEventContext);
 
                 // error occurred
                 if (false === $mRunPackage)
                 {
-                    Log::write(
-                        "ERROR\t" . $sRunType . $sPreLog . ' *** Closure could not be run: ' . serialize($sCallback),
-                        Config::get_MVC_LOG_FILE_ERROR(),
-                        false
-                    );
+                    Log::write("ERROR\t" . $sRunType . $sPreLog . ' *** Closure could not be run: ' . serialize($sCallback), Config::get_MVC_LOG_FILE_ERROR(), false);
                 }
             }
         }
@@ -305,7 +276,7 @@ class Event
      * @return bool
      * @throws \ReflectionException
      */
-    public static function delete(string $sEvent = '') : bool
+    public static function delete(string $sEvent = ''): bool
     {
         $sDebug = Log::prepareDebug(debug_backtrace());
 
@@ -315,11 +286,7 @@ class Event
             Event::addToRegistry('UNBIND', $sEvent, 'UNBIND: All Events deleted --> called in: ' . $sDebug);
 
             self::$aEvent = array();
-            Log::write(
-                'UNBIND: All Events deleted --> called in: ' . $sDebug,
-                Config::get_MVC_LOG_FILE_EVENT(),
-                false
-            );
+            Log::write('UNBIND: All Events deleted --> called in: ' . $sDebug, Config::get_MVC_LOG_FILE_EVENT(), false);
 
             return true;
         }
@@ -333,27 +300,23 @@ class Event
         }
 
         Event::addToRegistry('UNBIND', $sEvent, 'UNBIND: Event `' . $sEvent . '` deleted --> called in: ' . $sDebug);
-        self::$aEvent[$sEvent] = NULL;
+        self::$aEvent[$sEvent] = null;
         unset(self::$aEvent[$sEvent]);
 
-        Log::write(
-            'UNBIND: Event `' . $sEvent . '` deleted --> called in: ' . $sDebug,
-            Config::get_MVC_LOG_FILE_EVENT(),
-            false
-        );
+        Log::write('UNBIND: Event `' . $sEvent . '` deleted --> called in: ' . $sDebug, Config::get_MVC_LOG_FILE_EVENT(), false);
 
         return true;
     }
 
     /**
      * adds a key/value pair to registry
-     * @param string $sType BIND | RUN
+     * @param string $sType  BIND | RUN
      * @param string $sEvent event
      * @param string $sValue closure (if type BIND) | listener (if type RUN)
      * @return void
      * @throws \ReflectionException
      */
-    public static function addToRegistry(string $sType = '', string $sEvent = '', string $sValue = '') : void
+    public static function addToRegistry(string $sType = '', string $sEvent = '', string $sValue = ''): void
     {
         $aMvcEvent = Config::get_MVC_EVENT();
         $aMvcEvent[$sType][$sEvent][] = $sValue;
@@ -365,14 +328,14 @@ class Event
      * @param string $sEvent
      * @return array
      */
-    public static function getBonded(string $sEvent = '') : array
+    public static function getBonded(string $sEvent = ''): array
     {
         if (true === empty($sEvent))
         {
             return self::$aEvent;
         }
 
-        return (array) get(self::$aEvent[$sEvent], array());
+        return (array)get(self::$aEvent[$sEvent], array());
     }
 
     /**
@@ -380,7 +343,7 @@ class Event
      * @param string $sEvent
      * @return array
      */
-    public static function getListeners(string $sEvent = '') : array
+    public static function getListeners(string $sEvent = ''): array
     {
         return self::getBonded($sEvent);
     }
