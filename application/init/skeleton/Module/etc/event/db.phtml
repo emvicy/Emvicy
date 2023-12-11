@@ -19,9 +19,12 @@
         /*
          * set stampChange to current datetime
          */
-        function(\MVC\ArrDot $oSetWhere) {
-            /** @var \MVC\DataType\DTDBSet $oDTDBSet */
-            foreach ($oSetWhere->get('aDTDBSet') as $oDTDBSet) {if ('stampChange' === $oDTDBSet->get_sKey()) { $oDTDBSet->set_sValue(date('Y-m-d H:i:s')); }}
+        function(\MVC\DataType\DTValue $oDTValue) {
+            /** @var \MVC\DataType\DTDBSet[] $aDTDBSet */
+            $aDTDBSet = $oDTValue->get_mValue()['aDTDBSet'];
+            /** @var \MVC\DataType\DTDBWhere[] $aDTDBWhere */
+            $aDTDBWhere = $oDTValue->get_mValue()['aDTDBWhere'];
+            foreach ($aDTDBSet as $oDTDBSet) {if ('stampChange' === $oDTDBSet->get_sKey()) { $oDTDBSet->set_sValue(date('Y-m-d H:i:s')); }}
         },
     ],
     'mvc.db.model.db.construct.saveCache' => [
