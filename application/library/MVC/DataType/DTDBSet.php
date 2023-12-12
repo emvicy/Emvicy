@@ -1,5 +1,5 @@
 <?php
-# 2023-12-03 07:09:13
+# 2023-12-12 09:22:36
 
 /**
  * @name $MVCDataType
@@ -13,7 +13,7 @@ class DTDBSet
 {
 	use TraitDataType;
 
-	public const DTHASH = 'df909498e0dc8208a9308e1d80e67bb0';
+	public const DTHASH = 'c470e8443ee30f9270d5e2575132a1da';
 
 	/**
 	 * @required true
@@ -23,7 +23,7 @@ class DTDBSet
 
 	/**
 	 * @required true
-	 * @var string
+	 * @var mixed
 	 */
 	protected $sValue;
 
@@ -38,7 +38,7 @@ class DTDBSet
 		$aData = $oDTValue->get_mValue();
 
 		$this->sKey = '';
-		$this->sValue = '';
+		$this->sValue = null;
 
 		foreach ($aData as $sKey => $mValue)
 		{
@@ -81,14 +81,14 @@ class DTDBSet
 	}
 
 	/**
-	 * @param string $mValue 
+	 * @param mixed $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_sValue(string $mValue)
+	public function set_sValue(mixed $mValue)
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
-		$this->sValue = (string) $oDTValue->get_mValue();
+		$this->sValue = $oDTValue->get_mValue();
 
 		return $this;
 	}
@@ -105,10 +105,10 @@ class DTDBSet
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 * @throws \ReflectionException
 	 */
-	public function get_sValue() : string
+	public function get_sValue()
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->sValue); 
 

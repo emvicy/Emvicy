@@ -13,6 +13,7 @@
  */
 namespace MVC\DB\Model;
 
+use MVC\Config;
 use MVC\DataType\DTDBSet;
 use MVC\DataType\DTDBWhere;
 use MVC\DataType\DTValue;
@@ -1079,6 +1080,17 @@ class Db
     }
 
     /**
+     * @param string $sKey
+     * @return bool
+     */
+    protected function fieldIsForeignKey(string $sKey = '') : bool
+    {
+        $mResult = get($this->aForeign[$sKey]);
+
+        return (!is_null($mResult)) ? true : false;
+    }
+
+    /**
      * @param \MVC\DataType\DTDBSet[] $aDTKeyValue
      * @param \MVC\DataType\DTDBWhere[] $aDTDBWhere
      * @return bool
@@ -1092,6 +1104,16 @@ class Db
         }
 
         #---
+
+        /** @var \MVC\DataType\DTDBSet $oDTDBSet */
+        foreach ($aDTDBSet as $oDTDBSet)
+        {
+            // if field is a foreign key and its value is 0, set it to null
+            if (true === $this->fieldIsForeignKey($oDTDBSet->get_sKey()) && 0 == $oDTDBSet->get_sValue())
+            {
+                $oDTDBSet->set_sValue(null);
+            }
+        }
 
         $oDTValue = DTValue::create()->set_mValue(array('aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere));
         Event::run('mvc.db.model.db.update.before', $oDTValue);
@@ -1109,7 +1131,8 @@ class Db
         foreach ($aDTDBSet as $oDTDBSet)
         {
             $sSql.= '`' . $oDTDBSet->get_sKey() . '` = :' . $oDTDBSet->get_sKey() . ",";
-            $sSqlExplain.= '`' . $oDTDBSet->get_sKey() . '` = ' . "'" . $oDTDBSet->get_sValue() . "',";
+            $sSqlExplain.= '`' . $oDTDBSet->get_sKey() . '` = ';
+            $sSqlExplain.= (null === $oDTDBSet->get_sValue()) ? 'NULL,' : "'" . $oDTDBSet->get_sValue() . "',";
         }
 
         $sSql = substr($sSql, 0,-1) . "\n";
