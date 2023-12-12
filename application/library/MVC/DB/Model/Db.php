@@ -1080,14 +1080,26 @@ class Db
     }
 
     /**
-     * @param string $sKey
+     * @param string $sField
      * @return bool
      */
-    protected function fieldIsForeignKey(string $sKey = '') : bool
+    protected function fieldIsForeignKey(string $sField = '') : bool
     {
-        $mResult = get($this->aForeign[$sKey]);
+        $mResult = get($this->aForeign[$sField]);
 
         return (!is_null($mResult)) ? true : false;
+    }
+
+    /**
+     * @param string $sField
+     * @return bool
+     * @throws \ReflectionException
+     */
+    protected function fieldCanBeNull(string $sField = '') : bool
+    {
+        $sYesNo = strtolower(get($this->getFieldInfo($sField)['Null'], '')); # yes|no
+
+        return ('yes' === $sYesNo) ? true : false;
     }
 
     /**
@@ -1105,15 +1117,16 @@ class Db
 
         #---
 
-        /** @var \MVC\DataType\DTDBSet $oDTDBSet */
-        foreach ($aDTDBSet as $oDTDBSet)
-        {
-            // if field is a foreign key and its value is 0, set it to null
-            if (true === $this->fieldIsForeignKey($oDTDBSet->get_sKey()) && 0 == $oDTDBSet->get_sValue())
-            {
-                $oDTDBSet->set_sValue(null);
-            }
-        }
+        array_map(
+            /** @var \MVC\DataType\DTDBSet $oDTDBSet */
+            function($oDTDBSet){
+                // if field is a foreign key and its value is 0, set it to null
+                if (true === $this->fieldIsForeignKey($oDTDBSet->get_sKey()) && 0 == $oDTDBSet->get_sValue())
+                {
+                    $oDTDBSet->set_sValue(null);
+                }
+            }, $aDTDBSet
+        );
 
         $oDTValue = DTValue::create()->set_mValue(array('aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere));
         Event::run('mvc.db.model.db.update.before', $oDTValue);
