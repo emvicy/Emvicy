@@ -982,11 +982,11 @@ class DataType
         $sReturnType = trim(preg_replace("/[^[:alnum:][:space:]_\\\]/ui", ' ', $oProperty->get_var()));
 
         $sContent = '';
-        $sContent.= "\t/**\r\n" . "\t * @return " . $oProperty->get_var() . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */\r\n";
+        $sContent.= "\t/**\r\n" . "\t * @return " . $oProperty->get_var() . ((false === $oProperty->get_forceCasting()) ? '|null' : '') . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */\r\n";
         $sContent.= "\tpublic function get_" . $oProperty->get_key() . '()';
 
         (($sReturnType === $oProperty->get_var()) && ($sVar !== 'mixed'))
-            ? $sContent.= ' : ' . $sVar
+            ? $sContent.= ' : ' . ((false === $oProperty->get_forceCasting()) ? '?' : '') . $sVar
             : false;
 
         $sContent.= "\r\n";

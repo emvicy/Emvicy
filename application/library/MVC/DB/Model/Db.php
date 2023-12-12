@@ -334,7 +334,7 @@ class Db
                 'key' => $sKey,
                 'var' => $aValue['_php'],
                 'required' => true,
-                'forceCasting' => true,
+                'forceCasting' => ((false === $this->fieldIsForeignKey($sKey)) ? true : false),
             );
             (true === (('yes' === strtolower(get($aValue['Null']))) ? true : false)) ? $aSetTmp['value'] = 'null' : false;
             $aDTConfig['class'][0]['property'][] = $aSetTmp;
@@ -818,6 +818,21 @@ class Db
         {
             return $oTableDataType;
         }
+
+        // if field is a foreign key and its value is 0, set it to null
+        $aTableDataType = $oTableDataType->getPropertyArray();
+        array_map(
+            function($sValue) use(&$aTableDataType){
+                $sKey = key($aTableDataType);
+                if (true === $this->fieldIsForeignKey($sKey) && 0 == $sValue)
+                {
+                    $aTableDataType[$sKey] = null;
+                }
+                next($aTableDataType);
+            }, $aTableDataType
+        );
+        $sTableDataType = get_class($oTableDataType);
+        $oTableDataType = $sTableDataType::create($aTableDataType);
 
         Event::run('mvc.db.model.db.create.before', $oTableDataType);
 
