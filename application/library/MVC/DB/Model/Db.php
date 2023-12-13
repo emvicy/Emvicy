@@ -230,7 +230,7 @@ class Db
         $this->aForeign[$oDtDbForeign->get_sForeignKey()] = $oDtDbForeign;
 
         // already exists
-        if (false !== $this->getFieldInfo($oDtDbForeign->get_sForeignKey()))
+        if (false === empty($this->getFieldInfo($oDtDbForeign->get_sForeignKey())))
         {
             return false;
         }
@@ -532,7 +532,7 @@ class Db
 
         Cache::saveCache($sCacheSyncKey, $sCacheSyncValue);
 
-        $aTableNoForeignKeys = array_diff(array_keys($this->getFieldInfo()), array_keys($this->aForeign));
+        $aTableNoForeignKeys = array_diff(array_keys($this->getFieldInfo()), array_filter(array_keys($this->aForeign)));
         $aTableFieldDef = array_keys(get($this->aFieldArrayComplete, []));
 
         // Delete
@@ -644,17 +644,20 @@ class Db
 
     /**
      * @param string $sFieldName
-     * @param bool   $bAvoidReserved
-     * @return array
+     * @param bool $bAvoidReserved
+     * @return array|mixed
      * @throws \ReflectionException
      */
-    public function getFieldInfo(string $sFieldName = '', bool $bAvoidReserved = true) : array
+    public function getFieldInfo(string $sFieldName = '', bool $bAvoidReserved = true)
     {
         $aResult = array();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
+        ('' !== $sFieldName) ? $sSql.= " where Field =:sFieldName" : false;
         $oStmt = $this->oDbPDO->prepare($sSql);
+        ('' !== $sFieldName) ? $oStmt->bindValue(':sFieldName', $sFieldName, \PDO::PARAM_STR) : false;
         $oStmt->execute();
         $aFieldName = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
+
         (false === $aFieldName) ? $aFieldName = [] : false;
 
         foreach ($aFieldName as $aValue)
@@ -667,16 +670,9 @@ class Db
             $aResult[$aValue['Field']] = $aValue;
         }
 
-        // add comment from foreigns
-        if (!empty(get($this->aForeign[$sFieldName])))
+        if (empty($aResult))
         {
-            /** @var \MVC\DB\DataType\DB\Foreign $oDTForeign */
-            $oDTForeign = get($this->aForeign[$sFieldName]);
-
-            if (!empty($oDTForeign->get_sComment()))
-            {
-                $aResult[$sFieldName]['Comment'] = $oDTForeign->get_sComment();
-            }
+            return array();
         }
 
         // add PHP Type equivalents
@@ -710,7 +706,19 @@ class Db
             }
         }
 
-        if (false === empty($sFieldName) && false === empty(get($aResult[$sFieldName])))
+        // add comment from foreigns
+        if (!empty(get($this->aForeign[$sFieldName])))
+        {
+            /** @var \MVC\DB\DataType\DB\Foreign $oDTForeign */
+            $oDTForeign = get($this->aForeign[$sFieldName]);
+
+            if (!empty($oDTForeign->get_sComment()))
+            {
+                $aResult[$sFieldName]['Comment'] = $oDTForeign->get_sComment();
+            }
+        }
+
+        if (true === isset($aResult[$sFieldName]) && false === empty($aResult[$sFieldName]))
         {
             return $aResult[$sFieldName];
         }
