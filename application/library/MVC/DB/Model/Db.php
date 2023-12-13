@@ -334,8 +334,9 @@ class Db
                 'key' => $sKey,
                 'var' => $aValue['_php'],
                 'required' => true,
-                'forceCasting' => ((false === $this->fieldIsForeignKey($sKey)) ? true : false),
+                'forceCasting' => ((true === $this->fieldIsForeignKey($sKey) || true === $this->fieldCanBeNull($sKey)) ? false : true),
             );
+
             (true === (('yes' === strtolower(get($aValue['Null']))) ? true : false)) ? $aSetTmp['value'] = 'null' : false;
             $aDTConfig['class'][0]['property'][] = $aSetTmp;
         }
@@ -364,8 +365,10 @@ class Db
     }
 
     /**
+     * @deprecated
      * @param array $aField
-     * @return bool equal
+     * @return bool
+     * @throws \ReflectionException
      */
     protected function bFieldsAreEqual(array $aField = array()) : bool
     {
