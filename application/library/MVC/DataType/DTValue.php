@@ -7,6 +7,7 @@ namespace MVC\DataType;
 
 use MVC\MVCTrait\TraitDataType;
 
+#[\Attribute]
 class DTValue
 {
 	use TraitDataType;

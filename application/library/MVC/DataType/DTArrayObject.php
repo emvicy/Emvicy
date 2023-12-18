@@ -13,6 +13,7 @@
 namespace MVC\DataType;
 
 
+#[\Attribute]
 class DTArrayObject
 {
     const DTHASH = '75575fbb25ada598d5a34e03168fbfa7';

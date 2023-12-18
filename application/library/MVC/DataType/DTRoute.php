@@ -14,6 +14,7 @@ namespace MVC\DataType;
 
 use MVC\MVCTrait\TraitDataType;
 
+#[\Attribute]
 class DTRoute
 {
 	use TraitDataType;

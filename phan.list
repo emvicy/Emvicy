@@ -5,6 +5,7 @@ application/library/MVC/Info.php
 application/library/MVC/Closure.php
 application/library/MVC/Error.php
 application/library/MVC/Debug.php
+application/library/MVC/Attr.php
 application/library/MVC/Event.php
 application/library/MVC/Application.php
 application/library/MVC/Lock.php
@@ -45,6 +46,7 @@ application/library/MVC/Request.php
 application/library/MVC/Log.php
 application/library/MVC/Convert.php
 application/library/MVC/MVCTrait/TraitDataType.php
+application/library/MVC/MVCTrait/TraitAttribute.php
 application/library/MVC/Minify.php
 application/library/MVC/Registry.php
 application/library/MVC/Reflex.php

@@ -22,6 +22,7 @@ use MVC\Convert;
    * info($oDTContainer->get_Message()->get(E_USER_NOTICE));
  */
 
+#[\Attribute]
 class DTContainer
 {
     /**

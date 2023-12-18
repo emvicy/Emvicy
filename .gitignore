@@ -3,6 +3,7 @@
 .bak
 .trash
 .env
+.phpstorm.meta.php
 application/.composer
 application/cache/*
 application/log/*
