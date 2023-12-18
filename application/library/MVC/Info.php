@@ -1,17 +1,22 @@
 <?php
-///**
-// * Info.php
-// *
-// * @package Emvicy
-// * @copyright ueffing.net
-// * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
-// * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
-// */
-//
-//namespace MVC;
-//
-//class Info
-//{
+
+/**
+ * Info.php
+ *
+ * @package Emvicy
+ * @copyright ueffing.net
+ * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
+ * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
+ */
+
+namespace MVC;
+
+/**
+ * @experimental
+ */
+#[experimental]
+class Info
+{
 //    /**
 //     * @var array
 //     */
@@ -29,4 +34,4 @@
 //    {
 //        return get(self::$aData[$sName]);
 //    }
-//}
+}

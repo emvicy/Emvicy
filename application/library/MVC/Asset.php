@@ -14,8 +14,9 @@ namespace MVC;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Application
+ * @experimental
  */
+#[experimental]
 class Asset extends ArrDot
 {
     /**

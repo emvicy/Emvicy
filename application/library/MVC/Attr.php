@@ -2,6 +2,10 @@
 
 namespace MVC;
 
+/**
+ * @experimental
+ */
+#[experimental]
 class Attr
 {
     /**

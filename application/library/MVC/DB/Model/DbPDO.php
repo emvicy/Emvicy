@@ -52,6 +52,7 @@ class DbPDO extends \PDO
      * @return void
      * @throws \ReflectionException
      */
+    #[\ReturnTypeWillChange]
     public function query(string $sSql, ?int $iFetchMode = null, ...$fetch_mode_args)
     {
         Event::run('mvc.db.model.dbpdo.query.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");

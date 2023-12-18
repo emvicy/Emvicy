@@ -12,6 +12,10 @@ namespace MVC\MVCTrait;
 use MVC\Attr;
 use MVC\Error;
 
+/**
+ * @experimental
+ */
+#[experimental]
 trait TraitAttribute
 {
     public function trait_getAttributeClass(?string $sClassName = null, ?int $iFlag = null, ?string $sScope = '')
