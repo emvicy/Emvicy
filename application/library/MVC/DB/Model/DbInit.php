@@ -13,6 +13,7 @@ namespace MVC\DB\Model;
 use MVC\Config;
 use MVC\Debug;
 use MVC\Error;
+use MVC\Event;
 use MVC\MVCTrait\TraitDataType;
 
 class DbInit
@@ -58,6 +59,8 @@ class DbInit
                 new $sClass($aConfig)
             );
         }
+
+        Event::run('mvc.db.model.dbinit.construct.after');
     }
 
     /**
