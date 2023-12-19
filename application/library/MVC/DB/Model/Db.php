@@ -160,8 +160,6 @@ class Db
         $this->sCacheKeyTableName = __CLASS__ . '.' . $this->sTableName;
         $this->sCacheValueTableName = func_get_args();
 
-        Log::write(__METHOD__, $this->sTableName . '.log');
-
         // init DB
         $sRegistryKey = self::createTableName(__CLASS__) . '.DbPDO';
 
