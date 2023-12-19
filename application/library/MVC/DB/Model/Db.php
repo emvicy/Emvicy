@@ -150,7 +150,7 @@ class Db
 
         $oDTValue = DTValue::create()->set_mValue(array('sTableName' => $this->sTableName, 'aFields' => $aFields, 'aDbConfig' => $aDbConfig, 'aAlterTable' => $aAlterTable));
         Event::run('mvc.db.model.db.construct.before', $oDTValue);
-        $this->sTableName = $oDTValue->get_mValue()['sTable'];
+        $this->sTableName = $oDTValue->get_mValue()['sTableName'];
         $aFields = $oDTValue->get_mValue()['aFields'];
         $aDbConfig = $oDTValue->get_mValue()['aDbConfig'];
         $aAlterTable = $oDTValue->get_mValue()['aAlterTable'];
