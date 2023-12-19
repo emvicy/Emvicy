@@ -46,10 +46,10 @@ class DbPDO extends \PDO
     }
 
     /**
-     * @param string $sSql
-     * @param int|null $fetchMode
-     * @param ...$fetch_mode_args
-     * @return void
+     * @param string   $sSql
+     * @param int|null $iFetchMode
+     * @param          ...$fetch_mode_args
+     * @return false|\PDOStatement
      * @throws \ReflectionException
      */
     #[\ReturnTypeWillChange]

@@ -146,9 +146,17 @@ class Db
      */
     public function __construct ($aFields = array(), $aDbConfig = array(), $aAlterTable = array())
     {
+        $this->sTableName = self::createTableName(get_class($this));
+
+        $oDTValue = DTValue::create()->set_mValue(array('sTableName' => $this->sTableName, 'aFields' => $aFields, 'aDbConfig' => $aDbConfig, 'aAlterTable' => $aAlterTable));
+        Event::run('mvc.db.model.db.construct.before', $oDTValue);
+        $this->sTableName = $oDTValue->get_mValue()['sTable'];
+        $aFields = $oDTValue->get_mValue()['aFields'];
+        $aDbConfig = $oDTValue->get_mValue()['aDbConfig'];
+        $aAlterTable = $oDTValue->get_mValue()['aAlterTable'];
+
         $this->aFieldArrayComplete = $aFields;
         $this->aConfig = $aDbConfig;
-        $this->sTableName = self::createTableName(get_class($this));
         $this->sCacheKeyTableName = __CLASS__ . '.' . $this->sTableName;
         $this->sCacheValueTableName = func_get_args();
 
