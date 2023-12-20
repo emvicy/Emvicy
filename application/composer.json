@@ -1,6 +1,6 @@
 {
   "require": {
-    "php": ">=8.0",
+    "php": ">=8.2",
     "ext-ctype": "*",
     "ext-curl": "*",
     "ext-date": "*",
@@ -20,7 +20,7 @@
     "ext-spl": "*",
     "ext-zip": "*",
     "gueff/cachix": "1.0.*",
-    "smarty/smarty": "4.3.*",
+    "smarty/smarty": "4.*",
     "mrclay/jsmin-php": "2.4.*",
     "ezyang/htmlpurifier": "v4.17.*",
     "erusev/parsedown":"1.7.*",
