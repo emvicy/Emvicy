@@ -1160,7 +1160,7 @@ class Db
             }, $aDTDBSet
         );
 
-        $oDTValue = DTValue::create()->set_mValue(array('aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere));
+        $oDTValue = DTValue::create()->set_mValue(array('oDb' => $this, 'aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere));
         Event::run('mvc.db.model.db.update.before', $oDTValue);
         /** @var \MVC\DataType\DTDBSet[] $aDTDBSet */
         $aDTDBSet = $oDTValue->get_mValue()['aDTDBSet'];
@@ -1225,7 +1225,7 @@ class Db
         catch (\Exception $oException)
         {
             \MVC\Error::exception($oException);
-            $oDTValue = DTValue::create()->set_mValue(array('aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere, 'oException' => $oException));
+            $oDTValue = DTValue::create()->set_mValue(array('oDb' => $this, 'aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere, 'oException' => $oException));
             Event::run('mvc.db.model.db.update.fail', $oDTValue);
 
             return false;
