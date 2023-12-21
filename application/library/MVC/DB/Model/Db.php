@@ -1225,8 +1225,13 @@ class Db
         catch (\Exception $oException)
         {
             \MVC\Error::exception($oException);
+            $oDTValue = DTValue::create()->set_mValue(array('aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere, 'oException' => $oException));
+            Event::run('mvc.db.model.db.update.fail', $oDTValue);
+
             return false;
         }
+
+        Event::run('mvc.db.model.db.update.success', $oDTValue);
 
         return true;
     }
@@ -1258,6 +1263,14 @@ class Db
             $aDTDBSet,
             $aDTDBWhere
         );
+        $oDTValue = DTValue::create()->set_mValue(array('aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere, 'bUpdate' => $bUpdate));
+
+        Event::run('mvc.db.model.db.updateTupel.after', $oDTValue);
+
+        (true === $bUpdate)
+            ? Event::run('mvc.db.model.db.updateTupel.success', $oDTValue)
+            : Event::run('mvc.db.model.db.updateTupel.fail', $oDTValue)
+        ;
 
         return $bUpdate;
     }
