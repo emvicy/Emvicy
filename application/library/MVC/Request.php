@@ -132,14 +132,16 @@ class Request
         );
     }
 
-    #[NoReturn]
     /**
      * redirects to given Location URI
      * @param string $sLocation
+     * @param bool   $bReplace
+     * @param int    $iResponseCode
      * @return void
      * @throws \ReflectionException
      */
-    public static function redirect(string $sLocation = '') : void
+    #[NoReturn]
+    public static function redirect(string $sLocation = '', bool $bReplace = true, int $iResponseCode = 0) : void
     {
         // source
         $aBacktrace = debug_backtrace();
@@ -187,7 +189,7 @@ class Request
                 ->set_sKey('aDebug')
                 ->set_sValue(Debug::prepareBacktraceArray((debug_backtrace()[0] ?? array())))));
 
-        header('Location: ' . $sLocation);
+        header('Location: ' . $sLocation, $bReplace, $iResponseCode);
         exit ();
     }
 
