@@ -1296,4 +1296,28 @@ class Config
         Registry::set('MVC_PHP_SERVER', $sLogFileName);
         $GLOBALS['aConfig']['MVC_PHP_SERVER'] = $sLogFileName;
     }
+
+    /**
+     * @return string
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_FILE_CRON() : string
+    {
+        if (Registry::isRegistered('MVC_LOG_FILE_CRON'))
+        {
+            return (string) Registry::get('MVC_LOG_FILE_CRON');
+        }
+
+        return '';
+    }
+
+    /**
+     * @param string $sLogFileName
+     * @return void
+     */
+    public static function set_MVC_LOG_FILE_CRON(string $sLogFileName = '') : void
+    {
+        Registry::set('MVC_LOG_FILE_CRON', $sLogFileName);
+        $GLOBALS['aConfig']['MVC_LOG_FILE_CRON'] = $sLogFileName;
+    }
 }

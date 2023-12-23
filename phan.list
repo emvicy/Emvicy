@@ -40,6 +40,7 @@ application/library/MVC/DataType/DTConstant.php
 application/library/MVC/DataType/DTProperty.php
 application/library/MVC/DataType/DTConfig.php
 application/library/MVC/DataType/DTValue.php
+application/library/MVC/DataType/DTCronTask.php
 application/library/MVC/Cache.php
 application/library/MVC/View.php
 application/library/MVC/Request.php

@@ -270,4 +270,23 @@ class Session
             Config::set_MVC_SESSION_ENABLE();
         }
     }
+
+    /**
+     * @param string $sSessionId
+     * @return bool success
+     * @throws \ReflectionException
+     */
+    public static function deleteSessionFile(string $sSessionId = '') : bool
+    {
+        (true === empty($sSessionId)) ? $sSessionId = session_id() : false;
+        $sFilename = Config::get_MVC_SESSION_PATH() . '/sess_' . $sSessionId;
+
+        if (file_exists($sFilename))
+        {
+            Log::write(__FUNCTION__ . ': ' . $sFilename, Config::get_MVC_LOG_FILE_DEFAULT());
+            return unlink($sFilename);
+        }
+
+        return false;
+    }
 }
