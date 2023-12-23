@@ -154,6 +154,7 @@ application/library/MVC/DB/Model/Db.php
 application/library/MVC/Asset.php
 application/library/MVC/Session.php
 application/library/MVC/Controller.php
+application/library/MVC/Cron.php
 application/library/MVC/Strings.php
 application/library/Emvicy/Install.php
 application/library/Emvicy/Emvicy.php
