@@ -1,0 +1,54 @@
+<?php
+
+# List of Emvicy Standard Events
+# @see https://emvicy.com/1.x/events#EmvicyStandardEvents
+
+
+\MVC\Event::processBindConfigStack([
+
+    // route intervall starts
+    'mvc.routeintervall.run.before' => [
+        function(string $sCronYamlFile) {
+            \MVC\Log::write(
+                'route intervall has started (config file: `' . $sCronYamlFile . '`',
+                \MVC\Config::get_MVC_LOG_FILE_ROUTEINTERVALL()
+            );
+        },
+    ],
+    // route intervall ...
+    'mvc.routeintervall.intervall.after' => [
+        function(\MVC\DataType\DTCronTask $oDTCronTask) {
+            \MVC\Log::write(
+                $oDTCronTask->get_iPid() . "\t" . $oDTCronTask->get_sRoute() . "\t" . $oDTCronTask->get_iIntervall(),
+                \MVC\Config::get_MVC_LOG_FILE_ROUTEINTERVALL()
+            );
+        },
+    ],
+    // route intervall ends
+    'mvc.routeintervall.intervall.end' => [
+        function(string $sCronYamlFile) {
+            \MVC\Log::write(
+                'route intervall has ended (config file: `' . $sCronYamlFile . '`',
+                \MVC\Config::get_MVC_LOG_FILE_ROUTEINTERVALL()
+            );
+        },
+    ],
+    /**
+     * @warning Be careful if listening to this; it would mean a *huge* amount of continuous data flow
+     *          strictly recommended for development environment only
+     */
+//    'mvc.routeintervall.intervall.before' => [
+//        function(\MVC\DataType\DTCronTask $oDTCronTask) {
+//            \MVC\Log::write($oDTCronTask->getPropertyJson(), \MVC\Config::get_MVC_LOG_FILE_ROUTEINTERVALL());
+//        },
+//    ],
+    /**
+     * @warning Be careful if listening to this; it would mean a *huge* amount of continuous data flow
+     *          strictly recommended for development environment only
+     */
+//    'mvc.routeintervall.intervall.skip' => [
+//        function(\MVC\DataType\DTCronTask $oDTCronTask) {
+//            \MVC\Log::write('Skip - ' . $oDTCronTask->getPropertyJson(), \MVC\Config::get_MVC_LOG_FILE_ROUTEINTERVALL());
+//        },
+//    ],
+]);

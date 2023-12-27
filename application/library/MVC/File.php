@@ -58,8 +58,10 @@ class File
     }
 
     /**
+     * returns mimetype of a given file
      * @param string $sFileAbsolute
      * @return string
+     * @throws \ReflectionException
      */
     public static function getMimeType(string $sFileAbsolute = '') : string
     {

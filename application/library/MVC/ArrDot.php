@@ -52,7 +52,7 @@ class ArrDot extends Dot
             }
             else
             {
-                if ($mValue == $sNeedle)
+                if ($mValue === $sNeedle)
                 {
                     return $sKeyCurrent . $mKey;
                 }

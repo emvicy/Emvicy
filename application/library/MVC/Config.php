@@ -48,6 +48,16 @@ class Config
     }
 
     /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_AUTOLOADER(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_AUTOLOADER', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_AUTOLOADER'] = $bVar;
+    }
+
+    /**
      * @return string
      * @throws \ReflectionException#
      */
@@ -810,6 +820,16 @@ class Config
     }
 
     /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_INFOTOOL_ENABLE(bool $bVar = false) : void
+    {
+        Registry::set('MVC_INFOTOOL_ENABLE', $bVar);
+        $GLOBALS['aConfig']['MVC_INFOTOOL_ENABLE'] = $bVar;
+    }
+
+    /**
      * @param string $sModule
      * @return array
      * @throws \ReflectionException
@@ -1301,11 +1321,11 @@ class Config
      * @return string
      * @throws \ReflectionException
      */
-    public static function get_MVC_LOG_FILE_CRON() : string
+    public static function get_MVC_LOG_FILE_ROUTEINTERVALL() : string
     {
-        if (Registry::isRegistered('MVC_LOG_FILE_CRON'))
+        if (Registry::isRegistered('MVC_LOG_FILE_ROUTEINTERVALL'))
         {
-            return (string) Registry::get('MVC_LOG_FILE_CRON');
+            return (string) Registry::get('MVC_LOG_FILE_ROUTEINTERVALL');
         }
 
         return '';
@@ -1315,9 +1335,9 @@ class Config
      * @param string $sLogFileName
      * @return void
      */
-    public static function set_MVC_LOG_FILE_CRON(string $sLogFileName = '') : void
+    public static function set_MVC_LOG_FILE_ROUTEINTERVALL(string $sLogFileName = '') : void
     {
-        Registry::set('MVC_LOG_FILE_CRON', $sLogFileName);
-        $GLOBALS['aConfig']['MVC_LOG_FILE_CRON'] = $sLogFileName;
+        Registry::set('MVC_LOG_FILE_ROUTEINTERVALL', $sLogFileName);
+        $GLOBALS['aConfig']['MVC_LOG_FILE_ROUTEINTERVALL'] = $sLogFileName;
     }
 }

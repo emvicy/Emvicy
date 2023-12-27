@@ -61,20 +61,20 @@
             );
         },
     ],
+
+    'mvc.db.model.*.sql' => array(
+        /*
+         * log all SQL Statements, if enabled via config
+         */
+        function(string $sSql) {
+            if (true === \MVC\Config::get_MVC_LOG_SQL())
+            {
+                \MVC\Log::write(
+                    (int) \MVC\Config::get_MVC_LOG_SQL() . ', '
+                    . \MVC\Strings::tidy($sSql),
+                    \MVC\Config::get_MVC_LOG_FILE_SQL()
+                );
+            }
+        }
+    ),
 ]);
-
-/*
- * log all SQL Statements, if enabled via config
- */
-if (true === \MVC\Config::get_MVC_LOG_SQL())
-{
-    \MVC\Event::processBindConfigStack([
-
-        'mvc.db.model.*.sql' => array(function(string $sSql) {
-            MVC\Log::write(
-                \MVC\Strings::tidy($sSql),
-                \MVC\Config::get_MVC_LOG_FILE_SQL()
-            );
-        }),
-    ]);
-}

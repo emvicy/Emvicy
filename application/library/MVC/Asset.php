@@ -26,9 +26,9 @@ class Asset extends ArrDot
 
     /**
      * @param string $sPathAbs
-     * @return self
+     * @return \MVC\ArrDot|\MVC\Asset
      */
-    public static function init(string $sPathAbs = '') : self
+    public static function init(string $sPathAbs = '')
     {
         if (null === self::$_oInstance)
         {

@@ -1,0 +1,17 @@
+
+#-------------------------------------------
+# Route Intervall config file
+#
+# list existing routes which could be
+# called from cli and specify an intervall
+# value
+# @see http://emvicy.com/1.x/route-intervall
+#
+#-------------------------------------------
+# "/my/route/":         intervall in seconds
+#-------------------------------------------
+#
+# example:
+#"/robot/expired": 60
+
+

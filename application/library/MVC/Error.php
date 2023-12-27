@@ -138,11 +138,11 @@ class Error
     }
 
     /**
-     * @param $oErrorException
+     * @param \Exception $oErrorException
      * @return void
      * @throws \ReflectionException
      */
-	public static function exception($oErrorException = null) : void
+	public static function exception(\Exception $oErrorException) : void
 	{
 		$sLogfile = Config::get_MVC_LOG_FILE_ERROR();
 		$sMsg = '';
@@ -207,7 +207,7 @@ class Error
      * @return void
      * @throws \ReflectionException
      */
-	public static function addERROR(DTArrayObject $oDTArrayObject) : void
+	protected static function addERROR(DTArrayObject $oDTArrayObject) : void
 	{
 	    // add time
         $oDTArrayObject->add_aKeyValue(
@@ -218,12 +218,17 @@ class Error
 		self::$_aError[] = $oDTArrayObject;
 	}
 
-	/**
-	 * returns error array 
+    /**
+     * @param bool $bConvertToArray
      * @return array
      */
-	public static function getERROR() : array
-	{
-		return (array) self::$_aError;
-	}
+    public static function get(bool $bConvertToArray = true)
+    {
+        if (true === $bConvertToArray)
+        {
+            return (array) Convert::objectToArray(self::$_aError);
+        }
+
+        return self::$_aError;
+    }
 }

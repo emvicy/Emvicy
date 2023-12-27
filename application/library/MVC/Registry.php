@@ -113,6 +113,7 @@ class Registry
 	}
 
     /**
+     * deletes a variable in registry
      * @param string $sIndex
      * @return bool
      */
@@ -139,8 +140,8 @@ class Registry
 	}
 	
 	/**
-	 * Returns true if the $index is a named value in the registry,
-	 * or FALSE if $index was not found in the registry.
+	 * Returns true if the $sIndex is a named value in the registry,
+	 * or FALSE if $sIndex was not found in the registry.
      * @param string $sIndex
      * @return bool
      */

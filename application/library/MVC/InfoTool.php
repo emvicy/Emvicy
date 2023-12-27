@@ -236,7 +236,7 @@ class InfoTool
         $aToolbar['aRegistry'] = Registry::getStorageArray();
         $aToolbar['sRegistry'] = self::buildMarkupListTree($aToolbar['aRegistry']);
         $aToolbar['aCache'] = self::buildMarkupListTree($this->getCaches());
-        $aToolbar['aError'] = Error::getERROR();
+        $aToolbar['aError'] = Error::get(bConvertToArray: false);
         $aToolbar['aModuleCurrentConfig'] = self::buildMarkupListTree(Config::MODULE());
 
         $fMicrotime = microtime(true);

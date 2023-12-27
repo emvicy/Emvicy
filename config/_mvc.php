@@ -131,7 +131,7 @@ MVC_APPLICATION_SETTINGS_I: {
     $aConfig['MVC_LOG_FILE_EVENT'] = $aConfig['MVC_LOG_FILE_DIR'] . 'event.log';
     $aConfig['MVC_LOG_FILE_REQUEST'] = $aConfig['MVC_LOG_FILE_DIR'] . 'request.log';
     $aConfig['MVC_LOG_FILE_SQL'] = $aConfig['MVC_LOG_FILE_DIR'] . 'sql.log';
-    $aConfig['MVC_LOG_FILE_CRON'] = $aConfig['MVC_LOG_FILE_DIR'] . 'cron.log';
+    $aConfig['MVC_LOG_FILE_ROUTEINTERVALL'] = $aConfig['MVC_LOG_FILE_DIR'] . 'route_intervall.log';
 
     // 1) make sure write access is given to the folder
     // as long as the db user is going to write and not the webserver user

@@ -26,19 +26,6 @@ class Debug
     }
 
     /**
-     * @return self|null
-     */
-    public static function init()
-    {
-        if (null === self::$_oInstance)
-        {
-            self::$_oInstance = new self();
-        }
-
-        return self::$_oInstance;
-    }
-
-    /**
      * @param mixed $mData
      * @return string
      */

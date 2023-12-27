@@ -104,6 +104,7 @@ class Minify
     }
 
     /**
+     * creates a minified CSS file
      * @param \SplFileInfo $oSplFileInfo
      * @return bool
      */

@@ -30,9 +30,9 @@ class Convert
 
             foreach ($mObject as $sKey => $mValue)
             {
-                $sFirstChar = trim(substr(trim($sKey), 0, 1));
+                $sKey = preg_replace("/[^\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}]+/u", '', $sKey);
 
-                if (('*' === $sFirstChar))
+                if (str_starts_with(trim($sKey), '*'))
                 {
                     $sKey = trim(substr(trim($sKey), 1));
                 }

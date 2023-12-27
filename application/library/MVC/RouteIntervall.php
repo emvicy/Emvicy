@@ -7,37 +7,46 @@ use Emvicy\Emvicy;
 use MVC\DataType\DTCronTask;
 use Symfony\Component\Yaml\Yaml;
 
-#[experimental]
-class Cron
+class RouteIntervall
 {
     /**
-     * @var \MVC\Cron
+     * @var \MVC\RouteIntervall
      */
     protected static $_oInstance = null;
 
     /**
      * @var string
      */
-    protected $sCronYamlFile = '';
+    protected $sIntervallYamlFile = '';
 
     /**
      * @var string
      */
-    protected $sCacheToken = 'mvccrnrn'; # mvc cron run
+    protected $sCacheToken = 'mvcrtntrvll'; # mvc route intervall
+
+    /**
+     * @var int
+     */
+    protected $iPidParent;
+
+    /**
+     * @var string
+     */
+    protected $iPidParentFile = '';
 
     /**
      * Constructor
      */
     protected function __construct(string $sCronYamlFile = '')
     {
-        $this->sCronYamlFile = $sCronYamlFile;
+        $this->sIntervallYamlFile = $sCronYamlFile;
     }
 
     /**
      * @param string $sCronYamlFile
-     * @return \MVC\Cron
+     * @return \MVC\RouteIntervall
      */
-    public static function create(string $sCronYamlFile = '') : \MVC\Cron
+    public static function create(string $sCronYamlFile = '') : \MVC\RouteIntervall
     {
         if (null === self::$_oInstance)
         {
@@ -48,88 +57,65 @@ class Cron
     }
 
     /**
-     * @param string $sCommand
-     * @return $this
-     * @throws \ReflectionException
-     */
-    public function emvicy(string $sCommand = '')
-    {
-        $sCmd = 'cd ' . Config::get_MVC_BASE_PATH() . '; ' . Config::get_MVC_BIN_PHP_BINARY() . ' emvicy.php ' . $sCommand;
-        Emvicy::shellExecute($sCmd, true);
-
-        return $this;
-    }
-
-    /**
-     * @example Cron::create()->call(function(){...});
-     *          Cron::create()->call(new ModelXy());
-     * @return $this
-     */
-    public function call()
-    {
-        return $this;
-    }
-
-    /**
-     * @return $this
-     * @throws \ReflectionException
-     */
-    public function routeIntervall()
-    {
-        $this->run('routeIntervall');
-
-        return $this;
-    }
-
-    /**
      * @return false|void
      * @throws \ReflectionException
      */
-    protected function run(string $sAction = 'routeIntervall')
+    public function run()
     {
-        if (false === file_exists($this->sCronYamlFile))
+        if (false === file_exists($this->sIntervallYamlFile))
         {
-            Error::error('file does not exist: `' . $this->sCronYamlFile . '`');
+            Error::error('file does not exist: `' . $this->sIntervallYamlFile . '`');
 
             return false;
         }
 
-        // delete caches explicitly
+        // delete related cache explicitly
         Cache::autoDeleteCache($this->sCacheToken, 0);
 
         // lock on runtime
         \MVC\Lock::create($this->sCacheToken);
 
+        Event::run('mvc.routeintervall.run.before', $this->sIntervallYamlFile);
+
+        $this->iPidParent = getmypid();
+        $this->iPidParentFile = Config::get_MVC_BASE_PATH() . '/.' . Strings::seofy(__METHOD__) . '.' . $this->iPidParent;
+        touch($this->iPidParentFile);
+        \register_shutdown_function('\MVC\RouteIntervall::shutdown');
+
         while (true)
         {
-            if (false === file_exists($this->sCronYamlFile))
+            // prevent log count exceeding
+            Log::$iCount = 0;
+
+            if (false === file_exists($this->sIntervallYamlFile))
             {
-                Error::error('file does not exist: `' . $this->sCronYamlFile . '`');
+                Error::error('file does not exist: `' . $this->sIntervallYamlFile . '`');
                 break;
             }
 
-            Log::$iCount = 0;
+            // stop further execution if pidfile does not exist anymore
+            if (false === file_exists($this->iPidParentFile))
+            {
+                break;
+            }
 
-            $sMd5OfFile = md5_file($this->sCronYamlFile);
+            $sMd5OfFile = md5_file($this->sIntervallYamlFile);
 
             // content of file has changed (or is new to this process)
             if (Cache::getCache($this->sCacheToken) !== $sMd5OfFile)
             {
-                $aCron = Yaml::parseFile($this->sCronYamlFile);
+                $aRouteIntervall = Yaml::parseFile($this->sIntervallYamlFile);
                 Cache::saveCache($this->sCacheToken, $sMd5OfFile);
             }
 
-            switch ($sAction) {
-                case 'routeIntervall':
-                    foreach ($aCron as $sRoute => $iIntervall)
-                    {
-                        $this->execute_routeIntervall(
-                            DTCronTask::create()
-                                ->set_sRoute($sRoute)
-                                ->set_iIntervall($iIntervall)
-                        );
-                    }
-                    break;
+            // iterate intervalls
+            foreach ($aRouteIntervall as $sRoute => $iIntervall)
+            {
+                $this->intervall(
+                    DTCronTask::create()
+                        ->set_sRoute($sRoute)
+                        ->set_iIntervall($iIntervall)
+                );
             }
 
             ('' !== session_id()) ? Session::deleteSessionFile(session_id()): false;
@@ -141,9 +127,9 @@ class Cron
      * @return bool
      * @throws \ReflectionException
      */
-    protected function execute_routeIntervall(DTCronTask $oDTCronTask) : bool
+    protected function intervall(DTCronTask $oDTCronTask) : bool
     {
-        Event::run('mvc.cron.executeTask.before', $oDTCronTask);
+        Event::run('mvc.routeintervall.intervall.before', $oDTCronTask);
 
         if (true === empty($oDTCronTask->get_sRoute()))
         {
@@ -172,7 +158,7 @@ class Cron
             );
             $oDTCronTask->set_iPid($iPid);
 
-            Event::run('mvc.cron.executeTask.after', $oDTCronTask);
+            Event::run('mvc.routeintervall.intervall.after', $oDTCronTask);
 
             Cache::saveCache(
                 $sCacheKey,
@@ -182,15 +168,21 @@ class Cron
         else
         {
             /** @warning Be careful if listening to this; it would mean a huge amount of continuous data flow */
-            Event::run('mvc.cron.executeTask.skip', $oDTCronTask);
+            Event::run('mvc.routeintervall.intervall.skip', $oDTCronTask);
         }
 
         return true;
     }
 
-    public function __destruct()
+    /**
+     * @return void
+     * @throws \ReflectionException
+     */
+    protected function shutdown()
     {
-        echo "\nScript executed with success" . "\n\n";
+        unlink($this->iPidParentFile);
+
+        Event::run('mvc.routeintervall.intervall.end', $this->sIntervallYamlFile);
 
         // delete caches explicitly
         Cache::autoDeleteCache($this->sCacheToken, 0);
