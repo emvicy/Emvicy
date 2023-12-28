@@ -64,6 +64,7 @@ class Strings
     }
 
     /**
+     * checks whether a string is json
      * @param string $sString
      * @return bool
      */
@@ -80,6 +81,7 @@ class Strings
     }
 
     /**
+     * checks whether a string is utf8
      * @param string $sString
      * @return bool
      */
