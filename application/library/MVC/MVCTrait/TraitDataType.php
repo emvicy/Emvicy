@@ -13,6 +13,7 @@ namespace MVC\MVCTrait;
 trait TraitDataType
 {
     /**
+     * returns the value from a DocCommentKey (such as @var) from a class property
      * @param string $sProperty
      * @param string $sDocCommentKey
      * @return string
