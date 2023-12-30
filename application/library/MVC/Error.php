@@ -95,7 +95,7 @@ class Error
         (true === empty($sFilename)) ? $sFilename = $aDebug['sFile'] : false;
         (true === empty($iLineNr)) ? $iLineNr = $aDebug['sLine'] : false;
 		$oErrorException = new \Errorexception($sMessage, (int) $iCode, (int) $iSeverity, $sFilename, (int) $iLineNr );
-		
+
 		self::exception($oErrorException);
 	}
 
@@ -138,11 +138,11 @@ class Error
     }
 
     /**
-     * @param \Exception $oErrorException
+     * @param \Error|\Exception $oErrorException
      * @return void
      * @throws \ReflectionException
      */
-	public static function exception(\Exception $oErrorException) : void
+	public static function exception(\Error|\Exception $oErrorException) : void
 	{
 		$sLogfile = Config::get_MVC_LOG_FILE_ERROR();
 		$sMsg = '';

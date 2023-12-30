@@ -112,7 +112,7 @@ create | c
         ------------------------------------------------------------------------------------------
         command:
         php emvicy.php c module:bar primary:no force:no     # creates module "Bar" as a secondary module; asks if modulename is correct
-        php emvicy.php c module:bar primary:no force:yes    # no asking - instantly creating of secondary module "Baz"
+        php emvicy.php c module:bar primary:no force:yes    # no asking - instantly creating of secondary module "Bar"
         ------------------------------------------------------------------------------------------
 
     the creation of the necessary environment config file (e.g. 'develop.php') during this module creation process
