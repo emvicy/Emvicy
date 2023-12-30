@@ -31,9 +31,9 @@
     "symfony/yaml": "v6.3.*"
   },
   "require-dev": {
-    "phpstan/phpstan": "1.10.*",
-    "phpunit/phpunit": "9.*",
-    "php-webdriver/webdriver": "1.14.*",
-    "phpunit/phpunit-selenium": "9.0.*"
+    "phpstan/phpstan": "@stable",
+    "phpunit/phpunit": "@stable",
+    "php-webdriver/webdriver": "@stable",
+    "phpunit/phpunit-selenium": "@stable"
   }
 }

@@ -11,6 +11,8 @@
  * instantiate MyMVCInstaller
  */
 
+(true === isset($aConfig) && false === isset($GLOBALS['aConfig'])) ? $GLOBALS['aConfig'] = $aConfig : false;
+
 $oMyMVCInstaller = new MyMVCInstaller($GLOBALS['aConfig']);
 
 /**

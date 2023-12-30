@@ -73,10 +73,11 @@ class Emvicy
      */
     protected static function argToGet()
     {
+        array_shift($GLOBALS['argv']);
         parse_str(
             implode(
                 '&',
-                str_replace(':', '=', array_slice($GLOBALS['argv'], 1))
+                str_replace(':', '=', $GLOBALS['argv'])
             ),
             $_GET
         );
@@ -562,5 +563,18 @@ class Emvicy
                 }
             }
         }
+    }
+
+    /**
+     * @example php emvicy.php test modules/Foo/Test/Unit/ExampleTest.php
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function test()
+    {
+        array_shift($GLOBALS['argv']);
+        $sArg = implode(' ', $GLOBALS['argv']);
+        $sCmd = Config::get_MVC_BIN_PHP_BINARY() . ' ' . Config::get_MVC_APPLICATION_PATH() . "/vendor/bin/phpunit" . ' ' . $sArg;
+        self::shellExecute($sCmd, true);
     }
 }

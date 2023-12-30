@@ -96,6 +96,12 @@ lint | l
         requires:
             - bash, grep, find
 
+test
+    command:    php emvicy.php test
+        runs phpunit
+        Example
+            php emvicy.php test -c modules/Foo/Tests/phpunit.xml
+
 create | c
     primary module creation
         ------------------------------------------------------------------------------------------
