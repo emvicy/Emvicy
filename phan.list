@@ -1,7 +1,6 @@
 application/library/App/View.php
 application/library/App/Controller.php
 application/library/MVC/Dir.php
-application/library/MVC/Info.php
 application/library/MVC/Closure.php
 application/library/MVC/Error.php
 application/library/MVC/Debug.php
