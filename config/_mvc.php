@@ -21,7 +21,7 @@ MVC_RUNTIME_SETTINGS: {
 
     // enable exit on "kill" command and CLI break (CTRL-C)
     // This command needs the pcntl extension to run.
-    // exclude emvicy.php usage (e.g. if php's builtin webserver is running `php emvicy.php s`)
+    // exclude emvicy usage (e.g. if php's builtin webserver is running `php emvicy s`)
     if (false === getenv('emvicy'))
     {
         (function_exists('pcntl_async_signals'))    ? pcntl_async_signals(true)                    : false;

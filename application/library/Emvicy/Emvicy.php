@@ -308,7 +308,7 @@ class Emvicy
     }
 
     /**
-     * php emvicy.php serve
+     * php emvicy serve
      * @return void
      * @throws \ReflectionException
      */
@@ -445,7 +445,7 @@ class Emvicy
     }
 
     /**
-     * @example php emvicy.php log id=2023070711413964a7ddd36254a nl=true
+     * @example php emvicy log id=2023070711413964a7ddd36254a nl=true
      * @required grep, awk, sed
      * @return void
      * @throws \ReflectionException
@@ -566,7 +566,7 @@ class Emvicy
     }
 
     /**
-     * @example php emvicy.php test modules/Foo/Test/Unit/ExampleTest.php
+     * @example php emvicy test -c modules/Foo/Test/
      * @return void
      * @throws \ReflectionException
      */

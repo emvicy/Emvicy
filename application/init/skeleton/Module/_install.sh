@@ -32,14 +32,14 @@ $xPhp index.php;
 
 cd "$sHere";
 cd ../../;
-$xPhp emvicy.php up;
+$xPhp emvicy up;
 
 #------------------------------------------------------------
 # generate DTClasses
 
 cd "$sHere";
 cd ../../;
-$xPhp emvicy.php datatype;
+$xPhp emvicy datatype;
 
 #------------------------------------------------------------
 # done

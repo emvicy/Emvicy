@@ -54,7 +54,7 @@ class Cron
      */
     public function emvicy(string $sCommand = '')
     {
-        $sCmd = 'cd ' . Config::get_MVC_BASE_PATH() . '; ' . Config::get_MVC_BIN_PHP_BINARY() . ' emvicy.php ' . $sCommand;
+        $sCmd = 'cd ' . Config::get_MVC_BASE_PATH() . '; ' . Config::get_MVC_BIN_PHP_BINARY() . ' emvicy ' . $sCommand;
         Emvicy::shellExecute($sCmd, true);
 
         return $this;

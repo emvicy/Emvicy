@@ -1,8 +1,9 @@
+#!/usr/bin/env php
 <?php
 
 /**
  * run this script on cli
- * @usage php emvicy.php
+ * @usage php emvicy
  */
 putenv('emvicy=1');
 require_once realpath(__DIR__) . '/application/init/util/bootstrap.php';

@@ -113,7 +113,7 @@ class MyMVCInstaller
             $this->prepareForOutput();
             $this->_text("\n<br><span class='text-info'><b>🛈</b> You need to install at least one Module as primary to be able to work.</span>");
             $this->_text("\n<br>Open a console and enter:");
-            $this->_text("\n\t<hr><kbd>cd " . $this->_aConfig['MVC_BASE_PATH'] . "; " . PHP_BINDIR . "/php emvicy.php</kbd>\n\n");
+            $this->_text("\n\t<hr><kbd>cd " . $this->_aConfig['MVC_BASE_PATH'] . "; " . PHP_BINDIR . "/php emvicy</kbd>\n\n");
             exit();
         }
     }
