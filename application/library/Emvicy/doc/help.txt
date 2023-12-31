@@ -100,7 +100,8 @@ test
     command:    php emvicy test
         runs phpunit
         Example
-            php emvicy test -c modules/Foo/Test/
+            php emvicy test -c modules/Foo/Test/                # expecting a phpunit.xml in that folder
+            php emvicy test -c modules/Foo/Test/phpunit.xml     # call xml file explicitly
 
 create | c
     primary module creation
