@@ -10,5 +10,5 @@ a PHP Framework
 - DataType Creation
 - PHP >= 8.2
 
-Documentation:  [https://emvicy.ueffing.net/](https://emvicy.ueffing.net/)  
+Documentation:  [https://emvicy.com](https://emvicy.com)  
 github:  [https://github.com/emvicy/emvicy/](https://github.com/emvicy/emvicy/)
