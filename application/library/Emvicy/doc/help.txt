@@ -100,7 +100,7 @@ test
     command:    php emvicy test
         runs phpunit
         Example
-            php emvicy test -c modules/Foo/Tests/phpunit.xml
+            php emvicy test -c modules/Foo/Test/
 
 create | c
     primary module creation
