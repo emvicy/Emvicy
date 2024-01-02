@@ -47,7 +47,13 @@ class _Master extends Controller
         // View
         if (true === $this->isPrimary())
         {
-            function view() {return \{module}\View\Index::init();}
+            if (false === function_exists('{module}\Controller\view'))
+            {
+                /**
+                 * @return \{module}\View\Index|\MVC\View|null
+                 */
+                function view() {return \{module}\View\Index::init();}
+            }
         }
         else
         {
