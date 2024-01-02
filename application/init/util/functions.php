@@ -128,7 +128,7 @@ if (!function_exists('getallheaders'))
 
 /**
  * reads environment key/values from a given file
- * and stores them via putenv so that they will be accessible via getenv() *
+ * and stores them via putenv so that they will be accessible via getenv()
  * @param string $sEnvFile
  * @return void
  */
@@ -261,6 +261,7 @@ function mvcConfigLoader(array $aConfig = array())
 }
 
 /**
+ * locates source/binary for a specified file
  * @param string $sWhereIsItem
  * @return string
  * @throws \ReflectionException

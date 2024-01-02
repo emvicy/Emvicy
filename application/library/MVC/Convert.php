@@ -15,9 +15,10 @@ class Convert
     /**
      * converts an object into array
      * @param mixed $mObject
-     * @return array|mixed
+     * @param string $sPregReplace default=allow all
+     * @return mixed
      */
-    public static function objectToArray(mixed $mObject) : mixed
+    public static function objectToArray(mixed $mObject, string $sPregReplace = "/[^\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}\\p{P}\\p{C}]+/u") : mixed
     {
         if (true === is_object($mObject))
         {
@@ -30,14 +31,14 @@ class Convert
 
             foreach ($mObject as $sKey => $mValue)
             {
-                $sKey = preg_replace("/[^\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}]+/u", '', $sKey);
+                $sKey = preg_replace($sPregReplace, '', $sKey);
 
                 if (str_starts_with(trim($sKey), '*'))
                 {
                     $sKey = trim(substr(trim($sKey), 1));
                 }
 
-                $aNew[$sKey] = self::objectToArray($mValue);
+                $aNew[$sKey] = self::objectToArray($mValue, $sPregReplace);
             }
         }
         else
