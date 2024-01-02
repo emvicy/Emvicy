@@ -12,17 +12,6 @@
     'DTRequestCurrent.set_input.before' => [
 
         /**
-         * converts default input, which is of type string
-         * 'email=john%28.doe%29%40exa%2F%2Fmple.com&password=EinPa%C3%9Fwort'
-         * into array:
-         * ['email' => 'john(.doe)@exa//mple.com', 'password' => 'EinPaßwort',]
-         */
-        function(\MVC\DataType\DTValue $oDTValue){
-            parse_str($oDTValue->get_mValue(), $mValue);
-            $oDTValue->set_mValue($mValue);
-        },
-
-        /**
          * sanitize input
          * following asset filter rules
          */
