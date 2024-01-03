@@ -3,6 +3,7 @@
          xsi:noNamespaceSchemaLocation="../../../application/vendor/phpunit/phpunit/phpunit.xsd"
          bootstrap="../../../application/init/util/loader.php"
          colors="true"
+         cacheResult="false"
 >
     <testsuites>
         <testsuite name="Feature">

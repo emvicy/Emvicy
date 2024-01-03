@@ -13,8 +13,34 @@
 #-----------------------------------------------------------------------------------------------------------------------
 # assets
 
+User:
+  email:
+    set: &User.email.set
+      name: &User.email.name "email"
+      min: &User.email.min 5 # a@b.c
+      max: &User.email.max 255
+      minlength: &User.email.minlength *User.email.min
+      maxlength: &User.email.maxlength *User.email.max
+      filter_var: 274     # FILTER_VALIDATE_EMAIL # @see https://www.php.net/manual/en/filter.filters.validate.php
+      sanitize_var: 517   # FILTER_SANITIZE_EMAIL # @see https://www.php.net/manual/en/filter.filters.sanitize.php
+      #preg_replace: "/[^\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}\\p{P}]+/u" # @see https://www.regular-expressions.info/unicode.html
+
+  password:
+    set: &User.password.set
+      name: &User.password.name "password"
+      min: &User.password.min 10
+      max: &User.password.max 60
+      minlength: &User.password.minlength *User.password.min
+      maxlength: &User.password.maxlength *User.password.max
+      filter_var:
+      sanitize_var:
 
 #-----------------------------------------------------------------------------------------------------------------------
 # define filter objects
 # using assets defined above
+# @see etc/event/filter.php
 
+Filter:
+  Request:
+    input:
+      email: *User.email.set

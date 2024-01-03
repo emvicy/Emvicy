@@ -17,11 +17,18 @@
          */
         function(\MVC\DataType\DTValue $oDTValue) {
 
-            $aInput = $oDTValue->get_mValue();
+            // detect incoming type of input
+            $sTypeIncoming = gettype($oDTValue->get_mValue());
+
+            // we need array...
+            ('string' === $sTypeIncoming)
+                ? parse_str($oDTValue->get_mValue(), $aInput)
+                : $aInput = $oDTValue->get_mValue()
+            ;
 
             foreach ($aInput as $sKey => $sInput)
             {
-                $aSet = \MVC\Asset::init()->get('Filter.input.' . $sKey);
+                $aSet = \MVC\Asset::init()->get('Filter.Request.input.' . $sKey);
 
                 if (true === empty($aSet))
                 {
@@ -48,6 +55,9 @@
                 ('float' === $sCast) ? $aInput[$sKey] = (float) $aInput[$sKey] : false;
                 ('array' === $sCast) ? $aInput[$sKey] = (array) $aInput[$sKey] : false;
             }
+
+            // ...if incoming type was string, convert back
+            ('string' === $sTypeIncoming) ? $aInput = http_build_query($aInput) : false;
 
             $oDTValue->set_mValue($aInput);
         },
