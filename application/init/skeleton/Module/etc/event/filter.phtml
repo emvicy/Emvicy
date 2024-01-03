@@ -21,43 +21,48 @@
             $sTypeIncoming = gettype($oDTValue->get_mValue());
 
             // we need array...
-            ('string' === $sTypeIncoming)
+            ('string' === $sTypeIncoming && false === \MVC\Strings::isJson($oDTValue->get_mValue()))
                 ? parse_str($oDTValue->get_mValue(), $aInput)
                 : $aInput = $oDTValue->get_mValue()
             ;
 
-            foreach ($aInput as $sKey => $sInput)
+            if (is_array($aInput))
             {
-                $aSet = \MVC\Asset::init()->get('Filter.Request.input.' . $sKey);
-
-                if (true === empty($aSet))
+                foreach ($aInput as $sKey => $sInput)
                 {
-                    continue;
-                }
+                    $aSet = \MVC\Asset::init()->get('Filter.Request.input.' . $sKey);
 
-                // sanitize_var
-                foreach (get($aSet['sanitize_var'], []) as $iSanitizeVar)
-                {
-                    $aInput[$sKey] = filter_var($aInput[$sKey], $iSanitizeVar);
-                }
+                    if (true === empty($aSet))
+                    {
+                        continue;
+                    }
 
-                // preg_replace
-                foreach (get($aSet['preg_replace'], []) as $sRegEx)
-                {
-                    $aInput[$sKey] = preg_replace($sRegEx, '', $aInput[$sKey]);
-                }
+                    // sanitize_var
+                    foreach (get($aSet['sanitize_var'], []) as $iSanitizeVar)
+                    {
+                        $aInput[$sKey] = filter_var($aInput[$sKey], $iSanitizeVar);
+                    }
 
-                // cast
-                $sCast = get($aSet['cast']);
-                ('int' === $sCast) ? $aInput[$sKey] = (int) $aInput[$sKey] : false;
-                ('string' === $sCast) ? $aInput[$sKey] = (string) $aInput[$sKey] : false;
-                ('bool' === $sCast) ? $aInput[$sKey] = (boolean) $aInput[$sKey] : false;
-                ('float' === $sCast) ? $aInput[$sKey] = (float) $aInput[$sKey] : false;
-                ('array' === $sCast) ? $aInput[$sKey] = (array) $aInput[$sKey] : false;
+                    // preg_replace
+                    foreach (get($aSet['preg_replace'], []) as $sRegEx)
+                    {
+                        $aInput[$sKey] = preg_replace($sRegEx, '', $aInput[$sKey]);
+                    }
+
+                    // cast
+                    $sCast = get($aSet['cast']);
+                    ('int' === $sCast) ? $aInput[$sKey] = (int) $aInput[$sKey] : false;
+                    ('string' === $sCast) ? $aInput[$sKey] = (string) $aInput[$sKey] : false;
+                    ('bool' === $sCast) ? $aInput[$sKey] = (boolean) $aInput[$sKey] : false;
+                    ('float' === $sCast) ? $aInput[$sKey] = (float) $aInput[$sKey] : false;
+                    ('array' === $sCast) ? $aInput[$sKey] = (array) $aInput[$sKey] : false;
+                }
             }
 
             // ...if incoming type was string, convert back
-            ('string' === $sTypeIncoming) ? $aInput = http_build_query($aInput) : false;
+            ('string' === $sTypeIncoming && false === \MVC\Strings::isJson($oDTValue->get_mValue())) ? $aInput = http_build_query($aInput) : false;
+
+            \MVC\Log::write($aInput, 'debug.log');
 
             $oDTValue->set_mValue($aInput);
         },
