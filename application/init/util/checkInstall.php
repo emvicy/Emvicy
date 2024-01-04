@@ -11,6 +11,8 @@
  * instantiate MyMVCInstaller
  */
 
+use MVC\Config;
+
 (true === isset($aConfig) && false === isset($GLOBALS['aConfig'])) ? $GLOBALS['aConfig'] = $aConfig : false;
 
 $oMyMVCInstaller = new MyMVCInstaller($GLOBALS['aConfig']);
@@ -44,6 +46,7 @@ class MyMVCInstaller
         $this->_aConfig = $aConfig;
 		$this->setupDirsAndFiles();
 		$this->checkForPHPExtensions();
+        $this->createLogrotateFiles();
         $this->installModuleLibraries();
 
         // do not check if source of request is emvicy tool
@@ -228,6 +231,39 @@ class MyMVCInstaller
 		(!file_exists ($this->_aConfig['MVC_LOG_FILE_DIR'])) ? mkdir ($this->_aConfig['MVC_LOG_FILE_DIR']) : false;
 
 		return false;
+    }
+
+    /**
+     * @return true
+     * @throws \ReflectionException
+     */
+    protected function createLogrotateFiles()
+    {
+        if (true === file_exists($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf') && true === file_exists($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh'))
+        {
+            return true;
+        }
+
+        $aUser = posix_getpwuid(fileowner($this->_aConfig['MVC_LOG_FILE_DIR']));
+        $aGroup = posix_getgrgid(filegroup($this->_aConfig['MVC_LOG_FILE_DIR']));
+        $sLogrotate = "\"" . $this->_aConfig['MVC_LOG_FILE_DIR'] . "*.log\"
+{
+    rotate 2
+    daily
+    su " . $aUser['name'] . " " . $aGroup['name'] . "
+    create 640 " . $aUser['name'] . " " . $aGroup['name'] . "
+    compress
+    missingok
+    notifempty
+    copytruncate
+    size=250k
+}";
+        file_put_contents($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf', $sLogrotate);
+        $sCmdLogrotate = '#!' . whereis('bash') . "\n" . whereis('logrotate') . ' -v -s /tmp/' . uniqid() . ' ' . $this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf';
+        file_put_contents($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh', $sCmdLogrotate);
+        chmod($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh',0744);
+
+        return true;
     }
 
     /**
