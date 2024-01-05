@@ -1302,9 +1302,10 @@ class Db
 
     /**
      * @param string $sSql
-     * @return array|mixed
+     * @return array|false
+     * @throws \ReflectionException
      */
-    public function fetchRow(string $sSql = '') : mixed
+    public function fetchRow(string $sSql = '') : array|false
     {
         if (true === empty($sSql))
         {
@@ -1319,6 +1320,7 @@ class Db
     /**
      * @param string $sSql
      * @return array
+     * @throws \ReflectionException
      */
     public function fetchAll(string $sSql = '') : array
     {
