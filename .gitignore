@@ -20,6 +20,8 @@ application/library/MVC/DB/DataType/_db_datatype.php
 application/library/MVC/DB/DataType/.bak
 application/library/MVC/DB/DataType/.trash
 application/library/MVC/DB/DataType/test
+application/logrotate.conf
+application/logrotate.sh
 gen
 *.tar.gz
 vendor
