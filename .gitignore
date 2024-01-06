@@ -22,6 +22,8 @@ application/library/MVC/DB/DataType/.trash
 application/library/MVC/DB/DataType/test
 application/logrotate.conf
 application/logrotate.sh
+logrotate.conf
+logrotate.sh
 gen
 *.tar.gz
 vendor
