@@ -246,7 +246,6 @@ function mvcConfigLoader(array $aConfig = array())
 
                 if (file_exists($sVendorAutoload))
                 {
-                    echo $sVendorAutoload . "\n";
                     require_once $sVendorAutoload;
                 }
             }
