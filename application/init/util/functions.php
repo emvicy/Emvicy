@@ -238,7 +238,7 @@ function mvcConfigLoader(array $aConfig = array())
 
                 if (file_exists($sConfigFileName))
                 {
-                    include $sConfigFileName;
+                    include_once $sConfigFileName;
                 }
 
                 // External composer Libraries
@@ -246,6 +246,7 @@ function mvcConfigLoader(array $aConfig = array())
 
                 if (file_exists($sVendorAutoload))
                 {
+                    echo $sVendorAutoload . "\n";
                     require_once $sVendorAutoload;
                 }
             }

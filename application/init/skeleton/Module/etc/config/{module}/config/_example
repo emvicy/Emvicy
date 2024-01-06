@@ -37,7 +37,7 @@ $aConfig['MODULE']['{module}'] = array();
 // DB
 // watch database log; e.g.:      cd /tmp; tail -f {module}*.log
 
-require realpath(__DIR__) . '/_db.php';
+require_once realpath(__DIR__) . '/_db.php';
 // consider a logrotate mechanism for this logfile as it may grow quickly
 $aConfig['MODULE']['{module}']['DB']['logging']['general_log'] = 'ON'; // consider to set it to ON for develop or test environments only
 
@@ -45,6 +45,7 @@ $aConfig['MODULE']['{module}']['DB']['logging']['general_log'] = 'ON'; // consid
 //######################################################################################################################
 // common settings
 
-require realpath(__DIR__) . '/_datatype.php';
-require realpath(__DIR__) . '/_session.php';
-require realpath(__DIR__) . '/_csp.php';
+require_once realpath(__DIR__) . '/_function.php';
+require_once realpath(__DIR__) . '/_datatype.php';
+require_once realpath(__DIR__) . '/_session.php';
+require_once realpath(__DIR__) . '/_csp.php';
