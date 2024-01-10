@@ -27,6 +27,7 @@ application/library/MVC/DataType/test/DTDBSet.php
 application/library/MVC/DataType/test/DTEventContext.php
 application/library/MVC/DataType/test/DTFileSecureFilePath.php
 application/library/MVC/DataType/test/DTVar.php
+application/library/MVC/DataType/test/DTCronTask.php
 application/library/MVC/DataType/DTContainer.php
 application/library/MVC/DataType/DTDBSet.php
 application/library/MVC/DataType/DTEventContext.php
@@ -37,6 +38,7 @@ application/library/MVC/DataType/_datatype.php
 application/library/MVC/DataType/DTRoute.php
 application/library/MVC/DataType/DTConstant.php
 application/library/MVC/DataType/DTProperty.php
+application/library/MVC/DataType/DTDBWhereReleation.php
 application/library/MVC/DataType/DTConfig.php
 application/library/MVC/DataType/DTValue.php
 application/library/MVC/DataType/DTCronTask.php
