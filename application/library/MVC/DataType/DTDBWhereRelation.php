@@ -1,5 +1,5 @@
 <?php
-# 2024-01-10 16:01:03
+# 2024-01-11 14:11:23
 
 /**
  * @name $MVCDataType
@@ -8,7 +8,7 @@ namespace MVC\DataType;
 
 use MVC\MVCTrait\TraitDataType;
 
-class DTDBWhereReleation
+class DTDBWhereRelation
 {
 	use TraitDataType;
 

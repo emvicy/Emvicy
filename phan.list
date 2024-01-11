@@ -15,6 +15,7 @@ application/library/MVC/DataType/DTClass.php
 application/library/MVC/DataType/DTDBWhere.php
 application/library/MVC/DataType/DTKeyValue.php
 application/library/MVC/DataType/DTRequestCurrent.php
+application/library/MVC/DataType/DTDBWhereRelation.php
 application/library/MVC/DataType/DTRoutingAdditional.php
 application/library/MVC/DataType/.bak/DTContainer.php
 application/library/MVC/DataType/.bak/DTDBSet.php
@@ -38,7 +39,6 @@ application/library/MVC/DataType/_datatype.php
 application/library/MVC/DataType/DTRoute.php
 application/library/MVC/DataType/DTConstant.php
 application/library/MVC/DataType/DTProperty.php
-application/library/MVC/DataType/DTDBWhereReleation.php
 application/library/MVC/DataType/DTConfig.php
 application/library/MVC/DataType/DTValue.php
 application/library/MVC/DataType/DTCronTask.php
@@ -149,7 +149,6 @@ application/library/MVC/DB/DataType/DB/Foreign.php
 application/library/MVC/DB/DataType/_db_datatype.php
 application/library/MVC/DB/Trait/DbInitTrait.php
 application/library/MVC/DB/Model/.bak/Db.php
-application/library/MVC/DB/Model/.bak/Db.2023-12-09.funzt.php
 application/library/MVC/DB/Model/DbInit.php
 application/library/MVC/DB/Model/Openapi.php
 application/library/MVC/DB/Model/DbPDO.php

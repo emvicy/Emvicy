@@ -16,6 +16,7 @@ namespace MVC\DB\Model;
 use MVC\Config;
 use MVC\DataType\DTDBSet;
 use MVC\DataType\DTDBWhere;
+use MVC\DataType\DTDBWhereReleation;
 use MVC\DataType\DTValue;
 use MVC\DB\DataType\DB\Constraint;
 use MVC\DB\DataType\DB\Foreign;
@@ -970,6 +971,37 @@ class Db
     }
 
     /**
+     * converts "`xy` IN (1,2,3)" into "`OR xy` = '1' OR xy` = '2' OR xy` = '3'"
+     * @param \MVC\DataType\DTDBWhere $oDTDBWhere
+     * @return string
+     * @throws \ReflectionException
+     */
+    protected static function convertInCommand(\MVC\DataType\DTDBWhere $oDTDBWhere)
+    {
+        $sInValue = $oDTDBWhere->get_sValue();
+        $sWhere = '';
+
+        // remove pot. brackets
+        (str_starts_with($sInValue, '(') && str_ends_with($sInValue, ')')) ? $sInValue = substr($sInValue, 1, -1) : false;
+
+        // get value array
+        $aInValue = array_map(function ($sValue){
+            $sValue = trim($sValue);
+            (str_starts_with($sValue, '"') && str_ends_with($sValue, '"')) ? $sValue = substr($sValue, 1, -1) : false;
+            (str_starts_with($sValue, "'") && str_ends_with($sValue, "'")) ? $sValue = substr($sValue, 1, -1) : false;
+            return trim($sValue);
+        }, array_filter(explode(',', $sInValue)));
+
+        // create sql string
+        foreach ($aInValue as $sValue)
+        {
+            $sWhere.= "\n" . 'OR `' . $oDTDBWhere->get_sKey() . "` = '" . $sValue . "' \n";
+        }
+
+        return $sWhere;
+    }
+
+    /**
      * @param \MVC\DataType\DTDBWhere[]  $aDTDBWhere
      * @param \MVC\DataType\DTDBOption[] $aDTDBOption
      * @return \MVC\DB\DataType\DB\TableDataType[]
@@ -986,18 +1018,28 @@ class Db
 
         #---
 
-        $sSql = "SELECT * FROM `" . $this->sTableName . "` \nWHERE  1\n";
+        $sSql = "SELECT * FROM `" . $this->sTableName . "` \n";
         $sSqlExplain = $sSql;
+        $sWhere = "WHERE 1\n";
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $oDTDBWhere)
         {
-            $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
-            $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
+            // convert `INs` into series of `OR` commands
+            if (strtolower(DTDBWhereReleation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
+            {
+                $sWhere.= self::convertInCommand($oDTDBWhere);
+            }
+            // regular
+            else
+            {
+                $sWhere.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+                $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
+            }
         }
 
-        $sSql = substr($sSql, 0,-1) . "\n";
-        $sSqlExplain = substr($sSqlExplain, 0,-1) . "\n";
+        $sSql.= $sWhere;
+        $sSqlExplain.= $sWhere;
 
         /** @var \MVC\DataType\DTDBOption $oDTDBOption */
         foreach ($aDTDBOption as $oDTDBOption)
@@ -1013,6 +1055,12 @@ class Db
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $oDTDBWhere)
         {
+            // skip INs
+            if (strtolower(DTDBWhereReleation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
+            {
+                continue;
+            }
+
             $iPdoParam = 0;
             ('integer' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
             ('string' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR : false;
@@ -1187,7 +1235,17 @@ class Db
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $oDTDBWhere)
         {
-            $sWhere.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' \n";
+            // convert `IN` into series of `OR` commands
+            if (strtolower(DTDBWhereReleation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
+            {
+                $sWhere.= self::convertInCommand($oDTDBWhere);
+            }
+            // regular
+            else
+            {
+                $sWhere.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+                $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
+            }
         }
 
         $sSql.= $sWhere;
