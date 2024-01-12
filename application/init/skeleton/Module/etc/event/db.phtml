@@ -15,7 +15,7 @@
             (true === empty($oTableDataType->get_stampChange())) ? $oTableDataType->set_stampChange(date('Y-m-d H:i:s')) : false;
         },
     ],
-    'mvc.db.model.db.update.before' => [
+    'mvc.db.model.db*update.before' => [
         /*
          * set stampChange to current datetime
          */
