@@ -13,10 +13,9 @@
  */
 namespace MVC\DB\Model;
 
-use MVC\Config;
 use MVC\DataType\DTDBSet;
 use MVC\DataType\DTDBWhere;
-use MVC\DataType\DTDBWhereReleation;
+use MVC\DataType\DTDBWhereRelation;
 use MVC\DataType\DTValue;
 use MVC\DB\DataType\DB\Constraint;
 use MVC\DB\DataType\DB\Foreign;
@@ -995,7 +994,10 @@ class Db
         // create sql string
         foreach ($aInValue as $sValue)
         {
-            $sWhere.= "\n" . 'OR `' . $oDTDBWhere->get_sKey() . "` = '" . $sValue . "' \n";
+            $sWhere.= "\n";
+            (true === isset($bTrue)) ? $sWhere.= ' OR ' : false;
+            $sWhere.= '`' . $oDTDBWhere->get_sKey() . "` = '" . $sValue . "' \n";
+            $bTrue = true;
         }
 
         return $sWhere;
@@ -1018,28 +1020,26 @@ class Db
 
         #---
 
-        $sSql = "SELECT * FROM `" . $this->sTableName . "` \n";
+        $sSql = "SELECT * FROM `" . $this->sTableName . "` WHERE 1\n";
         $sSqlExplain = $sSql;
-        $sWhere = "WHERE 1\n";
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $oDTDBWhere)
         {
             // convert `INs` into series of `OR` commands
-            if (strtolower(DTDBWhereReleation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
+            if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
             {
-                $sWhere.= self::convertInCommand($oDTDBWhere);
+                $sCommand = " AND (" . self::convertInCommand($oDTDBWhere) . ") \n";
+                $sSql.= $sCommand;
+                $sSqlExplain.= $sCommand;
             }
             // regular
             else
             {
-                $sWhere.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+                $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
                 $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
             }
         }
-
-        $sSql.= $sWhere;
-        $sSqlExplain.= $sWhere;
 
         /** @var \MVC\DataType\DTDBOption $oDTDBOption */
         foreach ($aDTDBOption as $oDTDBOption)
@@ -1056,7 +1056,7 @@ class Db
         foreach ($aDTDBWhere as $oDTDBWhere)
         {
             // skip INs
-            if (strtolower(DTDBWhereReleation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
+            if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
             {
                 continue;
             }
@@ -1190,7 +1190,7 @@ class Db
      */
     public function update(array $aDTDBSet = array(), array $aDTDBWhere = array()) : bool
     {
-        if (true === empty($aDTDBSet) || true === empty($aDTDBWhere))
+        if (true === empty($aDTDBSet))
         {
             return false;
         }
@@ -1209,7 +1209,8 @@ class Db
         );
 
         $oDTValue = DTValue::create()->set_mValue(array('oDb' => $this, 'aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere));
-        Event::run('mvc.db.model.db.update.before', $oDTValue);
+        Event::run('mvc.db.model.db.update.before', $oDTValue);/** @deprecated  */
+        Event::run('mvc.db.model.db.' . $this->sTableName . '.update.before', $oDTValue);
         /** @var \MVC\DataType\DTDBSet[] $aDTDBSet */
         $aDTDBSet = $oDTValue->get_mValue()['aDTDBSet'];
         /** @var \MVC\DataType\DTDBWhere[] $aDTDBWhere */
@@ -1223,37 +1224,36 @@ class Db
         /** @var \MVC\DataType\DTDBSet $oDTDBSet */
         foreach ($aDTDBSet as $oDTDBSet)
         {
-            $sSql.= '`' . $oDTDBSet->get_sKey() . '` = :' . $oDTDBSet->get_sKey() . ",";
+            $sSql.= '`' . $oDTDBSet->get_sKey() . '` = :set_' . $oDTDBSet->get_sKey() . ",";
             $sSqlExplain.= '`' . $oDTDBSet->get_sKey() . '` = ';
             $sSqlExplain.= (null === $oDTDBSet->get_sValue()) ? 'NULL,' : "'" . $oDTDBSet->get_sValue() . "',";
         }
 
-        $sSql = substr($sSql, 0,-1) . "\n";
-        $sSqlExplain = substr($sSqlExplain, 0,-1) . "\n";
-        $sWhere = "WHERE 1\n";
+        $sSql = substr($sSql, 0,-1) . " WHERE 1\n";
+        $sSqlExplain = substr($sSqlExplain, 0,-1) . " WHERE 1\n";
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $oDTDBWhere)
         {
             // convert `IN` into series of `OR` commands
-            if (strtolower(DTDBWhereReleation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
+            if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
             {
-                $sWhere.= self::convertInCommand($oDTDBWhere);
+                $sCommand = "AND (" . self::convertInCommand($oDTDBWhere) . ") \n";
+                $sSql.= $sCommand;
+                $sSqlExplain.= $sCommand;
             }
             // regular
             else
             {
-                $sWhere.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+                $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :where_' . $oDTDBWhere->get_sKey() . " \n";
                 $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
             }
         }
 
-        $sSql.= $sWhere;
-        $sSqlExplain.= $sWhere;
-
         #---
 
-        Event::run('mvc.db.model.db.update.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
+        Event::run('mvc.db.model.db.update.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");/** @deprecated  */
+        Event::run('mvc.db.model.db.' . $this->sTableName . '.update.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
 
         #---
 
@@ -1270,8 +1270,31 @@ class Db
             ('null' === gettype($oDTDBSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
 
             $oStmt->bindValue(
-                ':' . $oDTDBSet->get_sKey(),
+                ':set_' . $oDTDBSet->get_sKey(),
                 $oDTDBSet->get_sValue(),
+                $iPdoParam
+            );
+        }
+
+        /** @var \MVC\DataType\DTDBSet $oDTDBSet */
+        foreach ($aDTDBWhere as $oDTDBWhere)
+        {
+            // convert `IN` into series of `OR` commands
+            if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
+            {
+                continue;
+            }
+
+            $iPdoParam = 0;
+            ('integer' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
+            ('string' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR : false;
+            ('object' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_STR: false;
+            ('boolean' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_BOOL : false;
+            ('null' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
+
+            $oStmt->bindValue(
+                ':where_' . $oDTDBWhere->get_sKey(),
+                $oDTDBWhere->get_sValue(),
                 $iPdoParam
             );
         }
@@ -1284,12 +1307,14 @@ class Db
         {
             \MVC\Error::exception($oException);
             $oDTValue = DTValue::create()->set_mValue(array('oDb' => $this, 'aDTDBSet' => $aDTDBSet, 'aDTDBWhere' => $aDTDBWhere, 'oException' => $oException));
-            Event::run('mvc.db.model.db.update.fail', $oDTValue);
+            Event::run('mvc.db.model.db.update.fail', $oDTValue);/** @deprecated  */
+            Event::run('mvc.db.model.db.' . $this->sTableName . '.update.fail', $oDTValue);
 
             return false;
         }
 
-        Event::run('mvc.db.model.db.update.success', $oDTValue);
+        Event::run('mvc.db.model.db.update.success', $oDTValue);/** @deprecated  */
+        Event::run('mvc.db.model.db.' . $this->sTableName . '.update.success', $oDTValue);
 
         return true;
     }
