@@ -401,12 +401,19 @@ class Route
 
     /**
      * returns DTRoute object at first matching tag | null if not found
-     * @example Route::getOnTag('404')
+     * @example Route::getOnTag()
+     *          Route::getOnTag('home')
+     *          Route::getOnTag('home')->get_additional()
      * @param string $sTag
      * @return \MVC\DataType\DTRoute|null
      */
     public static function getOnTag(string $sTag = '') : DTRoute|null
     {
+        if (true === empty($sTag))
+        {
+            return null;
+        }
+
         $oArrDot = new ArrDot(Convert::objectToArray(self::$aRoute));
         $sArrDotNotation = $oArrDot->getIndexOnValue($sTag);
         list($sRoute, $sTag) = array_filter(explode('.', $sArrDotNotation));
@@ -415,5 +422,26 @@ class Route
         $oDTRoute = get(self::$aRoute[$sRoute]);
 
         return $oDTRoute;
+    }
+
+    /**
+     * returns assoc array DTRoute where keys are the tags of its DTRoute
+     * @example Route::getTagList()
+     *          Route::getTagList()['home']
+     *          Route::getTagList()['home']->get_additional()
+     * @return \MVC\DataType\DTRoute[]|array
+     * @throws \ReflectionException
+     */
+    public static function getTagList() : array
+    {
+        /** @var DTRoute[] $aTag */
+        $aTag = array();
+
+        foreach (self::$aRoute as $oDTRoute)
+        {
+            $aTag[$oDTRoute->get_tag()] = $oDTRoute; # Convert::objectToArray($oDTRoute);
+        }
+
+        return $aTag;
     }
 }
