@@ -55,12 +55,13 @@ class Route
      * @param string $sPath
      * @param string $sQuery
      * @param mixed  $mOptional
+     * @param string $sTag
      * @return void
      * @throws \ReflectionException
      */
-    public static function any(string $sPath = '', string $sQuery = '', mixed $mOptional = '') : void
+    public static function any(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::add('*', $sPath, $sQuery, $mOptional);
+        self::add('*', $sPath, $sQuery, $mOptional, $sTag);
     }
 
     /**
@@ -68,14 +69,15 @@ class Route
      * @param string $sPath
      * @param string $sQuery
      * @param mixed  $mOptional
+     * @param string $sTag
      * @return void
      * @throws \ReflectionException
      */
-    public static function mix(array $aMethod = array(), string $sPath = '', string $sQuery = '', mixed $mOptional = '') : void
+    public static function mix(array $aMethod = array(), string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
     {
         foreach ($aMethod as $sMethod)
         {
-            self::add(strtoupper($sMethod), $sPath, $sQuery, $mOptional);
+            self::add(strtoupper($sMethod), $sPath, $sQuery, $mOptional, $sTag);
         }
     }
 
@@ -83,59 +85,64 @@ class Route
      * @param string $sPath
      * @param string $sQuery
      * @param mixed  $mOptional
+     * @param string $sTag
      * @return void
      * @throws \ReflectionException
      */
-    public static function get(string $sPath = '', string $sQuery = '', mixed $mOptional = '') : void
+    public static function get(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::add('GET', $sPath, $sQuery, $mOptional);
+        self::add('GET', $sPath, $sQuery, $mOptional, $sTag);
     }
 
     /**
      * @param string $sPath
      * @param string $sQuery
      * @param mixed  $mOptional
+     * @param string $sTag
      * @return void
      * @throws \ReflectionException
      */
-    public static function post(string $sPath = '', string $sQuery = '', mixed $mOptional = '') : void
+    public static function post(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::add('POST', $sPath, $sQuery, $mOptional);
+        self::add('POST', $sPath, $sQuery, $mOptional, $sTag);
     }
 
     /**
      * @param string $sPath
      * @param string $sQuery
      * @param mixed  $mOptional
+     * @param string $sTag
      * @return void
      * @throws \ReflectionException
      */
-    public static function put(string $sPath = '', string $sQuery = '', mixed $mOptional = '') : void
+    public static function put(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::add('PUT', $sPath, $sQuery, $mOptional);
+        self::add('PUT', $sPath, $sQuery, $mOptional, $sTag);
     }
 
     /**
      * @param string $sPath
      * @param string $sQuery
      * @param mixed  $mOptional
+     * @param string $sTag
      * @return void
      * @throws \ReflectionException
      */
-    public static function delete(string $sPath = '', string $sQuery = '', mixed $mOptional = ''): void
+    public static function delete(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = ''): void
     {
-        self::add('DELETE', $sPath, $sQuery, $mOptional);
+        self::add('DELETE', $sPath, $sQuery, $mOptional, $sTag);
     }
 
     /**
-     * @param string $sMethod *=any
+     * @param string $sMethod
      * @param string $sPath
      * @param string $sQuery
      * @param mixed  $mOptional
+     * @param string $sTag
      * @return void
      * @throws \ReflectionException
      */
-    protected static function add(string $sMethod = '*', string $sPath = '', string $sQuery = '', mixed $mOptional = '') : void
+    protected static function add(string $sMethod = '*', string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
     {
         parse_str(get($sQuery), $aQuery);
 
@@ -185,6 +192,7 @@ class Route
             ->set_c(get($aQuery[Config::get_MVC_ROUTE_QUERY_PARAM_C()]))
             ->set_m(get($aQuery[Config::get_MVC_ROUTE_QUERY_PARAM_M()]))
             ->set_additional($mOptional)
+            ->set_tag($sTag)
         ;
 
         foreach ($aMethodsAssigned as $sMethodsAssigned)
@@ -389,5 +397,20 @@ class Route
         );
 
         return $oRoutingCurrent;
+    }
+
+    /**
+     * returns DTRoute object at first matching tag
+     * @example Route::getOnTag('404')
+     * @param string $sTag
+     * @return mixed|null
+     */
+    public static function getOnTag(string $sTag = '')
+    {
+        $oArrDot = new ArrDot(Convert::objectToArray(self::$aRoute));
+        $sArrDotNotation = $oArrDot->getIndexOnValue($sTag);
+        list($sRoute, $sTag) = array_filter(explode('.', $sArrDotNotation));
+
+        return get(self::$aRoute[$sRoute]);
     }
 }

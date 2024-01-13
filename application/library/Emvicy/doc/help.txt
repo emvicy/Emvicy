@@ -53,6 +53,10 @@ datatype | dt
                 php emvicy dt module:Foo    # creating datatype classes for module `Foo`
         creates datatype classes for a given module or for all modules (default)
 
+routes | rt
+    command:    php emvicy rt               # lists available routes as array/var_export
+                php emvicy rt json          # lists available routes in JSON format
+
 update | up
     command:    php emvicy up
         updates

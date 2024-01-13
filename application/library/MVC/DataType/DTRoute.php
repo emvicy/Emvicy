@@ -1,25 +1,19 @@
 <?php
-/**
- * DTRoute.php
- * @package   Emvicy
- * @copyright ueffing.net
- * @author    Guido K.B.W. Üffing <emvicy@ueffing.net>
- * @license   GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
- */
+# 2024-01-13 13:14:31
 
 /**
  * @name $MVCDataType
  */
 namespace MVC\DataType;
 
+use MVC\DataType\DTValue;
 use MVC\MVCTrait\TraitDataType;
 
-#[\Attribute]
 class DTRoute
 {
 	use TraitDataType;
 
-	const DTHASH = '68791994b30f4c19747ff6db589d6b0d';
+	public const DTHASH = 'cfc70fabddc3054ec76225204b328146';
 
 	/**
 	 * @required true
@@ -28,49 +22,49 @@ class DTRoute
 	protected $path;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var string
 	 */
 	protected $method;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var array
 	 */
 	protected $methodsAssigned;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var string
 	 */
 	protected $query;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var string
 	 */
 	protected $class;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var string
 	 */
 	protected $classFile;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var string
 	 */
 	protected $module;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var string
 	 */
 	protected $c;
 
 	/**
-	 * @required false
+	 * @required true
 	 * @var string
 	 */
 	protected $m;
@@ -82,14 +76,21 @@ class DTRoute
 	protected $additional;
 
 	/**
+	 * @required false
+	 * @var string
+	 */
+	protected $tag;
+
+	/**
 	 * DTRoute constructor.
 	 * @param array $aData
 	 * @throws \ReflectionException 
 	 */
 	public function __construct(array $aData = array())
 	{
-        $oDTValue = DTValue::create()->set_mValue($aData); \MVC\Event::RUN ('DTRoute.__construct.before', $oDTValue);
-        $aData = $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($aData);
+		\MVC\Event::run('DTRoute.__construct.before', $oDTValue);
+		$aData = $oDTValue->get_mValue();
 
 		$this->path = '';
 		$this->method = '';
@@ -101,6 +102,7 @@ class DTRoute
 		$this->c = '';
 		$this->m = '';
 		$this->additional = null;
+		$this->tag = '';
 
 		foreach ($aData as $sKey => $mValue)
 		{
@@ -112,7 +114,7 @@ class DTRoute
 			}
 		}
 
-        $oDTValue = DTValue::create()->set_mValue($aData); \MVC\Event::RUN ('DTRoute.__construct.after', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($aData); \MVC\Event::run('DTRoute.__construct.after', $oDTValue);
 	}
 
     /**
@@ -122,139 +124,164 @@ class DTRoute
      */
     public static function create(array $aData = array())
     {
-        $oDTValue = DTValue::create()->set_mValue($aData); \MVC\Event::RUN ('DTRoute.create.before', $oDTValue);
-        $oObject = new self($oDTValue->get_mValue());
-        $oDTValue = DTValue::create()->set_mValue($oObject); \MVC\Event::RUN ('DTRoute.create.after', $oDTValue);
+        $oDTValue = DTValue::create()->set_mValue($aData);
+		\MVC\Event::run('DTRoute.create.before', $oDTValue);
+		$oObject = new self($oDTValue->get_mValue());
+        $oDTValue = DTValue::create()->set_mValue($oObject); \MVC\Event::run('DTRoute.create.after', $oDTValue);
 
         return $oDTValue->get_mValue();
     }
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_path($aValue)
+	public function set_path(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_path.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_path.before', $oDTValue);
 		$this->path = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_method($aValue)
+	public function set_method(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_method.before', $oDTValue);
-        $this->method = (string) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_method.before', $oDTValue);
+		$this->method = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param array $aValue 
+	 * @param array $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_methodsAssigned($aValue)
+	public function set_methodsAssigned(array $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_methodsAssigned.before', $oDTValue);
-        $this->methodsAssigned = (array) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_methodsAssigned.before', $oDTValue);
+		$this->methodsAssigned = (array) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_query($aValue)
+	public function set_query(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_query.before', $oDTValue);
-        $this->query = (string) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_query.before', $oDTValue);
+		$this->query = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_class($aValue)
+	public function set_class(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_class.before', $oDTValue);
-        $this->class = (string) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_class.before', $oDTValue);
+		$this->class = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_classFile($aValue)
+	public function set_classFile(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_classFile.before', $oDTValue);
-        $this->classFile = (string) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_classFile.before', $oDTValue);
+		$this->classFile = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_module($aValue)
+	public function set_module(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_module.before', $oDTValue);
-        $this->module = (string) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_module.before', $oDTValue);
+		$this->module = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_c($aValue)
+	public function set_c(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_c.before', $oDTValue);
-        $this->c = (string) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_c.before', $oDTValue);
+		$this->c = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param string $aValue 
+	 * @param string $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_m($aValue)
+	public function set_m(string $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_m.before', $oDTValue);
-        $this->m = (string) $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_m.before', $oDTValue);
+		$this->m = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
 
 	/**
-	 * @param mixed $aValue 
+	 * @param mixed $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_additional($aValue)
+	public function set_additional(mixed $mValue)
 	{
-        $oDTValue = DTValue::create()->set_mValue($aValue); \MVC\Event::RUN ('DTRoute.set_additional.before', $oDTValue);
-        $this->additional = $oDTValue->get_mValue();
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_additional.before', $oDTValue);
+		$this->additional = $oDTValue->get_mValue();
+
+		return $this;
+	}
+
+	/**
+	 * @param string $mValue 
+	 * @return $this
+	 * @throws \ReflectionException
+	 */
+	public function set_tag(string $mValue)
+	{
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoute.set_tag.before', $oDTValue);
+		$this->tag = (string) $oDTValue->get_mValue();
 
 		return $this;
 	}
@@ -263,9 +290,10 @@ class DTRoute
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_path()
+	public function get_path() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->path); \MVC\Event::RUN ('DTRoute.get_path.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->path); 
+		\MVC\Event::run('DTRoute.get_path.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}
@@ -274,99 +302,120 @@ class DTRoute
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_method()
+	public function get_method() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->method); \MVC\Event::RUN ('DTRoute.get_method.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->method); 
+		\MVC\Event::run('DTRoute.get_method.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
 	 * @return array
 	 * @throws \ReflectionException
 	 */
-	public function get_methodsAssigned()
+	public function get_methodsAssigned() : array
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->methodsAssigned); \MVC\Event::RUN ('DTRoute.get_methodsAssigned.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->methodsAssigned); 
+		\MVC\Event::run('DTRoute.get_methodsAssigned.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_query()
+	public function get_query() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->query); \MVC\Event::RUN ('DTRoute.get_query.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->query); 
+		\MVC\Event::run('DTRoute.get_query.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_class()
+	public function get_class() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->class); \MVC\Event::RUN ('DTRoute.get_class.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->class); 
+		\MVC\Event::run('DTRoute.get_class.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_classFile()
+	public function get_classFile() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->classFile); \MVC\Event::RUN ('DTRoute.get_classFile.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->classFile); 
+		\MVC\Event::run('DTRoute.get_classFile.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_module()
+	public function get_module() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->module); \MVC\Event::RUN ('DTRoute.get_module.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->module); 
+		\MVC\Event::run('DTRoute.get_module.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_c()
+	public function get_c() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->c); \MVC\Event::RUN ('DTRoute.get_c.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->c); 
+		\MVC\Event::run('DTRoute.get_c.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
 	 * @return string
 	 * @throws \ReflectionException
 	 */
-	public function get_m()
+	public function get_m() : string
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->m); \MVC\Event::RUN ('DTRoute.get_m.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->m); 
+		\MVC\Event::run('DTRoute.get_m.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
 	}
 
 	/**
-	 * @return mixed
+	 * @return mixed|null
 	 * @throws \ReflectionException
 	 */
 	public function get_additional()
 	{
-        $oDTValue = DTValue::create()->set_mValue($this->additional); \MVC\Event::RUN ('DTRoute.get_additional.before', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($this->additional); 
+		\MVC\Event::run('DTRoute.get_additional.before', $oDTValue);
 
-        return $oDTValue->get_mValue();
+		return $oDTValue->get_mValue();
+	}
+
+	/**
+	 * @return string
+	 * @throws \ReflectionException
+	 */
+	public function get_tag() : string
+	{
+		$oDTValue = DTValue::create()->set_mValue($this->tag); 
+		\MVC\Event::run('DTRoute.get_tag.before', $oDTValue);
+
+		return $oDTValue->get_mValue();
 	}
 
 	/**
@@ -450,6 +499,14 @@ class DTRoute
 	}
 
 	/**
+	 * @return string
+	 */
+	public static function getPropertyName_tag()
+	{
+        return 'tag';
+	}
+
+	/**
 	 * @return false|string JSON
 	 */
 	public function __toString()
@@ -490,7 +547,7 @@ class DTRoute
 	 */
 	public function flushProperties()
 	{
-		foreach ($this->getPropertyArray() as $sKey => $aValue)
+		foreach ($this->getPropertyArray() as $sKey => $mValue)
 		{
 			$sMethod = 'set_' . $sKey;
 
@@ -502,4 +559,5 @@ class DTRoute
 
 		return $this;
 	}
+
 }

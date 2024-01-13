@@ -3,6 +3,8 @@
 namespace Emvicy;
 
 use MVC\Config;
+use MVC\Debug;
+use MVC\Route;
 
 /**
  * @param int $iAmount
@@ -576,5 +578,39 @@ class Emvicy
         $sArg = implode(' ', $GLOBALS['argv']);
         $sCmd = Config::get_MVC_BIN_PHP_BINARY() . ' ' . Config::get_MVC_APPLICATION_PATH() . "/vendor/bin/phpunit" . ' ' . $sArg;
         self::shellExecute($sCmd, true);
+    }
+
+    /**
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function rt()
+    {
+        self::routes();
+    }
+
+    /**
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function routes()
+    {
+        array_shift($GLOBALS['argv']);
+        $sArg = implode(' ', $GLOBALS['argv']);
+
+        Route::init();
+        $aIndex = Route::getIndices();
+        natcasesort($aIndex);
+        $aIndex = array_values($aIndex);
+
+        if ('json' === $sArg)
+        {
+            echo json_encode($aIndex);
+        }
+        else
+        {
+            Debug::varExport($aIndex);
+        }
+        nl();
     }
 }

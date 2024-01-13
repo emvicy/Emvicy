@@ -1,5 +1,5 @@
 <?php
-# 2023-12-03 06:59:44
+# 2024-01-13 13:11:02
 
 /**
  * @name $MVCDataType
@@ -41,6 +41,7 @@ class DTDBWhere
 	public function __construct(array $aData = array())
 	{
 		$oDTValue = DTValue::create()->set_mValue($aData);
+		\MVC\Event::run('DTDBWhere.__construct.before', $oDTValue);
 		$aData = $oDTValue->get_mValue();
 
 		$this->sKey = '';
@@ -57,7 +58,7 @@ class DTDBWhere
 			}
 		}
 
-		$oDTValue = DTValue::create()->set_mValue($aData); 
+		$oDTValue = DTValue::create()->set_mValue($aData); \MVC\Event::run('DTDBWhere.__construct.after', $oDTValue);
 	}
 
     /**
@@ -68,8 +69,9 @@ class DTDBWhere
     public static function create(array $aData = array())
     {
         $oDTValue = DTValue::create()->set_mValue($aData);
+		\MVC\Event::run('DTDBWhere.create.before', $oDTValue);
 		$oObject = new self($oDTValue->get_mValue());
-        $oDTValue = DTValue::create()->set_mValue($oObject); 
+        $oDTValue = DTValue::create()->set_mValue($oObject); \MVC\Event::run('DTDBWhere.create.after', $oDTValue);
 
         return $oDTValue->get_mValue();
     }
@@ -82,6 +84,7 @@ class DTDBWhere
 	public function set_sKey(string $mValue)
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTDBWhere.set_sKey.before', $oDTValue);
 		$this->sKey = (string) $oDTValue->get_mValue();
 
 		return $this;
@@ -95,6 +98,7 @@ class DTDBWhere
 	public function set_sRelation(string $mValue)
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTDBWhere.set_sRelation.before', $oDTValue);
 		$this->sRelation = (string) $oDTValue->get_mValue();
 
 		return $this;
@@ -108,6 +112,7 @@ class DTDBWhere
 	public function set_sValue(string $mValue)
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTDBWhere.set_sValue.before', $oDTValue);
 		$this->sValue = (string) $oDTValue->get_mValue();
 
 		return $this;
@@ -120,6 +125,7 @@ class DTDBWhere
 	public function get_sKey() : string
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->sKey); 
+		\MVC\Event::run('DTDBWhere.get_sKey.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}
@@ -131,6 +137,7 @@ class DTDBWhere
 	public function get_sRelation() : string
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->sRelation); 
+		\MVC\Event::run('DTDBWhere.get_sRelation.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}
@@ -142,6 +149,7 @@ class DTDBWhere
 	public function get_sValue() : string
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->sValue); 
+		\MVC\Event::run('DTDBWhere.get_sValue.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}

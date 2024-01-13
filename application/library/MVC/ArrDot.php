@@ -23,8 +23,8 @@ class ArrDot extends Dot
     /**
      * searches for a value in given array; returns dot notation address on the first hit
      * @related https://stackoverflow.com/a/28473131/2487859
-     * @example $oArrDot->getNotationByValue('john.doe@example.com')
-     *          $oArrDot->getNotationByValue('john.doe@example.com', $aHaystackArray)
+     * @example $oArrDot->getIndexOnValue('john.doe@example.com')
+     *          $oArrDot->getIndexOnValue('john.doe@example.com', $aHaystackArray)
      *          may return 'User.email.form.markup.attr.value'
      * @param string $sNeedle
      * @param array  $aHaystack
