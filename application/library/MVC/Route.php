@@ -181,6 +181,9 @@ class Route
             }
         }
 
+        ((true === empty($sTag)) ? $sTag = Strings::seofy($sPath) : false);
+        ((true === empty($sTag)) ? $sTag = Strings::seofy($sClass . '-' . $aQuery[Config::get_MVC_ROUTE_QUERY_PARAM_M()] . '-' . implode('-', $aMethodsAssigned)) : false);
+
         self::$aRoute[$sPath] = DTRoute::create()
             ->set_path($sPath)
             ->set_method(strtoupper($sMethod))
