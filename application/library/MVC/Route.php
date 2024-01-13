@@ -400,17 +400,20 @@ class Route
     }
 
     /**
-     * returns DTRoute object at first matching tag
+     * returns DTRoute object at first matching tag | null if not found
      * @example Route::getOnTag('404')
      * @param string $sTag
-     * @return mixed|null
+     * @return \MVC\DataType\DTRoute|null
      */
-    public static function getOnTag(string $sTag = '')
+    public static function getOnTag(string $sTag = '') : DTRoute|null
     {
         $oArrDot = new ArrDot(Convert::objectToArray(self::$aRoute));
         $sArrDotNotation = $oArrDot->getIndexOnValue($sTag);
         list($sRoute, $sTag) = array_filter(explode('.', $sArrDotNotation));
 
-        return get(self::$aRoute[$sRoute]);
+        /** @var DTRoute $oDTRoute */
+        $oDTRoute = get(self::$aRoute[$sRoute]);
+
+        return $oDTRoute;
     }
 }
