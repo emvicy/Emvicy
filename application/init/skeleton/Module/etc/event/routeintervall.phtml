@@ -19,7 +19,7 @@
     'mvc.routeintervall.intervall.after' => [
         function(\MVC\DataType\DTCronTask $oDTCronTask) {
             \MVC\Log::write(
-                $oDTCronTask->get_iPid() . "\t" . $oDTCronTask->get_sRoute() . "\t" . $oDTCronTask->get_iIntervall(),
+                'pid: ' . $oDTCronTask->get_iPid() . "\troute: " . $oDTCronTask->get_sRoute() . "\tintervall: " . $oDTCronTask->get_iIntervall(),
                 \MVC\Config::get_MVC_LOG_FILE_ROUTEINTERVALL()
             );
         },

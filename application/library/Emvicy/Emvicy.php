@@ -6,25 +6,6 @@ use MVC\Config;
 use MVC\Debug;
 use MVC\Route;
 
-/**
- * @param int $iAmount
- * @return void
- */
-function nl(int $iAmount = 1)
-{
-    echo str_repeat("\n", $iAmount);
-}
-
-/**
- * @param string $sString
- * @return void
- */
-function hr(string $sString = '-')
-{
-    nl();
-    echo str_repeat($sString, 80);
-    nl();
-}
 #------------------------------------
 
 class Emvicy
@@ -256,13 +237,16 @@ class Emvicy
     }
 
     /**
+     * @param string $sModule
+     * @param bool   $bForce
+     * @param bool   $bPrimary
      * @return false|void
      */
-    public static function create()
+    public static function create(bool $bForce = null, bool $bPrimary = null, string $sModule = '')
     {
-        $bForce = self::get_force();
-        $sModule = self::get_module();
-        $bPrimary = self::get_primary();
+        $bForce = (false === isset($bForce)) ? self::get_force() : $bForce;
+        $sModule = (true === empty($sModule)) ? self::get_module() : $sModule;
+        $bPrimary = (false === isset($bPrimary)) ? self::get_primary() : $bPrimary;
 
         if (true === empty($sModule))
         {
@@ -449,20 +433,25 @@ class Emvicy
     /**
      * @example php emvicy log id=2023070711413964a7ddd36254a nl=true
      * @required grep, awk, sed
+     * @param string $sLogId
+     * @param bool   $bNewline
      * @return void
      * @throws \ReflectionException
      */
-    public static function log()
+    public static function log(string $sLogId = '', bool $bNewline = true)
     {
-        $sLogId = (false === empty(get($_GET['id'])))
-            ? get($_GET['id'])
-            : Config::get_MVC_UNIQUE_ID()
-        ;
+        if (true === empty($sLogId))
+        {
+            $sLogId = (false === empty(get($_GET['id'])))? get($_GET['id']) : Config::get_MVC_UNIQUE_ID();
+        }
 
-        $bNewline = (false === empty(get($_GET['nl'])))
-            ? (boolean) get($_GET['nl'])
-            : false
-        ;
+        if (true === empty($bNewline))
+        {
+            $bNewline = (false === empty(get($_GET['nl'])))
+                ? (boolean) get($_GET['nl'])
+                : false
+            ;
+        }
 
         // sort with awk on 8. field (Emvicy Log increment number)
         $sCmd = "cd " . Config::get_MVC_LOG_FILE_DIR() . "; "
@@ -534,12 +523,13 @@ class Emvicy
     }
 
     /**
+     * @param string $sParamModule
      * @return void
      * @throws \ReflectionException
      */
-    public static function datatype()
+    public static function datatype(string $sParamModule = '')
     {
-        $sModuleRequested = get($_GET['module']);
+        $sModuleRequested = (false === empty($sParamModule)) ? $sParamModule : get($_GET['module']);
 
         \MVC\Cache::init(\MVC\Config::get_MVC_CACHE_CONFIG());
         \MVC\Cache::autoDeleteCache('DataType', 0);
@@ -569,13 +559,14 @@ class Emvicy
 
     /**
      * @example php emvicy test -c modules/Foo/Test/
+     * @param string $sModule
      * @return void
      * @throws \ReflectionException
      */
-    public static function test()
+    public static function test(string $sModule = '')
     {
         array_shift($GLOBALS['argv']);
-        $sArg = implode(' ', $GLOBALS['argv']);
+        $sArg = (true === empty($sModule)) ? implode(' ', $GLOBALS['argv']) : $sModule;
         $sCmd = Config::get_MVC_BIN_PHP_BINARY() . ' ' . Config::get_MVC_APPLICATION_PATH() . "/vendor/bin/phpunit" . ' ' . $sArg;
         self::shellExecute($sCmd, true);
     }
@@ -590,13 +581,14 @@ class Emvicy
     }
 
     /**
+     * @param string $sOption
      * @return void
      * @throws \ReflectionException
      */
-    public static function routes()
+    public static function routes(string $sOption = '')
     {
         array_shift($GLOBALS['argv']);
-        $sArg = implode(' ', $GLOBALS['argv']);
+        $sArg = (false === empty($sOption)) ? $sOption : implode(' ', $GLOBALS['argv']);
 
         Route::init();
         $aIndex = Route::getIndices();

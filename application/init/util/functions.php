@@ -281,3 +281,23 @@ function whereis(string $sWhereIsItem = '')
 
     return $sResult;
 }
+
+/**
+ * @param int $iAmount
+ * @return void
+ */
+function nl(int $iAmount = 1)
+{
+    echo str_repeat("\n", $iAmount);
+}
+
+/**
+ * @param string $sString
+ * @return void
+ */
+function hr(string $sString = '-')
+{
+    nl();
+    echo str_repeat($sString, 80);
+    nl();
+}

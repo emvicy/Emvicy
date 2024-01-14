@@ -162,4 +162,5 @@ application/library/MVC/Controller.php
 application/library/MVC/Cron.php
 application/library/MVC/Strings.php
 application/library/Emvicy/Install.php
+application/library/Emvicy/_Emvicy.php
 application/library/Emvicy/Emvicy.php

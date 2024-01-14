@@ -331,14 +331,14 @@ class Request
     public static function setServerVarsForCli() : void
     {
         (!array_key_exists (1, $GLOBALS['argv'])) ? $GLOBALS['argv'][1] = '' : false;
-        $aParseUrl = parse_url ($GLOBALS['argv'][1]);
+        $aParseUrl = parse_url(get($GLOBALS['argv'][1], ''));
 
-        $_SERVER = array ();
-        $_SERVER['REQUEST_METHOD'] = 'GET';
-        $_SERVER['REQUEST_URI'] = $GLOBALS['argv'][1];
-        $_SERVER['REMOTE_ADDR'] = '0.0.0.0';
-        $_SERVER['HTTP_HOST'] = 'localhost';
-        $_SERVER['SERVER_PORT'] = 80;
+        (false === is_array($_SERVER)) ? $_SERVER = array () : false;
+        $_SERVER['REQUEST_METHOD'] = get($_SERVER['REQUEST_METHOD'], 'GET');
+        $_SERVER['REQUEST_URI'] = get($_SERVER['REQUEST_URI'], $GLOBALS['argv'][1]);
+        $_SERVER['REMOTE_ADDR'] = get($_SERVER['REMOTE_ADDR'], '0.0.0.0');
+        $_SERVER['HTTP_HOST'] = get($_SERVER['HTTP_HOST'], 'localhost');
+        $_SERVER['SERVER_PORT'] = get($_SERVER['SERVER_PORT'], 80);
 
         if (array_key_exists ('query', $aParseUrl))
         {

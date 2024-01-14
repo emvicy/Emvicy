@@ -28,7 +28,8 @@
     "symfony/var-dumper": "@stable",
     "symfony/http-kernel": "@stable",
     "symfony/http-foundation": "@stable",
-    "symfony/yaml": "v6.3.*"
+    "symfony/yaml": "v6.3.*",
+    "symfony/console": "@stable"
   },
   "require-dev": {
     "phpstan/phpstan": "@stable",
