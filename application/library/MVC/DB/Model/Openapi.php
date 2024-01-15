@@ -17,7 +17,8 @@ use Symfony\Component\Yaml\Yaml;
 class Openapi
 {
     /**
-     * builds an openapi.yaml "DTTables.yaml" in the primary module's DataType folder based on data type classes of the DB tables
+     * builds an openapi.yaml "DTTables.yaml" in the primary module's DataType folder based on data type classes of the
+     * DB tables
      * @param \MVC\DB\Model\DbInit|null $oDB
      * @param string                    $sDtClassPrefix
      * @param string                    $sOpenApiVersion
@@ -66,7 +67,7 @@ class Openapi
 
             foreach ($oDtTmp->getPropertyArray() as $sKey => $mValue)
             {
-                $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['type'] = gettype($mValue);
+                $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['type'] = self::getType(gettype($mValue), get($aFieldInfo[$sKey]['Type'], ''));
 
                 if ('enum' === $aFieldInfo[$sKey]['_type'])
                 {
@@ -74,15 +75,24 @@ class Openapi
                 }
                 else
                 {
-                    (is_numeric($aFieldInfo[$sKey]['_typeValue'])) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['format'] = $aFieldInfo[$sKey]['_type'] : false;
-                    ('date' === $aFieldInfo[$sKey]['_type']) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['format'] = 'date' : false;
-                    ('datetime' === $aFieldInfo[$sKey]['_type']) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['format'] = 'date-time' : false;
-                    (is_numeric($aFieldInfo[$sKey]['_typeValue']) && 'string' === $aFieldInfo[$sKey]['_php']) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['maxLength'] = (int) $aFieldInfo[$sKey]['_typeValue'] : false;
+                    $sFormat = self::getFormat(get($aFieldInfo[$sKey]['_type'], ''));
+                    (false === empty($sFormat)) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['format'] = $sFormat : false;
+
+                    $bNullable = self::isNullable($mValue); # get($aFieldInfo[$sKey]['_type'], ''));
+                    (true === $bNullable) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['nullable'] = true : false;
+
+                    (is_numeric($aFieldInfo[$sKey]['_typeValue']) && 'string' === $aFieldInfo[$sKey]['_php'])
+                        ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['maxLength'] = (int) $aFieldInfo[$sKey]['_typeValue']
+                        : false
+                    ;
 
                     $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['default'] = $mValue;
                 }
 
-                (null !== $aFieldInfo[$sKey]['Type']) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['description'] = $aFieldInfo[$sKey]['Type'] : false;
+                (null !== $aFieldInfo[$sKey]['Type'])
+                    ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['description'] = $aFieldInfo[$sKey]['Type']
+                    : false
+                ;
             }
         }
 
@@ -99,5 +109,72 @@ class Openapi
         );
 
         return $sYamlFile;
+    }
+
+    /**
+     * @param string $sType
+     * @param string $sFieldInfoType
+     * @return string
+     */
+    protected static function getType(string $sType = '', string $sFieldInfoType = '')
+    {
+        if (str_starts_with(strtolower($sFieldInfoType), 'varchar'))
+        {
+            $sType = 'string';
+        }
+        if (str_starts_with(strtolower($sFieldInfoType), 'int'))
+        {
+            $sType = 'integer';
+        }
+        if (str_ends_with(strtolower($sFieldInfoType), 'text'))
+        {
+            $sType = 'string';
+        }
+
+        $aType = array('string', 'number', 'integer', 'boolean', 'array');
+
+        if (false === in_array($sType, $aType))
+        {
+            $sType = 'string';
+        }
+
+        return $sType;
+    }
+
+    /**
+     * @param string $sType
+     * @return string
+     */
+    protected static function getFormat(string $sType = '')
+    {
+        $sFormat = '';
+
+        if('date' === $sType)
+        {
+            $sFormat = 'date';
+        }
+
+        if('datetime' === $sType)
+        {
+            $sFormat = 'date-time';
+        }
+
+        return $sFormat;
+    }
+
+    /**
+     * @param string $mType
+     * @return bool
+     */
+    protected static function isNullable(mixed $mType = '')
+    {
+        $bNullable = false;
+
+        if (true === is_null($mType) || 'null' === strtolower($mType))
+        {
+            $bNullable = true;
+        }
+
+        return $bNullable;
     }
 }
