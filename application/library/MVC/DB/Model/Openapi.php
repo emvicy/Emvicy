@@ -78,7 +78,7 @@ class Openapi
                     $sFormat = self::getFormat(get($aFieldInfo[$sKey]['_type'], ''));
                     (false === empty($sFormat)) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['format'] = $sFormat : false;
 
-                    $bNullable = self::isNullable($mValue); # get($aFieldInfo[$sKey]['_type'], ''));
+                    $bNullable = self::isNullable($mValue);
                     (true === $bNullable) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['nullable'] = true : false;
 
                     (is_numeric($aFieldInfo[$sKey]['_typeValue']) && 'string' === $aFieldInfo[$sKey]['_php'])
@@ -86,7 +86,7 @@ class Openapi
                         : false
                     ;
 
-                    $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['default'] = $mValue;
+                    $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['default'] = self::getDefault($mValue);
                 }
 
                 (null !== $aFieldInfo[$sKey]['Type'])
@@ -109,6 +109,20 @@ class Openapi
         );
 
         return $sYamlFile;
+    }
+
+    /**
+     * @param mixed $mValue
+     * @return mixed|string
+     */
+    protected static function getDefault(mixed $mValue)
+    {
+        if ('null' === strtolower($mValue))
+        {
+            return '';
+        }
+
+        return $mValue;
     }
 
     /**
