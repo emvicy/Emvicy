@@ -128,6 +128,32 @@ class Route
      * @return void
      * @throws \ReflectionException
      */
+    public static function patch(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
+    {
+        self::add('PATCH', $sPath, $sQuery, $mOptional, $sTag);
+    }
+
+    /**
+     * @param string $sPath
+     * @param string $sQuery
+     * @param mixed  $mOptional
+     * @param string $sTag
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function options(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
+    {
+        self::add('OPTIONS', $sPath, $sQuery, $mOptional, $sTag);
+    }
+
+    /**
+     * @param string $sPath
+     * @param string $sQuery
+     * @param mixed  $mOptional
+     * @param string $sTag
+     * @return void
+     * @throws \ReflectionException
+     */
     public static function delete(string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = ''): void
     {
         self::add('DELETE', $sPath, $sQuery, $mOptional, $sTag);
