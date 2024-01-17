@@ -17,13 +17,21 @@ declare(strict_types=1);  // @see https://www.php.net/manual/en/language.types.d
 error_reporting(E_ALL);
 date_default_timezone_set('Europe/Berlin');
 
-// consider a logrotate mechanism for these logfiles as they may grow quickly
-$aConfig['MVC_LOG_SQL'] = false;            // consider to set to true for develop environments only: logging request into MVC_LOG_FILE_SQL
-$aConfig['MVC_LOG_REQUEST'] = false;        // consider to set to true for develop environments only: logging request into MVC_LOG_FILE_REQUEST
-$aConfig['MVC_EVENT_LOG_RUN'] = false;      // consider to set to true for develop environments only: logging of each simple "RUN" event into MVC_LOG_FILE_EVENT
-$aConfig['MVC_LOG_AUTOLOADER'] = false;     // consider to set to true for develop environments only: Log autoloader actions
-$aConfig['MVC_INFOTOOL_ENABLE'] = true;     // consider to set to true for develop environments only: show InfoTool bar
-$aConfig['MVC_LOG_FORCE_LINEBREAK'] = true; // consider to set to true for develop environments only: force linebreaks in logfiles no matter what, improves readabilty of logs but blows up
+// recommended to set a logrotate mechanism for these logfiles as they may grow quickly
+$aConfig['MVC_LOG_SQL'] = true;
+$aConfig['MVC_LOG_EVENT'] = true;
+$aConfig['MVC_LOG_EVENT_RUN'] = false;
+$aConfig['MVC_LOG_ERROR'] = true;               // recommended to set to true for ALL environments
+$aConfig['MVC_LOG_NOTICE'] = true;
+$aConfig['MVC_LOG_POLICY'] = true;
+$aConfig['MVC_LOG_WARNING'] = true;
+$aConfig['MVC_LOG_REQUEST'] = true;
+$aConfig['MVC_LOG_DEFAULT'] = true;
+$aConfig['MVC_LOG_AUTOLOADER'] = false;         // recommended to set to true for develop environments only: Log autoloader actions
+$aConfig['MVC_LOG_ROUTEINTERVALL'] = true;      // recommended to set to true for develop environments only: Log Route Intervall actions
+$aConfig['MVC_LOG_FORCE_LINEBREAK'] = true;     // force linebreaks in logfiles no matter what, improves readability of logs but blows up logfile
+
+$aConfig['MVC_INFOTOOL_ENABLE'] = true;         // recommended to set to true for develop environments only: show InfoTool bar
 
 
 //######################################################################################################################

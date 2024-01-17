@@ -259,6 +259,11 @@ class Config
      */
     public static function get_MVC_LOG_FILE_DEFAULT() : string
     {
+        if (isset($GLOBALS['aConfig']['MVC_LOG_FILE_DEFAULT']))
+        {
+            return $GLOBALS['aConfig']['MVC_LOG_FILE_DEFAULT'];
+        }
+
         if (Registry::isRegistered('MVC_LOG_FILE_DEFAULT'))
         {
             return (string) Registry::get('MVC_LOG_FILE_DEFAULT');
@@ -332,6 +337,20 @@ class Config
         if (Registry::isRegistered('MVC_LOG_FILE_EVENT'))
         {
             return (string) Registry::get('MVC_LOG_FILE_EVENT');
+        }
+
+        return '';
+    }
+
+    /**
+     * @return string
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_FILE_EVENT_RUN() : string
+    {
+        if (Registry::isRegistered('MVC_LOG_FILE_EVENT_RUN'))
+        {
+            return (string) Registry::get('MVC_LOG_FILE_EVENT_RUN');
         }
 
         return '';
@@ -1154,6 +1173,7 @@ class Config
     }
 
     /**
+     * @deprecated use instead: \MVC\Config::get_MVC_LOG_EVENT_RUN()
      * @return bool
      * @throws \ReflectionException
      */
@@ -1168,6 +1188,7 @@ class Config
     }
 
     /**
+     * @deprecated use instead: \MVC\Config::set_MVC_LOG_EVENT_RUN()
      * @param bool $bVar
      * @return void
      */
@@ -1175,6 +1196,30 @@ class Config
     {
         Registry::set('MVC_EVENT_LOG_RUN', $bVar);
         $GLOBALS['aConfig']['MVC_EVENT_LOG_RUN'] = $bVar;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_EVENT_RUN() : bool
+    {
+        if (Registry::isRegistered('MVC_LOG_EVENT_RUN'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_EVENT_RUN'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_EVENT_RUN(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_EVENT_RUN', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_EVENT_RUN'] = $bVar;
     }
 
     /**
@@ -1339,5 +1384,178 @@ class Config
     {
         Registry::set('MVC_LOG_FILE_ROUTEINTERVALL', $sLogFileName);
         $GLOBALS['aConfig']['MVC_LOG_FILE_ROUTEINTERVALL'] = $sLogFileName;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_EVENT() : bool
+    {
+        if (Registry::isRegistered('MVC_LOG_EVENT'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_EVENT'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_EVENT(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_EVENT', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_EVENT'] = $bVar;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_DEFAULT() : bool
+    {
+        if (isset($GLOBALS['aConfig']['MVC_LOG_DEFAULT']))
+        {
+            return $GLOBALS['aConfig']['MVC_LOG_DEFAULT'];
+        }
+
+        if (Registry::isRegistered('MVC_LOG_DEFAULT'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_DEFAULT'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_DEFAULT(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_DEFAULT', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_DEFAULT'] = $bVar;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_ERROR() : bool
+    {
+        if (Registry::isRegistered('MVC_LOG_ERROR'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_ERROR'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_ERROR(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_ERROR', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_ERROR'] = $bVar;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_WARNING() : bool
+    {
+        if (Registry::isRegistered('MVC_LOG_WARNING'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_WARNING'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_WARNING(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_WARNING', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_WARNING'] = $bVar;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_NOTICE() : bool
+    {
+        if (Registry::isRegistered('MVC_LOG_NOTICE'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_NOTICE'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_NOTICE(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_NOTICE', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_NOTICE'] = $bVar;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_POLICY() : bool
+    {
+        if (Registry::isRegistered('MVC_LOG_POLICY'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_POLICY'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_POLICY(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_POLICY', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_POLICY'] = $bVar;
+    }
+
+    /**
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_LOG_ROUTEINTERVALL() : bool
+    {
+        if (Registry::isRegistered('MVC_LOG_ROUTEINTERVALL'))
+        {
+            return (boolean) filter_var(Registry::get('MVC_LOG_ROUTEINTERVALL'), FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param bool $bVar
+     * @return void
+     */
+    public static function set_MVC_LOG_ROUTEINTERVALL(bool $bVar = false) : void
+    {
+        Registry::set('MVC_LOG_ROUTEINTERVALL', $bVar);
+        $GLOBALS['aConfig']['MVC_LOG_ROUTEINTERVALL'] = $bVar;
     }
 }

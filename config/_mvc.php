@@ -110,18 +110,32 @@ MVC_APPLICATION_SETTINGS_I: {
     // notice: wildcard listeners are processed before the regular event listeners
     $aConfig['MVC_EVENT_ENABLE_WILDCARD'] = true;
 
+    /**
+     * Log
+     * consider a logrotate mechanism for these logfiles as they may grow quickly
+     */
     // logging of each simple "RUN" event into MVC_LOG_FILE_EVENT
     // remember:
     // - events marked as "RUN": fired events without any listener (nothing happens)
     // - events marked as "RUN+": fired events with bonded listeners / closures to be executed
     // be aware that setting this to "true" would produce much data in the logfile (consider using logrotate!)
     // anyway this might be useful for a develop environment, as it helps debugging and understanding
-    $aConfig['MVC_EVENT_LOG_RUN'] = false;
+    $aConfig['MVC_LOG_SQL'] = true;                 // logging enabled true|false
+    $aConfig['MVC_LOG_EVENT'] = true;               // logging enabled true|false
+    $aConfig['MVC_LOG_EVENT_RUN'] = false;          // logging enabled true|false
+    $aConfig['MVC_EVENT_LOG_RUN'] = $aConfig['MVC_LOG_EVENT_RUN']; /** @deprecated use instead: MVC_LOG_EVENT_RUN */
+    $aConfig['MVC_LOG_POLICY'] = true;              // logging enabled true|false
+    $aConfig['MVC_LOG_ERROR'] = true;               // logging enabled true|false
+    $aConfig['MVC_LOG_NOTICE'] = true;              // logging enabled true|false
+    $aConfig['MVC_LOG_WARNING'] = true;             // logging enabled true|false
+    $aConfig['MVC_LOG_REQUEST'] = true;            // logging enabled true|false
+    $aConfig['MVC_LOG_DEFAULT'] = true;             // logging enabled true|false
+    $aConfig['MVC_LOG_ROUTEINTERVALL'] = true;      // logging enabled true|false
 
-    /**
-     * Log
-     * consider a logrotate mechanism for these logfiles as they may grow quickly
-     */
+    $aConfig['MVC_LOG_FORCE_LINEBREAK'] = false;    // force linebreaks in logfiles no matter what
+
+    // Log file places
+
     $aConfig['MVC_LOG_FILE_DIR'] = $aConfig['MVC_APPLICATION_PATH'] . '/log/';          # trailing slash required
     $aConfig['MVC_LOG_FILE_DEFAULT'] = $aConfig['MVC_LOG_FILE_DIR'] . 'default.log';
     $aConfig['MVC_LOG_FILE_ERROR'] = $aConfig['MVC_LOG_FILE_DIR'] . 'error.log';
@@ -129,6 +143,7 @@ MVC_APPLICATION_SETTINGS_I: {
     $aConfig['MVC_LOG_FILE_NOTICE'] = $aConfig['MVC_LOG_FILE_DIR'] . 'notice.log';
     $aConfig['MVC_LOG_FILE_POLICY'] = $aConfig['MVC_LOG_FILE_DIR'] . 'policy.log';
     $aConfig['MVC_LOG_FILE_EVENT'] = $aConfig['MVC_LOG_FILE_DIR'] . 'event.log';
+    $aConfig['MVC_LOG_FILE_EVENT_RUN'] = $aConfig['MVC_LOG_FILE_DIR'] . 'event_run.log';
     $aConfig['MVC_LOG_FILE_REQUEST'] = $aConfig['MVC_LOG_FILE_DIR'] . 'request.log';
     $aConfig['MVC_LOG_FILE_SQL'] = $aConfig['MVC_LOG_FILE_DIR'] . 'sql.log';
     $aConfig['MVC_LOG_FILE_ROUTEINTERVALL'] = $aConfig['MVC_LOG_FILE_DIR'] . 'route_intervall.log';
@@ -151,14 +166,7 @@ MVC_APPLICATION_SETTINGS_I: {
         'message' => true,
     ];
 
-    // force linebreaks in logfiles no matter what
-    $aConfig['MVC_LOG_FORCE_LINEBREAK'] = false;
 
-    // logging request into request.log
-    $aConfig['MVC_LOG_REQUEST'] = false;
-
-    // logging of SQL Statements
-    $aConfig['MVC_LOG_SQL'] = false;
 
     /**
      * Database

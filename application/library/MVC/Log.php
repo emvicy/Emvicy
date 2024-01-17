@@ -124,8 +124,22 @@ class Log
             ? $sMessage = str_replace("\n", '\n', $sMessage) . "\n"
             : false;
 
-        file_put_contents (
-            self::prepareLogfile($sLogfile),
+        $sLogfile = self::prepareLogfile($sLogfile);
+
+        if ($sLogfile === Config::get_MVC_LOG_FILE_SQL() && false === Config::get_MVC_LOG_SQL()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_EVENT() && false === Config::get_MVC_LOG_EVENT()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_EVENT_RUN() && false === Config::get_MVC_LOG_EVENT_RUN()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_POLICY() && false === Config::get_MVC_LOG_POLICY()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_POLICY() && false === Config::get_MVC_LOG_POLICY()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_ERROR() && false === Config::get_MVC_LOG_ERROR()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_WARNING() && false === Config::get_MVC_LOG_WARNING()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_NOTICE() && false === Config::get_MVC_LOG_NOTICE()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_REQUEST() && false === Config::get_MVC_LOG_REQUEST()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_DEFAULT() && false === Config::get_MVC_LOG_DEFAULT()) {return;}
+        if ($sLogfile === Config::get_MVC_LOG_FILE_ROUTEINTERVALL() && false === Config::get_MVC_LOG_ROUTEINTERVALL()) {return;}
+
+        file_put_contents(
+            $sLogfile,
             $sMessage,
             FILE_APPEND
         );
