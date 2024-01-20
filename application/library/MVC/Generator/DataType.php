@@ -806,7 +806,7 @@ class DataType
     {
         $sContent = '';
         $sContent.= "\t/**\r\n\t * @return false|string\r\n\t */\r\n\tpublic function getPropertyJson()\r\n\t{
-        return json_encode(" . '$this->getPropertyArray());' . "\r\n\t}\r\n\r\n";
+        return json_encode(" . '\MVC\Convert::objectToArray($this));' . "\r\n\t}\r\n\r\n";
 
         $sContent.= "\t/**\r\n\t * @return array\r\n\t */\r\n\tpublic function getPropertyArray()\r\n\t{
         return " . 'get_object_vars($this);' . "\r\n\t}\r\n\r\n";

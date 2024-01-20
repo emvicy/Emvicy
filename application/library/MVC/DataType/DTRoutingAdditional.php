@@ -477,7 +477,7 @@ class DTRoutingAdditional
 	 */
 	public function getPropertyJson()
 	{
-        return json_encode($this->getPropertyArray());
+        return json_encode(\MVC\Convert::objectToArray($this));
 	}
 
 	/**
