@@ -245,9 +245,9 @@ class InfoTool
 
         try
         {
-            $oStart = (false === empty(Session::is()
+            $oStart = (false === empty(Session::is('Emvicy')
                     ->get('startDateTime')))
-                ? Session::is()
+                ? Session::is('Emvicy')
                     ->get('startDateTime')
                 : new \DateTime (date('Y-m-d H:i:s.' . $sMicrotime));
         }
