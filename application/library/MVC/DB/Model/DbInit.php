@@ -32,6 +32,8 @@ class DbInit
 
     /**
      * Constructor
+     * @param array $aConfig
+     * @throws \ReflectionException
      */
     protected function __construct(array $aConfig = array())
     {
@@ -41,7 +43,13 @@ class DbInit
         \Cachix::init(Config::get_MVC_CACHE_CONFIG());
         $aClassVar = get_class_vars(get_class($this));
 
-        $oDbPDO = new DbPDO($aConfig);
+        try {
+            $oDbPDO = new DbPDO($aConfig);
+        } catch (\PDOException $oPDOException) {
+            Error::exception($oPDOException);
+            return false;
+        }
+
         self::$oPDO = $oDbPDO;
 
         foreach ($aClassVar as $sProperty => $mFoo)

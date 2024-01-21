@@ -70,8 +70,7 @@
             if (true === \MVC\Config::get_MVC_LOG_SQL())
             {
                 \MVC\Log::write(
-                    (int) \MVC\Config::get_MVC_LOG_SQL() . ', '
-                    . \MVC\Strings::tidy($sSql),
+                    \MVC\Strings::tidy($sSql),
                     \MVC\Config::get_MVC_LOG_FILE_SQL()
                 );
             }

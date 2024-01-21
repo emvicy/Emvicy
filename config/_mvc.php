@@ -11,7 +11,7 @@
  *  `/modules/{module}/etc/config/{module}/config/{stage}.php`
  */
 
-//-------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 // MVC
 
 MVC_RUNTIME_SETTINGS: {
@@ -62,7 +62,7 @@ MVC_BIN: {
 
 MVC_APPLICATION_SETTINGS_I: {
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * keys for "query" notation in \MVC\Route routings
      * e.g.: 'module=Foo&c=index&m=index'
      */
@@ -70,7 +70,7 @@ MVC_APPLICATION_SETTINGS_I: {
     $aConfig['MVC_ROUTE_QUERY_PARAM_C'] = 'c';
     $aConfig['MVC_ROUTE_QUERY_PARAM_M'] = 'm';
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * Name of method to be executed in the Target Controller Class
      * before session and other main functionalities.
      * It will be called in /application/library/MVC/Application.php:
@@ -85,7 +85,7 @@ MVC_APPLICATION_SETTINGS_I: {
      */
     $aConfig['MVC_METHODNAME_PRECONSTRUCT'] = '__preconstruct';
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * Paths etc.
      */
     $aConfig['MVC_WEB_ROOT'] = dirname($_SERVER['PHP_SELF']);
@@ -101,7 +101,7 @@ MVC_APPLICATION_SETTINGS_I: {
     // Main Emvicy config directory
     $aConfig['MVC_CONFIG_DIR'] = $aConfig['MVC_BASE_PATH'] . '/config';
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * Event
      */
     // allow declaring listeners with wildcard, e.g.:   Event::bind('foo.bar.*', ... );
@@ -110,18 +110,18 @@ MVC_APPLICATION_SETTINGS_I: {
     // notice: wildcard listeners are processed before the regular event listeners
     $aConfig['MVC_EVENT_ENABLE_WILDCARD'] = true;
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * Log
      * consider a logrotate mechanism for these logfiles as they may grow quickly
      */
+    $aConfig['MVC_LOG_SQL'] = true;                 // logging enabled true|false
+    $aConfig['MVC_LOG_EVENT'] = true;               // logging enabled true|false
     // logging of each simple "RUN" event into MVC_LOG_FILE_EVENT
     // remember:
     // - events marked as "RUN": fired events without any listener (nothing happens)
     // - events marked as "RUN+": fired events with bonded listeners / closures to be executed
     // be aware that setting this to "true" would produce much data in the logfile (consider using logrotate!)
     // anyway this might be useful for a develop environment, as it helps debugging and understanding
-    $aConfig['MVC_LOG_SQL'] = true;                 // logging enabled true|false
-    $aConfig['MVC_LOG_EVENT'] = true;               // logging enabled true|false
     $aConfig['MVC_LOG_EVENT_RUN'] = false;          // logging enabled true|false
     $aConfig['MVC_EVENT_LOG_RUN'] = $aConfig['MVC_LOG_EVENT_RUN']; /** @deprecated use instead: MVC_LOG_EVENT_RUN */
     $aConfig['MVC_LOG_POLICY'] = true;              // logging enabled true|false
@@ -166,13 +166,7 @@ MVC_APPLICATION_SETTINGS_I: {
         'message' => true,
     ];
 
-
-
-    /**
-     * Database
-     */
-
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * Caching
      */
     // cache directory
@@ -186,7 +180,7 @@ MVC_APPLICATION_SETTINGS_I: {
         'sBinGrep' => $aConfig['MVC_BIN_GREP']
     );
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * misc
      */
     // Secure Port, SSL
@@ -195,7 +189,7 @@ MVC_APPLICATION_SETTINGS_I: {
     // boolean Request is secure ? (SSL)
     $aConfig['MVC_SECURE_REQUEST'] = (array_key_exists('HTTPS', $_SERVER) && strtolower($_SERVER['HTTPS']) !== 'off') || (array_key_exists('SERVER_PORT', $_SERVER) && ($_SERVER['SERVER_PORT'] == $aConfig['MVC_SSL_PORT']));
 
-    /**
+    /**-----------------------------------------------------------------------------------------------------------------
      * Session
      */
     // session directory and
