@@ -3,6 +3,7 @@
 namespace Emvicy;
 
 use MVC\Config;
+use MVC\Convert;
 use MVC\Debug;
 use MVC\Route;
 
@@ -237,15 +238,16 @@ class Emvicy
     }
 
     /**
-     * @param string $sModule
-     * @param bool   $bForce
-     * @param bool   $bPrimary
+     * @param bool|null $bForce
+     * @param bool|null $bPrimary
+     * @param string    $sModule
      * @return false|void
+     * @throws \ReflectionException
      */
     public static function create(bool $bForce = null, bool $bPrimary = null, string $sModule = '')
     {
         $bForce = (false === isset($bForce)) ? self::get_force() : $bForce;
-        $sModule = (true === empty($sModule)) ? self::get_module() : $sModule;
+        $sModule = ucfirst(trim((true === empty($sModule)) ? self::get_module() : $sModule));
         $bPrimary = (false === isset($bPrimary)) ? self::get_primary() : $bPrimary;
 
         if (true === empty($sModule))
@@ -253,23 +255,23 @@ class Emvicy
             return false;
         }
 
-        echo 'Modulename: ' . $sModule;
+        echo str_pad('Module to be created:', 30, ' ') . $sModule;
         nl();
-        echo 'primary: ' . $bPrimary;
+        echo str_pad('Should be a primary module:', 30, ' ') . Convert::boolToString($bPrimary);
         nl();
 
         if (false === $bForce)
         {
-            echo "accept: (y)/n";
+            echo "Accept: (y)/n";
             nl();
             $sStdin = strtolower(self::get_stdin(1));
 
-            echo 'Eingabe: ' . $sStdin;
+            echo str_pad('Input:', 30, ' ') . $sStdin;
             nl();
 
             if ($sStdin !== '' && $sStdin !== 'y')
             {
-                echo 'abort.';
+                echo 'Abort.';
                 nl();
                 return false;
             }

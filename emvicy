@@ -7,5 +7,4 @@
  */
 putenv('emvicy=1');
 require_once realpath(__DIR__) . '/application/init/util/loader.php';
-$oEmvicy = \Emvicy\Emvicy::init();
-//require_once 'application/library/Emvicy/_Emvicy.php';
+require_once 'application/library/Emvicy/_Emvicy.php';

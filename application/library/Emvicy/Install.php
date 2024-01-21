@@ -12,6 +12,7 @@ class Install
      * @param array  $aConfig
      * @param bool   $bPrimary
      * @return false|void
+     * @throws \ReflectionException
      */
     public static function run(string $sModuleName = '', array $aConfig = array(), bool $bPrimary = true)
     {
@@ -21,6 +22,15 @@ class Install
         if (is_dir($aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName ))
         {
             echo "\nERROR\tmodule '" . $sModuleName . "' already exists. Exit.\n\n";
+
+            return false;
+        }
+
+        $aModule = \Emvicy\Emvicy::modules(true);
+
+        if (true === $bPrimary && false === empty($aModule['PRIMARY']))
+        {
+            echo "\nERROR\ta primary module already exists: '" . current($aModule['PRIMARY']) . "'\nAbort.\n\n";
 
             return false;
         }
