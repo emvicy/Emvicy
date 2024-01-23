@@ -41,8 +41,11 @@ class Openapi
         $sDTFolderPre = '\\' . Config::get_MVC_MODULE_PRIMARY_NAME() . '\\' . basename(Config::get_MVC_MODULE_PRIMARY_DATATYPE_DIR());
         $sYamlFile = Config::get_MVC_MODULE_PRIMARY_DATATYPE_DIR() . '/' . basename($sYamlFileName);
         $aClassVar = get_class_vars(get_class($oDB));
-        $aTmp = array();
-        $aTmp['components']['schemas'];
+        $aTmp = [
+            'components' => [
+                'schemas' => []
+            ]
+        ];
 
         foreach ($aClassVar as $sProperty => $mFoo)
         {
@@ -69,9 +72,9 @@ class Openapi
             {
                 $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['type'] = self::getType(gettype($mValue), get($aFieldInfo[$sKey]['Type'], ''));
 
-                if ('enum' === $aFieldInfo[$sKey]['_type'])
+                if ('enum' === get($aFieldInfo[$sKey]['_type']))
                 {
-                    $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['enum'] = $aFieldInfo[$sKey]['_typeValue'];
+                    $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['enum'] = get($aFieldInfo[$sKey]['_typeValue']);
                 }
                 else
                 {
@@ -81,15 +84,15 @@ class Openapi
                     $bNullable = self::isNullable($mValue);
                     (true === $bNullable) ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['nullable'] = true : false;
 
-                    (is_numeric($aFieldInfo[$sKey]['_typeValue']) && 'string' === $aFieldInfo[$sKey]['_php'])
-                        ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['maxLength'] = (int) $aFieldInfo[$sKey]['_typeValue']
+                    (is_numeric(get($aFieldInfo[$sKey]['_typeValue'])) && 'string' === get($aFieldInfo[$sKey]['_php']))
+                        ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['maxLength'] = (int) get($aFieldInfo[$sKey]['_typeValue'])
                         : false
                     ;
 
                     $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['default'] = self::getDefault($mValue);
                 }
 
-                (null !== $aFieldInfo[$sKey]['Type'])
+                (null !== get($aFieldInfo[$sKey]['Type']))
                     ? $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['description'] = $aFieldInfo[$sKey]['Type']
                     : false
                 ;
