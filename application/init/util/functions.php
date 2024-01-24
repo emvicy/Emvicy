@@ -293,11 +293,13 @@ function nl(int $iAmount = 1)
 
 /**
  * @param string $sString
+ * @param int $iLength
+ * @param $sColor
  * @return void
  */
-function hr(string $sString = '-')
+function hr(string $sString = '-', int $iLength = 80, $sColor = "\033[0m")
 {
     nl();
-    echo str_repeat($sString, 80);
+    echo $sColor . str_repeat($sString, $iLength) . "\033[0m";
     nl();
 }

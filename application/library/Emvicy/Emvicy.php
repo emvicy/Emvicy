@@ -6,6 +6,7 @@ use MVC\Config;
 use MVC\Convert;
 use MVC\Debug;
 use MVC\Route;
+use MVC\Strings;
 
 #------------------------------------
 
@@ -593,11 +594,35 @@ class Emvicy
         $sArg = (false === empty($sOption)) ? $sOption : implode(' ', $GLOBALS['argv']);
 
         Route::init();
-        $aIndex = Route::getIndices();
-        natcasesort($aIndex);
-        $aIndex = array_values($aIndex);
+        $aIndex = Route::$aMethod;
+        $iMaxLengthRoute = max(array_map('strlen', Route::getIndices())) + 6;
+        $iHrLength = ($iMaxLengthRoute + 120);
 
-        if ('json' === $sArg)
+        if ('list' === $sArg)
+        {
+            hr('=', $iHrLength);
+            echo str_pad('Method', 10, ' ')
+                . str_pad('| Methods assigned', 30, ' ')
+                . str_pad('| Route', $iMaxLengthRoute, ' ')
+                . str_pad('| Target', 50, ' ')
+                . str_pad('| Tag', 30, ' ')
+            ;
+            hr('=', $iHrLength);
+            foreach ($aIndex as $sMethod => $aRoute)
+            {
+                foreach ($aRoute as $sRoute)
+                {
+                    echo str_pad(strtoupper($sMethod), 10, ' ')
+                        . str_pad('| ' . implode(',' , Route::$aRoute[$sRoute]->get_methodsAssigned()), 30, ' ')
+                        . str_pad('| ' . Strings::cutOff($sRoute, ($iMaxLengthRoute - 6)), $iMaxLengthRoute, ' ')
+                        . str_pad('| ' . Route::$aRoute[$sRoute]->get_class() . '::' . Route::$aRoute[$sRoute]->get_m(), 50, ' ')
+                        . str_pad('| ' . Strings::cutOff(Route::$aRoute[$sRoute]->get_tag(), 24, '[..]'), 30, ' ')
+                    ;
+                    hr('-', $iHrLength, "\033[90m");
+                }
+            }
+        }
+        elseif ('json' === $sArg)
         {
             echo json_encode($aIndex);
         }

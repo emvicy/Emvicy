@@ -105,6 +105,14 @@ $oSymfonyComponentConsoleApplication
         \Emvicy\Emvicy::routes('json');
         return \Symfony\Component\Console\Command\Command::SUCCESS;
     });
+$oSymfonyComponentConsoleApplication
+    ->register('routes:list')
+    ->setAliases(['rtl'])
+    ->setDescription('lists available routes')
+    ->setCode(function (\Symfony\Component\Console\Input\InputInterface $oInputInterface, \Symfony\Component\Console\Output\OutputInterface $oOutputInterface): int {
+        \Emvicy\Emvicy::routes('list');
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
+    });
 
 $oSymfonyComponentConsoleApplication
     ->register('update')
