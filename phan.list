@@ -9,6 +9,7 @@ application/library/MVC/Event.php
 application/library/MVC/Application.php
 application/library/MVC/Lock.php
 application/library/MVC/Date.php
+application/library/MVC/Arr.php
 application/library/MVC/Policy.php
 application/library/MVC/InfoTool.php
 application/library/MVC/DataType/DTClass.php

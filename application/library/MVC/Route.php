@@ -27,6 +27,11 @@ class Route
     public static $aMethod = array();
 
     /**
+     * @var array
+     */
+    public static $aMethodRoute = array();
+
+    /**
      * @return void
      * @throws \ReflectionException
      */
@@ -170,6 +175,7 @@ class Route
      */
     protected static function add(string $sMethod = '*', string $sPath = '', string $sQuery = '', mixed $mOptional = '', string $sTag = '') : void
     {
+        $sMethodOrigin = $sMethod;
         parse_str(get($sQuery), $aQuery);
 
         // allows schema '\Foo\Controller\Api::bar' next to 'module=Foo&c=Api&m=bar'
@@ -182,38 +188,29 @@ class Route
         }
 
         $sClass = ucfirst(get($aQuery[Config::get_MVC_ROUTE_QUERY_PARAM_MODULE()], '')) . '\\Controller\\' . ucfirst(get($aQuery[Config::get_MVC_ROUTE_QUERY_PARAM_C()], ''));
-        $aMethodsAssigned = array(strtoupper($sMethod));
+        $aMethodAssigned = array(strtoupper($sMethod));
 
         if (isset(self::$aRoute[$sPath]))
         {
-            $aMethodsAssigned = self::$aRoute[$sPath]->get_methodsAssigned();
+            $aMethodAssigned = self::$aRoute[$sPath]->get_methodsAssigned();
 
-            if (false === in_array($sMethod, $aMethodsAssigned, true))
+            if (false === in_array($sMethod, $aMethodAssigned, true))
             {
                 array_push(
-                    $aMethodsAssigned,
+                    $aMethodAssigned,
                     $sMethod
                 );
             }
-
-            // define default method
-            if (in_array(Request::getCurrentRequest()->get_requestmethod(), $aMethodsAssigned, true))
-            {
-                $sMethod = Request::getCurrentRequest()->get_requestmethod();
-            }
-            else
-            {
-                $sMethod = current($aMethodsAssigned);
-            }
         }
 
-        ((true === empty($sTag)) ? $sTag = Strings::seofy($sPath) : false);
-        ((true === empty($sTag)) ? $sTag = Strings::seofy($sClass . '-' . $aQuery[Config::get_MVC_ROUTE_QUERY_PARAM_M()] . '-' . implode('-', $aMethodsAssigned)) : false);
+        // tag
+        ((true === empty($sTag)) ? $sTag = Strings::seofy((('*' === $sMethodOrigin) ? 'any' : $sMethodOrigin) . '.' . $sPath) : false);
+        ((true === empty($sTag)) ? $sTag = Strings::seofy((('*' === $sMethodOrigin) ? 'any' : $sMethodOrigin) . '.' . $sClass . '-' . $aQuery[Config::get_MVC_ROUTE_QUERY_PARAM_M()] . '-' . implode('-', $aMethodAssigned)) : false);
 
-        self::$aRoute[$sPath] = DTRoute::create()
+        $oDTRoute = DTRoute::create()
             ->set_path($sPath)
-            ->set_method(strtoupper($sMethod))
-            ->set_methodsAssigned($aMethodsAssigned)
+            ->set_method(strtoupper($sMethodOrigin))
+            ->set_methodsAssigned($aMethodAssigned)
             ->set_query($sQuery)
             ->set_class($sClass)
             ->set_classFile(Config::get_MVC_MODULES_DIR() . '/' . str_replace ('\\', '/', $sClass) . '.php')
@@ -223,18 +220,23 @@ class Route
             ->set_additional($mOptional)
             ->set_tag($sTag)
         ;
+        self::$aRoute[$sPath] = $oDTRoute;
 
-        foreach ($aMethodsAssigned as $sMethodsAssigned)
+        foreach ($aMethodAssigned as $sMethodAssigned)
         {
-            if (false === isset(self::$aMethod[strtolower($sMethodsAssigned)]))
+            if (false === isset(self::$aMethod[strtolower($sMethodAssigned)]))
             {
-                self::$aMethod[strtolower($sMethodsAssigned)] = array();
+                self::$aMethod[strtolower($sMethodAssigned)] = array();
             }
 
-            if (false === in_array($sPath, self::$aMethod[strtolower($sMethodsAssigned)], true))
+            if (false === in_array($sPath, self::$aMethod[strtolower($sMethodAssigned)], true))
             {
-                self::$aMethod[strtolower($sMethodsAssigned)][] = $sPath;
+                self::$aMethod[strtolower($sMethodAssigned)][] = $sPath;
+                self::$aMethodRoute[$sMethodAssigned][$sPath] = $oDTRoute; // initial
             }
+
+            // update
+            self::$aMethodRoute[$sMethodAssigned][$sPath]->set_methodsAssigned($oDTRoute->get_methodsAssigned());
         }
     }
 
@@ -260,6 +262,8 @@ class Route
     }
 
     /**
+     * @example Route::getRouteIndexArrayOnKey('query', Config::get_MVC_ROUTING_FALLBACK())
+     *          returns [0 => '/403/', 1 => '/404/']
      * @param string $sKey
      * @param string $sValue
      * @return array
@@ -285,27 +289,33 @@ class Route
     {
         // Request
         $sPath = Request::getCurrentRequest()->get_path();
+        $sRequestMethod = Request::getCurrentRequest()->get_requestmethod();
+
+        if (null === get(self::$aMethodRoute[$sRequestMethod]) && true === isset(self::$aMethodRoute['*']))
+        {
+            $sRequestMethod = '*';
+        }
 
         // Path 1:1 Match; e.g: /foo/bar/
-        if (in_array($sPath, self::getIndices(), true))
+        if (!is_null(get(self::$aMethodRoute[$sRequestMethod][$sPath])))
         {
-            return self::$aRoute[$sPath];
+            return self::$aMethodRoute[$sRequestMethod][$sPath];
         }
 
         // Path 1:1 + Wildcard (/*) Match; e.g: /foo/bar/*
         $sIndex = self::getIndexOnWildcard($sPath);
 
-        if (!empty($sIndex))
+        if (!empty(self::$aMethodRoute[$sRequestMethod][$sIndex]))
         {
-            return self::$aRoute[$sIndex];
+            return self::$aMethodRoute[$sRequestMethod][$sIndex];
         }
 
         // Path Placeholder Match; e.g: /foo/bar/:id/:name/*
         $sIndex = self::getPathOnPlaceholderIndex($sPath);
 
-        if (!empty($sIndex))
+        if (!empty(self::$aMethodRoute[$sRequestMethod][$sIndex]))
         {
-            return self::$aRoute[$sIndex];
+            return self::$aMethodRoute[$sRequestMethod][$sIndex];
         }
 
         return self::handleFallback();
@@ -435,6 +445,7 @@ class Route
      *          Route::getOnTag('home')->get_additional()
      * @param string $sTag
      * @return \MVC\DataType\DTRoute|null
+     * @throws \ReflectionException
      */
     public static function getOnTag(string $sTag = '') : DTRoute|null
     {
@@ -443,12 +454,12 @@ class Route
             return null;
         }
 
-        $oArrDot = new ArrDot(Convert::objectToArray(self::$aRoute));
-        $sArrDotNotation = $oArrDot->getIndexOnValue($sTag);
-        list($sRoute, $sTag) = array_filter(explode('.', $sArrDotNotation));
-
-        /** @var DTRoute $oDTRoute */
-        $oDTRoute = get(self::$aRoute[$sRoute]);
+        // index
+        $aIndex = Arr::recursiveFind(Convert::objectToArray(Route::$aMethodRoute), $sTag);
+        array_pop($aIndex); # remove last
+        $sIndex = implode('.', $aIndex);
+        $oArrDot = new ArrDot(Convert::objectToArray(Route::$aMethodRoute));
+        $oDTRoute = (false === empty($sIndex)) ? DTRoute::create($oArrDot->get($sIndex)) : DTRoute::create();
 
         return $oDTRoute;
     }
@@ -466,9 +477,12 @@ class Route
         /** @var DTRoute[] $aTag */
         $aTag = array();
 
-        foreach (self::$aRoute as $oDTRoute)
+        foreach (self::$aMethodRoute as $sMethod => $aRoute)
         {
-            $aTag[$oDTRoute->get_tag()] = $oDTRoute; # Convert::objectToArray($oDTRoute);
+            foreach ($aRoute as $sRoute => $oDTRoute)
+            {
+                $aTag[$oDTRoute->get_tag()] = $oDTRoute; # Convert::objectToArray($oDTRoute);
+            }
         }
 
         return $aTag;

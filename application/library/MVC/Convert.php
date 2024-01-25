@@ -33,7 +33,7 @@ class Convert
             {
                 $sKey = preg_replace($sPregReplace, '', $sKey);
 
-                if (str_starts_with(trim($sKey), '*'))
+                if ((str_starts_with(trim($sKey), '*')) && (strlen($sKey) > 1))
                 {
                     $sKey = trim(substr(trim($sKey), 1));
                 }

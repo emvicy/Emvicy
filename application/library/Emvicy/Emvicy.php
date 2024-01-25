@@ -4,6 +4,7 @@ namespace Emvicy;
 
 use MVC\Config;
 use MVC\Convert;
+use MVC\DataType\DTRoute;
 use MVC\Debug;
 use MVC\Route;
 use MVC\Strings;
@@ -342,8 +343,8 @@ class Emvicy
         }
 
         $sCmd = whereis('find') . ' ' . $sPath . ' -type f -name "*.php" '
-            . ' -exec ' . PHP_BINARY . ' -l {} \; 2>&1 '
-            . '| (! ' . whereis('grep') . ' -v "errors detected")';
+                . ' -exec ' . PHP_BINARY . ' -l {} \; 2>&1 '
+                . '| (! ' . whereis('grep') . ' -v "errors detected")';
         $sResult = self::shellExecute($sCmd, false);
         $aMessage = preg_split("@\n@", $sResult, -1, PREG_SPLIT_NO_EMPTY);
 
@@ -391,37 +392,37 @@ class Emvicy
 
         UPDATE_FRAMEWORK: {
 
-            if (false === empty($xGit))
-            {
-                $sCmd = $xGit . ' pull';
-                self::shellExecute($sCmd, true);
-            }
-
-            $sCmd = 'cd ' . Config::get_MVC_APPLICATION_PATH() . '; ' . PHP_BINARY . ' composer.phar update;';
+        if (false === empty($xGit))
+        {
+            $sCmd = $xGit . ' pull';
             self::shellExecute($sCmd, true);
         }
 
+        $sCmd = 'cd ' . Config::get_MVC_APPLICATION_PATH() . '; ' . PHP_BINARY . ' composer.phar update;';
+        self::shellExecute($sCmd, true);
+    }
+
         UPDATE_MODULES_VENDOR_LIBS: {
-            $aModule = preg_grep('/^([^.])/', scandir($GLOBALS['aConfig']['MVC_MODULES_DIR']));
+        $aModule = preg_grep('/^([^.])/', scandir($GLOBALS['aConfig']['MVC_MODULES_DIR']));
 
-            foreach ($aModule as $sModule)
+        foreach ($aModule as $sModule)
+        {
+            $sModuleConfigPathAbs = $GLOBALS['aConfig']['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/' . $sModule;
+            $sComposerJson = $sModuleConfigPathAbs . '/composer.json';
+
+            if (false === empty($xGit))
             {
-                $sModuleConfigPathAbs = $GLOBALS['aConfig']['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/' . $sModule;
-                $sComposerJson = $sModuleConfigPathAbs . '/composer.json';
+                $sCmd = 'cd ' . $GLOBALS['aConfig']['MVC_MODULES_DIR'] . '/' . $sModule . '; ' . $xGit . ' pull';
+                self::shellExecute($sCmd, true);
+            }
 
-                if (false === empty($xGit))
-                {
-                    $sCmd = 'cd ' . $GLOBALS['aConfig']['MVC_MODULES_DIR'] . '/' . $sModule . '; ' . $xGit . ' pull';
-                    self::shellExecute($sCmd, true);
-                }
-
-                if (true === file_exists($sComposerJson))
-                {
-                    $sCmd = 'cd ' . $sModuleConfigPathAbs . '; ' . PHP_BINARY . ' ' . Config::get_MVC_APPLICATION_PATH() . '/composer.phar update;';
-                    self::shellExecute($sCmd, true);
-                }
+            if (true === file_exists($sComposerJson))
+            {
+                $sCmd = 'cd ' . $sModuleConfigPathAbs . '; ' . PHP_BINARY . ' ' . Config::get_MVC_APPLICATION_PATH() . '/composer.phar update;';
+                self::shellExecute($sCmd, true);
             }
         }
+    }
     }
 
     /**
@@ -594,32 +595,55 @@ class Emvicy
         $sArg = (false === empty($sOption)) ? $sOption : implode(' ', $GLOBALS['argv']);
 
         Route::init();
-        $aIndex = Route::$aMethod;
-        $iMaxLengthRoute = max(array_map('strlen', Route::getIndices())) + 6;
-        $iHrLength = ($iMaxLengthRoute + 120);
+        $aIndex = Route::$aMethodRoute;
 
         if ('list' === $sArg)
         {
-            hr('=', $iHrLength);
-            echo str_pad('Method', 10, ' ')
-                . str_pad('| Methods assigned', 30, ' ')
-                . str_pad('| Route', $iMaxLengthRoute, ' ')
-                . str_pad('| Target', 50, ' ')
-                . str_pad('| Tag', 30, ' ')
-            ;
-            hr('=', $iHrLength);
+            $iMaxLengthRoute = max(array_map('strlen', Route::getIndices())) + 6;
+            $iHrLength = ($iMaxLengthRoute + 130);
+            $iCnt = 1;
+            $aRouteList = array();
+
             foreach ($aIndex as $sMethod => $aRoute)
             {
-                foreach ($aRoute as $sRoute)
+                /** @var DTRoute $oDTRoute */
+                foreach ($aRoute as $sRoute => $oDTRoute)
                 {
-                    echo str_pad(strtoupper($sMethod), 10, ' ')
-                        . str_pad('| ' . implode(',' , Route::$aRoute[$sRoute]->get_methodsAssigned()), 30, ' ')
-                        . str_pad('| ' . Strings::cutOff($sRoute, ($iMaxLengthRoute - 6)), $iMaxLengthRoute, ' ')
-                        . str_pad('| ' . Route::$aRoute[$sRoute]->get_class() . '::' . Route::$aRoute[$sRoute]->get_m(), 50, ' ')
-                        . str_pad('| ' . Strings::cutOff(Route::$aRoute[$sRoute]->get_tag(), 24, '[..]'), 30, ' ')
-                    ;
-                    hr('-', $iHrLength, "\033[90m");
+                    $aRouteList[] = [
+                        'sMethod' => $sMethod,
+                        'aMethodsAssigned' => Route::$aRoute[$sRoute]->get_methodsAssigned(),
+                        'sRoute' => $sRoute,
+                        'sTarget' => $oDTRoute->get_class() . '::' .$oDTRoute->get_m(),
+                        'sTag' => $oDTRoute->get_tag(),
+                    ];
                 }
+            }
+            array_multisort(array_column($aRouteList, 'sRoute'), SORT_ASC, $aRouteList);
+
+            #---
+
+            // header
+            hr('=', $iHrLength);
+            echo str_pad('', 3, ' ')
+                 . str_pad('| Method', 10, ' ')
+                 . str_pad('| Methods assigned', 30, ' ')
+                 . str_pad('| Route', $iMaxLengthRoute, ' ')
+                 . str_pad('| Target', 60, ' ')
+                 . '| Tag'
+            ;
+            hr('=', $iHrLength);
+
+            foreach ($aRouteList as $aSet)
+            {
+                echo str_pad($iCnt, 3, ' ')
+                     . str_pad('| ' . $aSet['sMethod'], 10, ' ')
+                     . str_pad('| ' . implode(',' , $aSet['aMethodsAssigned']), 30, ' ')
+                     . str_pad('| ' . Strings::cutOff($aSet['sRoute'], ($iMaxLengthRoute - 6)), $iMaxLengthRoute, ' ')
+                     . str_pad('| ' . $aSet['sTarget'], 60, ' ')
+                     . '| ' . $aSet['sTag']
+                ;
+                hr('-', $iHrLength, "\033[90m");
+                $iCnt++;
             }
         }
         elseif ('json' === $sArg)
