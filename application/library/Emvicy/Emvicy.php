@@ -586,21 +586,33 @@ class Emvicy
 
     /**
      * @param string $sOption
-     * @return void
+     * @param bool   $bReturn
+     * @return false|string|void
      * @throws \ReflectionException
      */
-    public static function routes(string $sOption = '')
+    public static function routes(string $sOption = '', bool $bReturn = false)
     {
-        array_shift($GLOBALS['argv']);
-        $sArg = (false === empty($sOption)) ? $sOption : implode(' ', $GLOBALS['argv']);
+        if (false === empty($sOption))
+        {
+            $sArg = $sOption;
+        }
+        else
+        {
+            array_shift($GLOBALS['argv']);
+            $sArg = implode(' ', $GLOBALS['argv']);
+        }
 
         Route::init();
         $aIndex = Route::$aMethodRoute;
 
+        if (true === $bReturn)
+        {
+            ob_start();
+        }
+
         if ('list' === $sArg)
         {
             $iMaxLengthRoute = max(array_map('strlen', Route::getIndices())) + 6;
-            $iHrLength = ($iMaxLengthRoute + 130);
             $iCnt = 1;
             $aRouteList = array();
 
@@ -618,7 +630,11 @@ class Emvicy
                     ];
                 }
             }
-            array_multisort(array_column($aRouteList, 'sRoute'), SORT_ASC, $aRouteList);
+            array_multisort(
+                array_column($aRouteList, 'sRoute'),
+                SORT_ASC,
+                $aRouteList
+            );
 
             echo "\n\n";
             echo str_pad('| No', 6, ' ')
@@ -663,5 +679,13 @@ class Emvicy
             Debug::varExport($aIndex);
         }
         nl();
+
+        if (true === $bReturn)
+        {
+            $sList = ob_get_contents();
+            ob_end_clean();
+
+            return $sList;
+        }
     }
 }
