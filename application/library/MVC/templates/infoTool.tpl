@@ -368,13 +368,23 @@ Request::getPathParam( $sKey )</pre>
 					<pre>Route::getCurrent()->getPropertyArray()</pre>
 					<i>\MVC\DataType\DTRoute</i>
 					<pre>Route::getCurrent()</pre>
+					<hr>
 
-					<h6>All Routes <small>paths only</small></h6>
-					<p>{$aToolbar.aRouting.aRoute}</p>
+					<h6>All Routes</h6>
 					<i>array</i> - paths only
 					<pre>array_keys(Route::$aRoute)</pre>
 					<i>array</i> - full information
-					<pre>Route::$aRoute</pre>
+					<pre>Route::$aMethodRoute</pre>
+
+					<i>get markdown Routes List</i>
+					<pre>$sRouteListMarkdown = Emvicy\Emvicy::routes('list', true);</pre>
+
+					<i>get markdown Routes List converted into HTML (as shown below)</i>
+					<pre>$sRouteListHtml = \Parsedown::instance()->text(Emvicy\Emvicy::routes('list', true));</pre>
+					<hr>
+
+					{assign var=sRouteList value=Parsedown::instance()->text(Emvicy\Emvicy::routes('list', true))}
+					<div class="table-responsive">{str_replace('<table>','<table class="table table-hover table-sm table-responsive" style="font-size: 10px;">', $sRouteList)}</div>
 				</div>
 				<div class="subtab25">
 					<h6>Overview</h6>
