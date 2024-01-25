@@ -353,21 +353,13 @@ Request::getPathParam( $sKey )</pre>
 					<pre>Event::delete('event.name');</pre>
 				</div>
 				<div class="subtab24">
-					<h6>Target Controller method <a id="myMvcToolbar_Target"></a> </h6>
-					{*					<p>\{$aToolbar.aRouting.sModule}\Controller\{$aToolbar.aRouting.sController}::{$aToolbar.aRouting.sMethod}({$aToolbar.aRouting.sArg|escape:"htmlall":"UTF-8"})	</p>*}
-					{if isset($aToolbar.aRouting.aRoutingCurrent.class)}
-						<code>\{$aToolbar.aRouting.aRoutingCurrent.class}::{$aToolbar.aRouting.aRoutingCurrent.m}()</code>
-						<pre>Route::getCurrent()->get_class()  ::  Route::getCurrent()->get_m()</pre>
-					{else}
-						<code>unknown</code>
-					{/if}
-
 					<h6>Current Route <a id="myMvcToolbar_Routing"></a> </h6>
-					<p>{$aToolbar.aRouting.sRoutingCurrent}</p>
+					<pre>{MVC\Route::getCurrent()|@print_r:true}</pre>
+					<i>object</i>
+					<pre>MVC\Route::getCurrent()</pre>
 					<i>array</i>
 					<pre>Route::getCurrent()->getPropertyArray()</pre>
-					<i>\MVC\DataType\DTRoute</i>
-					<pre>Route::getCurrent()</pre>
+
 					<hr>
 
 					<h6>All Routes</h6>
@@ -385,6 +377,16 @@ Request::getPathParam( $sKey )</pre>
 
 					{assign var=sRouteList value=Parsedown::instance()->text(Emvicy\Emvicy::routes('list', true))}
 					<div class="table-responsive">{str_replace('<table>','<table class="table table-hover table-sm table-responsive" style="font-size: 10px;">', $sRouteList)}</div>
+					<hr>
+
+					<h6>Target Controller method <a id="myMvcToolbar_Target"></a> </h6>
+					{*					<p>\{$aToolbar.aRouting.sModule}\Controller\{$aToolbar.aRouting.sController}::{$aToolbar.aRouting.sMethod}({$aToolbar.aRouting.sArg|escape:"htmlall":"UTF-8"})	</p>*}
+					{if isset($aToolbar.aRouting.aRoutingCurrent.class)}
+						<code>\{$aToolbar.aRouting.aRoutingCurrent.class}::{$aToolbar.aRouting.aRoutingCurrent.m}()</code>
+						<pre>Route::getCurrent()->get_class()  ::  Route::getCurrent()->get_m()</pre>
+					{else}
+						<code>unknown</code>
+					{/if}
 				</div>
 				<div class="subtab25">
 					<h6>Overview</h6>
