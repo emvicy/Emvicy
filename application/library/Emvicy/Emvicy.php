@@ -620,29 +620,37 @@ class Emvicy
             }
             array_multisort(array_column($aRouteList, 'sRoute'), SORT_ASC, $aRouteList);
 
-            #---
-
-            // header
-            hr('=', $iHrLength);
-            echo str_pad('', 3, ' ')
+            echo "\n\n";
+            echo str_pad('| No', 6, ' ')
                  . str_pad('| Method', 10, ' ')
                  . str_pad('| Methods assigned', 30, ' ')
                  . str_pad('| Route', $iMaxLengthRoute, ' ')
                  . str_pad('| Target', 60, ' ')
-                 . '| Tag'
+                 . str_pad('| Tag', $iMaxLengthRoute, ' ')
+                 . '|'
+                . "\n"
             ;
-            hr('=', $iHrLength);
+            echo str_pad('|', 6, '-')
+                 . str_pad('|', 10, '-')
+                 . str_pad('|', 30, '-')
+                 . str_pad('|', $iMaxLengthRoute, '-')
+                 . str_pad('|', 60, '-')
+                 . str_pad('|', $iMaxLengthRoute, '-')
+                 . '|'
+                . "\n"
+            ;
 
             foreach ($aRouteList as $aSet)
             {
-                echo str_pad($iCnt, 3, ' ')
+                echo str_pad('| ' . $iCnt, 6, ' ')
                      . str_pad('| ' . $aSet['sMethod'], 10, ' ')
                      . str_pad('| ' . implode(',' , $aSet['aMethodsAssigned']), 30, ' ')
                      . str_pad('| ' . Strings::cutOff($aSet['sRoute'], ($iMaxLengthRoute - 6)), $iMaxLengthRoute, ' ')
                      . str_pad('| ' . $aSet['sTarget'], 60, ' ')
-                     . '| ' . $aSet['sTag']
+                     . str_pad('| ' . $aSet['sTag'], $iMaxLengthRoute, ' ')
+                     . '|'
+                    . "\n"
                 ;
-                hr('-', $iHrLength, "\033[90m");
                 $iCnt++;
             }
         }
