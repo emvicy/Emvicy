@@ -272,6 +272,11 @@ Config::MODULE('{MVC\Config::get_MVC_MODULE_PRIMARY_NAME()}')['SESSION']</pre>
 
 				</div>
 				<div class="subtab22">
+					<h6>Current Request Object</h6>
+					<pre>{MVC\Request::getCurrentRequest()|@print_r:true}</pre>
+					<pre>Request::getCurrentRequest()</pre>
+					<br>
+
 					<h6>Path <small>requested</small><a id="myMvcToolbar_Path"></a> </h6>
 					<code>{$aToolbar.sRoutingPath|escape:"htmlall":"UTF-8"}</code>
 					<pre>Request::getCurrentRequest()->get_path()</pre>
@@ -296,10 +301,7 @@ Request::getPathParam( $sKey )</pre>
 						{/if}
 					</code>
 					<pre>Request::getCurrentRequest()->get_query()</pre>
-
-					<h6>Current Request Object</h6>
-					<pre>{MVC\Request::getCurrentRequest()|@print_r:true}</pre>
-					<pre>Request::getCurrentRequest()</pre>
+					<br>
 				</div>
 
 				<div class="subtab23">
@@ -387,6 +389,7 @@ Request::getPathParam( $sKey )</pre>
 					{else}
 						<code>unknown</code>
 					{/if}
+					<br>
 				</div>
 				<div class="subtab25">
 					<h6>Overview</h6>
