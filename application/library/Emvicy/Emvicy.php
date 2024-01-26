@@ -6,6 +6,7 @@ use MVC\Config;
 use MVC\Convert;
 use MVC\DataType\DTRoute;
 use MVC\Debug;
+use MVC\Event;
 use MVC\Route;
 use MVC\Strings;
 
@@ -596,7 +597,7 @@ class Emvicy
         {
             $sArg = $sOption;
         }
-        else
+        elseif(true === isset($GLOBALS['argv']))
         {
             array_shift($GLOBALS['argv']);
             $sArg = implode(' ', $GLOBALS['argv']);
@@ -679,6 +680,83 @@ class Emvicy
             Debug::varExport($aIndex);
         }
         nl();
+
+        if (true === $bReturn)
+        {
+            $sList = ob_get_contents();
+            ob_end_clean();
+
+            return $sList;
+        }
+    }
+
+    /**
+     * @param string $sOption
+     * @param bool $bReturn
+     * @return false|string|void
+     * @throws \ReflectionException
+     */
+    public static function eventListener(string $sOption = '', bool $bReturn = false)
+    {
+        if (false === empty($sOption))
+        {
+            $sArg = $sOption;
+        }
+        elseif(true === isset($GLOBALS['argv']))
+        {
+            array_shift($GLOBALS['argv']);
+            $sArg = implode(' ', $GLOBALS['argv']);
+        }
+
+        (false === isset(Config::get_MVC_EVENT()['BIND'])) ? Event::init() : false;
+        $aBonded = Config::get_MVC_EVENT()['BIND'];
+        ksort($aBonded);
+
+        if (true === $bReturn)
+        {
+            ob_start();
+        }
+
+        echo "\n\n";
+        echo str_pad('| No', 6, ' ')
+            . str_pad('| Event', 60, ' ')
+            . str_pad('| Listener Place (Event bonded at)', 60, ' ')
+            . str_pad('| Listener Closure', 180, ' ')
+            . '|'
+            . "\n"
+        ;
+        echo str_pad('|', 6, '-')
+            . str_pad('|', 60, '-')
+            . str_pad('|', 60, '-')
+            . str_pad('|', 180, '-')
+            . '|'
+            . "\n"
+        ;
+        $iCnt = 1;
+
+        foreach ($aBonded as $sEvent => $aBind)
+        {
+            foreach ($aBind as $sBind)
+            {
+                $sBind = Strings::tidy($sBind);
+                list($sText, $sSource) = array_map('trim', explode('--> called in:', $sBind));
+
+                list($sGarbage, $sClosure) = array_map('trim', explode('function', $sText));
+                $sClosure = 'function' . Strings::tidy($sClosure);
+
+                echo str_pad('| ' . $iCnt, 6, ' ')
+                    . str_pad('| ' . Strings::cutOff($sEvent, 54), 60, ' ')
+                    . str_pad('| ' . Strings::cutOff($sSource, 54), 60, ' ')
+                    . str_pad('| ' . Strings::cutOff($sClosure, 174), 180, ' ')
+                    . '|'
+                    . "\n"
+                ;
+            }
+
+            $iCnt++;
+        }
+
+        echo "\n";
 
         if (true === $bReturn)
         {

@@ -108,7 +108,7 @@ $oSymfonyComponentConsoleApplication
 $oSymfonyComponentConsoleApplication
     ->register('routes:list')
     ->setAliases(['rtl'])
-    ->setDescription('lists available routes')
+    ->setDescription('lists available routes in a markdown table')
     ->setCode(function (\Symfony\Component\Console\Input\InputInterface $oInputInterface, \Symfony\Component\Console\Output\OutputInterface $oOutputInterface): int {
         \Emvicy\Emvicy::routes('list');
         return \Symfony\Component\Console\Command\Command::SUCCESS;
@@ -203,6 +203,14 @@ $oSymfonyComponentConsoleApplication
     ->setDescription('lists available modules in JSON format. Example: {"SECONDARY":{"0":"Captcha","1":"DB","2":"Email","4":"Idolon","5":"InfoService","6":"OpenApi"},"PRIMARY":["Emvicy"]}')
     ->setCode(function (\Symfony\Component\Console\Input\InputInterface $oInputInterface, \Symfony\Component\Console\Output\OutputInterface $oOutputInterface): int {
         \Emvicy\Emvicy::modules();
+        return \Symfony\Component\Console\Command\Command::SUCCESS;
+    });
+$oSymfonyComponentConsoleApplication
+    ->register('event:listener')
+    ->setAliases(['el'])
+    ->setDescription('lists all known event listeners in a markdown table ')
+    ->setCode(function (\Symfony\Component\Console\Input\InputInterface $oInputInterface, \Symfony\Component\Console\Output\OutputInterface $oOutputInterface): int {
+        \Emvicy\Emvicy::eventListener();
         return \Symfony\Component\Console\Command\Command::SUCCESS;
     });
 #-----------------------------------------------------------------------------------------------------------------------

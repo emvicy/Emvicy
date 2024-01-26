@@ -307,16 +307,16 @@ Request::getPathParam( $sKey )</pre>
 				<div class="subtab23">
 					<h6>Overview</h6>
 					<ul>
-						<li><a href="#myMvcToolbar_BINDindex">bind() <small>list by index</small></a></li>
-						<li><a href="#myMvcToolbar_BINDname">bind() <small>group by event name</small></a></li>
+						<li><a href="#myMvcToolbar_BINDindex">Event Listener <code>Event::bind()</code></a></li>
+						<li><a href="#myMvcToolbar_BINDname">Event Listener <code>Event::bind()</code> <small>group by event name</small></a></li>
 						<li><a href="#myMvcToolbar_RUN">run()</a></li>
 						<li><a href="#myMvcToolbar_DELETE">delete()</a></li>
 					</ul>
 
-					<h6>bind() <small>list by index</small> <a id="myMvcToolbar_BINDindex"></a> </h6>
-					<p>
-						{$aToolbar.aEventBIND}
-					</p>
+					<h6>Event Listener <code>Event::bind()</code> <a id="myMvcToolbar_BINDindex"></a> </h6>
+					<pre>
+						{Emvicy\Emvicy::eventListener()}
+					</pre>
 
 					<i>get all bonded</i><br>
 					<pre>Config::get_MVC_EVENT()['BIND'];</pre>
@@ -324,7 +324,7 @@ Request::getPathParam( $sKey )</pre>
 					<i><code>bind</code> to an event</i><br>
 					<pre>Event::bind('event.name', \Closure $oClosure, $oObject = NULL);</pre>
 
-					<h6>bind() <small>group by event name</small> <a id="myMvcToolbar_BINDname"></a> </h6>
+					<h6>Event Listener <code>Event::bind()</code> <small>group by event name</small> <a id="myMvcToolbar_BINDname"></a> </h6>
 					<p>
 						{$aToolbar.aEventBINDNAME}
 					</p>
