@@ -59,7 +59,7 @@ class Config
 
     /**
      * @return string
-     * @throws \ReflectionException#
+     * @throws \ReflectionException
      */
     public static function get_MVC_ROUTE_QUERY_PARAM_MODULE() : string
     {
@@ -381,17 +381,17 @@ class Config
     }
 
     /**
-     * @return string
+     * @return bool
      * @throws \ReflectionException
      */
-    public static function get_MVC_LOG_FORCE_LINEBREAK() : string
+    public static function get_MVC_LOG_FORCE_LINEBREAK() : bool
     {
-        if (Registry::isRegistered('MVC_LOG_FORCE_LINEBREAK'))
+        if (true === Registry::isRegistered('MVC_LOG_FORCE_LINEBREAK'))
         {
-            return (string) Registry::get('MVC_LOG_FORCE_LINEBREAK');
+            return (bool) filter_var(Registry::get('MVC_LOG_FORCE_LINEBREAK'), FILTER_VALIDATE_BOOLEAN);
         }
 
-        return '';
+        return false;
     }
 
     /**
@@ -499,17 +499,17 @@ class Config
     }
 
     /**
-     * @return string
+     * @return int
      * @throws \ReflectionException
      */
-    public static function get_MVC_SSL_PORT() : string
+    public static function get_MVC_SSL_PORT() : int
     {
-        if (Registry::isRegistered('MVC_SSL_PORT'))
+        if (true === Registry::isRegistered('MVC_SSL_PORT'))
         {
-            return (string) Registry::get('MVC_SSL_PORT');
+            return Registry::get('MVC_SSL_PORT');
         }
 
-        return '';
+        return 0;
     }
 
     /**
@@ -944,20 +944,6 @@ class Config
         if (Registry::isRegistered('MVC_MODULE_PRIMARY_CONFIG_DIR'))
         {
             return (string) Registry::get('MVC_MODULE_PRIMARY_CONFIG_DIR');
-        }
-
-        return '';
-    }
-
-    /**
-     * @return string
-     * @throws \ReflectionException
-     */
-    public static function get_MVC_MODULE_PRIMARY_EVENT_DIR() : string
-    {
-        if (Registry::isRegistered('MVC_MODULE_PRIMARY_EVENT_DIR'))
-        {
-            return (string) Registry::get('MVC_MODULE_PRIMARY_EVENT_DIR');
         }
 
         return '';

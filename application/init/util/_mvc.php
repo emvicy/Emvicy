@@ -14,6 +14,8 @@ current(
     )
 ) : '?';
 
+$aConfig['MVC_VERSION'] = $sVersion;
+
 $aConfig['MVC_CORE'] = array(
 
     // Emvicy

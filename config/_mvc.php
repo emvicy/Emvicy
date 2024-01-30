@@ -104,6 +104,8 @@ MVC_APPLICATION_SETTINGS_I: {
     /**-----------------------------------------------------------------------------------------------------------------
      * Event
      */
+    $aConfig['MVC_EVENT'] = array();
+
     // allow declaring listeners with wildcard, e.g.:   Event::bind('foo.bar.*', ... );
     // matches to event 'foo.bar.baz':                  Event::run('foo.bar.baz');
     // mandatory: asterisk `*` at the end
@@ -249,7 +251,6 @@ MODULES: {
     $aConfig['MVC_MODULE_PRIMARY_DATATYPE_DIR'] = $aConfig['MVC_MODULE_PRIMARY_DIR'] . '/DataType';
     $aConfig['MVC_MODULE_PRIMARY_ETC_DIR'] = $aConfig['MVC_MODULE_PRIMARY_DIR'] . '/etc';
     $aConfig['MVC_MODULE_PRIMARY_STAGING_CONFIG_DIR'] = $aConfig['MVC_MODULE_PRIMARY_CONFIG_DIR'] . '/' . $aConfig['MVC_MODULE_PRIMARY_NAME'] . '/config';
-    $aConfig['MVC_MODULE_PRIMARY_EVENT_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/Event';
     $aConfig['MVC_MODULE_PRIMARY_MODEL_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/Model';
     $aConfig['MVC_MODULE_PRIMARY_POLICY_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/Policy';
     $aConfig['MVC_MODULE_PRIMARY_VIEW_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/View';

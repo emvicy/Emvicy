@@ -9,6 +9,12 @@ application/library/MVC/Event.php
 application/library/MVC/Application.php
 application/library/MVC/Lock.php
 application/library/MVC/Date.php
+application/library/MVC/.bak/_ConfigBase.php
+application/library/MVC/.bak/ConfigNeu.php
+application/library/MVC/.bak/_configbase.php
+application/library/MVC/.bak/ConfigBase2.php
+application/library/MVC/.bak/Config.php
+application/library/MVC/.bak/ConfigBase.php
 application/library/MVC/Arr.php
 application/library/MVC/Policy.php
 application/library/MVC/InfoTool.php

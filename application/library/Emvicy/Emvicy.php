@@ -622,6 +622,12 @@ class Emvicy
                 /** @var DTRoute $oDTRoute */
                 foreach ($aRoute as $sRoute => $oDTRoute)
                 {
+                    // skip faulty ones
+                    if (false === in_array($sRoute, array_keys(Route::$aRoute)))
+                    {
+                        continue;
+                    }
+
                     $aRouteList[] = [
                         'sMethod' => $sMethod,
                         'aMethodsAssigned' => Route::$aRoute[$sRoute]->get_methodsAssigned(),

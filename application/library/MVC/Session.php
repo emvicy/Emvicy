@@ -79,6 +79,7 @@ class Session
     /**
      * @param bool $bEnable
      * @return \MVC\Session|null
+     * @throws \ReflectionException
      */
     public function enable(bool $bEnable = true) : Session|null
     {
@@ -217,7 +218,8 @@ class Session
     /**
      * kills current session
      * @param bool $bRegenerateId
-     * @return null
+     * @return \MVC\Session|null
+     * @throws \ReflectionException
      */
     public function kill(bool $bRegenerateId = true)
     {
@@ -267,7 +269,7 @@ class Session
             && "true" == $_COOKIE['Emvicy_cookieConsent']
         )
         {
-            Config::set_MVC_SESSION_ENABLE();
+            Config::set_MVC_SESSION_ENABLE($bEnable);
         }
     }
 
