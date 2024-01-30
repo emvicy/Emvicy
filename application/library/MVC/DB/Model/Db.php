@@ -826,10 +826,11 @@ class Db
 
     /**
      * @param \MVC\DB\DataType\DB\TableDataType|null $oTableDataType
+     * @param bool                                   $bAutoIncementId
      * @return \MVC\DB\DataType\DB\TableDataType|null
      * @throws \ReflectionException
      */
-    public function create(TableDataType $oTableDataType = null) : TableDataType|null
+    public function create(TableDataType $oTableDataType = null, bool $bAutoIncementId = true) : TableDataType|null
     {
         if (null === $oTableDataType)
         {
@@ -861,7 +862,7 @@ class Db
 
         foreach ($aField as $iCnt => $sField)
         {
-            if ('id' === $sField){continue;}
+            if (true === $bAutoIncementId && 'id' === $sField){continue;}
             $sSql.= "`" . $sField . "`,";
             $sSqlExplain.= "`" . $sField . "`,";;
         }
@@ -873,7 +874,7 @@ class Db
 
         foreach ($aField as $iCnt => $sField)
         {
-            if ('id' === $sField){continue;}
+            if (true === $bAutoIncementId && 'id' === $sField){continue;}
             $sSql.= ":" . $sField . ",";
         }
 
@@ -885,7 +886,7 @@ class Db
         // BINDINGS
         foreach ($aField as $sField)
         {
-            if ('id' === $sField){continue;}
+            if (true === $bAutoIncementId && 'id' === $sField){continue;}
 
             $sMethod = 'get_' . $sField;
             $sValue = $oTableDataType->$sMethod();
