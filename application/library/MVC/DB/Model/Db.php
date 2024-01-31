@@ -962,10 +962,14 @@ class Db
             ->set_sValue($oTableDataType->get_id());
 
         $aResult = $this->retrieve(
-            $aDTDBWhere,
-            array(),
-            get_class($oTableDataType)
+            $aDTDBWhere
         );
+
+        if (true === empty($aResult))
+        {
+            $sTableDataType = get_class($oTableDataType);
+            return $sTableDataType::create();
+        }
 
         return current($aResult);
     }
