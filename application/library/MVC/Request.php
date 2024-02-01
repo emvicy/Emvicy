@@ -294,10 +294,19 @@ class Request
     /**
      * @param array $aPathParam
      * @return void
+     * @throws \ReflectionException
      */
     public static function setPathParam(array $aPathParam = array()) : void
     {
         Registry::set('aPathParam', $aPathParam);
+
+        (true === Registry::isRegistered('oDTRequestCurrent'))
+            ? $oDTRequestCurrent = Registry::get('oDTRequestCurrent')
+            : $oDTRequestCurrent = self::getCurrentRequest()
+        ;
+
+        $oDTRequestCurrent->set_pathParam($aPathParam);
+        Registry::set('oDTRequestCurrent', $oDTRequestCurrent);
     }
 
     /**
