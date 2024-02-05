@@ -554,9 +554,9 @@ class DataType
 
         $sContent = '';
         $sContent.= "\t/**\r\n"
-                     . "\t * @required " . ($oProperty->get_required() ? 'true' : 'false') . "\r\n"
-                     . "\t * @var " . $oProperty->get_var() . "\r\n"
-                     . "\t */\r\n";
+                    . "\t * @required " . ($oProperty->get_required() ? 'true' : 'false') . "\r\n"
+                    . "\t * @var " . $oProperty->get_var() . "\r\n"
+                    . "\t */\r\n";
         $sContent.= "\t" . $oProperty->get_visibility() . " ";
         (true === $oProperty->get_static())
             ? $sContent.= "static "
@@ -634,7 +634,7 @@ class DataType
                     {
                         $sContent.= (is_array($oProperty->get_value()))
                             ? preg_replace('!\s+!', '', str_replace("\n", '', Debug::varExport($oProperty->get_value(), true, false))) . ";\r\n"
-                            : "array();\r\n";
+                            : "[];\r\n";
                     }
 
                     if ('bool' == substr(strtolower($oProperty->get_var()), 0, 4))
@@ -666,7 +666,7 @@ class DataType
                 {
                     $sContent.= (is_array($oProperty->get_value()))
                         ? preg_replace('!\s+!', '', str_replace("\n", '', Debug::varExport($oProperty->get_value(), true, false))) . ";\r\n"
-                        : "array();\r\n";
+                        : "[];\r\n";
                 }
                 else
                 {
@@ -688,7 +688,7 @@ class DataType
         (true === $this->bCreateEvents)
             ? $sContent.= "\MVC\Event::run('" . $oDTDataTypeGeneratorClass->get_name() . ".__construct.after', " . '$oDTValue' . ");"
             : false
-            ;
+        ;
         $sContent.= "\n\t}\r\n\r\n";
 
         return $sContent;
@@ -900,7 +900,7 @@ class DataType
         $sRight2 = substr($oProperty->get_var(), -2);
         $sContent = '';
 
-        if ('[]' !== $sRight2)
+        if ('[]' !== $sRight2 && 'array' !== $oProperty->get_var())
         {
             $sContent.= "\t/**\r\n" . "\t * @param " . $sVar . (('null' === $oProperty->get_value()) ? '|null' : false) .' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
             $sContent.= "\tpublic function set_" . $oProperty->get_key() . '(';
