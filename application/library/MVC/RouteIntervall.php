@@ -180,7 +180,10 @@ class RouteIntervall
      */
     protected function shutdown()
     {
-        unlink($this->iPidParentFile);
+        if (true === file_exists($this->iPidParentFile))
+        {
+            unlink($this->iPidParentFile);
+        }
 
         Event::run('mvc.routeintervall.intervall.end', $this->sIntervallYamlFile);
 
