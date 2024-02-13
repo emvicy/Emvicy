@@ -120,7 +120,7 @@ class Openapi
      */
     protected static function getDefault(mixed $mValue)
     {
-        if ('null' === strtolower($mValue))
+        if (true === is_null($mValue) || (true === is_string($mValue) && 'null' === strtolower($mValue)))
         {
             return '';
         }
