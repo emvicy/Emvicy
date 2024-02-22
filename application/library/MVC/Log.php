@@ -84,8 +84,6 @@ class Log
 			ob_end_clean();
 		}
 
-        $mMessage = strip_tags(stripcslashes($mMessage));
-
 		// count 1 up
 		self::$iCount++;
 
