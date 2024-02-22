@@ -1029,7 +1029,7 @@ class Db
         $sSqlExplain = $sSql;
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
-        foreach ($aDTDBWhere as $oDTDBWhere)
+        foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
         {
             // convert `INs` into series of `OR` commands
             if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
@@ -1041,7 +1041,7 @@ class Db
             // regular
             else
             {
-                $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+                $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . $iKey . " \n";
                 $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
             }
         }
@@ -1058,7 +1058,7 @@ class Db
         $oStmt = $this->oDbPDO->prepare($sSql);
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
-        foreach ($aDTDBWhere as $oDTDBWhere)
+        foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
         {
             // skip INs
             if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
@@ -1074,7 +1074,7 @@ class Db
             ('null' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
 
             $oStmt->bindValue(
-                ':' . $oDTDBWhere->get_sKey(),
+                ':' . $oDTDBWhere->get_sKey() . $iKey,
                 $oDTDBWhere->get_sValue(),
                 $iPdoParam
             );
@@ -1227,9 +1227,9 @@ class Db
         $sSqlExplain =  $sSql;
 
         /** @var \MVC\DataType\DTDBSet $oDTDBSet */
-        foreach ($aDTDBSet as $oDTDBSet)
+        foreach ($aDTDBSet as $iKey => $oDTDBSet)
         {
-            $sSql.= '`' . $oDTDBSet->get_sKey() . '` = :set_' . $oDTDBSet->get_sKey() . ",";
+            $sSql.= '`' . $oDTDBSet->get_sKey() . '` = :set_' . $oDTDBSet->get_sKey() . $iKey . ",";
             $sSqlExplain.= '`' . $oDTDBSet->get_sKey() . '` = ';
             $sSqlExplain.= (null === $oDTDBSet->get_sValue()) ? 'NULL,' : "'" . $oDTDBSet->get_sValue() . "',";
         }
@@ -1238,7 +1238,7 @@ class Db
         $sSqlExplain = substr($sSqlExplain, 0,-1) . " WHERE 1\n";
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
-        foreach ($aDTDBWhere as $oDTDBWhere)
+        foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
         {
             // convert `IN` into series of `OR` commands
             if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
@@ -1250,7 +1250,7 @@ class Db
             // regular
             else
             {
-                $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :where_' . $oDTDBWhere->get_sKey() . " \n";
+                $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :where_' . $oDTDBWhere->get_sKey() . $iKey . " \n";
                 $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
             }
         }
@@ -1265,7 +1265,7 @@ class Db
         $oStmt = $this->oDbPDO->prepare($sSql);
 
         /** @var \MVC\DataType\DTDBSet $oDTDBSet */
-        foreach ($aDTDBSet as $oDTDBSet)
+        foreach ($aDTDBSet as $iKey => $oDTDBSet)
         {
             $iPdoParam = 0;
             ('integer' === gettype($oDTDBSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
@@ -1275,14 +1275,14 @@ class Db
             ('null' === gettype($oDTDBSet->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
 
             $oStmt->bindValue(
-                ':set_' . $oDTDBSet->get_sKey(),
+                ':set_' . $oDTDBSet->get_sKey() . $iKey,
                 $oDTDBSet->get_sValue(),
                 $iPdoParam
             );
         }
 
         /** @var \MVC\DataType\DTDBSet $oDTDBSet */
-        foreach ($aDTDBWhere as $oDTDBWhere)
+        foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
         {
             // convert `IN` into series of `OR` commands
             if (strtolower(DTDBWhereRelation::In) === strtolower(trim($oDTDBWhere->get_sRelation())))
@@ -1298,7 +1298,7 @@ class Db
             ('null' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
 
             $oStmt->bindValue(
-                ':where_' . $oDTDBWhere->get_sKey(),
+                ':where_' . $oDTDBWhere->get_sKey() . $iKey,
                 $oDTDBWhere->get_sValue(),
                 $iPdoParam
             );
@@ -1443,9 +1443,9 @@ class Db
         $sSqlExplain = $sSql;
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
-        foreach ($aDTDBWhere as $oDTDBWhere)
+        foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
         {
-            $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
+            $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . $iKey . " \n";
             $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
@@ -1454,7 +1454,7 @@ class Db
         $oStmt = $this->oDbPDO->prepare($sSql);
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
-        foreach ($aDTDBWhere as $oDTDBWhere)
+        foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
         {
             $iPdoParam = 0;
             ('integer' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_INT : false;
@@ -1464,7 +1464,7 @@ class Db
             ('null' === gettype($oDTDBWhere->get_sValue())) ? $iPdoParam = \PDO::PARAM_NULL : false;
 
             $oStmt->bindValue(
-                ':' . $oDTDBWhere->get_sKey(),
+                ':' . $oDTDBWhere->get_sKey() . $iKey,
                 $oDTDBWhere->get_sValue(),
                 $iPdoParam
             );
