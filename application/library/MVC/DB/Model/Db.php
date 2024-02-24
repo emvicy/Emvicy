@@ -1390,36 +1390,57 @@ class Db
 
     /**
      * @param string $sSql
-     * @return array|false
+     * @param bool   $bReturnDatatypeObject
+     * @return array|mixed
      * @throws \ReflectionException
      */
-    public function fetchRow(string $sSql = '') : array|false
+    public function fetchRow(string $sSql = '', bool $bReturnDatatypeObject = false)
     {
         if (true === empty($sSql))
         {
             return array();
         }
 
-        $aResult = $this->oDbPDO->fetchRow($sSql);
+        $mResult = $this->oDbPDO->fetchRow($sSql);
 
-        return $aResult;
+        if (true === $bReturnDatatypeObject)
+        {
+            $sDataTypeClass = strtok(get_class($this), '\\') . '\\DataType\\' . $this->getGenerateDataTypeClassName();
+            (false === $mResult) ? $mResult = array() : false;
+            $mResult = $sDataTypeClass::create($mResult);
+        }
+
+        return $mResult;
     }
 
     /**
      * @param string $sSql
+     * @param bool   $bReturnDatatypeArray
      * @return array
      * @throws \ReflectionException
      */
-    public function fetchAll(string $sSql = '') : array
+    public function fetchAll(string $sSql = '', bool $bReturnDatatypeArray = false)
     {
         if (true === empty($sSql))
         {
             return array();
         }
 
-        $aResult = $this->oDbPDO->fetchAll($sSql);
+        $mResult = $this->oDbPDO->fetchAll($sSql);
 
-        return $aResult;
+        if (true === $bReturnDatatypeArray)
+        {
+            $sDataTypeClass = strtok(get_class($this), '\\') . '\\DataType\\' . $this->getGenerateDataTypeClassName();
+            (false === $mResult) ? $mResult = array() : false;
+            $mResult = array_map(
+                function($aData) use ($sDataTypeClass){
+                    return $sDataTypeClass::create($aData);
+                },
+                $mResult
+            );
+        }
+
+        return $mResult;
     }
 
     /**
