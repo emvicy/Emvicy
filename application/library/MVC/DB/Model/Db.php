@@ -509,7 +509,6 @@ class Db
      */
     protected function synchronizeFields() : bool
     {
-        $this->reOrder();
         $this->dropIndices();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
 
