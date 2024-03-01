@@ -487,11 +487,28 @@ class Db
     }
 
     /**
+     * @return void
+     * @throws \ReflectionException
+     */
+    public function reOrder()
+    {
+        $sPredecessor = 'id';
+
+        foreach ($this->aField as $sFieldName => $sFieldSetting)
+        {
+            $sSql = "ALTER TABLE " . $this->sTableName . " MODIFY `" . $sFieldName . "` " . Strings::tidy($sFieldSetting) . " AFTER `" . $sPredecessor . "`";
+            $sPredecessor = $sFieldName;
+            $this->oDbPDO->query($sSql);
+        }
+    }
+
+    /**
      * @return bool
      * @throws \ReflectionException
      */
     protected function synchronizeFields() : bool
     {
+        $this->reOrder();
         $this->dropIndices();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
 
