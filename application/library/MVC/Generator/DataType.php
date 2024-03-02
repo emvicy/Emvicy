@@ -466,6 +466,7 @@ class DataType
 
             $sContent.= $this->createConstructor($oDTDataTypeGeneratorClass);
             $sContent.= $this->createStaticCreator($oDTDataTypeGeneratorClass->get_name());
+            $sContent.= $this->createCastFunction();
 
             foreach ($oDTDataTypeGeneratorClass->get_property() as $oProperty)
             {
@@ -702,14 +703,47 @@ class DataType
     {
         $sContent = "    /**
      * @param array " . '$aData' . "
+     * @param bool  " . '$bCastValues' . "
      * @return " . $sClassName . "
      * @throws \ReflectionException
      */
-    public static function create(array " . '$aData' . " = array())
+    public static function create(array " . '$aData' . " = array(), bool " . '$bCastValues' . " = false)
     {
+        if (true === " . '$bCastValues' . ")
+        {
+            " . '$aData' . " = self::cast(" . '$aData' . ");
+        }
+            
         " . '$oDTValue = DTValue::create()->set_mValue($aData);' . "\n"; (true === $this->bCreateEvents) ? $sContent.="\t\t\MVC\Event::run('" . $sClassName . ".create.before', " . '$oDTValue' . ");\n" : false; $sContent.="\t\t" . '$oObject' . " = new self(" . '$oDTValue->get_mValue()' . ");
         " . '$oDTValue = DTValue::create()->set_mValue($oObject); '; (true === $this->bCreateEvents) ? $sContent.="\MVC\Event::run('" . $sClassName . ".create.after', " . '$oDTValue' . ");" : false; $sContent.="\n
         return " . '$oDTValue->get_mValue()' . ";
+    }\n\n";
+
+        return $sContent;
+    }
+
+    /**
+     * @return string
+     */
+    private function createCastFunction()
+    {
+        $sContent = "\t/**
+     * @param array " . '$aData' . "
+     * @return array
+     * @throws \ReflectionException
+     */
+    public static function cast(array " . '$aData' . " = array())
+    {
+        " . '$oThis' . " = new self();
+
+        foreach (" . '$aData' . " as " . '$sKey' . " => " . '$sValue' . ")
+        {
+            " . '$sVar' . " = " . '$aData' . "[" . '$sKey' . "];
+            settype(" . '$sVar' . ", " . '$oThis' . "->getDocCommentValueOfProperty(" . '$sKey' . "));
+            " . '$aData' . "[" . '$sKey' . "] = " . '$sVar' . ";
+        }
+
+        return " . '$aData' . ";
     }\n\n";
 
         return $sContent;
