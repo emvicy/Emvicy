@@ -27,6 +27,7 @@ use MVC\Generator\DataType;
 use MVC\Log;
 use MVC\Registry;
 use MVC\Strings;
+use function Symfony\Component\String\b;
 
 /**
  * Class Db
@@ -493,13 +494,21 @@ class Db
      */
     public function reOrder()
     {
-        $sPredecessor = 'id';
+        /*
+         * find last named foreign `id_` key
+         * this is to keep those keys at the beginning of a tupel
+         * all other field names declared in db class are sorted after those keys
+         */
+        $aField = array_keys($this->getFieldInfo(bAvoidReserved: false));
+        $aResult = preg_grep('%^id_%', $aField);
+        $sPredecessor = end($aResult);
+        (false === $sPredecessor) ? $sPredecessor = 'id' : false;
 
         foreach ($this->aField as $sFieldName => $sFieldSetting)
         {
             $sSql = "ALTER TABLE " . $this->sTableName . " MODIFY `" . $sFieldName . "` " . Strings::tidy($sFieldSetting) . " AFTER `" . $sPredecessor . "`";
-            $sPredecessor = $sFieldName;
             $this->oDbPDO->query($sSql);
+            $sPredecessor = $sFieldName;
         }
     }
 
@@ -509,6 +518,7 @@ class Db
      */
     protected function synchronizeFields() : bool
     {
+        $this->reOrder();
         $this->dropIndices();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
 
