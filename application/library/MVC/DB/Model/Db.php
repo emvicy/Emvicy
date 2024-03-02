@@ -513,12 +513,32 @@ class Db
     }
 
     /**
+     * @param string $sFieldName
+     * @param string $sAfter
+     * @return false|\PDOStatement
+     * @throws \ReflectionException
+     */
+    public function moveColumn(string $sFieldName, string $sAfter = 'id')
+    {
+        $sInfo = get($this->aField[$sFieldName]);
+
+        if (true === empty($sInfo))
+        {
+            return false;
+        }
+
+        $sFieldSetting = Strings::tidy($sInfo);
+        $sSql = "ALTER TABLE " . $this->sTableName . " MODIFY `" . $sFieldName . "` " . $sFieldSetting . " AFTER `" . $sAfter . "`";
+
+        return $this->oDbPDO->query($sSql);
+    }
+
+    /**
      * @return bool
      * @throws \ReflectionException
      */
     protected function synchronizeFields() : bool
     {
-        $this->reOrder();
         $this->dropIndices();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
 
