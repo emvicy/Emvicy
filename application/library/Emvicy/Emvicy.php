@@ -623,7 +623,7 @@ class Emvicy
                 foreach ($aRoute as $sRoute => $oDTRoute)
                 {
                     // skip faulty ones
-                    if (false === in_array($sRoute, array_keys(Route::$aRoute)))
+                    if (null === $oDTRoute || false === in_array($sRoute, array_keys(Route::$aRoute)))
                     {
                         continue;
                     }

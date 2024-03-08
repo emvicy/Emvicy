@@ -291,31 +291,38 @@ class Route
         $sPath = Request::getCurrentRequest()->get_path();
         $sRequestMethod = Request::getCurrentRequest()->get_requestmethod();
 
-        if (null === get(self::$aMethodRoute[$sRequestMethod]) && true === isset(self::$aMethodRoute['*']))
-        {
-            $sRequestMethod = '*';
-        }
-
         // Path 1:1 Match; e.g: /foo/bar/
-        if (!is_null(get(self::$aMethodRoute[$sRequestMethod][$sPath])))
+        if (!is_null(get(self::$aMethodRoute[$sRequestMethod][$sPath]))) # concrete
         {
             return self::$aMethodRoute[$sRequestMethod][$sPath];
+        }
+        elseif (!is_null(get(self::$aMethodRoute['*'][$sPath]))) # any
+        {
+            return self::$aMethodRoute['*'][$sPath];
         }
 
         // Path 1:1 + Wildcard (/*) Match; e.g: /foo/bar/*
         $sIndex = self::getIndexOnWildcard($sPath);
 
-        if (!empty(self::$aMethodRoute[$sRequestMethod][$sIndex]))
+        if (!empty(self::$aMethodRoute[$sRequestMethod][$sIndex])) # concrete
         {
             return self::$aMethodRoute[$sRequestMethod][$sIndex];
+        }
+        elseif (!empty(self::$aMethodRoute['*'][$sIndex])) # any
+        {
+            return self::$aMethodRoute['*'][$sIndex];
         }
 
         // Path Placeholder Match; e.g: /foo/bar/:id/:name/*
         $sIndex = self::getPathOnPlaceholderIndex($sPath);
 
-        if (!empty(self::$aMethodRoute[$sRequestMethod][$sIndex]))
+        if (!empty(get(self::$aMethodRoute[$sRequestMethod][$sIndex]))) # concrete
         {
             return self::$aMethodRoute[$sRequestMethod][$sIndex];
+        }
+        elseif (!empty(get(self::$aMethodRoute['*'][$sIndex]))) # any
+        {
+            return self::$aMethodRoute['*'][$sIndex];
         }
 
         return self::handleFallback();
@@ -324,6 +331,7 @@ class Route
     /**
      * @param string $sPath
      * @return string
+     * @throws \ReflectionException
      */
     public static function getIndexOnWildcard(string $sPath = '') : string
     {
@@ -348,7 +356,8 @@ class Route
 
     /**
      * @param string $sPath
-     * @return string matching route path | empty
+     * @return string
+     * @throws \ReflectionException
      */
     public static function getPathOnPlaceholderIndex(string $sPath = '') : string
     {
@@ -400,7 +409,7 @@ class Route
                 $sRoute = str_replace('//', '/', $sRoute);
 
                 // now check if path and route do match
-                if ($sPath === $sRoute)
+                if ($sPath === $sRoute && $iLengthPath >= $iLengthRoute)
                 {
                     (false === empty($aPathParam)) ? Request::setPathParam($aPathParam) : false;
 
@@ -413,7 +422,7 @@ class Route
     }
 
     /**
-     * @return \MVC\DataType\DTRoute
+     * @return DTRoute
      * @throws \ReflectionException
      */
     protected static function handleFallback() : DTRoute
