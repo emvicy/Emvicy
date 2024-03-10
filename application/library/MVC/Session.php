@@ -227,10 +227,6 @@ class Session
         {
             session_regenerate_id($bRegenerateId);
             session_destroy();
-            self::$_oInstance = null;
-            $_SESSION = NULL;
-            unset ($_SESSION);
-            Config::set_MVC_SESSION(self::$_oInstance);
         }
 
         return self::$_oInstance;
