@@ -70,6 +70,16 @@ class Request
     }
 
     /**
+     * @param \MVC\DataType\DTRequestCurrent $oDTRequestCurrent
+     * @return void
+     */
+    public static function setCurrentRequest(DTRequestCurrent $oDTRequestCurrent)
+    {
+        // save to registry
+        Registry::set('oDTRequestCurrent', $oDTRequestCurrent);
+    }
+
+    /**
      * gets the http uri protocol
      * @param mixed $mSsl
      * @return string
