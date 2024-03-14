@@ -346,6 +346,8 @@ class Db
                 'forceCasting' => ((true === $this->fieldIsForeignKey($sKey) || true === $this->fieldCanBeNull($sKey)) ? false : true),
             );
 
+            (true === (('yes' === strtolower(get($aValue['Null']))) ? true : false)) ? $aSetTmp['value'] = 'null' : false;
+
             // value types
             if ('string' === $aValue['_php'])
             {
@@ -368,7 +370,6 @@ class Db
                 $aSetTmp['value'] = '0.0';
             }
 
-            (true === (('yes' === strtolower(get($aValue['Null']))) ? true : false)) ? $aSetTmp['value'] = 'null' : false;
             $aDTConfig['class'][0]['property'][] = $aSetTmp;
         }
 
