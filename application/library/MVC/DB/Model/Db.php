@@ -341,9 +341,32 @@ class Db
             $aSetTmp = array(
                 'key' => $sKey,
                 'var' => $aValue['_php'],
+                'value' => 'null',
                 'required' => true,
                 'forceCasting' => ((true === $this->fieldIsForeignKey($sKey) || true === $this->fieldCanBeNull($sKey)) ? false : true),
             );
+
+            // value types
+            if ('string' === $aValue['_php'])
+            {
+                $aSetTmp['value'] = '';
+            }
+            elseif('int' === $aValue['_php'] || 'integer' === $aValue['_php'])
+            {
+                $aSetTmp['value'] = 0;
+            }
+            elseif('array' === $aValue['_php'])
+            {
+                $aSetTmp['value'] = '[]';
+            }
+            elseif('bool' === $aValue['_php'] || 'boolean' === $aValue['_php'])
+            {
+                $aSetTmp['value'] = 'true';
+            }
+            elseif('float' === $aValue['_php'] || 'double' === $aValue['_php'])
+            {
+                $aSetTmp['value'] = '0.0';
+            }
 
             (true === (('yes' === strtolower(get($aValue['Null']))) ? true : false)) ? $aSetTmp['value'] = 'null' : false;
             $aDTConfig['class'][0]['property'][] = $aSetTmp;
@@ -1250,7 +1273,7 @@ class Db
         #---
 
         array_map(
-            /** @var \MVC\DataType\DTDBSet $oDTDBSet */
+        /** @var \MVC\DataType\DTDBSet $oDTDBSet */
             function($oDTDBSet){
                 // if field is a foreign key and its value is 0, set it to null
                 if (true === $this->fieldIsForeignKey($oDTDBSet->get_sKey()) && 0 == $oDTDBSet->get_sValue())
