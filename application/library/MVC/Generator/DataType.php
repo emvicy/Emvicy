@@ -576,21 +576,15 @@ class DataType
      */
     private function createConstructor(\MVC\DataType\DTClass $oDTDataTypeGeneratorClass)
     {
-        $sContent = "\t/**\r\n\t * " . $oDTDataTypeGeneratorClass->get_name() . " constructor." . "\r\n\t * @param array " . '$aData' . "\r\n\t * @throws \ReflectionException " . "\r\n\t " . "*/\r\n\t";
-        $sContent.= "public function __construct(array " . '$aData' . " = array())\r\n\t";
+        $sContent = "\t/**\r\n\t * " . $oDTDataTypeGeneratorClass->get_name() . " constructor." . "\r\n\t * @param DTValue " . '$oDTValue' . "\r\n\t * @throws \ReflectionException " . "\r\n\t " . "*/\r\n\t";
+        $sContent.= "protected function __construct(DTValue " . '$oDTValue' . ")\r\n\t";
         $sContent.= "{\r\n";
 
-        $sContent.= "\t\t" . '$oDTValue = DTValue::create()->set_mValue($aData);' . "\n";
         (true === $this->bCreateEvents)
             ? $sContent.= "\t\t\MVC\Event::run('" . $oDTDataTypeGeneratorClass->get_name() . ".__construct.before', " . '$oDTValue' . ");\r\n"
             : false
         ;
         $sContent.= "\t\t" . '$aData = $oDTValue->get_mValue();' . "\n\n";
-
-        if (false === empty($oDTDataTypeGeneratorClass->get_extends()))
-        {
-            $sContent.= "\t\t" . 'parent::__construct($aData);' . "\n\n";
-        }
 
         foreach ($oDTDataTypeGeneratorClass->get_property() as $sKey => $oProperty)
         {
@@ -678,16 +672,17 @@ class DataType
             }
         }
 
-        $sContent.= "\r\n\t\tforeach (" . '$aData' . " as " . '$sKey' . " => " . '$mValue' . ")\r\n\t\t";
-        $sContent.= "{\r\n\t\t\t" . '$sMethod' . " = 'set_' . " . '$sKey;' . "\r\n\r\n\t\t\t";
-        $sContent.= "if (method_exists(" . '$this' . ", " . '$sMethod' . "))\r\n\t\t\t";
-        $sContent.= "{\r\n\t\t\t\t" . '$this->$sMethod($mValue);' . "\r\n\t\t\t";
-        $sContent.= "}\r\n\t\t}" . "\r\n\r\n";
+        if (false === empty($oDTDataTypeGeneratorClass->get_extends()))
+        {
+            $sContent.="\n";
+            $sContent.="\t\t" . 'parent::__construct($aData);' . "\n";
+            $sContent.="\t\t" . '$this->setProperties($oDTValue);' . "\n\n";
+        }
 
         $sContent.= "\t\t" . '$oDTValue = DTValue::create()->set_mValue($aData); ';
 
         (true === $this->bCreateEvents)
-            ? $sContent.= "\MVC\Event::run('" . $oDTDataTypeGeneratorClass->get_name() . ".__construct.after', " . '$oDTValue' . ");"
+            ? $sContent.= "\n\t\t\MVC\Event::run('" . $oDTDataTypeGeneratorClass->get_name() . ".__construct.after', " . '$oDTValue' . ");"
             : false
         ;
         $sContent.= "\n\t}\r\n\r\n";
@@ -702,19 +697,14 @@ class DataType
     private function createStaticCreator(string $sClassName = '')
     {
         $sContent = "    /**
-     * @param array " . '$aData' . "
-     * @param bool  " . '$bCastValues' . "
+     * @param array|null " . '$aData' . "
      * @return " . $sClassName . "
      * @throws \ReflectionException
      */
-    public static function create(array " . '$aData' . " = array(), bool " . '$bCastValues' . " = false)
-    {
-        if (true === " . '$bCastValues' . ")
-        {
-            " . '$aData' . " = self::cast(" . '$aData' . ");
-        }
-            
-        " . '$oDTValue = DTValue::create()->set_mValue($aData);' . "\n"; (true === $this->bCreateEvents) ? $sContent.="\t\t\MVC\Event::run('" . $sClassName . ".create.before', " . '$oDTValue' . ");\n" : false; $sContent.="\t\t" . '$oObject' . " = new self(" . '$oDTValue->get_mValue()' . ");
+    public static function create(?array " . '$aData' . " = array())
+    {            
+        " . '(null === $aData) ? $aData = array() : false;' . "
+        " . '$oDTValue = DTValue::create()->set_mValue($aData);' . "\n"; (true === $this->bCreateEvents) ? $sContent.="\t\t\MVC\Event::run('" . $sClassName . ".create.before', " . '$oDTValue' . ");\n" : false; $sContent.="\t\t" . '$oObject' . " = new self(" . '$oDTValue' . ");
         " . '$oDTValue = DTValue::create()->set_mValue($oObject); '; (true === $this->bCreateEvents) ? $sContent.="\MVC\Event::run('" . $sClassName . ".create.after', " . '$oDTValue' . ");" : false; $sContent.="\n
         return " . '$oDTValue->get_mValue()' . ";
     }\n\n";

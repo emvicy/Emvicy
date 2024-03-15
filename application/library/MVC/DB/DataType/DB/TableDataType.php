@@ -5,7 +5,9 @@
  */
 namespace MVC\DB\DataType\DB;
 
+use Cdm\DataType\DTCdmModelTableContract;
 use MVC\DataType\DTValue;
+use MVC\Log;
 use MVC\MVCTrait\TraitDataType;
 
 class TableDataType
@@ -47,18 +49,84 @@ class TableDataType
 		$this->stampChange = '';
 		$this->stampCreate = '';
 
-		foreach ($aData as $sKey => $mValue)
-		{
-			$sMethod = 'set_' . $sKey;
-
-			if (method_exists($this, $sMethod))
-			{
-				$this->$sMethod($mValue);
-			}
-		}
-
-		$oDTValue = DTValue::create()->set_mValue($aData); \MVC\Event::run('TableDataType.__construct.after', $oDTValue);
+		$oDTValue = DTValue::create()->set_mValue($aData);
+        \MVC\Event::run('TableDataType.__construct.after', $oDTValue);
 	}
+
+    /**
+     * @param DTValue $oDTValue
+     * @return DTValue
+     * @throws \ReflectionException
+     */
+    protected function setProperties(DTValue $oDTValue)
+    {
+        \MVC\Event::run('TableDataType.setProperties.before', $oDTValue);
+        $aData = $oDTValue->get_mValue();
+
+        foreach ($aData as $sKey => $mValue)
+        {
+            $sMethod = 'set_' . $sKey;
+
+            if (method_exists($this, $sMethod))
+            {
+                $oReflectionProperty = new \ReflectionProperty($this, $sKey);
+                $sDocComment = $oReflectionProperty->getDocComment();
+                $aExplode = explode("\n", $sDocComment);
+                $sType = '';
+
+                // iterate DocComment lines
+                foreach ($aExplode as $sType)
+                {
+                    // remove unwanted
+                    $sType = str_replace('*', '', str_replace('/', '', $sType));
+
+                    // key found
+                    if (stristr($sType, '@var'))
+                    {
+                        // remove unwanted
+                        $sType = trim(str_replace('@', '', str_replace('@var', '', $sType)));
+                        break;
+                    }
+                }
+
+                if ('string' === $sType)
+                {
+                    $aData[$sKey] = (string) $aData[$sKey];
+                }
+                elseif ('int' === $sType || 'integer' === $sType)
+                {
+                    $aData[$sKey] = (int) $aData[$sKey];
+                }
+                elseif ('bool' === $sType || 'boolean' === $sType)
+                {
+                    $aData[$sKey] = (boolean) $aData[$sKey];
+                }
+                elseif ('float' === $sType)
+                {
+                    $aData[$sKey] = (float) $aData[$sKey];
+                }
+                elseif ('double' === $sType)
+                {
+                    $aData[$sKey] = (float) $aData[$sKey];
+                }
+                elseif ('array' === $sType)
+                {
+                    $aData[$sKey] = (array) $aData[$sKey];
+                }
+                else
+                {
+                    $aData[$sKey] = null;
+                }
+
+                $this->$sMethod($aData[$sKey]);
+            }
+        }
+
+        $oDTValue->set_mValue($aData);
+        \MVC\Event::run('TableDataType.setProperties.after', $oDTValue);
+
+        return $oDTValue;
+    }
 
     /**
      * @param array $aData
