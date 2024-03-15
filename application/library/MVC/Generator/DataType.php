@@ -556,9 +556,9 @@ class DataType
 
         $sContent = '';
         $sContent.= "\t/**\r\n"
-                    . "\t * @required " . ($oProperty->get_required() ? 'true' : 'false') . "\r\n"
-                    . "\t * @var " . $oProperty->get_var() . "\r\n"
-                    . "\t */\r\n";
+            . "\t * @required " . ($oProperty->get_required() ? 'true' : 'false') . "\r\n"
+            . "\t * @var " . $oProperty->get_var() . "\r\n"
+            . "\t */\r\n";
         $sContent.= "\t" . $oProperty->get_visibility() . " ";
         (true === $oProperty->get_static())
             ? $sContent.= "static "
@@ -750,7 +750,7 @@ class DataType
 
         return $sContent;
     }
-    
+
 
     /**
      * @param \MVC\DataType\DTProperty $oProperty
@@ -939,8 +939,9 @@ class DataType
 
         if ('[]' !== $sRight2 && 'array' !== $oProperty->get_var())
         {
-            $sContent.= "\t/**\r\n" . "\t * @param " . $sVar . (('null' === $oProperty->get_value()) ? '|null' : false) .' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
+            $sContent.= "\t/**\r\n" . "\t * @param " . $sVar . (('null' === $oProperty->get_value() || false === $oProperty->get_forceCasting()) ? '|null' : false) .' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
             $sContent.= "\tpublic function set_" . $oProperty->get_key() . '(';
+            $sContent.= ( (false === $oProperty->get_forceCasting()) ? '?' : false );
             $sContent.= $sVar . ' ';
             $sContent.= '$mValue';
             (('null' === $oProperty->get_value()) ? $sContent.= ' = null' : false);
