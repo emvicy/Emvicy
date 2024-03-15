@@ -467,6 +467,7 @@ class DataType
             $sContent.= $this->createConstructor($oDTDataTypeGeneratorClass);
             $sContent.= $this->createStaticCreator($oDTDataTypeGeneratorClass->get_name());
             $sContent.= $this->createCastFunction();
+            $sContent.= $this->createSetProprtiesFunction();
 
             foreach ($oDTDataTypeGeneratorClass->get_property() as $oProperty)
             {
@@ -676,9 +677,9 @@ class DataType
         {
             $sContent.="\n";
             $sContent.="\t\t" . 'parent::__construct($aData);' . "\n";
-            $sContent.="\t\t" . '$this->setProperties($oDTValue);' . "\n\n";
         }
 
+        $sContent.="\t\t" . '$this->setProperties($oDTValue);' . "\n\n";
         $sContent.= "\t\t" . '$oDTValue = DTValue::create()->set_mValue($aData); ';
 
         (true === $this->bCreateEvents)
@@ -718,6 +719,7 @@ class DataType
     private function createCastFunction()
     {
         $sContent = "\t/**
+     * @deprecated
      * @param array " . '$aData' . "
      * @return array
      * @throws \ReflectionException
@@ -738,6 +740,17 @@ class DataType
 
         return $sContent;
     }
+
+    /**
+     * @return string
+     */
+    private function createSetProprtiesFunction()
+    {
+        $sContent = file_get_contents(__DIR__ . '/setPropertiesFunction.txt') . "\n\n";
+
+        return $sContent;
+    }
+    
 
     /**
      * @param \MVC\DataType\DTProperty $oProperty
