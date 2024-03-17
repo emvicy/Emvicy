@@ -467,7 +467,6 @@ class DataType
             $sContent.= $this->createConstructor($oDTDataTypeGeneratorClass);
             $sContent.= $this->createStaticCreator($oDTDataTypeGeneratorClass->get_name());
             $sContent.= $this->createCastFunction();
-            $sContent.= $this->createSetProprtiesFunction();
 
             foreach ($oDTDataTypeGeneratorClass->get_property() as $oProperty)
             {
@@ -556,9 +555,11 @@ class DataType
 
         $sContent = '';
         $sContent.= "\t/**\r\n"
-            . "\t * @required " . ($oProperty->get_required() ? 'true' : 'false') . "\r\n"
-            . "\t * @var " . $oProperty->get_var() . "\r\n"
-            . "\t */\r\n";
+                    . "\t * @required " . ($oProperty->get_required() ? 'true' : 'false') . "\r\n"
+                    . "\t * @var " . $oProperty->get_var()
+                    . ( ((false === empty($oProperty->get_var())) && (false === $oProperty->get_forceCasting())) ? '|' : '')
+                    . ((false === $oProperty->get_forceCasting()) ? 'null' : '') . "\r\n"
+                    . "\t */\r\n";
         $sContent.= "\t" . $oProperty->get_visibility() . " ";
         (true === $oProperty->get_static())
             ? $sContent.= "static "
@@ -740,17 +741,6 @@ class DataType
 
         return $sContent;
     }
-
-    /**
-     * @return string
-     */
-    private function createSetProprtiesFunction()
-    {
-        $sContent = file_get_contents(__DIR__ . '/setPropertiesFunction.txt') . "\n\n";
-
-        return $sContent;
-    }
-
 
     /**
      * @param \MVC\DataType\DTProperty $oProperty
@@ -976,8 +966,9 @@ class DataType
         // type is array
         else
         {
-            $sContent.= "\t/**\r\n" . "\t * @param " . $oProperty->get_var() . (('null' === $oProperty->get_value()) ? '|null' : false) . " " . ' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
+            $sContent.= "\t/**\r\n" . "\t * @param " . $oProperty->get_var() . (('null' === $oProperty->get_value() || false === $oProperty->get_forceCasting()) ? '|null' : false) . " " . ' $mValue ' . "\r\n" . "\t * @return " . '$this' . "\r\n" . "\t * @throws \ReflectionException\r\n" . "\t */" . "\r\n";
             $sContent.= "\tpublic function set_" . $oProperty->get_key() . '(';
+            $sContent.= ( (false === $oProperty->get_forceCasting()) ? '?' : false );
 
             // place type for php7 and newer
             $sContent.= 'array ';

@@ -318,13 +318,13 @@ class Db
             'unlinkDir' => false,
             'createEvents' => true,
             'class' => array(array(
-                                 'name' => $sClassName,
-                                 'file' => $sClassName . '.php',
-                                 'extends' => '\\MVC\\DB\\DataType\\DB\\TableDataType',
-                                 'namespace' => $sModulename . '\DataType',
-                                 'constant' => array(),
-                                 'property' => array(),
-                             )),
+                 'name' => $sClassName,
+                 'file' => $sClassName . '.php',
+                 'extends' => '\\MVC\\DB\\DataType\\DB\\TableDataType',
+                 'namespace' => $sModulename . '\DataType',
+                 'constant' => array(),
+                 'property' => array(),
+             )),
         );
 
         $aTableDataTypeProperty = array_keys(TableDataType::create()->getPropertyArray());
@@ -346,10 +346,13 @@ class Db
                 'forceCasting' => ((true === $this->fieldIsForeignKey($sKey) || true === $this->fieldCanBeNull($sKey)) ? false : true),
             );
 
-            (true === (('yes' === strtolower(get($aValue['Null']))) ? true : false)) ? $aSetTmp['value'] = 'null' : false;
-
+            // if it can be null, set it to null
+            if ((true === $this->fieldCanBeNull($sKey)))
+            {
+                $aSetTmp['value'] = 'null';
+            }
             // value types
-            if ('string' === $aValue['_php'])
+            elseif ('string' === $aValue['_php'])
             {
                 $aSetTmp['value'] = '';
             }
