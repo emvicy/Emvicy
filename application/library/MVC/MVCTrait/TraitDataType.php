@@ -108,8 +108,6 @@ trait TraitDataType
                     : $sType = current($mType);   # concrete type
             }
 
-            $sVar = $aData[$sKey]; settype($sVar, $sType); $aData[$sKey] = $sVar;
-
             // if it can be null, set it to null
             if ('null' === $sType && true === empty($mValue))
             {
@@ -142,7 +140,11 @@ trait TraitDataType
             }
 
             $sMethod = 'set_' . $sKey;
-            $this->$sMethod($aData[$sKey]);
+
+            if (true === method_exists($this, $sMethod))
+            {
+                $this->$sMethod($aData[$sKey]);
+            }
         }
 
         $oDTValue->set_mValue($aData);
