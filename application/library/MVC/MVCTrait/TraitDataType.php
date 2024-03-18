@@ -108,6 +108,8 @@ trait TraitDataType
                     : $sType = current($mType);   # concrete type
             }
 
+            $sVar = $aData[$sKey]; ((false === empty($sType)) ? settype($sVar, $sType) : false); $aData[$sKey] = $sVar;
+
             // if it can be null, set it to null
             if ('null' === $sType && true === empty($mValue))
             {
