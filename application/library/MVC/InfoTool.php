@@ -49,7 +49,11 @@ class InfoTool
         }
 
         $aToolbar = Registry::get('aToolbar');
-        $sHtml = '';
+
+        // add sRendered markup of current page
+        $aToolbar['sRendered'] = $oView->getTemplateVars('layout');
+        $aToolbar['sRenderedHighlight'] = Strings::highlight_html($aToolbar['sRendered']);
+        Registry::set('aToolbar', $aToolbar);
 
         $sToolBarVarName = 'sToolBar_' . uniqid();
         $sInfoToolSmarty = '{$' . $sToolBarVarName . '}';
@@ -60,6 +64,7 @@ class InfoTool
 
         // disable regular view output
         View::$bEchoOut = false;
+        $sHtml = '';
 
         // inject toolbar var to regular string output via DOM
         if (false === empty(get($aToolbar['sRendered'], '')))
@@ -134,7 +139,7 @@ class InfoTool
                 }
 
                 $aTmp['sMethod'] = 'Config::' . $sMethod . '()';
-                $aToolbar['aConfig'][] = $aTmp;
+                $aToolbar['aConfig'][$sTmpVar] = $aTmp;
             }
         }
 
@@ -212,21 +217,6 @@ class InfoTool
         $aToolbar['sTemplate'] = $oView->sTemplate;
         $aToolbar['sTemplateContent'] = (null !== get($aToolbar['sTemplate']) && true === is_file($oView->sTemplate)) ? file_get_contents ($aToolbar['sTemplate'], true) : '';
         $aToolbar['sTemplateContent'] = Strings::highlight_html($aToolbar['sTemplateContent']);
-
-        $sRendered = '';
-
-        if (true === is_file($oView->sTemplate))
-        {
-            ob_start ();
-            $sTemplate = file_get_contents ($oView->sTemplate, true);
-            $oView->renderString($sTemplate);
-            $sRendered = ob_get_contents ();
-            ob_end_clean ();
-        }
-
-        $aToolbar['sRendered'] = $sRendered;
-        $aToolbar['sRenderedHighlight'] = Strings::highlight_html($aToolbar['sRendered']);
-
         $aToolbar['aFilesIncluded'] = get_required_files();
         $aToolbar['aMemory'] = array(
             'iRealMemoryUsage' => (memory_get_usage (true) / 1024)
