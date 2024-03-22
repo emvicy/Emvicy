@@ -988,7 +988,7 @@ class DataType
         {            
             if (false === ($aData instanceof ' . ucwords($sVar) . '))
             {
-                $mValue[$mKey] = new ' . ucwords($sVar) . '($aData);
+                $mValue[$mKey] = ' . ucwords($sVar) . '::create($aData);
             }
         }' . "\r\n";
             }
