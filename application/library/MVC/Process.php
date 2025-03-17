@@ -8,13 +8,14 @@ class Process
      * @param int    $iSeconds
      * @param string $sPreText
      * @param bool   $bEchoOut
+     * @param string $sPauseText
      * @return void
      */
-    public static function pause(int $iSeconds = 1, string $sPreText = '', bool $bEchoOut = false)
+    public static function pause(int $iSeconds = 1, string $sPreText = '', bool $bEchoOut = false, string $sPauseText = '')
     {
         if (false === empty($sPreText) && true === $bEchoOut)
         {
-            echo $sPreText . "\n\t" . ' …pause… ';
+            echo $sPreText;
         }
 
         ($iSeconds < 0) ? $iSeconds = 0: false;
@@ -23,7 +24,9 @@ class Process
         {
             if (true === $bEchoOut)
             {
-                echo ($i + 1);
+                echo (false === empty($sPauseText))
+                    ? $sPauseText
+                    : ($i + 1);
             }
 
             sleep(1);

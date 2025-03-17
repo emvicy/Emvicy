@@ -7,7 +7,9 @@ use MVC\Config;
 use MVC\Convert;
 use MVC\DataType\DTRoute;
 use MVC\Debug;
+use MVC\Dir;
 use MVC\Event;
+use MVC\File;
 use MVC\Policy;
 use MVC\Process;
 use MVC\Route;
@@ -303,6 +305,10 @@ class Emvicy
         echo 'creating ...';
         nl();
 
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetWorkerFile);
+        Dir::make($oDTFileinfo->get_dirname());
+
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/Worker.phtml',
             $sTargetWorkerFile
@@ -368,6 +374,10 @@ class Emvicy
         nl();
         echo 'creating ...';
         nl();
+
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetPolicyFile);
+        Dir::make($oDTFileinfo->get_dirname());
 
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/Policy.phtml',
@@ -618,6 +628,10 @@ class Emvicy
         echo 'creating...';
         nl();
 
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetControllerFile);
+        Dir::make($oDTFileinfo->get_dirname());
+
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/Controller.phtml',
             $sTargetControllerFile
@@ -675,6 +689,10 @@ class Emvicy
         nl();
         echo 'creating...';
         nl();
+
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetModelFile);
+        Dir::make($oDTFileinfo->get_dirname());
 
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/Model.phtml',
@@ -737,6 +755,10 @@ class Emvicy
         nl();
         echo 'creating...';
         nl();
+
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetViewFile);
+        Dir::make($oDTFileinfo->get_dirname());
 
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/View.phtml',
@@ -804,6 +826,10 @@ class Emvicy
         echo 'creating ...';
         nl();
 
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetTableFile);
+        Dir::make($oDTFileinfo->get_dirname());
+
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/DBTable.phtml',
             $sTargetTableFile
@@ -820,6 +846,10 @@ class Emvicy
         );
 
         echo '✔ Table class created: ' . $sTargetTableFile;nl();
+
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetTraitTableFile);
+        Dir::make($oDTFileinfo->get_dirname());
 
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/TraitTable.phtml',
@@ -894,6 +924,10 @@ class Emvicy
         nl();
         echo 'creating ...';
         nl();
+
+        // make sure dir exists
+        $oDTFileinfo = File::info($sTargetTableFile);
+        Dir::make($oDTFileinfo->get_dirname());
 
         copy(
             Config::get_MVC_APPLICATION_INIT_DIR() . '/skeleton/DBCollection.phtml',
