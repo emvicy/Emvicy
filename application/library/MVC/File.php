@@ -28,16 +28,16 @@ class File
             return DTFileinfo::create();
         }
 
-        $aStat = stat($sFilePathAbs);
-        $aInfo = posix_getpwuid($aStat['uid']);
+        $aStat = @stat($sFilePathAbs);
+        $aInfo = @posix_getpwuid($aStat['uid']);
         $aInfo['path'] = $sFilePathAbs;
-        $aInfo['is_file'] = is_file($sFilePathAbs);
-        $aInfo['is_dir'] = is_dir($sFilePathAbs);
-        $aInfo['filemtime'] = filemtime($sFilePathAbs);
-        $aInfo['filectime'] = filemtime($sFilePathAbs);
-        $aInfo['filesize'] = filesize($sFilePathAbs);
+        $aInfo['is_file'] = @is_file($sFilePathAbs);
+        $aInfo['is_dir'] = @is_dir($sFilePathAbs);
+        $aInfo['filemtime'] = @filemtime($sFilePathAbs);
+        $aInfo['filectime'] = @filemtime($sFilePathAbs);
+        $aInfo['filesize'] = @filesize($sFilePathAbs);
         $aInfo['mimetype'] = self::getMimeType($sFilePathAbs);
-        $aPathInfo = pathinfo($sFilePathAbs);
+        $aPathInfo = @pathinfo($sFilePathAbs);
         $aInfo = array_merge($aInfo, $aPathInfo);
 
         return DTFileinfo::create($aInfo);
