@@ -638,6 +638,10 @@ class Emvicy
         );
 
         // replace placeholder
+        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetControllerFile . ' | '
+                             . whereis('xargs') . ' '
+                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        );
         Emvicy::shellExecute(whereis('grep') . ' -rl "{controller}" ' . $sTargetControllerFile . ' | '
                              . whereis('xargs') . ' '
                              . whereis('sed') . ' -i "s/{controller}/' . $sController . '/g"'
