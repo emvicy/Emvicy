@@ -28,7 +28,7 @@ class Queue extends Db
         $this->aField = array(
             'key'           => "varchar(255)    DEFAULT 'default'   NOT NULL    COMMENT 'key'",
             'key2'          => "varchar(255)    DEFAULT ''          NULL        COMMENT 'optional'",
-            'value'         => "text                                NOT NULL    COMMENT 'value'",
+            'value'         => "mediumtext                          NOT NULL    COMMENT 'value'",
             'valueMd5'      => "varchar(32)                         NOT NULL    COMMENT 'md5 on value'",
             'expirySeconds' => "int(10)         DEFAULT             NULL NULL   COMMENT 'expiry seconds'",
             'expiryStamp'   => "int(10)                             NULL        COMMENT 'expiry timestamp'",
