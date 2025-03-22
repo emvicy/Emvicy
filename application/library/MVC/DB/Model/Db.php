@@ -1306,14 +1306,18 @@ class Db
 
     /**
      * @param \MVC\DataType\DTDBWhere[] $aDTDBWhere
+     * @param \MVC\DataType\DTDBOption[] $aDTDBOption
      * @return int
      * @throws \ReflectionException
      */
-    public function count(array $aDTDBWhere = array()) : int
+    public function count(array $aDTDBWhere = array(), array $aDTDBOption = array()) : int
     {
-        $oDTValue = DTValue::create()->set_mValue($aDTDBWhere);
+        $oDTValue = DTValue::create()->set_mValue(array('aDTDBWhere' => $aDTDBWhere, 'aDTDBOption' => $aDTDBOption));
         Event::run('mvc.db.model.db.count.before', $oDTValue);
-        $aDTDBWhere = $oDTValue->get_mValue();
+        /** @var \MVC\DataType\DTDBWhere[] $aDTDBWhere */
+        $aDTDBWhere = $oDTValue->get_mValue()['aDTDBWhere'];
+        /** @var \MVC\DataType\DTDBOption[] $aDTDBWhere */
+        $aDTDBOption = $oDTValue->get_mValue()['aDTDBOption'];
 
         $sSql = "SELECT COUNT(id) AS iAmount FROM `" . $this->sTableName . "` \nWHERE  1\n";
         $sSqlExplain = $sSql;
@@ -1322,7 +1326,14 @@ class Db
         foreach ($aDTDBWhere as $oDTDBWhere)
         {
             $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . " \n";
-            $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
+            $sSqlExplain.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "' ";
+        }
+
+        /** @var \MVC\DataType\DTDBOption $oDTDBOption */
+        foreach ($aDTDBOption as $oDTDBOption)
+        {
+            $sSql.= "\n" . $oDTDBOption->get_sValue() . " \n";
+            $sSqlExplain.= "\n" . $oDTDBOption->get_sValue() . " \n";
         }
 
         Event::run('mvc.db.model.db.count.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
@@ -1351,7 +1362,15 @@ class Db
             $oStmt->execute();
             $aFetchAll = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
             $oStmt->closeCursor();
-            $iAmount = (int) current($aFetchAll)['iAmount'];
+
+            if (1 === count($aFetchAll))
+            {
+                $iAmount = (int) current($aFetchAll)['iAmount'];
+            }
+            elseif(1 < count($aFetchAll))
+            {
+                $iAmount = count($aFetchAll);
+            }
         }
         catch (\Exception $oException)
         {
@@ -1697,7 +1716,7 @@ class Db
         foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
         {
             $sSql.= 'AND `' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' :' . $oDTDBWhere->get_sKey() . $iKey . " \n";
-            $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` = ' . "'" . $oDTDBWhere->get_sValue() . "',";
+            $sSqlExplain.= '`' . $oDTDBWhere->get_sKey() . '` ' . $oDTDBWhere->get_sRelation() . ' ' . "'" . $oDTDBWhere->get_sValue() . "',";
         }
 
         Event::run('mvc.db.model.db.delete.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
