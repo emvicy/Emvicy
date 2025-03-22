@@ -44,7 +44,6 @@ class RequestHelper
      * @return void
      * @throws \ReflectionException
      */
-    #[NoReturn]
     public static function redirect(string $sLocation = '', bool $bReplace = true, int $iResponseCode = 302) : void
     {
         // source
@@ -73,7 +72,7 @@ class RequestHelper
             echo trim((string) shell_exec(Config::get_MVC_BIN_PHP_BINARY() . ' index.php "' . $sLocation . '"'));
 
             // Event
-            \MVC\Event::run('mvc.request.redirect', DTArrayObject::create()
+            Event::run('mvc.request.redirect', DTArrayObject::create()
                 ->add_aKeyValue(DTKeyValue::create()
                     ->set_sKey('sLocation')
                     ->set_sValue('[CLI] php index.php "' . $sLocation . '"'))
@@ -85,7 +84,7 @@ class RequestHelper
         }
 
         // Event
-        \MVC\Event::run('mvc.request.redirect', DTArrayObject::create()
+        Event::run('mvc.request.redirect', DTArrayObject::create()
             ->add_aKeyValue(DTKeyValue::create()
                 ->set_sKey('sLocation')
                 ->set_sValue($sLocation))
@@ -112,9 +111,7 @@ class RequestHelper
         Header::init()->Location(
             sLocation: $sLocation,
             bReplace: $bReplace,
-            iResponseCode: $iResponseCode,
-            bExit: true
-        );
+            iResponseCode: $iResponseCode);
     }
 
     /**
@@ -140,7 +137,7 @@ class RequestHelper
             $aHeader[$sValue].= $aMatch[2][$sKey];
         }
 
-        (true === $bReturnArrayKeysLowerCase) ? $aHeader = array_change_key_case($aHeader, CASE_LOWER) : false;
+        (true === $bReturnArrayKeysLowerCase) ? $aHeader = array_change_key_case($aHeader) : false;
 
         return $aHeader;
     }
@@ -159,7 +156,7 @@ class RequestHelper
         if (true === $bCaseInsensitive)
         {
             $sKey = strtolower($sKey);
-            $aHeader = array_change_key_case($aHeader, CASE_LOWER);
+            $aHeader = array_change_key_case($aHeader);
         }
 
         return (string) ($aHeader[$sKey] ?? '');

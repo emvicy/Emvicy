@@ -10,6 +10,8 @@
 
 namespace MVC;
 
+use FilesystemIterator;
+
 class Dir
 {
     /**
@@ -52,7 +54,7 @@ class Dir
      */
     public static function isEmpty(string $sDirectory = '') : bool
     {
-        return !(new \FilesystemIterator($sDirectory))->valid();
+        return !(new FilesystemIterator($sDirectory))->valid();
     }
 
     /**

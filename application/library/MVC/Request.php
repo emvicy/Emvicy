@@ -98,6 +98,7 @@ class Request
         }
 
         Event::run('mvc.request.out.before', $oDTRequestOut);
+        $oResponse = array();
 
         switch ($oDTRequestOut->get_eRequestMethod()->value())
         {
@@ -252,9 +253,7 @@ class Request
             return (string) ($aParam[$sKey] ?? '');
         }
 
-        $mReturn = (empty($sKey)) ? array() : '';
-
-        return $mReturn;
+        return (empty($sKey)) ? array() : '';
     }
 
     /**
@@ -291,7 +290,7 @@ class Request
      * @return \MVC\DataType\DTRequestIn
      * @throws \ReflectionException
      */
-    public static function getCurrentRequest()
+    public static function getCurrentRequest(): DTRequestIn
     {
         return self::in();
     }
@@ -301,7 +300,7 @@ class Request
      * @return void
      *@deprecated
      */
-    public static function setCurrentRequest(DTRequestIn $oDTRequestIn)
+    public static function setCurrentRequest(DTRequestIn $oDTRequestIn): void
     {
         // save to registry
         Registry::set('oDTRequestIn', $oDTRequestIn);

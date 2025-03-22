@@ -34,6 +34,7 @@ $aConfig['MVC_CORE'] = array(
         'iconv',
         'json',
         'mbstring',
+        'PDO',
         'Phar',
         'posix',
         'Reflection',

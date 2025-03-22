@@ -56,7 +56,7 @@ class DbCollection
             {
                 Error::exception($oPDOException);
 
-                return false;
+                return;
             }
         }
 

@@ -10,6 +10,7 @@
 
 namespace MVC;
 
+use DateTime;
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
 
@@ -20,6 +21,7 @@ class Application
 {
 	/**
      * Application constructor
+     * @throws \DateMalformedStringException
      * @throws \ReflectionException
      */
 	public function __construct()
@@ -63,7 +65,8 @@ class Application
 
 	/**
 	 * inits a session and copies it to the registry
-     * @return bool init
+     * @return bool
+     * @throws \DateMalformedStringException
      * @throws \ReflectionException
      */
 	public static function initSession() : bool
@@ -84,7 +87,7 @@ class Application
         $oSession = Session::is();
         $fMicrotime = microtime (true);
         $sMicrotime = sprintf ("%06d", ($fMicrotime - floor ($fMicrotime)) * 1000000);
-        $oSession->set ('startDateTime', new \DateTime (date ('Y-m-d H:i:s.' . $sMicrotime)));
+        $oSession->set ('startDateTime', new DateTime (date ('Y-m-d H:i:s.' . $sMicrotime)));
         $oSession->set ('uniqueid', Config::get_MVC_UNIQUE_ID());
         
         // copy Session Object to registry
@@ -160,7 +163,7 @@ class Application
      * @return int Unix timestamp of the time since which the maintenance is valid | 0 = no maintenance
      * @throws \ReflectionException
      */
-    public static function getMaintenanceTimeStamp()
+    public static function getMaintenanceTimeStamp(): int
     {
         $iFilectime = 0;
 

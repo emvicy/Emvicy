@@ -16,19 +16,18 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * @experimental
  */
-#[experimental]
 class Asset extends ArrDot
 {
     /**
-     * @var \MVC\Asset
+     * @var \MVC\Asset|null
      */
-    protected static $_oInstance;
+    protected static ?Asset $_oInstance = null;
 
     /**
      * @param string $sPathAbs
      * @return \MVC\ArrDot|\MVC\Asset
      */
-    public static function init(string $sPathAbs = '')
+    public static function init(string $sPathAbs = ''): ArrDot|Asset
     {
         if (null === self::$_oInstance)
         {

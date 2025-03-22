@@ -16,25 +16,25 @@ class Cache
      * caching true/false; default=true
      * @access public
      * @static
-     * @var boolean
+     * @var bool|null
      */
-    public static $bCaching;
+    public static ?bool $bCaching = null;
 
     /**
      * delete cache files when this value is reached
      * @access public
      * @static
-     * @var integer
+     * @var int|null
      */
-    public static $iDeleteAfterMinutes;
+    public static ?int $iDeleteAfterMinutes = null;
 
     /**
      * absolute path to cache dir
      * @access public
      * @static
-     * @var string
+     * @var string|null
      */
-    public static $sCacheDir;
+    public static ?string $sCacheDir = null;
 
     /**
      * linux binary `rm'
@@ -42,7 +42,7 @@ class Cache
      * @static
      * @var string
      */
-    public static $sBinRemove;
+    public static string $sBinRemove;
 
     /**
      * linux binary `find'
@@ -50,7 +50,7 @@ class Cache
      * @static
      * @var string
      */
-    public static $sBinFind;
+    public static string $sBinFind;
 
     /**
      * linux binary `grep'
@@ -58,7 +58,7 @@ class Cache
      * @static
      * @var string
      */
-    public static $sBinGrep;
+    public static string $sBinGrep;
 
     /**
      * sets configuration; if none is given by param, defaults are set
@@ -71,7 +71,7 @@ class Cache
      * )
      * @throws \ReflectionException
      */
-    public static function init(array $aCacheConfig = array())
+    public static function init(array $aCacheConfig = array()): void
     {
         if (true === empty($aCacheConfig))
         {
@@ -93,7 +93,7 @@ class Cache
      * @return mixed|string
      * @throws \ReflectionException
      */
-    public static function getCache(string $sKey = '')
+    public static function getCache(string $sKey = ''): mixed
     {
         self::init();
 
@@ -123,7 +123,7 @@ class Cache
      * @return bool
      * @throws \ReflectionException
      */
-    public static function exists(string $sKey = '')
+    public static function exists(string $sKey = ''): bool
     {
         self::init();
 
@@ -200,11 +200,12 @@ class Cache
         if (!is_null($mFind) && !empty($mFind))
         {
             $aLine = explode("\n", $mFind);
+            $mRemove = false;
 
             foreach ($aLine as $sLine)
             {
                 $sCmd = self::$sBinRemove . ' "' . $sLine . '"';
-                $mRemove = shell_exec((string) $sCmd);
+                $mRemove = shell_exec($sCmd);
             }
 
             return (boolean) $mRemove;

@@ -20,7 +20,7 @@ class Arr
      * @param       $sNeedle
      * @return array|int|string
      */
-    public static function recursiveFind(array $aHaystack, $sNeedle)
+    public static function recursiveFind(array $aHaystack, $sNeedle): int|array|string
     {
         foreach ($aHaystack as $sFirstLevelKey => $mValue)
         {

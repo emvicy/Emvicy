@@ -17,7 +17,7 @@ class Queue extends Db
     /**
      * @var array
      */
-    protected $aField = array();
+    protected array $aField = array();
 
     /**
      * @param array $aDbConfig
@@ -49,7 +49,7 @@ class Queue extends Db
      * @return \App\DataType\DTAppTableQueue|null
      * @throws \ReflectionException
      */
-    public function push(DTAppTableQueue $oDTAppTableQueue, bool $bPreventMultipleCreation = false)
+    public function push(DTAppTableQueue $oDTAppTableQueue, bool $bPreventMultipleCreation = false): ?DTAppTableQueue
     {
         if (true === empty($oDTAppTableQueue->get_key()) || true === empty($oDTAppTableQueue->get_value()))
         {
@@ -127,7 +127,13 @@ class Queue extends Db
      * @return \App\DataType\DTAppTableQueue|false|null
      * @throws \ReflectionException
      */
-    public function pop(string $sKey = '', string $sKey2 = '')
+    /**
+     * @param string $sKey
+     * @param string $sKey2
+     * @return \App\DataType\DTAppTableQueue|null
+     * @throws \ReflectionException
+     */
+    public function pop(string $sKey = '', string $sKey2 = ''): ?DTAppTableQueue
     {
         Event::run('app.table.queue.pop.before', $sKey);
 
@@ -177,7 +183,7 @@ class Queue extends Db
      * @return \App\DataType\DTAppTableQueue[]
      * @throws \ReflectionException
      */
-    public function next(int $iLimit = 1, array $aDTDBWhere = array())
+    public function next(int $iLimit = 1, array $aDTDBWhere = array()): array
     {
         $this->expire();
 
@@ -197,7 +203,7 @@ class Queue extends Db
      * @return \App\DataType\DTAppTableQueue[]|null
      * @throws \ReflectionException
      */
-    public function popAll(string $sKey = '', string $sKey2 = '')
+    public function popAll(string $sKey = '', string $sKey2 = ''): ?array
     {
         Event::run('app.table.queue.popall.before', $sKey);
 
@@ -234,10 +240,11 @@ class Queue extends Db
      * @return array
      * @throws \ReflectionException
      */
-    public function getAllKeys()
+    public function getAllKeys(): array
     {
         $this->expire();
-        $aResult = array_map(
+
+        return array_map(
             function ($mValue) {
                 return$mValue[DTAppTableQueue::getPropertyName_key()];
             },
@@ -248,8 +255,6 @@ class Queue extends Db
                 ORDER BY `" . DTAppTableQueue::getPropertyName_key() . "` ASC"
             )
         );
-
-        return $aResult;
     }
 
     /**
@@ -258,7 +263,7 @@ class Queue extends Db
      * @return bool
      * @throws \ReflectionException
      */
-    public function keyExists(string $sKey = '', string $sKey2 = '')
+    public function keyExists(string $sKey = '', string $sKey2 = ''): bool
     {
         if (true === empty($sKey))
         {
@@ -286,7 +291,7 @@ class Queue extends Db
      * @return int
      * @throws \ReflectionException
      */
-    public function getAmount(string $sKey = '')
+    public function getAmount(string $sKey = ''): int
     {
         if (true === empty($sKey))
         {
@@ -294,18 +299,17 @@ class Queue extends Db
         }
 
         $this->expire();
-        $iAmount = $this->count([
+
+        return $this->count([
             DTDBWhere::create()->set_sKey(DTAppTableQueue::getPropertyName_key())->set_sValue($sKey),
         ]);
-
-        return $iAmount;
     }
 
     /**
      * @return void
      * @throws \ReflectionException
      */
-    public function expire()
+    public function expire(): void
     {
         $iTime = time();
         $iAmount = $this->count([
@@ -315,7 +319,7 @@ class Queue extends Db
         // nothing to do
         if (0 === $iAmount)
         {
-            return false;
+            return;
         }
 
         Event::run('app.table.queue.expire.before', $iTime);
@@ -336,10 +340,9 @@ class Queue extends Db
      * @return bool
      * @throws \ReflectionException
      */
-    protected function _jobAlreadyExists (DTAppTableQueue $oDTAppTableQueue)
+    protected function _jobAlreadyExists (DTAppTableQueue $oDTAppTableQueue): bool
     {
-        $sSql = '';
-        $sSql.= "SELECT COUNT(id) AS iAmount FROM `" . $this->sTableName . "` \n";
+        $sSql = "SELECT COUNT(id) AS iAmount FROM `" . $this->sTableName . "` \n";
         $sSql.= "WHERE 1\n";
         $sSql.= "AND `key` = '" . $oDTAppTableQueue->get_key() . "' \n";
 

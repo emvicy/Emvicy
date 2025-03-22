@@ -6,33 +6,34 @@ namespace MVC;
 use Emvicy\Emvicy;
 use MVC\DataType\DTCronTask;
 use Symfony\Component\Yaml\Yaml;
+use function register_shutdown_function;
 
 class RouteIntervall
 {
     /**
      * @var \MVC\RouteIntervall
      */
-    protected static $_oInstance = null;
+    protected static ?RouteIntervall $_oInstance = null;
 
     /**
      * @var string
      */
-    protected $sIntervallYamlFile = '';
+    protected string $sIntervallYamlFile = '';
 
     /**
      * @var string
      */
-    protected $sCacheToken = 'mvcrtntrvll'; # mvc route intervall
+    protected string $sCacheToken = 'mvcrtntrvll'; # mvc route intervall
 
     /**
      * @var int
      */
-    protected $iPidParent;
+    protected int $iPidParent;
 
     /**
      * @var string
      */
-    protected $iPidParentFile = '';
+    protected string $iPidParentFile = '';
 
     /**
      * Constructor
@@ -46,7 +47,7 @@ class RouteIntervall
      * @param string $sCronYamlFile
      * @return \MVC\RouteIntervall
      */
-    public static function create(string $sCronYamlFile = '') : \MVC\RouteIntervall
+    public static function create(string $sCronYamlFile = '') : RouteIntervall
     {
         if (null === self::$_oInstance)
         {
@@ -73,14 +74,14 @@ class RouteIntervall
         Cache::autoDeleteCache($this->sCacheToken, 0);
 
         // lock on runtime
-        \MVC\Lock::create($this->sCacheToken);
+        Lock::create($this->sCacheToken);
 
         Event::run('mvc.routeintervall.run.before', $this->sIntervallYamlFile);
 
         $this->iPidParent = getmypid();
         $this->iPidParentFile = Config::get_MVC_BASE_PATH() . '/.' . Strings::seofy(__METHOD__) . '.' . $this->iPidParent;
         touch($this->iPidParentFile);
-        \register_shutdown_function('\MVC\RouteIntervall::shutdown');
+        register_shutdown_function('\MVC\RouteIntervall::shutdown');
 
         while (true)
         {
@@ -100,6 +101,7 @@ class RouteIntervall
             }
 
             $sMd5OfFile = md5_file($this->sIntervallYamlFile);
+            $aRouteIntervall = array();
 
             // content of file has changed (or is new to this process)
             if (Cache::getCache($this->sCacheToken) !== $sMd5OfFile)
@@ -138,12 +140,12 @@ class RouteIntervall
 
         // minimum is 1 Second for intervall
         ($oDTCronTask->get_iIntervall() <= 1) ? $oDTCronTask->set_iIntervall(1) : false;
-        (true === empty($oDTCronTask->get_sStaging())) ? $oDTCronTask->set_sStaging(\MVC\Config::get_MVC_ENV()) : false;
+        (true === empty($oDTCronTask->get_sStaging())) ? $oDTCronTask->set_sStaging(Config::get_MVC_ENV()) : false;
 
         // cli command
-        $oDTCronTask->set_sCommand('cd ' . \MVC\Config::get_MVC_PUBLIC_PATH() . '; '
+        $oDTCronTask->set_sCommand('cd ' . Config::get_MVC_PUBLIC_PATH() . '; '
                                    . 'export MVC_ENV="' . $oDTCronTask->get_sStaging() . '"; '
-                                   . \MVC\Config::get_MVC_BIN_PHP_BINARY() . ' index.php ' . $oDTCronTask->get_sRoute()
+                                   . Config::get_MVC_BIN_PHP_BINARY() . ' index.php ' . $oDTCronTask->get_sRoute()
                                    . ' > /dev/null 2>/dev/null & echo $!');
         $sCacheKey = $this->sCacheToken . '.' . md5($oDTCronTask->getPropertyJson() . $oDTCronTask->get_sCommand()) . '.' . Strings::seofy($oDTCronTask->get_sRoute());
         $sCacheFilename = Config::get_MVC_CACHE_DIR() . '/' . $sCacheKey;
@@ -178,7 +180,7 @@ class RouteIntervall
      * @return void
      * @throws \ReflectionException
      */
-    protected function shutdown()
+    protected function shutdown(): void
     {
         if (true === file_exists($this->iPidParentFile))
         {

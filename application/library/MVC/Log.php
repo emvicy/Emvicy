@@ -18,7 +18,7 @@ class Log
     /**
      * @var int
      */
-    public static $iCount = 0;
+    public static int $iCount = 0;
 
     /**
      * prepares debug output string
@@ -99,9 +99,8 @@ class Log
         (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['debug'] ?? null)) ? $sReport.= "\t" . print_r ($sDebug, true) : false;
         (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['message'] ?? null)) ? $sReport.= "\t" . $mMessage : false;
         $sReport.= "\n";
-        $sReport = ltrim($sReport, "\t");
 
-        return $sReport;
+        return ltrim($sReport, "\t");
     }
 
     /**
@@ -150,7 +149,6 @@ class Log
 
     /**
      * @return string
-     * @throws \ReflectionException
      */
     public static function getLogFileDefault() : string
     {

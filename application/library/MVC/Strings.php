@@ -10,6 +10,8 @@
 
 namespace MVC;
 
+use HTMLPurifier;
+
 class Strings
 {
     /**
@@ -58,9 +60,8 @@ class Strings
         $sString = transliterator_transliterate('de-ASCII; Any-Latin; Latin-ASCII;', $sString);
         $sString = iconv("utf-8","ascii//translit//ignore", $sString);
         (true === $bStrToLower) ? $sString = strtolower($sString) : false;
-        $sString = (string) preg_replace('/[^-a-zA-Z0-9_]+/', '', $sString);
 
-        return $sString;
+        return (string) preg_replace('/[^-a-zA-Z0-9_]+/', '', $sString);
     }
 
     /**
@@ -75,9 +76,7 @@ class Strings
             return false;
         }
 
-        json_decode($sString);
-
-        return (json_last_error() === JSON_ERROR_NONE);
+        return json_validate($sString);
     }
 
     /**
@@ -131,19 +130,17 @@ class Strings
      * @param string $sString
      * @return string
      */
-    public static function tidy(string $sString = '')
+    public static function tidy(string $sString = ''): string
     {
         $sString = preg_replace('%\s+%', ' ', $sString);
-        $sString = trim($sString);
 
-        return $sString;
+        return trim($sString);
     }
 
     /**
      * returns a random uuid Version4 string (8-4-4-4-12)
      * @example 889abaf2-461d-42a1-86f4-07eb3e9876a5
      * @return string
-     * @throws \ReflectionException
      */
     public static function uuid4() : string
     {
@@ -162,7 +159,7 @@ class Strings
      * @param mixed $sUuid4
      * @return bool
      */
-    public static function isUuid4(mixed $sUuid4)
+    public static function isUuid4(mixed $sUuid4): bool
     {
         return (is_string($sUuid4) && preg_match('/^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$/i', $sUuid4));
     }
@@ -177,7 +174,7 @@ class Strings
     {
         // auto-repair markup
         (true === $bPurify)
-            ? $sString = \HTMLPurifier::getInstance()->purify($sString)
+            ? $sString = HTMLPurifier::getInstance()->purify($sString)
             : false
         ;
 
@@ -200,7 +197,7 @@ class Strings
 
         // auto-repair markup
         (true === self::isMarkup($sString) && true === $bPurify)
-            ? $sStringMod = \HTMLPurifier::getInstance()->purify($sStringMod)
+            ? $sStringMod = HTMLPurifier::getInstance()->purify($sStringMod)
             : false
         ;
 
@@ -223,7 +220,7 @@ class Strings
     public static function highlight_html(string $sMarkup = '', string $sTag = 'code', bool $bPurify = false) : string
     {
         $sTag = preg_replace("/[^[:alpha:]]/ui", '', $sTag);
-        (true === $bPurify) && $sMarkup = \HTMLPurifier::getInstance()->purify($sMarkup);
+        (true === $bPurify) && $sMarkup = HTMLPurifier::getInstance()->purify($sMarkup);
 
         if (!defined('HLH_TAG'))
         {

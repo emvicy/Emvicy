@@ -11,6 +11,8 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTEventContext;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 /**
  * @example
@@ -26,7 +28,7 @@ class Event
     /**
      * @var array
      */
-    public static $aEvent = array();
+    public static array $aEvent = array();
 
     /**
      * @return bool
@@ -43,7 +45,7 @@ class Event
 
         //  require recursively all php files in module's event dir
         /** @var \SplFileInfo $oSplFileInfo */
-        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($sEventDir)) as $oSplFileInfo)
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sEventDir)) as $oSplFileInfo)
         {
             if ('php' === strtolower($oSplFileInfo->getExtension()))
             {
@@ -209,7 +211,7 @@ class Event
             preg_grep('/\*/', array_keys(self::$aEvent))
         );
 
-        $aEventMatching = array_filter(
+        return array_filter(
             $aListenerWithPlaceholder,
             function($sListenerWithPlaceholder) use ($sEvent) {
                 $sPattern = str_replace('*', '([a-zA-Z0-9_\.]*)', $sListenerWithPlaceholder);
@@ -219,8 +221,6 @@ class Event
                 return (false === empty($sMatch) && $sMatch === $sEvent);
             }
         );
-
-        return $aEventMatching;
     }
 
     /**

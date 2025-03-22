@@ -14,7 +14,7 @@ class Queue
      * @return \App\DataType\DTAppTableQueue|null
      * @throws \ReflectionException
      */
-    public static function push(DTAppTableQueue $oDTAppTableQueue, bool $bPreventMultipleCreation = false)
+    public static function push(DTAppTableQueue $oDTAppTableQueue, bool $bPreventMultipleCreation = false): ?DTAppTableQueue
     {
         return \App\Table\Queue::init( DbCollection::getConfig() )->push($oDTAppTableQueue, $bPreventMultipleCreation);
     }
@@ -23,10 +23,10 @@ class Queue
      * get job object due to a key and delete it
      * @param string $sKey
      * @param string $sKey2
-     * @return \App\DataType\DTAppTableQueue|false|null
+     * @return \App\DataType\DTAppTableQueue|null
      * @throws \ReflectionException
      */
-    public static function pop(string $sKey = '', string $sKey2 = '')
+    public static function pop(string $sKey = '', string $sKey2 = ''): ?DTAppTableQueue
     {
         return \App\Table\Queue::init( DbCollection::getConfig() )->pop($sKey, $sKey2);
     }
@@ -37,7 +37,7 @@ class Queue
      * @return \App\DataType\DTAppTableQueue
      * @throws \ReflectionException
      */
-    public static function popOnId(?int $iIdQueue = null)
+    public static function popOnId(?int $iIdQueue = null): DTAppTableQueue
     {
         /** @var DTAppTableQueue $oDTAppTableQueue */
         $oDTAppTableQueue = \App\Table\Queue::init( DbCollection::getConfig() )->getOnId($iIdQueue);
@@ -57,7 +57,7 @@ class Queue
      * @return \App\DataType\DTAppTableQueue[]
      * @throws \ReflectionException
      */
-    public static function next(int $iLimit = 1, array $aDTDBWhere = array())
+    public static function next(int $iLimit = 1, array $aDTDBWhere = array()): array
     {
         return \App\Table\Queue::init( DbCollection::getConfig() )->next($iLimit, $aDTDBWhere);
     }
@@ -68,7 +68,7 @@ class Queue
      * @return \App\DataType\DTAppTableQueue[]|null
      * @throws \ReflectionException
      */
-    public static function popAll(string $sKey = '', string $sKey2 = '')
+    public static function popAll(string $sKey = '', string $sKey2 = ''): ?array
     {
         return \App\Table\Queue::init( DbCollection::getConfig() )->popAll($sKey, $sKey2);
     }
@@ -77,7 +77,7 @@ class Queue
      * @return array
      * @throws \ReflectionException
      */
-    public static function getAllKeys()
+    public static function getAllKeys(): array
     {
         return \App\Table\Queue::init( DbCollection::getConfig() )->getAllKeys();
     }
@@ -88,7 +88,7 @@ class Queue
      * @return bool
      * @throws \ReflectionException
      */
-    public static function keyExists(string $sKey = '', string $sKey2 = '')
+    public static function keyExists(string $sKey = '', string $sKey2 = ''): bool
     {
         return \App\Table\Queue::init( DbCollection::getConfig() )->keyExists($sKey, $sKey2);
     }
@@ -98,7 +98,7 @@ class Queue
      * @return int
      * @throws \ReflectionException
      */
-    public static function getAmount(string $sKey = '')
+    public static function getAmount(string $sKey = ''): int
     {
         return \App\Table\Queue::init( DbCollection::getConfig() )->getAmount($sKey);
     }
@@ -107,7 +107,7 @@ class Queue
      * @return void
      * @throws \ReflectionException
      */
-    public static function expire()
+    public static function expire(): void
     {
         \App\Table\Queue::init( DbCollection::getConfig() )->expire();
     }

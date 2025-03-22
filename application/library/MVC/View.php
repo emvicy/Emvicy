@@ -12,49 +12,45 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
+use Smarty;
 
-/**
- * View
- *
- * @extends \Smarty
- */
-class View extends \Smarty
+class View extends Smarty
 {
     /**
      * switch rendering on/off
      * @var bool render
      */
-    public static $bRender = true;
+    public static bool $bRender = true;
 
     /**
      * switch echo out
      * @var bool
      */
-    public static $bEchoOut = true;
+    public static bool $bEchoOut = true;
 
     /**
      * Current Template Directory
      * @var string
      */
-    public $sTemplateDir;
+    public string $sTemplateDir;
 
     /**
      * default Template / Layout; relative path
      * @var string
      */
-    public $sTemplateRelative;
+    public string $sTemplateRelative;
 
     /**
      * default Template / Layout; absolute path
      * @var string
      */
-    public $sTemplate;
+    public string $sTemplate;
 
     /**
      * smarty version
      * @var int
      */
-    public $iSmartyVersion;
+    public int $iSmartyVersion;
 
     /**
      * View constructor.

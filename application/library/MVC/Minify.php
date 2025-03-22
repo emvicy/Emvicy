@@ -10,14 +10,18 @@
 
 namespace MVC;
 
+use FilesystemIterator;
 use JSMin\JSMin;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 
 class Minify
 {
     /**
      * @var bool
      */
-    public static $bMinifySuccess = true;
+    public static bool $bMinifySuccess = true;
 
     /**
      * minifies all *css and *.js files found in the given folder and beneath (recursively!)
@@ -38,7 +42,7 @@ class Minify
         foreach ($aContentFilterMinify as $sScriptDirAbs)
         {
             /** @var \SplFileInfo $oSplFileInfo */
-            foreach(new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($sScriptDirAbs, \FilesystemIterator::FOLLOW_SYMLINKS)) as $oSplFileInfo)
+            foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sScriptDirAbs, FilesystemIterator::FOLLOW_SYMLINKS)) as $oSplFileInfo)
             {
                 // handle css + js files only
                 if (in_array(pathinfo($oSplFileInfo->getPathname(), PATHINFO_EXTENSION), array('css', 'js')))
@@ -86,7 +90,7 @@ class Minify
      * @param \SplFileInfo $oSplFileInfo
      * @return bool
      */
-    public static function minifyJs(\SplFileInfo $oSplFileInfo) : bool
+    public static function minifyJs(SplFileInfo $oSplFileInfo) : bool
     {
         if (false === file_exists($oSplFileInfo->getPathname()))
         {
@@ -95,12 +99,11 @@ class Minify
 
         $sContent = JSMin::minify(file_get_contents($oSplFileInfo->getPathname()));
         $aPathInfo = pathinfo($oSplFileInfo->getPathname());
-        $bSuccess = (boolean) file_put_contents(
+
+        return (boolean) file_put_contents(
             $aPathInfo['dirname'] . '/' . $aPathInfo['filename'] . '.min.js',
             $sContent
         );
-
-        return $bSuccess;
     }
 
     /**
@@ -108,7 +111,7 @@ class Minify
      * @param \SplFileInfo $oSplFileInfo
      * @return bool
      */
-    public static function minifyCss(\SplFileInfo $oSplFileInfo) : bool
+    public static function minifyCss(SplFileInfo $oSplFileInfo) : bool
     {
         if (false === file_exists($oSplFileInfo->getPathname()))
         {
@@ -127,11 +130,10 @@ class Minify
         $sContent = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $sContent);
 
         $aPathInfo = pathinfo($oSplFileInfo->getPathname());
-        $bSuccess = (boolean) file_put_contents(
+
+        return (boolean) file_put_contents(
             $aPathInfo['dirname'] . '/' . $aPathInfo['filename'] . '.min.css',
             $sContent
         );
-
-        return $bSuccess;
     }
 }

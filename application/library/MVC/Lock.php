@@ -12,6 +12,7 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
+use function register_shutdown_function;
 
 /**
  * Class Lock
@@ -68,7 +69,7 @@ class Lock
             exit();
         }
 
-        \register_shutdown_function('\MVC\Dir::remove', $sFile);
+        register_shutdown_function('\MVC\Dir::remove', $sFile);
 
         $oDTArrayObject->add_aKeyValue(DTKeyValue::create()
             ->set_sKey('bLocked')

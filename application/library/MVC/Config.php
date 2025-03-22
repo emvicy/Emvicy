@@ -1405,6 +1405,9 @@ class Config
         $GLOBALS['aConfig']['MVC_LOG_FILE_SQL'] = $sLogFileName;
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public static function get_MVC_PHP_SERVER() : string
     {
         if (Registry::isRegistered('MVC_PHP_SERVER'))

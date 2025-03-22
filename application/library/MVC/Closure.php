@@ -11,6 +11,10 @@
 
 namespace MVC;
 
+use ReflectionFunction;
+use ReflectionNamedType;
+use ReflectionUnionType;
+
 class Closure
 {
     /**
@@ -33,14 +37,14 @@ class Closure
      */
     public static function dump(mixed $mClosure) : string
     {
-        $oReflectionFunction = new \ReflectionFunction($mClosure);
+        $oReflectionFunction = new ReflectionFunction($mClosure);
         $aParam = array();
 
         foreach ($oReflectionFunction->getParameters() as $oReflectionParameter)
         {
             $sTemp = '';
             $oReflectionType = $oReflectionParameter->getType();
-            $aType = $oReflectionType instanceof \ReflectionUnionType
+            $aType = $oReflectionType instanceof ReflectionUnionType
                 ? $oReflectionType->getTypes()
                 : [$oReflectionType];
 
@@ -64,7 +68,7 @@ class Closure
             $bIsArray = in_array(
                 'array',
                 array_map(
-                    fn(\ReflectionNamedType $oReflectionNamedType) => $oReflectionNamedType->getName(),
+                    fn(ReflectionNamedType $oReflectionNamedType) => $oReflectionNamedType->getName(),
                     $aType
                 )
             );
@@ -117,14 +121,13 @@ class Closure
      */
     public static function toString(\Closure $oClosure, bool $bShrink = true) : string
     {
-        $oReflectionFunction = new \ReflectionFunction($oClosure);
+        $oReflectionFunction = new ReflectionFunction($oClosure);
         $sFileName = $oReflectionFunction->getFileName();
         $iStartLine = $oReflectionFunction->getStartLine();
         $iEndLine = $oReflectionFunction->getEndLine();
         $aExplode = explode(PHP_EOL, file_get_contents($sFileName));
         $aExplode = array_slice($aExplode, ($iStartLine - 1), ($iEndLine - ($iStartLine - 1)));
         $iLastLineNumber = (count($aExplode) - 1);
-        reset($aExplode);
 
         if (
             (substr_count(current($aExplode), 'function') > 1) ||

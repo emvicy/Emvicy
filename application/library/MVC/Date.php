@@ -10,6 +10,8 @@
 
 namespace MVC;
 
+use DateTime;
+
 class Date
 {
     /**
@@ -22,7 +24,7 @@ class Date
      */
     public static function validateDate(string $sValue, string $sFormat = 'Y-m-d H:i:s') : bool
     {
-        $oDateTime = \DateTime::createFromFormat($sFormat, $sValue);
+        $oDateTime = DateTime::createFromFormat($sFormat, $sValue);
         return $oDateTime && $oDateTime->format($sFormat) == $sValue;
     }
 
@@ -39,7 +41,7 @@ class Date
             $sDateIso = date('Y-m-d');
         }
 
-        $oDateTime = new \DateTime($sDateIso);
+        $oDateTime = new DateTime($sDateIso);
 
         return (int) $oDateTime->format("W");
     }

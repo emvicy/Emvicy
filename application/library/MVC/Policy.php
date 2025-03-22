@@ -13,6 +13,8 @@ namespace MVC;
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
 use MVC\DataType\DTRoute;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 
 /**
  * Policy
@@ -22,7 +24,7 @@ class Policy
     /**
      * @var array error
      */
-    private static $aApplied = array();
+    private static array $aApplied = array();
 
     /**
      * @param bool $bApply
@@ -40,7 +42,7 @@ class Policy
         {
             //  require recursively all php files in module's policy dir
             /** @var \SplFileInfo $oSplFileInfo */
-            foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($sPolicyDir)) as $oSplFileInfo)
+            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sPolicyDir)) as $oSplFileInfo)
             {
                 if ('php' === strtolower($oSplFileInfo->getExtension()))
                 {

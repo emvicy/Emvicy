@@ -12,6 +12,8 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
+use ReflectionException;
+use ReflectionMethod;
 
 /**
  * Reflex
@@ -96,9 +98,9 @@ class Reflex
 				{
 					try
 					{
-						$oReflectionMethod = new \ReflectionMethod($sControllerClassName, $sMethod);
+						$oReflectionMethod = new ReflectionMethod($sControllerClassName, $sMethod);
 					}
-					catch (\ReflectionException $oReflectionException)
+					catch (ReflectionException $oReflectionException)
 					{
                         Error::exception($oReflectionException);
 

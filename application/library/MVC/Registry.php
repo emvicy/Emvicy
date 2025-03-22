@@ -10,6 +10,8 @@
 
 namespace MVC;
 
+use ErrorException;
+
 /**
  * Registry
  */
@@ -17,15 +19,15 @@ class Registry
 {
 	/**
 	 * Registry object provides storage for shared objects.
-	 * @var \MVC\Registry
+	 * @var \MVC\Registry|null
 	 */
-    protected static $_oRegistry = null;
+    protected static ?Registry $_oRegistry = null;
 
 	/**
 	 * Storage
 	 * @var array
 	 */
-    protected static $_aStorage = array();
+    protected static array $_aStorage = array();
 
 	protected function __construct()
 	{
@@ -81,14 +83,14 @@ class Registry
                 . ', ' . $aDebug[0]['line']
             ;
 
-            Error::exception(new \ErrorException ($sMsg, 0, E_USER_ERROR, __FILE__, __LINE__));
+            Error::exception(new ErrorException ($sMsg, 0, E_USER_ERROR, __FILE__, __LINE__));
 		}
 
 		return (self::$_aStorage[$sIndex] ?? null);
 	}
 
     /**
-     * gets a value by its key and deletes the entry afterwards
+     * gets a value by its key and deletes the entry afterward
      * @param string $sIndex
      * @return mixed
      * @throws \ReflectionException

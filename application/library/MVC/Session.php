@@ -17,26 +17,26 @@ class Session
 {
     /**
      * Session object provides storage for shared objects.
-     * @var \MVC\Session
+     * @var \MVC\Session|null
      */
-    protected static $_oInstance = null;
+    protected static ?Session $_oInstance = null;
 
     /**
      * Options
      * @var array
      */
-    protected $_aOption = array();
+    protected array $_aOption = array();
 
     /**
      * namespace
      * @var string
      */
-    protected $_sNamespace;
+    protected string $_sNamespace;
 
     /**
      * @var bool
      */
-    protected $_bSessionEnable = false;
+    protected bool $_bSessionEnable = false;
 
     /**
      * @param string $sNamespace
@@ -79,7 +79,6 @@ class Session
     /**
      * @param bool $bEnable
      * @return \MVC\Session|null
-     * @throws \ReflectionException
      */
     public function enable(bool $bEnable = true) : Session|null
     {
@@ -210,7 +209,7 @@ class Session
      * gets session key/values on the current namespace
      * @return array|mixed
      */
-    public function getAll()
+    public function getAll(): mixed
     {
         return ($_SESSION[$this->_sNamespace] ?? array());
     }
@@ -219,7 +218,7 @@ class Session
      * empty a session namespace; removes all data in the current namespace
      * @return bool
      */
-    public function empty()
+    public function empty(): bool
     {
         if (true === isset($_SESSION[$this->_sNamespace]))
         {
@@ -236,9 +235,8 @@ class Session
      * kills current session
      * @param bool $bRegenerateId
      * @return \MVC\Session|null
-     * @throws \ReflectionException
      */
-    public function kill(bool $bRegenerateId = true)
+    public function kill(bool $bRegenerateId = true): ?Session
     {
         if (false === empty(session_id()))
         {
@@ -255,7 +253,7 @@ class Session
      * @return void
      * @throws \ReflectionException
      */
-    public static function applySessionRules()
+    public static function applySessionRules(): void
     {
         $aEnableSessionForController = (Config::MODULE()['SESSION']['aEnableSessionForController'] ?? array());
         $aDisableSessionForController = (Config::MODULE()['SESSION']['aDisableSessionForController'] ?? array());

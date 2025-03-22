@@ -19,10 +19,10 @@ class Worker
 
     /**
      * Fetches X jobs from the queue and starts the responsible workers async
-     * @return void
+     * @return bool
      * @throws \ReflectionException
      */
-    public static function run()
+    public static function run(): bool
     {
         // get configs
         $aWorkerConfig = self::getConfig();
@@ -79,7 +79,6 @@ class Worker
                 // Process free; processing can take place
                 else
                 {
-                    /** @var DTAppTableQueue $oDTAppTableQueue */
                     $oDTAppTableQueue = $aDTAppTableQueue[$iIteration];
 
                     // call worker via autoRoute async (non-blocking)
@@ -128,7 +127,7 @@ class Worker
      * @return bool
      * @throws \ReflectionException
      */
-    public static function workerAutoRoute()
+    public static function workerAutoRoute(): bool
     {
         // get worker config
         $aWorker = self::getConfig();
@@ -151,7 +150,7 @@ class Worker
             // add individual route for worker
             $sRoute = $sRoutePrefix . '/' . $sQueueKey . '/*';
 
-            \MVC\Route::GET(
+            Route::GET(
                 sPath: $sRoute,
                 sClassMethod: Config::get_MVC_QUEUE_WORKER_AUTO_ROUTE_RESOLVE_CLASSMETHOD()
             );

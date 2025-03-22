@@ -13,23 +13,26 @@ namespace MVC;
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
 use MVC\DataType\DTRoute;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ReflectionClass;
 
 class Route
 {
     /**
      * @var DTRoute[]
      */
-    public static $aRoute = array();
+    public static array $aRoute = array();
 
     /**
      * @var array
      */
-    public static $aMethod = array();
+    public static array $aMethod = array();
 
     /**
      * @var array
      */
-    public static $aMethodRoute = array();
+    public static array $aMethodRoute = array();
 
     /**
      * @return void
@@ -45,7 +48,7 @@ class Route
             {
                 //  require recursively all php files in module's routing dir
                 /** @var \SplFileInfo $oSplFileInfo */
-                foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($sRoutingDir)) as $oSplFileInfo)
+                foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sRoutingDir)) as $oSplFileInfo)
                 {
                     if ('php' === strtolower($oSplFileInfo->getExtension()))
                     {
@@ -180,7 +183,7 @@ class Route
         list($sClass, $sMethod) = explode('::', $sClassMethod);
         (true === empty($mOptional)) ? $mOptional = null : false;
         $aRequestMethodAssigned = array(strtoupper($sRequestMethod));
-        $oReflectionClass = new \ReflectionClass($sClass);
+        $oReflectionClass = new ReflectionClass($sClass);
 
         // save all assigned Request Methods
         if (isset(self::$aRoute[$sPath]))
@@ -189,10 +192,7 @@ class Route
 
             if (false === in_array($sRequestMethod, $aRequestMethodAssigned, true))
             {
-                array_push(
-                    $aRequestMethodAssigned,
-                    $sRequestMethod
-                );
+                $aRequestMethodAssigned[] = $sRequestMethod;
             }
         }
 
@@ -474,9 +474,8 @@ class Route
             // Array to search in & Key to look after
             array_column($aRoute, 'tag')
         );
-        $oDTRoute = self::$aRoute[array_keys($aRoute)[$iKey]];
 
-        return $oDTRoute;
+        return self::$aRoute[array_keys($aRoute)[$iKey]];
     }
 
     /**

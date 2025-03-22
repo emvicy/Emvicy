@@ -11,6 +11,9 @@ namespace MVC;
 
 
 use Emvicy\Emvicy;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use Smarty;
 
 /**
  * InfoTool
@@ -24,13 +27,13 @@ class InfoTool
      * @param \Smarty $oView
      * @throws \ReflectionException
      */
-    public function __construct(\Smarty $oView)
+    public function __construct(Smarty $oView)
     {
         $oDTRoutingAdditional = Route::getCurrent()->get_additional();
 
         if (true == empty($oDTRoutingAdditional))
         {
-            return false;
+            return;
         }
 
         // add fully rendered template as 'layout'
@@ -57,11 +60,11 @@ class InfoTool
      * @throws \ReflectionException
      * @throws \SmartyException
      */
-    public static function injectToolbar(\Smarty $oView)
+    public static function injectToolbar(Smarty $oView): void
     {
         if (false === Registry::isRegistered('aToolbar'))
         {
-            return false;
+            return;
         }
 
         $aToolbar = Registry::get('aToolbar');
@@ -131,7 +134,7 @@ class InfoTool
      * @throws \ReflectionException
      * @throws \Exception
      */
-    protected function collectInfo(\Smarty $oView) : array
+    protected function collectInfo(Smarty $oView) : array
     {
         $aToolbar = array ();
         $aGetEnv = getenv();
@@ -284,12 +287,12 @@ class InfoTool
     protected function getCaches() : array
     {
         $aCache = array ();
-        $oObjects = new \RecursiveIteratorIterator (
-            new \RecursiveDirectoryIterator (
+        $oObjects = new RecursiveIteratorIterator (
+            new RecursiveDirectoryIterator (
                 Config::get_MVC_CACHE_DIR(),
                 0
             ),
-            \RecursiveIteratorIterator::SELF_FIRST,
+            RecursiveIteratorIterator::SELF_FIRST,
             0
         );
 

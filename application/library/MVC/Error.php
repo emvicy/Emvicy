@@ -10,6 +10,8 @@
 
 namespace MVC;
 
+use Errorexception;
+use Exception;
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
 
@@ -21,7 +23,7 @@ class Error
     /**
      * @var array
      */
-    public static $aExceptionTranslation = [
+    public static array $aExceptionTranslation = [
         E_ERROR => "E_ERROR",
         E_WARNING => "E_WARNING",
         E_PARSE => "E_PARSE",
@@ -43,7 +45,7 @@ class Error
     /**
      * @var array
      */
-	protected static $_aError;
+	protected static array $_aError = array();
 
 	/**
 	 * sets error handlers;
@@ -68,13 +70,12 @@ class Error
      * @param string $sMessage
      * @param string $sFilename
      * @param int    $iLineNr
-     * @param mixed  $mContext
      * @return void
      * @throws \ReflectionException
      */
-	public static function errorHandler(int $iCode, string $sMessage, string $sFilename, int $iLineNr, mixed $mContext = '') : void
+	public static function errorHandler(int $iCode, string $sMessage, string $sFilename, int $iLineNr) : void
 	{	
-		$oErrorException = new \Errorexception($sMessage, $iCode, $iSeverity = 1, $sFilename, $iLineNr);
+		$oErrorException = new Errorexception($sMessage, $iCode, 1, $sFilename, $iLineNr);
 		
 		self::exception($oErrorException);
 	}	
@@ -94,7 +95,7 @@ class Error
         $aDebug = Debug::prepareBacktraceArray(debug_backtrace(limit: 2));
         (true === empty($sFilename)) ? $sFilename = $aDebug['sFile'] : false;
         (true === empty($iLineNr)) ? $iLineNr = $aDebug['sLine'] : false;
-		$oErrorException = new \Errorexception($sMessage, (int) $iCode, (int) $iSeverity, $sFilename, (int) $iLineNr );
+		$oErrorException = new Errorexception($sMessage, $iCode, $iSeverity, $sFilename, (int) $iLineNr );
 
 		self::exception($oErrorException);
 	}
@@ -113,7 +114,7 @@ class Error
         $aDebug = Debug::prepareBacktraceArray(debug_backtrace(limit: 2));
         (true === empty($sFilename)) ? $sFilename = $aDebug['sFile'] : false;
         (true === empty($iLineNr)) ? $iLineNr = (int) $aDebug['sLine'] : false;
-        $oErrorException = new \Errorexception($sMessage, $iCode, $iSeverity, $sFilename, $iLineNr );
+        $oErrorException = new Errorexception($sMessage, $iCode, $iSeverity, $sFilename, $iLineNr );
 
         self::exception($oErrorException);
     }
@@ -132,7 +133,7 @@ class Error
         $aDebug = Debug::prepareBacktraceArray(debug_backtrace(limit: 2));
         (true === empty($sFilename)) ? $sFilename = $aDebug['sFile'] : false;
         (true === empty($iLineNr)) ? $iLineNr = (int) $aDebug['sLine'] : false;
-        $oErrorException = new \Errorexception($sMessage, $iCode, $iSeverity, $sFilename, $iLineNr );
+        $oErrorException = new Errorexception($sMessage, $iCode, $iSeverity, $sFilename, $iLineNr );
 
         self::exception($oErrorException);
     }
@@ -142,7 +143,7 @@ class Error
      * @return void
      * @throws \ReflectionException
      */
-	public static function exception(\Error|\Exception $oErrorException) : void
+	public static function exception(\Error|Exception $oErrorException) : void
 	{
 		$sLogfile = Config::get_MVC_LOG_FILE_ERROR();
 		$sMsg = '';
@@ -222,7 +223,7 @@ class Error
      * @param bool $bConvertToArray
      * @return array
      */
-    public static function get(bool $bConvertToArray = true)
+    public static function get(bool $bConvertToArray = true): array
     {
         if (true === $bConvertToArray)
         {

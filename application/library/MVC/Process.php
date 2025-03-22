@@ -2,6 +2,10 @@
 
 namespace MVC;
 
+use FilesystemIterator;
+use ReflectionMethod;
+use function register_shutdown_function;
+
 class Process
 {
     /**
@@ -11,7 +15,7 @@ class Process
      * @param string $sPauseText
      * @return void
      */
-    public static function pause(int $iSeconds = 1, string $sPreText = '', bool $bEchoOut = false, string $sPauseText = '')
+    public static function pause(int $iSeconds = 1, string $sPreText = '', bool $bEchoOut = false, string $sPauseText = ''): void
     {
         if (false === empty($sPreText) && true === $bEchoOut)
         {
@@ -44,7 +48,7 @@ class Process
      * @return void
      * @throws \ReflectionException
      */
-    public static function callRouteAsync(string $sRoute = '')
+    public static function callRouteAsync(string $sRoute = ''): void
     {
         self::callRoute($sRoute);
     }
@@ -54,7 +58,7 @@ class Process
      * @return int PID
      * @throws \ReflectionException
      */
-    public static function callRoute(string $sRoute = '')
+    public static function callRoute(string $sRoute = ''): int
     {
         Event::run('mvc.process.callRoute.before', $sRoute);
 
@@ -86,10 +90,10 @@ class Process
      * @return void
      * @throws \ReflectionException
      */
-    public static function callClassMethod(object $oObject, string $sMethod, array $aArgument = array())
+    public static function callClassMethod(object $oObject, string $sMethod, array $aArgument = array()): void
     {
         // The PCNTL extension is meant to be restricted to operating in CLI only;
-        // You cannot use it in other server environments (fpm, mod_php, etc).
+        // You cannot use it in other server environments (fpm, mod_php, etc…).
         // It is not possible to use the function 'pcntl_fork' when PHP is used as Apache module (such as XAMPP).
         // You can only use pcntl_fork in CGI mode or from command-line.
         // Using this function will result in: 'Fatal error: Call to undefined function: pcntl_fork()'
@@ -112,11 +116,11 @@ class Process
         // from here it is forked, non-blocking and has its own pid
         if (true === $bFork)
         {
-            \register_shutdown_function('\MVC\Process::deletePidFile', getmypid());
+            register_shutdown_function('\MVC\Process::deletePidFile', getmypid());
             self::savePid(getmypid());
 
             $sControllerClassName = get_class($oObject);
-            $oReflectionMethod = new \ReflectionMethod($sControllerClassName, $sMethod);
+            $oReflectionMethod = new ReflectionMethod($sControllerClassName, $sMethod);
             $oReflectionMethod->invoke($oObject, $aArgument);
 
             exit();
@@ -127,7 +131,7 @@ class Process
      * @return string
      * @throws \ReflectionException
      */
-    public static function getPidFileFolder()
+    public static function getPidFileFolder(): string
     {
         // pidfile folder; make sure there is a trailing slash
         $sPidFileFolder = Strings::replaceMultipleForwardSlashesByOneFromString(Config::get_MVC_PROCESS_PID_FILE_DIR() . '/');
@@ -144,23 +148,23 @@ class Process
      * @return int
      * @throws \ReflectionException
      */
-    public static function getAmountProcessesMax()
+    public static function getAmountProcessesMax(): int
     {
         // Maximum number of all job processes allowed
-        return (int) Config::get_MVC_PROCESS_MAX_PROCESSES_OVERALL();
+        return Config::get_MVC_PROCESS_MAX_PROCESSES_OVERALL();
     }
 
     /**
      * @return int
      * @throws \ReflectionException
      */
-    public static function getAmountProcessesRecorded()
+    public static function getAmountProcessesRecorded(): int
     {
         // detect running processes (=== amount of pidfiles in directory)
         return iterator_count(
-            new \FilesystemIterator(
+            new FilesystemIterator(
                 self::getPidFileFolder(),
-                \FilesystemIterator::SKIP_DOTS
+                FilesystemIterator::SKIP_DOTS
             )
         );
     }
@@ -171,7 +175,7 @@ class Process
      * @return bool
      * @throws \ReflectionException
      */
-    public static function savePid(?int $iPid = null, mixed $mContent = null)
+    public static function savePid(?int $iPid = null, mixed $mContent = null): bool
     {
         if (true === empty($iPid))
         {
@@ -187,7 +191,7 @@ class Process
      * @return bool
      * @throws \ReflectionException
      */
-    public static function hasPidFile(int $iPid = 0)
+    public static function hasPidFile(int $iPid = 0): bool
     {
         (true === empty($iPid)) ? $iPid = getmypid() : false;
 
@@ -199,7 +203,7 @@ class Process
      * @return bool
      * @throws \ReflectionException
      */
-    public static function deletePidFile(int $iPid = 0)
+    public static function deletePidFile(int $iPid = 0): bool
     {
         if (true === self::hasPidFile($iPid))
         {
@@ -215,7 +219,7 @@ class Process
      * @return int
      * @throws \ReflectionException
      */
-    public static function getAmountProcessesAvailable()
+    public static function getAmountProcessesAvailable(): int
     {
         return (
             self::getAmountProcessesMax() - self::getAmountProcessesRecorded()
@@ -227,7 +231,7 @@ class Process
      * @return bool
      * @throws \ReflectionException
      */
-    public static function isRunning(int $iPid = 0)
+    public static function isRunning(int $iPid = 0): bool
     {
         $iPid = abs($iPid);
 
@@ -244,11 +248,11 @@ class Process
 
     /**
      * @param string $sRunningSymbol
-     * @param        $sZombieSymbol
+     * @param string $sZombieSymbol
      * @return string
      * @throws \ReflectionException
      */
-    public static function reportOnPid(string $sRunningSymbol = '⚙', $sZombieSymbol = '☠️') : string
+    public static function reportOnPid(string $sRunningSymbol = '⚙', string $sZombieSymbol = '☠️') : string
     {
         $sCmd = 'cd ' . self::getPidFileFolder() . '; ' .
                 'aPid=`ls`; for iPid in ${aPid}; ' .
@@ -268,9 +272,9 @@ class Process
      * @return string[]
      * @throws \ReflectionException
      */
-    public static function getZombiePidFileArray()
+    public static function getZombiePidFileArray(): array
     {
-        return self::getPidFileArray(1);
+        return self::getPidFileArray();
     }
 
     /**
@@ -278,7 +282,7 @@ class Process
      * @return string[]
      * @throws \ReflectionException
      */
-    public static function getRunningPidFileArray()
+    public static function getRunningPidFileArray(): array
     {
         return self::getPidFileArray(0);
     }
@@ -288,25 +292,24 @@ class Process
      * @return string[]
      * @throws \ReflectionException
      */
-    protected static function getPidFileArray(int $iFlag = 1)
+    protected static function getPidFileArray(int $iFlag = 1): array
     {
         $sCmd = 'cd ' . self::getPidFileFolder() . '; aPid=`ls`; for iPid in ${aPid}; do ' . whereis('ps') . ' --pid $iPid > /dev/null; if [ "$?" -eq ' . $iFlag . ' ]; then echo "$iPid"; fi; done;';
         $aPid = array_filter(explode("\n", (string) shell_exec($sCmd)));
-        $aPid = array_map(
+
+        return array_map(
             function($sPid){
                 return self::getPidFileFolder() . $sPid;
             },
             $aPid
         );
-
-        return $aPid;
     }
 
     /**
      * @return void
      * @throws \ReflectionException
      */
-    public static function deleteZombieFiles()
+    public static function deleteZombieFiles(): void
     {
         $aZombie = self::getZombiePidFileArray();
 
@@ -325,7 +328,7 @@ class Process
      * @return void
      * @throws \ReflectionException
      */
-    public static function destruct()
+    public static function destruct(): void
     {
         $iPid = getmypid();
 

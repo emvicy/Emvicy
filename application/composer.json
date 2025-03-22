@@ -17,6 +17,8 @@
     "ext-reflection": "*",
     "ext-session": "*",
     "ext-simplexml": "*",
+    "ext-pdo": "*",
+    "ext-pcntl": "*",
     "ext-spl": "*",
     "ext-zip": "*",
     "smarty/smarty": "4.*",
