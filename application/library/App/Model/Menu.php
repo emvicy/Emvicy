@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use MVC\Config;
-use MVC\Convert;
 use MVC\Event;
 use MVC\Registry;
 use MVC\Route;
@@ -14,7 +13,7 @@ class Menu
     /**
      * @var string
      */
-    protected static $sRegistryKeyPrefix = __CLASS__ . '.';
+    protected static string $sRegistryKeyPrefix = __CLASS__ . '.';
 
     /**
      * @param array  $aMenuConfig                   default=array(); loading from Config::MODULE()['Menu']
@@ -23,7 +22,7 @@ class Menu
      * @return void
      * @throws \ReflectionException
      */
-    public static function build(array $aMenuConfig = array(), bool $bGetPropertiesFromRouteOnTag = false, string $sCallback = '\App\Model\Menu::buildBootstrap5Menu')
+    public static function build(array $aMenuConfig = array(), bool $bGetPropertiesFromRouteOnTag = false, string $sCallback = '\App\Model\Menu::buildBootstrap5Menu'): void
     {
         // try to load module's Menu config if missing in param
         (true === empty($aMenuConfig))
@@ -49,7 +48,7 @@ class Menu
      * @return string
      * @throws \ReflectionException
      */
-    public static function get(string $sMenuName = '')
+    public static function get(string $sMenuName = ''): string
     {
         $sMenuName = self::$sRegistryKeyPrefix . Strings::seofy($sMenuName);
 
@@ -66,7 +65,7 @@ class Menu
      * @param string $sMarkup
      * @return void
      */
-    protected static function set(string $sMenuName = '', string $sMarkup = '')
+    protected static function set(string $sMenuName = '', string $sMarkup = ''): void
     {
         $sMenuName = self::$sRegistryKeyPrefix . Strings::seofy($sMenuName);
 
@@ -77,13 +76,13 @@ class Menu
     # menu builder
 
     /**
-     * @param $aMenu
-     * @param $bIsSub
-     * @param $bGetProptertiesFromRouteOnTag
+     * @param      $aMenu
+     * @param bool $bIsSub
+     * @param bool $bGetProptertiesFromRouteOnTag
      * @return string
      * @throws \ReflectionException
      */
-    public static function buildBootstrap5Menu($aMenu, $bIsSub = false, $bGetProptertiesFromRouteOnTag = false)
+    public static function buildBootstrap5Menu($aMenu, bool $bIsSub = false, bool $bGetProptertiesFromRouteOnTag = false): string
     {
         $sAttribute = (!$bIsSub)
             ? ' class="navbar-nav me-auto mb-2 mb-md-0"'

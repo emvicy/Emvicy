@@ -6,37 +6,39 @@
 namespace MVC\DB\DataType\DB;
 
 use MVC\DataType\DTValue;
+use MVC\Event;
 use MVC\MVCTrait\TraitDataType;
+use ReflectionClass;
 
 class Constraint
 {
 	use TraitDataType;
 
-	public const DTHASH = '36e3065034b0245fb2276a8731926c80';
+	public const string DTHASH = '36e3065034b0245fb2276a8731926c80';
 
 	/**
 	 * @required false
 	 * @var string
 	 */
-	protected $COLUMN_NAME;
+	protected string $COLUMN_NAME;
 
 	/**
 	 * @required false
 	 * @var string
 	 */
-	protected $CONSTRAINT_NAME;
+	protected string $CONSTRAINT_NAME;
 
 	/**
 	 * @required false
 	 * @var string
 	 */
-	protected $REFERENCED_COLUMN_NAME;
+	protected string $REFERENCED_COLUMN_NAME;
 
 	/**
 	 * @required false
 	 * @var string
 	 */
-	protected $REFERENCED_TABLE_NAME;
+	protected string $REFERENCED_TABLE_NAME;
 
 	/**
 	 * Constraint constructor.
@@ -45,7 +47,7 @@ class Constraint
      */
     protected function __construct(DTValue $oDTValue)
 	{
-		\MVC\Event::run('Constraint.__construct.before', $oDTValue);
+		Event::run('Constraint.__construct.before', $oDTValue);
 		$aData = $oDTValue->get_mValue();
 
 		$this->COLUMN_NAME = '';
@@ -64,7 +66,7 @@ class Constraint
 		}
 
 		$oDTValue = DTValue::create()->set_mValue($aData);
-        \MVC\Event::run('Constraint.__construct.after', $oDTValue);
+        Event::run('Constraint.__construct.after', $oDTValue);
 	}
 
     /**
@@ -72,12 +74,12 @@ class Constraint
      * @return Constraint
      * @throws \ReflectionException
      */
-    public static function create(array $aData = array())
+    public static function create(array $aData = array()): Constraint
     {
         $oDTValue = DTValue::create()->set_mValue($aData);
-		\MVC\Event::run('Constraint.create.before', $oDTValue);
+		Event::run('Constraint.create.before', $oDTValue);
 		$oObject = new self($oDTValue);
-        $oDTValue = DTValue::create()->set_mValue($oObject); \MVC\Event::run('Constraint.create.after', $oDTValue);
+        $oDTValue = DTValue::create()->set_mValue($oObject); Event::run('Constraint.create.after', $oDTValue);
 
         return $oDTValue->get_mValue();
     }
@@ -87,10 +89,10 @@ class Constraint
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_COLUMN_NAME(string $mValue)
-	{
+	public function set_COLUMN_NAME(string $mValue): static
+    {
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
-		\MVC\Event::run('Constraint.set_COLUMN_NAME.before', $oDTValue);
+		Event::run('Constraint.set_COLUMN_NAME.before', $oDTValue);
 		$this->COLUMN_NAME = $oDTValue->get_mValue();
 
 		return $this;
@@ -101,10 +103,10 @@ class Constraint
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_CONSTRAINT_NAME(string $mValue)
-	{
+	public function set_CONSTRAINT_NAME(string $mValue): static
+    {
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
-		\MVC\Event::run('Constraint.set_CONSTRAINT_NAME.before', $oDTValue);
+		Event::run('Constraint.set_CONSTRAINT_NAME.before', $oDTValue);
 		$this->CONSTRAINT_NAME = $oDTValue->get_mValue();
 
 		return $this;
@@ -115,10 +117,10 @@ class Constraint
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_REFERENCED_COLUMN_NAME(string $mValue)
-	{
+	public function set_REFERENCED_COLUMN_NAME(string $mValue): static
+    {
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
-		\MVC\Event::run('Constraint.set_REFERENCED_COLUMN_NAME.before', $oDTValue);
+		Event::run('Constraint.set_REFERENCED_COLUMN_NAME.before', $oDTValue);
 		$this->REFERENCED_COLUMN_NAME = $oDTValue->get_mValue();
 
 		return $this;
@@ -129,10 +131,10 @@ class Constraint
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_REFERENCED_TABLE_NAME(string $mValue)
-	{
+	public function set_REFERENCED_TABLE_NAME(string $mValue): static
+    {
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
-		\MVC\Event::run('Constraint.set_REFERENCED_TABLE_NAME.before', $oDTValue);
+		Event::run('Constraint.set_REFERENCED_TABLE_NAME.before', $oDTValue);
 		$this->REFERENCED_TABLE_NAME = $oDTValue->get_mValue();
 
 		return $this;
@@ -145,7 +147,7 @@ class Constraint
 	public function get_COLUMN_NAME() : string
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->COLUMN_NAME); 
-		\MVC\Event::run('Constraint.get_COLUMN_NAME.before', $oDTValue);
+		Event::run('Constraint.get_COLUMN_NAME.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}
@@ -157,7 +159,7 @@ class Constraint
 	public function get_CONSTRAINT_NAME() : string
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->CONSTRAINT_NAME); 
-		\MVC\Event::run('Constraint.get_CONSTRAINT_NAME.before', $oDTValue);
+		Event::run('Constraint.get_CONSTRAINT_NAME.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}
@@ -169,7 +171,7 @@ class Constraint
 	public function get_REFERENCED_COLUMN_NAME() : string
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->REFERENCED_COLUMN_NAME); 
-		\MVC\Event::run('Constraint.get_REFERENCED_COLUMN_NAME.before', $oDTValue);
+		Event::run('Constraint.get_REFERENCED_COLUMN_NAME.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}
@@ -181,7 +183,7 @@ class Constraint
 	public function get_REFERENCED_TABLE_NAME() : string
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->REFERENCED_TABLE_NAME); 
-		\MVC\Event::run('Constraint.get_REFERENCED_TABLE_NAME.before', $oDTValue);
+		Event::run('Constraint.get_REFERENCED_TABLE_NAME.before', $oDTValue);
 
 		return $oDTValue->get_mValue();
 	}
@@ -189,32 +191,32 @@ class Constraint
 	/**
 	 * @return string
 	 */
-	public static function getPropertyName_COLUMN_NAME()
-	{
+	public static function getPropertyName_COLUMN_NAME(): string
+    {
         return 'COLUMN_NAME';
 	}
 
 	/**
 	 * @return string
 	 */
-	public static function getPropertyName_CONSTRAINT_NAME()
-	{
+	public static function getPropertyName_CONSTRAINT_NAME(): string
+    {
         return 'CONSTRAINT_NAME';
 	}
 
 	/**
 	 * @return string
 	 */
-	public static function getPropertyName_REFERENCED_COLUMN_NAME()
-	{
+	public static function getPropertyName_REFERENCED_COLUMN_NAME(): string
+    {
         return 'REFERENCED_COLUMN_NAME';
 	}
 
 	/**
 	 * @return string
 	 */
-	public static function getPropertyName_REFERENCED_TABLE_NAME()
-	{
+	public static function getPropertyName_REFERENCED_TABLE_NAME(): string
+    {
         return 'REFERENCED_TABLE_NAME';
 	}
 
@@ -229,36 +231,34 @@ class Constraint
 	/**
 	 * @return false|string
 	 */
-	public function getPropertyJson()
-	{
+	public function getPropertyJson(): false|string
+    {
         return json_encode($this->getPropertyArray());
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getPropertyArray()
-	{
+	public function getPropertyArray(): array
+    {
         return get_object_vars($this);
 	}
 
 	/**
 	 * @return array
-	 * @throws \ReflectionException
-	 */
-	public function getConstantArray()
-	{
-		$oReflectionClass = new \ReflectionClass($this);
-		$aConstant = $oReflectionClass->getConstants();
+     */
+	public function getConstantArray(): array
+    {
+		$oReflectionClass = new ReflectionClass($this);
 
-		return $aConstant;
+        return $oReflectionClass->getConstants();
 	}
 
 	/**
 	 * @return $this
 	 */
-	public function flushProperties()
-	{
+	public function flushProperties(): static
+    {
 		foreach ($this->getPropertyArray() as $sKey => $mValue)
 		{
 			$sMethod = 'set_' . $sKey;

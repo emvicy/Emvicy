@@ -9,7 +9,6 @@ use MVC\DataType\DTRequestIn;
 use MVC\DataType\DTRoute;
 use MVC\Event;
 use MVC\Lock;
-use MVC\Log;
 use MVC\Process;
 
 class Cron extends Controller
@@ -32,10 +31,10 @@ class Cron extends Controller
     /**
      * @param \MVC\DataType\DTRequestIn $oDTRequestCurrent
      * @param \MVC\DataType\DTRoute     $oDTRoute
-     * @return void
+     * @return bool
      * @throws \ReflectionException
      */
-    public function run(DTRequestIn $oDTRequestCurrent, DTRoute $oDTRoute)
+    public function run(DTRequestIn $oDTRequestCurrent, DTRoute $oDTRoute): bool
     {
         // check on maintenance modus
         if (true === Application::isMaintenance())
@@ -74,6 +73,8 @@ class Cron extends Controller
 
             Event::run('app.controller.cron.run.after', 'pid: ' . $iPid . "\t" . $sRoute);
         }
+
+        return true;
     }
 
     /**

@@ -8,5 +8,5 @@ trait TraitAppTableUser
     /**
      * @var \App\Table\User
      */
-    public $oAppTableUser {get => $this->activate(__PROPERTY__);}
+    public User $oAppTableUser {get => $this->activate(__PROPERTY__);}
 }

@@ -15,11 +15,10 @@ class User extends Db
     /**
      * @var array
      */
-    protected $aField = array();
+    protected array $aField = array();
 
     /**
      * @param array $aDbConfig
-     * @param       $sProperty
      * @throws \ReflectionException
      */
     public function __construct(array $aDbConfig = array())
@@ -60,11 +59,11 @@ class User extends Db
     }
 
     /**
-     * @param $sTablename
+     * @param string $sTablename
      * @return void
      * @throws \ReflectionException
      */
-    public static function setup($sTablename = '')
+    public static function setup(string $sTablename = ''): void
     {
         $sDateTime = date('Y-m-d H:i:s');
         $sSql = "INSERT INTO `" . $sTablename . "` (`id`, `id_AppTableGroup`, `email`, `active`, `uuid`, `uuidtmp`, `password`, `nickname`, `forename`, `lastname`, `description`, `stampChange`, `stampCreate`) VALUES \n";
@@ -72,7 +71,7 @@ class User extends Db
         $sSql = substr(trim($sSql), 0, -1);
         $sSql.= ";";
 
-        $oStmt = \MVC\DB\Model\Db::getDbPdo()->query($sSql);
+        $oStmt = Db::getDbPdo()->query($sSql);
         $oStmt->closeCursor();
     }
 }

@@ -8,5 +8,5 @@ trait TraitAppTableGroup
     /**
      * @var \App\Table\Group
      */
-    public $oAppTableGroup {get => $this->activate(__PROPERTY__);}
+    public Group $oAppTableGroup {get => $this->activate(__PROPERTY__);}
 }

@@ -8,5 +8,5 @@ trait TraitAppTableQueue
     /**
      * @var \App\Table\Queue
      */
-    public $oAppTableQueue {get => $this->activate(__PROPERTY__);}
+    public Queue $oAppTableQueue {get => $this->activate(__PROPERTY__);}
 }

@@ -29,7 +29,7 @@ class Queue extends Controller
         }
 
         // toolbar off
-        Config::set_MVC_INFOTOOL_ENABLE(false);
+        Config::set_MVC_INFOTOOL_ENABLE();
 	}
 
     /**
@@ -39,7 +39,7 @@ class Queue extends Controller
      * @return void
      * @throws \ReflectionException
      */
-    public function workerRun(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute)
+    public function workerRun(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute): void
     {
         Lock::create();
         Worker::run();
@@ -54,7 +54,7 @@ class Queue extends Controller
      * @return bool
      * @throws \ReflectionException
      */
-    public function workerAutoRouteResolve(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute)
+    public function workerAutoRouteResolve(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute): bool
     {
         $sQueueWorkerAutoRoutePrefix = Config::get_MVC_QUEUE_WORKER_AUTO_ROUTE_PREFIX();
 

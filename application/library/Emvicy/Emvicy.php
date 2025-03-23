@@ -3,6 +3,7 @@
 namespace Emvicy;
 
 use MVC\Application;
+use MVC\Cache;
 use MVC\Config;
 use MVC\Convert;
 use MVC\DataType\DTRoute;
@@ -10,6 +11,7 @@ use MVC\Debug;
 use MVC\Dir;
 use MVC\Event;
 use MVC\File;
+use MVC\Generator\DataType;
 use MVC\Policy;
 use MVC\Process;
 use MVC\Route;
@@ -22,7 +24,7 @@ class Emvicy
     /**
      * @return void
      */
-    public static function init()
+    public static function init(): void
     {
         self::argToGet();
         $sCmd1 = current(array_keys($_GET));
@@ -41,7 +43,7 @@ class Emvicy
      * @param bool   $bEcho
      * @return string
      */
-    public static function shellExecute(string $sCmd = '', bool $bEcho = false)
+    public static function shellExecute(string $sCmd = '', bool $bEcho = false): string
     {
         if (true === $bEcho)
         {
@@ -63,7 +65,7 @@ class Emvicy
     /**
      * @return void
      */
-    protected static function argToGet()
+    protected static function argToGet(): void
     {
         array_shift($GLOBALS['argv']);
         parse_str(
@@ -78,7 +80,7 @@ class Emvicy
     /**
      * @return bool
      */
-    public static function get_force()
+    public static function get_force(): bool
     {
         $sForce = substr(strtolower(($_GET['force'] ?? '')), 0, 1);
 
@@ -93,7 +95,7 @@ class Emvicy
     /**
      * @return bool
      */
-    public static function get_primary()
+    public static function get_primary(): bool
     {
         $sPrimary = substr(strtolower(($_GET['primary'] ?? 'yes')), 0, 1);
 
@@ -108,19 +110,18 @@ class Emvicy
     /**
      * @return string
      */
-    public static function get_module()
+    public static function get_module(): string
     {
         $sModule = ($_GET['module'] ?? '');
-        $sModule = ucfirst(strtolower(preg_replace("/[^[:alpha:]]/ui", '', $sModule)));
 
-        return $sModule;
+        return ucfirst(strtolower(preg_replace("/[^[:alpha:]]/ui", '', $sModule)));
     }
 
     /**
      * @param int $iLength
      * @return string
      */
-    public static function get_stdin(int $iLength = 10)
+    public static function get_stdin(int $iLength = 10): string
     {
         return trim(fread(STDIN, $iLength));
     }
@@ -129,7 +130,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function clearcache()
+    public static function clearcache(): void
     {
         $sDir = Config::get_MVC_CACHE_DIR() . '/*';
         $aPath = array_filter((array) glob($sDir));
@@ -144,7 +145,7 @@ class Emvicy
             {
                 $aSubFile = glob($sPath . '/{,.}[!.,!..]*', GLOB_MARK|GLOB_BRACE);
                 array_map('unlink', $aSubFile);
-                \MVC\Dir::remove($sPath);
+                Dir::remove($sPath);
             }
         }
     }
@@ -153,7 +154,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function cc()
+    public static function cc(): void
     {
         self::clearcache();
     }
@@ -162,7 +163,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function cronrun()
+    public static function cronrun(): void
     {
         Process::callRoute(
             Config::get_MVC_CRON_ROUTE()
@@ -173,7 +174,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function cronlist()
+    public static function cronlist(): void
     {
         $aCron = (Config::MODULE()['cron'] ?? array());
         ksort($aCron);
@@ -212,7 +213,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function queueList()
+    public static function queueList(): void
     {
         $aQueue = (Config::MODULE()['queue'] ?? array());
         ksort($aQueue);
@@ -255,7 +256,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function workerRun()
+    public static function workerRun(): void
     {
         Process::callRoute(
             Config::get_MVC_QUEUE_RUN()
@@ -406,7 +407,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function policyList()
+    public static function policyList(): void
     {
         Application::setServerVarsForCli();
         Route::init();
@@ -461,7 +462,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function clearlog()
+    public static function clearlog(): void
     {
         $sDir = Config::get_MVC_LOG_FILE_DIR() . '*';
         array_map('unlink', array_filter((array) glob($sDir)));
@@ -471,7 +472,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function cl()
+    public static function cl(): void
     {
         self::clearlog();
     }
@@ -480,7 +481,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function clearsession()
+    public static function clearsession(): void
     {
         $sDir = Config::get_MVC_SESSION_PATH() . '/*';
         array_map('unlink', array_filter((array) glob($sDir)));
@@ -490,7 +491,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function cs()
+    public static function cs(): void
     {
         self::clearsession();
     }
@@ -499,7 +500,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function cleartemp()
+    public static function cleartemp(): void
     {
         $sDir = Config::get_MVC_SMARTY_TEMPLATE_CACHE_DIR(). '/*';
         array_map('unlink', array_filter((array) glob($sDir)));
@@ -509,7 +510,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function ct()
+    public static function ct(): void
     {
         self::cleartemp();
     }
@@ -518,7 +519,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function clearall()
+    public static function clearall(): void
     {
         self::clearcache();
         self::clearlog();
@@ -530,7 +531,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function ca()
+    public static function ca(): void
     {
         self::clearall();
     }
@@ -578,7 +579,7 @@ class Emvicy
         echo 'creating...';
         nl();
 
-        $oInstall = \Emvicy\Install::run(
+        $oInstall = Install::run(
             $sModule,
             $GLOBALS['aConfig'],
             $bPrimary
@@ -588,7 +589,7 @@ class Emvicy
     /**
      * @param string      $sController
      * @param string|null $sModuleName
-     * @return void
+     * @return false|void
      * @throws \ReflectionException
      */
     public static function moduleCreateController(string $sController = '', ?string $sModuleName = '')
@@ -654,7 +655,7 @@ class Emvicy
     /**
      * @param string      $sModel
      * @param string|null $sModuleName
-     * @return void
+     * @return false|void
      * @throws \ReflectionException
      */
     public static function moduleCreateModel(string $sModel = '', ?string $sModuleName = '')
@@ -961,9 +962,9 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function serve()
+    public static function serve(): void
     {
-        $sCmd = PHP_BINARY . " -S " . Config::get_MVC_PHP_SERVER() . " -t " . \MVC\Config::get_MVC_WEB_ROOT() . '/public/';
+        $sCmd = PHP_BINARY . " -S " . Config::get_MVC_PHP_SERVER() . " -t " . Config::get_MVC_WEB_ROOT() . '/public/';
         echo $sCmd;
         hr();
         self::shellExecute($sCmd);
@@ -973,7 +974,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function s()
+    public static function s(): void
     {
         self::serve();
     }
@@ -982,17 +983,17 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function lint(string $sModule = '')
+    public static function lint(string $sModule = ''): void
     {
-        $sPath = \MVC\Config::get_MVC_BASE_PATH();
+        $sPath = Config::get_MVC_BASE_PATH();
 
         if (false === empty($sModule))
         {
-            $sPath = \MVC\Config::get_MVC_MODULES_DIR() . '/' . $sModule;
+            $sPath = Config::get_MVC_MODULES_DIR() . '/' . $sModule;
         }
         if (false === empty(self::get_module()))
         {
-            $sPath = \MVC\Config::get_MVC_MODULES_DIR() . '/' . self::get_module();
+            $sPath = Config::get_MVC_MODULES_DIR() . '/' . self::get_module();
         }
 
         if (false === file_exists($sPath))
@@ -1024,7 +1025,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function l()
+    public static function l(): void
     {
         self::lint();
     }
@@ -1035,7 +1036,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function response(bool $bSuccess = false, array $aMessage = array())
+    public static function response(bool $bSuccess = false, array $aMessage = array()): void
     {
         $aResponse = array(
             'bSuccess' => $bSuccess,
@@ -1049,7 +1050,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function update()
+    public static function update(): void
     {
         $xGit = whereis('git');
 
@@ -1093,7 +1094,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function up()
+    public static function up(): void
     {
         self::update();
     }
@@ -1106,7 +1107,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function log(string $sLogId = '', bool $bNewline = true)
+    public static function log(string $sLogId = '', bool $bNewline = true): void
     {
         if (true === empty($sLogId))
         {
@@ -1143,7 +1144,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function version()
+    public static function version(): void
     {
         echo Config::get_MVC_VERSION();
         nl();
@@ -1153,15 +1154,16 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function v()
+    public static function v(): void
     {
         self::version();
     }
 
     /**
+     * @param bool $bReturn
      * @return void
      */
-    public static function md(bool $bReturn = false)
+    public static function md(bool $bReturn = false): void
     {
         self::modules($bReturn);
     }
@@ -1185,7 +1187,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function dt()
+    public static function dt(): void
     {
         self::datatype();
     }
@@ -1195,12 +1197,12 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function datatype(string $sParamModule = '')
+    public static function datatype(string $sParamModule = ''): void
     {
         $sModuleRequested = (false === empty($sParamModule)) ? $sParamModule : ($_GET['module'] ?? null);
 
-        \MVC\Cache::init(\MVC\Config::get_MVC_CACHE_CONFIG());
-        \MVC\Cache::autoDeleteCache('DataType', 0);
+        Cache::init(Config::get_MVC_CACHE_CONFIG());
+        Cache::autoDeleteCache('DataType', 0);
 
         echo "\n";
 
@@ -1228,7 +1230,7 @@ class Emvicy
                     {
                         echo '- generating Datatype Classes for module: `' . $sModule . '`, ';
                         echo 'directory: `' . ($aDataType['dir'] ?? null) . '` ... ';
-                        \MVC\Generator\DataType::create()->initConfigArray($aDataType);
+                        DataType::create()->initConfigArray($aDataType);
                         echo "done ✔\n";
                     }
                 }
@@ -1250,7 +1252,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function test(string $sModule = '')
+    public static function test(string $sModule = ''): void
     {
         array_shift($GLOBALS['argv']);
         $sArg = (true === empty($sModule)) ? implode(' ', $GLOBALS['argv']) : $sModule;
@@ -1262,7 +1264,7 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function rt()
+    public static function rt(): void
     {
         self::routes();
     }
@@ -1468,7 +1470,7 @@ class Emvicy
      * @param string $sModule
      * @return string
      */
-    public static function createModuleName(string $sModule)
+    public static function createModuleName(string $sModule): string
     {
         return ucfirst(trim((true === empty($sModule)) ? self::get_module() : $sModule));
     }

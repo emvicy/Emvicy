@@ -26,7 +26,7 @@ class Install
             return false;
         }
 
-        $aModule = \Emvicy\Emvicy::modules(true);
+        $aModule = Emvicy::modules(true);
 
         if (true === $bPrimary && false === empty($aModule['PRIMARY']))
         {
@@ -75,7 +75,7 @@ class Install
      * @param array  $aConfig
      * @return void
      */
-    protected static function removePrimaryEssentials(string $sModule = '', array $aConfig = array())
+    protected static function removePrimaryEssentials(string $sModule = '', array $aConfig = array()): void
     {
         $aRemove = array(
             $aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'],
@@ -97,7 +97,7 @@ class Install
      * @return void
      * @throws \ReflectionException
      */
-    public static function createController(string $sModuleName = '', string $sControllerName = '', array $aConfig = array())
+    public static function createController(string $sModuleName = '', string $sControllerName = '', array $aConfig = array()): void
     {
         $sModuleName = ucfirst(trim($sModuleName));
         $sControllerFile = $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/Controller/' . $sControllerName . '.php';

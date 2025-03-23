@@ -20,9 +20,6 @@ use MVC\Event;
  */
 class Controller implements \MVC\MVCInterface\Controller
 {
-    /**
-     * @return void
-     */
     public static function __preconstruct()
     {
         ;
@@ -56,7 +53,7 @@ class Controller implements \MVC\MVCInterface\Controller
      * @return bool module is primary
      * @throws \ReflectionException
      */
-    protected function isPrimary()
+    protected function isPrimary(): bool
     {
         return ((strtok(get_class($this), '\\')) === Config::get_MVC_MODULE_PRIMARY_NAME());
     }

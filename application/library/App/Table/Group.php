@@ -14,7 +14,7 @@ class Group extends Db
     /**
      * @var array
      */
-    protected $aField = array();
+    protected array $aField = array();
 
     /**
      * @param array $aDbConfig
@@ -44,11 +44,11 @@ class Group extends Db
     }
 
     /**
-     * @param $sTablename
+     * @param string $sTablename
      * @return void
      * @throws \ReflectionException
      */
-    public static function setup($sTablename = '')
+    public static function setup(string $sTablename = ''): void
     {
         $sDateTime = date('Y-m-d H:i:s');
         $sSql = "
@@ -61,7 +61,7 @@ class Group extends Db
                 (4, '', 10000, 'watcher', 1, '" . Strings::uuid4() . "', '" . $sDateTime . "', '" . $sDateTime . "');
         ";
 
-        $oStmt = \MVC\DB\Model\Db::getDbPdo()->query($sSql);
+        $oStmt = Db::getDbPdo()->query($sSql);
         $oStmt->closeCursor();
     }
 }
