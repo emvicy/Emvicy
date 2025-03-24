@@ -116,7 +116,7 @@ class MyMVCInstaller
             $this->prepareForOutput();
             $this->_text("\n<br><span class='text-info'><b>🛈</b> You need to install at least one Module as primary to be able to work.</span>");
             $this->_text("\n<hr><i><u>Example</u>: create the primary module 'Foo'</i>");
-            $this->_text("\n\t<br><pre class='bg-black text-white padding10 rounded-1'>cd " . $this->_aConfig['MVC_BASE_PATH'] . "; \\\n" . PHP_BINDIR . "/php emvicy module:create Foo primary</pre>\n");
+            $this->_text("\n\t<br><pre class='bg-black text-white padding10 rounded-1'>cd " . $this->_aConfig['MVC_BASE_PATH'] . "; \\\n" . PHP_BINDIR . "/php emvicy module:add Foo primary</pre>\n");
             $this->_text("Afterwards, reload this page");
             exit();
         }
