@@ -412,12 +412,17 @@ class Db
     }
 
     /**
-     * @param $sTable
+     * @param string $sTable
      * @return bool
      * @throws \ReflectionException
      */
-    protected function checkIfTableExists($sTable) : bool
+    protected function checkIfTableExists(string $sTable = '') : bool
     {
+        if (true === empty($sTable))
+        {
+            $sTable = $this->sTableName;
+        }
+
         try
         {
             // Select will be empty if the table does not exist.
