@@ -12,7 +12,7 @@ class DTRequestOut
 {
 	use TraitDataType;
 
-	public const DTHASH = 'd745a9938c06b74d5a3ef099bcff2706';
+	public const DTHASH = 'dda7fe573a8c0236c8dc2eb486eeaac3';
 
 	/**
 	 * @required true
@@ -34,7 +34,7 @@ class DTRequestOut
 
 	/**
 	 * @required true
-	 * @var array
+	 * @var mixed
 	 */
 	protected $aData;
 
@@ -52,14 +52,14 @@ class DTRequestOut
 	protected function __construct(DTValue $oDTValue)
 	{
 		\MVC\Event::run('DTRequestOut.__construct.before', $oDTValue);
+		$aData = $oDTValue->get_mValue();
 		$this->eRequestMethod = null;
 		$this->sUrl = '';
 		$this->aHeader = [];
-		$this->aData = [];
+		$this->aData = array();
 		$this->aOption = [];
 		$this->setProperties($oDTValue);
 
-		$aData = $oDTValue->get_mValue();
 		$oDTValue = DTValue::create()->set_mValue($aData); 
 		\MVC\Event::run('DTRequestOut.__construct.after', $oDTValue);
 	}
@@ -139,31 +139,15 @@ class DTRequestOut
 	}
 
 	/**
-	 * @param array  $mValue 
+	 * @param mixed $mValue 
 	 * @return $this
 	 * @throws \ReflectionException
 	 */
-	public function set_aData(array $mValue)
+	public function set_aData(mixed $mValue)
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTRequestOut.set_aData.before', $oDTValue);
-
-		$this->aData = $mValue;
-
-		return $this;
-	}
-
-	/**
-	 * @param array $mValue
-	 * @return $this
-	 * @throws \ReflectionException 
-	 */
-	public function add_aData(array $mValue)
-	{
-		$oDTValue = DTValue::create()->set_mValue($this->aData); 
-		\MVC\Event::run('DTRequestOut.add_aData.before', $oDTValue);
-
-		$this->aData[] = $mValue;
+		$this->aData = $oDTValue->get_mValue();
 
 		return $this;
 	}
@@ -235,10 +219,10 @@ class DTRequestOut
 	}
 
 	/**
-	 * @return array
+	 * @return mixed
 	 * @throws \ReflectionException
 	 */
-	public function get_aData() : array
+	public function get_aData()
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->aData); 
 		\MVC\Event::run('DTRequestOut.get_aData.before', $oDTValue);
