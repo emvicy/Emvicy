@@ -277,26 +277,20 @@ class Policy
         $oDTRoute = Route::getCurrent();
         $aPolicy = array();
 
-        // check if there is a policy for this request
-        $sClass = (false === str_starts_with($oDTRoute->get_class(), '\\'))
-            ? '\\' . $oDTRoute->get_class()
-            : $oDTRoute->get_class()
-        ;
-
-        if (array_key_exists($sClass, $aPolicyRule))
+        if (array_key_exists($oDTRoute->get_class(), $aPolicyRule))
         {
-            if (array_key_exists ('*', $aPolicyRule[$sClass]))
+            if (array_key_exists ('*', $aPolicyRule[$oDTRoute->get_class()]))
             {
                 $aPolicy = array_merge(
                     $aPolicy,
-                    $aPolicyRule[$sClass]['*']
+                    $aPolicyRule[$oDTRoute->get_class()]['*']
                 );
             }
 
-            if (array_key_exists($oDTRoute->get_method(), $aPolicyRule[$sClass]))
+            if (array_key_exists($oDTRoute->get_method(), $aPolicyRule[$oDTRoute->get_class()]))
             {
                 $aPolicy = array_merge(
-                    $aPolicyRule[$sClass][$oDTRoute->get_method()],
+                    $aPolicyRule[$oDTRoute->get_class()][$oDTRoute->get_method()],
                     $aPolicy
                 );
             }
@@ -331,7 +325,7 @@ class Policy
     public static function bindOnRoute(DTRoute $oDTRoute, mixed $mTarget = null) : void
     {
         self::set(
-            '\\' . $oDTRoute->get_class(),
+            $oDTRoute->get_class(),
             $oDTRoute->get_method(),
             $mTarget
         );
@@ -346,7 +340,7 @@ class Policy
     public static function unbindRoute(DTRoute $oDTRoute, mixed $mTarget = null) : void
     {
         self::unset(
-            '\\' . $oDTRoute->get_class(),
+            $oDTRoute->get_class(),
             $oDTRoute->get_method(),
             $mTarget
         );
