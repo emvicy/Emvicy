@@ -13,11 +13,12 @@ namespace MVC;
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
 use MVC\DataType\DTRoute;
+use MVC\MVCInterface\InterfaceRoute;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionClass;
 
-class Route
+class Route implements InterfaceRoute
 {
     /**
      * @var DTRoute[]
@@ -178,7 +179,7 @@ class Route
      * @return void
      * @throws \ReflectionException
      */
-    protected static function add(string $sRequestMethod = '*', string $sPath = '', string $sClassMethod = '', mixed $mOptional = null, string $sTag = '') : void
+    public static function add(string $sRequestMethod = '*', string $sPath = '', string $sClassMethod = '', mixed $mOptional = null, string $sTag = '') : void
     {
         list($sClass, $sMethod) = explode('::', $sClassMethod);
         (true === empty($mOptional)) ? $mOptional = null : false;
@@ -422,7 +423,7 @@ class Route
      * @return DTRoute
      * @throws \ReflectionException
      */
-    protected static function handleFallback() : DTRoute
+    public static function handleFallback() : DTRoute
     {
         $sIndex = current(self::getRouteIndexArrayOnKey('query', Config::get_MVC_ROUTING_FALLBACK()));
 
@@ -512,7 +513,7 @@ class Route
      * @return void
      * @throws \ReflectionException
      */
-    private static function setPathParam(array $aPathParam = array()) : void
+    public static function setPathParam(array $aPathParam = array()) : void
     {
         Registry::set('aPathParam', $aPathParam);
 

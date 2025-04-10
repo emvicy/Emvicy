@@ -62,6 +62,12 @@ MVC_BIN:
 MVC_APPLICATION_SETTINGS_I: {
 
     /**-----------------------------------------------------------------------------------------------------------------
+     * Route Class
+     * it gets called via $GLOBALS['aConfig']['MVC_ROUTE_CLASS']::init();
+     */
+    $aConfig['MVC_ROUTE_CLASS'] = '\MVC\Route';
+
+    /**-----------------------------------------------------------------------------------------------------------------
      * Name of method to be executed in the Target Controller Class
      * before session and other main functionalities.
      * It will be called in /application/library/MVC/Application.php:

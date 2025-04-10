@@ -1911,4 +1911,28 @@ class Config
         Registry::set('MVC_CRON_RUN_CLASSMETHOD', $sPrefix);
         $GLOBALS['aConfig']['MVC_CRON_RUN_CLASSMETHOD'] = $sPrefix;
     }
+
+    /**
+     * @return string
+     * @throws \ReflectionException
+     */
+    public static function get_MVC_ROUTE_CLASS() : string
+    {
+        if (Registry::isRegistered('MVC_ROUTE_CLASS'))
+        {
+            return (string) Registry::get('MVC_ROUTE_CLASS');
+        }
+
+        return $GLOBALS['aConfig']['MVC_ROUTE_CLASS'];
+    }
+
+    /**
+     * @param string $sRouteClass
+     * @return void
+     */
+    public static function set_MVC_ROUTE_CLASS(string $sRouteClass = '') : void
+    {
+        Registry::set('MVC_ROUTE_CLASS', $sRouteClass);
+        $GLOBALS['aConfig']['MVC_ROUTE_CLASS'] = $sRouteClass;
+    }
 }
