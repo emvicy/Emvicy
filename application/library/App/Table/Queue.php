@@ -124,10 +124,6 @@ class Queue extends Db
      * dequeues ONE (the oldest) value along to the given key; it returns the tupel, also deletes the tupel
      * @param string $sKey
      * @param string $sKey2 optional
-     * @return \App\DataType\DTAppTableQueue|false|null
-     * @throws \ReflectionException
-     */
-    /**
      * @param string $sKey
      * @param string $sKey2
      * @return \App\DataType\DTAppTableQueue|null

@@ -89,9 +89,13 @@ class Reflex
 
 				if (false === filter_var (($oReflectionObject instanceof \MVC\MVCInterface\Controller), FILTER_VALIDATE_BOOLEAN))
 				{
-					$sMsg = 'ERROR: <br />Make sure `' . $sControllerClassName . '` <b>implements</b> \MVC\MVCInterface\Controller';
-                    Error::error(strip_tags($sMsg));
-					Debug::stop($sMsg);
+                    $sMsg = "# ERROR\nMake sure `" . $sControllerClassName . "` **implements** `\MVC\MVCInterface\Controller`" . "\n\n";
+                    Error::error(trim(strip_tags($sMsg)));
+                    echo (true === Request::in()->get_isCli())
+                        ? $sMsg
+                        : \Parsedown::instance()->text($sMsg)
+                    ;
+                    stop();
 				}
 
 				if (false === empty($sMethod))

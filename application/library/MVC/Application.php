@@ -45,15 +45,8 @@ class Application
             self::cliWrapper();
         }
 
-        if (false === in_array('MVC\\MVCInterface\\InterfaceRoute', class_implements($GLOBALS['aConfig']['MVC_ROUTE_CLASS'])))
-        {
-            $sMsg = 'ERROR: <br />Make sure `' . $GLOBALS['aConfig']['MVC_ROUTE_CLASS'] . '` <b>implements</b> \MVC\MVCInterface\InterfaceRoute';
-            Error::error(strip_tags($sMsg));
-            Debug::stop($sMsg);
-        }
-
-        // handle Routing
-        $GLOBALS['aConfig']['MVC_ROUTE_CLASS']::init();
+        // Routing
+        Route::init();
 
         // Policy Rules
         Policy::init();

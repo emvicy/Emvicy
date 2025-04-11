@@ -63,9 +63,8 @@ MVC_APPLICATION_SETTINGS_I: {
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Route Class
-     * it gets called via $GLOBALS['aConfig']['MVC_ROUTE_CLASS']::init();
      */
-    $aConfig['MVC_ROUTE_CLASS'] = '\MVC\Route';
+    $aConfig['MVC_ROUTE_CLASS'] = '\MVC\_ConcreteRoute';
 
     /**-----------------------------------------------------------------------------------------------------------------
      * Name of method to be executed in the Target Controller Class
