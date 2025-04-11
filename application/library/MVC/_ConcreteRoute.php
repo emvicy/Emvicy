@@ -413,11 +413,18 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
     }
 
     /**
-     * @return DTRoute
+     * @param bool $bCacheAtRuntime
+     * @return \MVC\DataType\DTRoute
      * @throws \ReflectionException
      */
-    public static function handleFallback() : DTRoute
+    public static function handleFallback(bool $bCacheAtRuntime = true) : DTRoute
     {
+        // only once at runtime
+        if (true === $bCacheAtRuntime && true === Registry::isRegistered(__METHOD__))
+        {
+            return Registry::get(__METHOD__);
+        }
+
         $sIndex = current(self::getRouteIndexArrayOnKey('query', Config::get_MVC_ROUTING_FALLBACK()));
 
         /** @var DTRoute $oRoutingCurrent */
@@ -435,6 +442,8 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
                 ->add_aKeyValue(DTKeyValue::create()->set_sKey('sForward')->set_sValue($sIndex))
         );
 
+        Registry::set(__METHOD__, $oRoutingCurrent);
+
         return $oRoutingCurrent;
     }
 
@@ -451,12 +460,13 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
             return DTRoute::create();
         }
 
+        // only once at runtime
         if (true === $bCacheAtRuntime && true === Registry::isRegistered(__FUNCTION__ . '.' . $sTag))
         {
             return Registry::get(__FUNCTION__ . '.' . $sTag);
         }
 
-        // convert only once at runtime
+        // only once at runtime
         if (false === Registry::isRegistered('mvc_route_getOnTag_aRoute'))
         {
             $aRoute = Convert::objectToArray(self::$aRoute);

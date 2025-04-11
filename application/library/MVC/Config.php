@@ -1650,7 +1650,7 @@ class Config
             return (string) Registry::get('MVC_ROUTE_PREFIX');
         }
 
-        return $GLOBALS['aConfig']['MVC_ROUTE_PREFIX'];
+        return (string) $GLOBALS['aConfig']['MVC_ROUTE_PREFIX'];
     }
 
     /**
@@ -1677,7 +1677,7 @@ class Config
             return (string) Registry::get('MVC_QUEUE_ROUTE_PREFIX');
         }
 
-        return $GLOBALS['aConfig']['MVC_QUEUE_ROUTE_PREFIX'];
+        return (string) $GLOBALS['aConfig']['MVC_QUEUE_ROUTE_PREFIX'];
     }
 
     /**
@@ -1701,7 +1701,7 @@ class Config
             return (string) Registry::get('MVC_QUEUE_WORKER_AUTO_ROUTE_PREFIX');
         }
 
-        return $GLOBALS['aConfig']['MVC_QUEUE_WORKER_AUTO_ROUTE_PREFIX'];
+        return (string) $GLOBALS['aConfig']['MVC_QUEUE_WORKER_AUTO_ROUTE_PREFIX'];
     }
 
     /**
@@ -1725,7 +1725,7 @@ class Config
             return (string) Registry::get('MVC_QUEUE_RUN');
         }
 
-        return $GLOBALS['aConfig']['MVC_QUEUE_RUN'];
+        return (string) $GLOBALS['aConfig']['MVC_QUEUE_RUN'];
     }
 
     /**
@@ -1749,7 +1749,7 @@ class Config
             return (string) Registry::get('MVC_QUEUE_RUN_CLASSMETHOD');
         }
 
-        return $GLOBALS['aConfig']['MVC_QUEUE_RUN_CLASSMETHOD'];
+        return (string) $GLOBALS['aConfig']['MVC_QUEUE_RUN_CLASSMETHOD'];
     }
 
     /**
@@ -1773,7 +1773,7 @@ class Config
             return (string) Registry::get('MVC_QUEUE_WORKER_AUTO_ROUTE_RESOLVE_CLASSMETHOD');
         }
 
-        return $GLOBALS['aConfig']['MVC_QUEUE_WORKER_AUTO_ROUTE_RESOLVE_CLASSMETHOD'];
+        return (string) $GLOBALS['aConfig']['MVC_QUEUE_WORKER_AUTO_ROUTE_RESOLVE_CLASSMETHOD'];
     }
 
     /**
@@ -1797,7 +1797,7 @@ class Config
             return (int) Registry::get('MVC_QUEUE_RUNTIME_SECONDS');
         }
 
-        return $GLOBALS['aConfig']['MVC_QUEUE_RUNTIME_SECONDS'];
+        return (int) $GLOBALS['aConfig']['MVC_QUEUE_RUNTIME_SECONDS'];
     }
 
     /**
@@ -1824,7 +1824,7 @@ class Config
             return (int) Registry::get('MVC_PROCESS_MAX_PROCESSES_OVERALL');
         }
 
-        return $GLOBALS['aConfig']['MVC_PROCESS_MAX_PROCESSES_OVERALL'];
+        return (int) $GLOBALS['aConfig']['MVC_PROCESS_MAX_PROCESSES_OVERALL'];
     }
 
     /**
@@ -1848,7 +1848,7 @@ class Config
             return (string) Registry::get('MVC_PROCESS_PID_FILE_DIR');
         }
 
-        return $GLOBALS['aConfig']['MVC_PROCESS_PID_FILE_DIR'];
+        return (string) $GLOBALS['aConfig']['MVC_PROCESS_PID_FILE_DIR'];
     }
 
     /**
@@ -1875,7 +1875,7 @@ class Config
             return (string) Registry::get('MVC_CRON_ROUTE');
         }
 
-        return $GLOBALS['aConfig']['MVC_CRON_ROUTE'];
+        return (string) $GLOBALS['aConfig']['MVC_CRON_ROUTE'];
     }
 
     /**
@@ -1899,7 +1899,7 @@ class Config
             return (string) Registry::get('MVC_CRON_RUN_CLASSMETHOD');
         }
 
-        return $GLOBALS['aConfig']['MVC_CRON_RUN_CLASSMETHOD'];
+        return (string) $GLOBALS['aConfig']['MVC_CRON_RUN_CLASSMETHOD'];
     }
 
     /**
@@ -1923,7 +1923,7 @@ class Config
             return (string) Registry::get('MVC_ROUTE_CLASS');
         }
 
-        return $GLOBALS['aConfig']['MVC_ROUTE_CLASS'];
+        return (string) $GLOBALS['aConfig']['MVC_ROUTE_CLASS'];
     }
 
     /**
