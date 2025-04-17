@@ -140,6 +140,16 @@ class Registry
 	{
 		return self::$_aStorage;
 	}
+
+    /**
+     * sets the storage array
+     * @param array $aStorage
+     * @return void
+     */
+    public static function setStorageArray(array $aStorage) :void
+    {
+        self::$_aStorage = $aStorage;
+    }
 	
 	/**
 	 * Returns true if the $sIndex is a named value in the registry,

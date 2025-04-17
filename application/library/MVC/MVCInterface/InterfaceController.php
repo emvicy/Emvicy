@@ -16,7 +16,7 @@ use MVC\DataType\DTRoute;
 /**
  * Interface to be implemented in a Target Controller Class
  */
-interface Controller
+interface InterfaceController
 {	
 	/**
 	 * this method is autom. called by MVC_Application::runTargetClassPreconstruct()

@@ -19,15 +19,15 @@ use MVC\DataType\DTKeyValue;
  */
 class Application
 {
-	/**
+    /**
      * Application constructor
      * @throws \DateMalformedStringException
      * @throws \ReflectionException
      */
-	public function __construct()
-	{
+    public function __construct()
+    {
         // get config via global
-		// write configs into registry
+        // write configs into registry
         Config::init($GLOBALS['aConfig']);
 
         // Event Procedures of current module
@@ -39,8 +39,8 @@ class Application
         // Caching
         Cache::init();
 
-		// add a CLI wrapper to enable requests from command line
-		if (true === Config::get_MVC_CLI())
+        // add a CLI wrapper to enable requests from command line
+        if (true === Config::get_MVC_CLI())
         {
             self::cliWrapper();
         }
@@ -51,33 +51,33 @@ class Application
         // Policy Rules
         Policy::init();
 
-		// Run target Controller's __preconstruct()
-		Controller::runTargetClassPreconstruct();
+        // Run target Controller's __preconstruct()
+        Controller::runTargetClassPreconstruct();
 
-		// Session
-		self::initSession();
+        // Session
+        self::initSession();
 
         // Run the requested target Controller
         Controller::init();
 
-		Event::run ('mvc.application.construct.after');
-	}
+        Event::run ('mvc.application.construct.after');
+    }
 
-	/**
-	 * inits a session and copies it to the registry
+    /**
+     * inits a session and copies it to the registry
      * @return bool
      * @throws \DateMalformedStringException
      * @throws \ReflectionException
      */
-	public static function initSession() : bool
-	{
+    public static function initSession() : bool
+    {
         // don't run again if this already has been run
         if (null !== Config::get_MVC_SESSION())
         {
             return false;
         }
 
-		Event::run ('mvc.application.setSession.before');
+        Event::run ('mvc.application.setSession.before');
 
         if (false === file_exists(Config::get_MVC_SESSION_PATH()))
         {
@@ -89,11 +89,11 @@ class Application
         $sMicrotime = sprintf ("%06d", ($fMicrotime - floor ($fMicrotime)) * 1000000);
         $oSession->set ('startDateTime', new DateTime (date ('Y-m-d H:i:s.' . $sMicrotime)));
         $oSession->set ('uniqueid', Config::get_MVC_UNIQUE_ID());
-        
+
         // copy Session Object to registry
         Config::set_MVC_SESSION($oSession);
 
-		Event::run ('mvc.application.setSession.after',
+        Event::run ('mvc.application.setSession.after',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()->set_sKey('oSession')->set_sValue($oSession)
@@ -101,7 +101,7 @@ class Application
         );
 
         return true;
-	}
+    }
 
     /**
      * enables using Emvicy via commandline

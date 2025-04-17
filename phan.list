@@ -2222,7 +2222,7 @@ application/library/MVC/Config.php
 application/library/MVC/Generator/DataType.php
 application/library/MVC/MVCInterface/InterfaceWorker.php
 application/library/MVC/MVCInterface/InterfaceRoute.php
-application/library/MVC/MVCInterface/Controller.php
+application/library/MVC/MVCInterface/InterfaceController.php
 application/library/MVC/DB/DataType/SQL/TypeEnum.php
 application/library/MVC/DB/DataType/SQL/TypeLongblob.php
 application/library/MVC/DB/DataType/SQL/TypeGeometrycollection.php
