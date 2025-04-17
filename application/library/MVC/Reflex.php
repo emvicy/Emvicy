@@ -12,8 +12,6 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
-use MVC\MVCInterface\InterfaceController;
-use Parsedown;
 use ReflectionException;
 use ReflectionMethod;
 
@@ -89,13 +87,13 @@ class Reflex
                     );
 				}
 
-				if (false === filter_var (($oReflectionObject instanceof InterfaceController), FILTER_VALIDATE_BOOLEAN))
+				if (false === filter_var (($oReflectionObject instanceof \MVC\MVCInterface\Controller), FILTER_VALIDATE_BOOLEAN))
 				{
                     $sMsg = "# ERROR\nMake sure `" . $sControllerClassName . "` **implements** `\MVC\MVCInterface\Controller`" . "\n\n";
                     Error::error(trim(strip_tags($sMsg)));
                     echo (true === Request::in()->get_isCli())
                         ? $sMsg
-                        : Parsedown::instance()->text($sMsg)
+                        : \Parsedown::instance()->text($sMsg)
                     ;
                     stop();
 				}

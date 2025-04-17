@@ -14,12 +14,11 @@ use MVC\Config;
 use MVC\DataType\DTRequestIn;
 use MVC\DataType\DTRoute;
 use MVC\Event;
-use MVC\MVCInterface\InterfaceController;
 
 /**
  * Controller
  */
-class Controller implements InterfaceController
+class Controller implements \MVC\MVCInterface\Controller
 {
     public static function __preconstruct()
     {

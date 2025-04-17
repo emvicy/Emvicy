@@ -1,4 +1,4 @@
-# <img src="https://emvicy.com/myMVC.png" width="60" align="left"> Emvicy 2
+# <img src="https://emvicy.com/myMVC.png" width="60" align="left"> Emvicy 2.x `dev`
 
 a PHP Framework
 

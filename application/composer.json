@@ -33,7 +33,8 @@
     "symfony/http-kernel": "@stable",
     "symfony/http-foundation": "@stable",
     "symfony/yaml": "v6.*",
-    "symfony/console": "@stable"
+    "symfony/console": "@stable",
+    "opis/closure": "^4.3"
   },
   "require-dev": {
     "phpstan/phpstan": "@stable",

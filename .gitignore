@@ -18,6 +18,7 @@ application/.composer
 application/cache/*
 application/log/*
 application/pid/*
+application/persistent/*
 application/session/*
 application/templates_c/*
 application/composer.lock

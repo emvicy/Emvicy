@@ -3,7 +3,6 @@ application/library/App/Controller/Cron.php
 application/library/App/DataType/DTAppTableGroup.php
 application/library/App/DataType/DTAppTableUser.php
 application/library/App/DataType/DTAppTableQueue.php
-application/library/App/DataType/._datatype.php
 application/library/App/View.php
 application/library/App/Model/Menu.php
 application/library/App/Controller.php
@@ -35,8 +34,6 @@ application/library/MVC/Http/Status_Request_Timeout_408.php
 application/library/MVC/Http/Status_Non_Authoritative_Information_203.php
 application/library/MVC/Http/Status_Gateway_Timeout_504.php
 application/library/MVC/Http/Status_Internal_Server_Error_500.php
-application/library/MVC/Http/.bak/._0create.php
-application/library/MVC/Http/.bak/Status.php
 application/library/MVC/Http/Status_Unauthorized_401.php
 application/library/MVC/Http/Status_Proxy_Authentication_Required_407.php
 application/library/MVC/Http/Status_Gone_410.php
@@ -74,7 +71,6 @@ application/library/MVC/Http/Status_Unused_418.php
 application/library/MVC/Http/Status_Variant_Also_Negotiates_506.php
 application/library/MVC/Http/Status_Payment_Required_402.php
 application/library/MVC/Http/Status_Continue_100.php
-application/library/MVC/Http/._create.php
 application/library/MVC/Http/Status_Unsupported_Media_Type_415.php
 application/library/MVC/Http/Status_Multiple_Choices_300.php
 application/library/MVC/Http/Status_Precondition_Failed_412.php
@@ -96,7 +92,6 @@ application/library/MVC/Application.php
 application/library/MVC/MVCAbstract/AbstractRouteConcrete.php
 application/library/MVC/Lock.php
 application/library/MVC/Date.php
-application/library/MVC/.bak/Route.php.bak
 application/library/MVC/Arr.php
 application/library/MVC/Policy.php
 application/library/MVC/_ConcreteRoute.php
@@ -122,7 +117,6 @@ application/library/MVC/DataType/DTConfig.php
 application/library/MVC/DataType/DTValue.php
 application/library/MVC/DataType/DTFileUpload.php
 application/library/MVC/DataType/DTCronTask.php
-application/library/MVC/DataType/._datatype.php
 application/library/MVC/Cache.php
 application/library/MVC/View.php
 application/library/MVC/Request.php
@@ -1956,7 +1950,6 @@ application/library/MVC/Media/Type_Video_H264_RCDO.php
 application/library/MVC/Media/Type_Message_news_OBSOLETED_by_RFC5537.php
 application/library/MVC/Media/Type_Application_vnd_ims_lti_v2_toolproxy_json.php
 application/library/MVC/Media/Type_Application_vnd_oasis_opendocument_presentation.php
-application/library/MVC/Media/._create.php
 application/library/MVC/Media/Type_Application_vnd_dvb_ipdcdftnotifaccess.php
 application/library/MVC/Media/Type_Video_rtploopback.php
 application/library/MVC/Media/Type_Application_vnd_geogebra_pinboard.php
@@ -2222,6 +2215,7 @@ application/library/MVC/Config.php
 application/library/MVC/Generator/DataType.php
 application/library/MVC/MVCInterface/InterfaceWorker.php
 application/library/MVC/MVCInterface/InterfaceRoute.php
+application/library/MVC/MVCInterface/Controller.php
 application/library/MVC/MVCInterface/InterfaceController.php
 application/library/MVC/DB/DataType/SQL/TypeEnum.php
 application/library/MVC/DB/DataType/SQL/TypeLongblob.php
@@ -2276,7 +2270,6 @@ application/library/MVC/DB/Model/Db.php
 application/library/MVC/Asset.php
 application/library/MVC/Session.php
 application/library/MVC/Controller.php
-application/library/MVC/Event.php.caching
 application/library/MVC/Worker.php
 application/library/MVC/Strings.php
 application/library/Emvicy/Install.php
