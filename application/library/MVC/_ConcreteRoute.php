@@ -347,15 +347,16 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
 
     /**
      * @param string $sPath
+     * @param array  $aIndex
      * @return string
      * @throws \ReflectionException
      */
-    public static function getPathOnPlaceholderIndex(string $sPath = '') : string
+    public static function getPathOnPlaceholderIndex(string $sPath = '', array $aIndex = array()) : string
     {
         // Request
         $aPartPath = preg_split('@/@', $sPath, -1, PREG_SPLIT_NO_EMPTY);
         $iLengthPath = count($aPartPath);
-        $aIndex = self::getIndices();
+        (true === empty($aIndex)) ? $aIndex = self::getIndices() : false;
 
         // iterate routes
         foreach ($aIndex as $sValue)
