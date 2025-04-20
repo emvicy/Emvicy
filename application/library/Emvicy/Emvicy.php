@@ -1305,7 +1305,7 @@ class Emvicy
 
         if ('list' === $sArg)
         {
-            $iMaxLengthRoute = max(array_map('strlen', Route::getIndices())) + 6;
+            $iMaxLengthRoute = (false === empty(Route::getIndices())) ? max(array_map('strlen', Route::getIndices())) + 6 : 6;
             $iCnt = 1;
             $aRouteList = array();
 

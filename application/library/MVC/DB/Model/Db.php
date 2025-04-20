@@ -165,7 +165,7 @@ class Db
 
         if ($this->sCacheValueTableName !== Cache::getCache($this->sCacheKeyTableName))
         {
-            (false === filter_var($this->checkIfTableExists ($this->sTableName), FILTER_VALIDATE_BOOLEAN))
+            (false === filter_var($this->exists ($this->sTableName), FILTER_VALIDATE_BOOLEAN))
                 ? $this->createTable($this->sTableName, $aFields, $aAlterTable)
                 : false;
 
@@ -416,7 +416,7 @@ class Db
      * @return bool
      * @throws \ReflectionException
      */
-    protected function checkIfTableExists(string $sTable = '') : bool
+    public function exists(string $sTable = '') : bool
     {
         if (true === empty($sTable))
         {

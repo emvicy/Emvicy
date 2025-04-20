@@ -105,7 +105,8 @@ class Menu
                 $oRoute = Route::getOnTag($aProperty);
                 $sId = $aProperty;
                 $aProperty = [
-                    'sUrl' => $oRoute->get_path(),
+                    // cut off any * from path ending
+                    'sUrl' => (true === str_ends_with($oRoute->get_path(), '*')) ? substr($oRoute->get_path(), 0, -1) : $oRoute->get_path(),
                     'sText' => ((true === is_object($oRoute->get_additional())) ? $oRoute->get_additional()->get_sTitle() : $sId)
                 ];
 
