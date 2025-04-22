@@ -128,7 +128,6 @@ application/library/MVC/View.php
 application/library/MVC/Request.php
 application/library/MVC/Queue.php
 application/library/MVC/Log.php
-application/library/MVC/Route.php.bak
 application/library/MVC/Convert.php
 application/library/MVC/MVCTrait/TraitHttpStatus.php
 application/library/MVC/MVCTrait/TraitRequestIncoming.php
