@@ -1384,7 +1384,7 @@ class Db
             return 0;
         }
 
-        return $iAmount;
+        return (int) $iAmount;
     }
 
     /**
