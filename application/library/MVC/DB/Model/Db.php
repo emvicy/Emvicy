@@ -1368,13 +1368,13 @@ class Db
             $aFetchAll = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
             $oStmt->closeCursor();
 
-            if (1 === count($aFetchAll))
-            {
-                $iAmount = (int) current($aFetchAll)['iAmount'];
-            }
-            elseif(1 < count($aFetchAll))
+            if(count($aFetchAll) > 1)
             {
                 $iAmount = count($aFetchAll);
+            }
+            else
+            {
+                $iAmount = (int) current($aFetchAll)['iAmount'];
             }
         }
         catch (\Exception $oException)
