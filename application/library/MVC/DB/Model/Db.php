@@ -1326,6 +1326,7 @@ class Db
 
         $sSql = "SELECT COUNT(id) AS iAmount FROM `" . $this->sTableName . "` \nWHERE  1\n";
         $sSqlExplain = $sSql;
+        $bIsGroup = false;
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $oDTDBWhere)
@@ -1337,8 +1338,11 @@ class Db
         /** @var \MVC\DataType\DTDBOption $oDTDBOption */
         foreach ($aDTDBOption as $oDTDBOption)
         {
-            $sSql.= "\n" . $oDTDBOption->get_sValue() . " \n";
-            $sSqlExplain.= "\n" . $oDTDBOption->get_sValue() . " \n";
+            $sValue = trim($oDTDBOption->get_sValue());
+            $sSql.= "\n" . $sValue . " \n";
+            $sSqlExplain.= "\n" . $sValue . " \n";
+
+            (str_starts_with(strtolower($sValue), 'group ')) ? $bIsGroup = true : false;
         }
 
         Event::run('mvc.db.model.db.count.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
@@ -1368,7 +1372,7 @@ class Db
             $aFetchAll = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
             $oStmt->closeCursor();
 
-            if(count($aFetchAll) > 1)
+            if(count($aFetchAll) > 1 || true === $bIsGroup)
             {
                 $iAmount = count($aFetchAll);
             }
