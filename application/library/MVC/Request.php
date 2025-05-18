@@ -18,6 +18,8 @@ use MVC\DataType\DTRequestOut;
 use MVC\DataType\DTResponse;
 use MVC\Enum\EnumRequestMethod;
 use MVC\Http\Status_Not_Found_404;
+use WpOrg\Requests\Exception;
+use WpOrg\Requests\Exception\InvalidArgument;
 use WpOrg\Requests\Requests;
 
 /**
@@ -100,37 +102,58 @@ class Request
         Event::run('mvc.request.out.before', $oDTRequestOut);
         $oResponse = array();
 
-        switch ($oDTRequestOut->get_eRequestMethod()->value())
-        {
-            // headers, options
-            case EnumRequestMethod::GET->value():
-                $oResponse = Requests::get($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aOption());
-                break;
-            case EnumRequestMethod::DELETE->value():
-                $oResponse = Requests::delete($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aOption());
-                break;
-            case EnumRequestMethod::TRACE->value():
-                $oResponse = Requests::trace($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aOption());
-                break;
+        try {
 
-            // headers, data, options
-            case EnumRequestMethod::PUT->value():
-                $oResponse = Requests::put($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
-                break;
-            case EnumRequestMethod::POST->value():
-                $oResponse = Requests::post($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
-                break;
-            case EnumRequestMethod::PATCH->value():
-                $oResponse = Requests::patch($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
-                break;
-            case EnumRequestMethod::OPTIONS->value():
-                $oResponse = Requests::options($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
-                break;
+            switch ($oDTRequestOut->get_eRequestMethod()->value())
+            {
+                // headers, options
+                case EnumRequestMethod::GET->value():
+                    $oResponse = Requests::get($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aOption());
+                    break;
+                case EnumRequestMethod::DELETE->value():
+                    $oResponse = Requests::delete($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aOption());
+                    break;
+                case EnumRequestMethod::TRACE->value():
+                    $oResponse = Requests::trace($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aOption());
+                    break;
+
+                // headers, data, options
+                case EnumRequestMethod::PUT->value():
+                    $oResponse = Requests::put($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
+                    break;
+                case EnumRequestMethod::POST->value():
+                    $oResponse = Requests::post($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
+                    break;
+                case EnumRequestMethod::PATCH->value():
+                    $oResponse = Requests::patch($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
+                    break;
+                case EnumRequestMethod::OPTIONS->value():
+                    $oResponse = Requests::options($oDTRequestOut->get_sUrl(), $oDTRequestOut->get_aHeader(), $oDTRequestOut->get_aData(), $oDTRequestOut->get_aOption());
+                    break;
+            }
+
+            // build DTResponse object and overwrite header array with parsed from raw response
+            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse))->set_headers(RequestHelper::parseRawHeader($oResponse->raw));
+
+        } catch (InvalidArgument $oInvalidArgument) {
+
+            Error::exception($oInvalidArgument);
+            $oResponse = DTResponse::create()
+                ->set_success(false)
+                ->set_body($oInvalidArgument->getMessage())
+            ;
+            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse));
+
+        } catch (Exception $oException) {
+
+            Error::exception($oException);
+            $oResponse = DTResponse::create()
+                ->set_success(false)
+                ->set_body($oException->getMessage())
+            ;
+            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse));
+
         }
-
-        // build DTResponse object and overwrite header array with parsed from raw response
-        $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse))
-            ->set_headers(RequestHelper::parseRawHeader($oResponse->raw));
 
         Event::run('mvc.request.out.after', $oDTResponse);
 
@@ -177,7 +200,7 @@ class Request
             }
         }
 
-        \MVC\Event::run('mvc.error', DTArrayObject::create()
+        Event::run('mvc.error', DTArrayObject::create()
             ->add_aKeyValue(DTKeyValue::create()
                 ->set_sKey('sMessage')
                 ->set_sValue('could not detect protocol of requested page.')));
