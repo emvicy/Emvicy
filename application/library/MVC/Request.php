@@ -101,6 +101,7 @@ class Request
 
         Event::run('mvc.request.out.before', $oDTRequestOut);
         $oResponse = array();
+        $iNow = time();
 
         try {
 
@@ -133,7 +134,7 @@ class Request
             }
 
             // build DTResponse object and overwrite header array with parsed from raw response
-            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse))->set_headers(RequestHelper::parseRawHeader($oResponse->raw));
+            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse))->set_headers(RequestHelper::parseRawHeader($oResponse->raw))->set_processingTime(time() - $iNow);
 
         } catch (InvalidArgument $oInvalidArgument) {
 
@@ -142,7 +143,7 @@ class Request
                 ->set_success(false)
                 ->set_body($oInvalidArgument->getMessage())
             ;
-            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse));
+            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse))->set_processingTime(time() - $iNow);
 
         } catch (Exception $oException) {
 
@@ -151,7 +152,7 @@ class Request
                 ->set_success(false)
                 ->set_body($oException->getMessage())
             ;
-            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse));
+            $oDTResponse = DTResponse::create(Convert::objectToArray($oResponse))->set_processingTime(time() - $iNow);
 
         }
 

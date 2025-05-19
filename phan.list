@@ -108,6 +108,12 @@ application/library/MVC/DataType/DTDBWhereRelation.php
 application/library/MVC/DataType/DTRoutingAdditional.php
 application/library/MVC/DataType/DTContainer.php
 application/library/MVC/DataType/DTDBSet.php
+application/library/MVC/DataType/.test/DTRoutingAdditional.php
+application/library/MVC/DataType/.test/DTRequestIn.php
+application/library/MVC/DataType/.test/DTFileinfo.php
+application/library/MVC/DataType/.test/DTResponse.php
+application/library/MVC/DataType/.test/DTRoute.php
+application/library/MVC/DataType/.test/DTRequestOut.php
 application/library/MVC/DataType/DTEventContext.php
 application/library/MVC/DataType/DTRequestIn.php
 application/library/MVC/DataType/DTFileinfo.php

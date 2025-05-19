@@ -12,7 +12,7 @@ class DTResponse
 {
 	use TraitDataType;
 
-	public const DTHASH = 'f7fe3713bbfa085d906e1e66e292f75c';
+	public const DTHASH = '1e1099fecdcceee403024d613ac971f4';
 
 	/**
 	 * @required true
@@ -37,6 +37,12 @@ class DTResponse
 	 * @var int
 	 */
 	protected $status_code;
+
+	/**
+	 * @required true
+	 * @var int
+	 */
+	protected $processingTime;
 
 	/**
 	 * @required true
@@ -82,10 +88,12 @@ class DTResponse
 	protected function __construct(DTValue $oDTValue)
 	{
 		\MVC\Event::run('DTResponse.__construct.before', $oDTValue);
+		$aData = $oDTValue->get_mValue();
 		$this->body = '';
 		$this->raw = '';
 		$this->headers = [];
 		$this->status_code = 0;
+		$this->processingTime = 0;
 		$this->protocol_version = 0;
 		$this->success = false;
 		$this->redirects = 0;
@@ -94,7 +102,6 @@ class DTResponse
 		$this->cookies = [];
 		$this->setProperties($oDTValue);
 
-		$aData = $oDTValue->get_mValue();
 		$oDTValue = DTValue::create()->set_mValue($aData); 
 		\MVC\Event::run('DTResponse.__construct.after', $oDTValue);
 	}
@@ -183,6 +190,20 @@ class DTResponse
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTResponse.set_status_code.before', $oDTValue);
 		$this->status_code = (int) $oDTValue->get_mValue();
+
+		return $this;
+	}
+
+	/**
+	 * @param int $mValue 
+	 * @return $this
+	 * @throws \ReflectionException
+	 */
+	public function set_processingTime(int $mValue)
+	{
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTResponse.set_processingTime.before', $oDTValue);
+		$this->processingTime = (int) $oDTValue->get_mValue();
 
 		return $this;
 	}
@@ -352,6 +373,18 @@ class DTResponse
 	}
 
 	/**
+	 * @return int
+	 * @throws \ReflectionException
+	 */
+	public function get_processingTime() : int
+	{
+		$oDTValue = DTValue::create()->set_mValue($this->processingTime); 
+		\MVC\Event::run('DTResponse.get_processingTime.before', $oDTValue);
+
+		return $oDTValue->get_mValue();
+	}
+
+	/**
 	 * @return float
 	 * @throws \ReflectionException
 	 */
@@ -453,6 +486,14 @@ class DTResponse
 	public static function getPropertyName_status_code()
 	{
         return 'status_code';
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getPropertyName_processingTime()
+	{
+        return 'processingTime';
 	}
 
 	/**
