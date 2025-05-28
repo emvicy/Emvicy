@@ -11,6 +11,7 @@
 namespace MVC;
 
 use HTMLPurifier;
+use Parsedown;
 
 class Strings
 {
@@ -62,6 +63,15 @@ class Strings
         (true === $bStrToLower) ? $sString = strtolower($sString) : false;
 
         return (string) preg_replace('/[^-a-zA-Z0-9_]+/', '', $sString);
+    }
+
+    /**
+     * @param string $sMarkdown
+     * @return string
+     */
+    public static function markdown(string $sMarkdown) : string
+    {
+        return Parsedown::instance()->text($sMarkdown);
     }
 
     /**

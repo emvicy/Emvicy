@@ -41,4 +41,20 @@ class Arr
 
         return array();
     }
+
+    /**
+     * trims string values of an array recursively
+     * @param mixed $mData
+     * @return array|mixed|string
+     */
+    public static function recursiveTrim(mixed $mData)
+    {
+        return is_array($mData)
+            ? array_map('\MVC\Arr::recursiveTrim', $mData)
+            : (
+            is_string($mData)
+                ? trim($mData)
+                : $mData
+            );
+    }
 }

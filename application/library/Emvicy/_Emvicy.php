@@ -383,6 +383,27 @@ $oSymfonyComponentConsoleApplication
         Emvicy::eventListener();
         return Command::SUCCESS;
     });
+
+#-----------------------------------------------------------------------------------------------------------------------
+# dynamic console menu extensions
+
+if (false === empty(($GLOBALS['aConfig']['EMVICY_CONSOLE']) ?? []))
+{
+    foreach (\MVC\Arr::recursiveTrim($GLOBALS['aConfig']['EMVICY_CONSOLE']) as $aSet)
+    {
+        if (false === empty($aSet['register']) && false === $oSymfonyComponentConsoleApplication->has($aSet['register']))
+        {
+            $oSymfonyComponentConsoleApplication
+                ->register($aSet['register'])
+                ->setAliases($aSet['aliases'])
+                ->setDescription($aSet['description'])
+                ->addArgument($aSet['argumentName'], $aSet['argumentMode'])
+                ->setCode($aSet['code']);
+            ;
+        }
+    }
+}
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 try
