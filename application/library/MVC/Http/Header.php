@@ -328,12 +328,8 @@ class Header
              * Authentication parameters have to be comma-separated.
              */
             header('WWW-Authenticate: Basic realm="' . $sBasicRealm . '"');
-
-            if (true === empty($sUrlAuthFails))
-            {
-                echo 'Authentication required';
-                exit();
-            }
+            echo 'Authentication required';
+            exit();
         }
 
         return $this;
