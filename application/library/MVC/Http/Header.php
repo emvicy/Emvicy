@@ -307,17 +307,25 @@ class Header
      *
      * @see https://www.php.net/manual/en/features.http-auth.php
      * @param string $sBasicRealm   The only reliably supported character set for this value is us-ascii
+     * @param string $sAuthUser
+     * @param string $sAuthPassword
      * @return $this|void
      */
-    public function WWW_Authenticate(string $sBasicRealm = 'Authentication')
+    public function WWW_Authenticate(string $sBasicRealm = 'Authentication', string $sAuthUser = '', string $sAuthPassword = '')
     {
         if (false === Validator::alnum(' ')->validate($sBasicRealm))
         {
             return $this;
         }
 
-        if (false === isset($_SERVER['PHP_AUTH_USER']))
+        if (
+            false === (true === isset($_SERVER['PHP_AUTH_USER']) && true === isset($_SERVER['PHP_AUTH_PW'])) ||
+            false === (($_SERVER['PHP_AUTH_USER'] === $sAuthUser) && ($_SERVER['PHP_AUTH_PW'] === $sAuthPassword))
+        )
         {
+            unset($_SERVER['PHP_AUTH_USER']);
+            unset($_SERVER['PHP_AUTH_PW']);
+
             Status_Unauthorized_401::header();
             /*
              * Please be careful when coding the HTTP header lines.
@@ -331,8 +339,6 @@ class Header
             echo 'Authentication required';
             exit();
         }
-
-        return $this;
     }
 
     /**
