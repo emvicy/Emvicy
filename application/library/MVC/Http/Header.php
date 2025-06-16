@@ -307,11 +307,9 @@ class Header
      *
      * @see https://www.php.net/manual/en/features.http-auth.php
      * @param string $sBasicRealm   The only reliably supported character set for this value is us-ascii
-     * @param string $sUrlAuthFails URL to call if Auth fails
      * @return $this|void
-     * @throws \ReflectionException
      */
-    public function WWW_Authenticate(string $sBasicRealm = 'Authentication', string $sUrlAuthFails = '')
+    public function WWW_Authenticate(string $sBasicRealm = 'Authentication')
     {
         if (false === Validator::alnum(' ')->validate($sBasicRealm))
         {
@@ -336,8 +334,6 @@ class Header
                 echo 'Authentication required';
                 exit();
             }
-
-            RequestHelper::redirect($sUrlAuthFails);
         }
 
         return $this;
