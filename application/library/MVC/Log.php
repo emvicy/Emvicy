@@ -92,7 +92,7 @@ class Log
         $sReport.= "\t" . getmypid();
         (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['host'] ?? null)) ? $sReport.= "\t" . ((array_key_exists('HTTP_HOST', $_SERVER)) ? $_SERVER['HTTP_HOST'] : '0.0.0.0') : false;
         (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['env'] ?? null)) ? $sReport.= "\t" . ((false !== getenv('MVC_ENV')) ? getenv('MVC_ENV') : '---?---') : false;
-        (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['ip'] ?? null)) ? $sReport.= "\t" . ((array_key_exists('REMOTE_ADDR', $_SERVER)) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0') : false;
+        (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['ip'] ?? null)) ? $sReport.= "\t" . \MVC\Request::getTheIpAddress() : false;
         (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['uniqueid'] ?? null)) ? $sReport.= "\t" . ((array_key_exists('MVC_UNIQUE_ID', $GLOBALS['aConfig'])) ? $GLOBALS['aConfig']['MVC_UNIQUE_ID'] : '---') : false;
         (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['sessionid'] ?? null)) ? $sReport.= "\t" . (('' !== session_id ()) ? session_id () : str_pad ('...........no.session', 32, '.')) : false;
         (true === (boolean) ($GLOBALS['aConfig']['MVC_LOG_DETAIL']['count'] ?? null)) ? $sReport.= "\t" . self::$iCount : false;
