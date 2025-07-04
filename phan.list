@@ -136,6 +136,7 @@ application/library/MVC/Queue.php
 application/library/MVC/Log.php
 application/library/MVC/Convert.php
 application/library/MVC/MVCTrait/TraitHttpStatus.php
+application/library/MVC/MVCTrait/.bak/TraitDataType.php
 application/library/MVC/MVCTrait/TraitRequestIncoming.php
 application/library/MVC/MVCTrait/TraitDataType.php
 application/library/MVC/MVCTrait/TraitMediaType.php

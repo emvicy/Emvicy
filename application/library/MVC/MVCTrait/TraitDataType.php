@@ -64,8 +64,8 @@ trait TraitDataType
             $mType = $this->getDocCommentValueOfProperty($sKey);
             $aTypeAll = array_map('trim', explode('|', $mType));
 
-            // if value is empty and can be null, set it to type null
-            if (true === empty($mValue) && true === in_array('null', $aTypeAll))
+            // if value is really empty (not containing a zero value `0` e.g.) and can be null, set it to type null
+            if (true === empty($mValue) && false === is_numeric($mValue) && true === in_array('null', $aTypeAll))
             {
                 $aData[$sKey] = null;
                 settype($aData[$sKey], 'null');
