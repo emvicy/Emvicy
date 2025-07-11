@@ -56,7 +56,7 @@ MVC_BIN:
     $aConfig['MVC_BIN_MOVE'] = '/usr/bin/mv';       # mv - move (rename) files
     $aConfig['MVC_BIN_GREP'] = '/usr/bin/grep';     # grep, egrep, fgrep, rgrep - print lines that match patterns
     $aConfig['MVC_BIN_FIND'] = '/usr/bin/find';     # find - search for files in a directory hierarchy
-    $aConfig['MVC_BIN_REMOVE'] = '/usr/sbin/rm';    # rm - remove files or directories
+    $aConfig['MVC_BIN_REMOVE'] = '/usr/bin/rm';     # rm - remove files or directories
     $aConfig['MVC_BIN_XARGS'] = '/usr/bin/xargs';   # xargs - build and execute command lines from standard input
 }
 
