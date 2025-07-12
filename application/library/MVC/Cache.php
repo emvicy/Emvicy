@@ -107,7 +107,7 @@ class Cache
 
         if (file_exists($sFilename))
         {
-            $sContent = unserialize(
+            $sContent = Convert::unserialize(
                 base64_decode(
                     file_get_contents($sFilename)
                 )
@@ -155,7 +155,7 @@ class Cache
 
         $sFilename = self::$sCacheDir . '/' . $sKey;
         $mData = base64_encode(
-            serialize($mData)
+            Convert::serialize($mData)
         );
 
         if (!is_dir ($sFilename))

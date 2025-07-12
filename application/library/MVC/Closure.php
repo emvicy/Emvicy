@@ -28,87 +28,15 @@ class Closure
     }
 
     /**
-     * Dumps a Closure
-     * @access public
-     * @static
-     * @param mixed $mClosure name of function or Closure
+     * converts a closure into a string
+     * @param \Closure $oClosure
+     * @param bool $bShrink remove comments, empty lines, multiple whitespac
      * @return string
      * @throws \ReflectionException
      */
-    public static function dump(mixed $mClosure) : string
+    public static function dump(\Closure $oClosure, bool $bShrink = true) : string
     {
-        $oReflectionFunction = new ReflectionFunction($mClosure);
-        $aParam = array();
-
-        foreach ($oReflectionFunction->getParameters() as $oReflectionParameter)
-        {
-            $sTemp = '';
-            $oReflectionType = $oReflectionParameter->getType();
-            $aType = $oReflectionType instanceof ReflectionUnionType
-                ? $oReflectionType->getTypes()
-                : [$oReflectionType];
-
-            $aType = array_filter(
-                $aType,
-                function($value)
-                {
-                    return !is_null($value) && $value !== '' && 'NULL' != gettype($value);
-                }
-            );
-
-            if (empty($aType))
-            {
-                continue;
-            }
-
-            /**
-             * @see https://www.php.net/manual/de/reflectionparameter.isarray.php
-             *      https://www.php.net/manual/de/functions.arrow.php
-             */
-            $bIsArray = in_array(
-                'array',
-                array_map(
-                    fn(ReflectionNamedType $oReflectionNamedType) => $oReflectionNamedType->getName(),
-                    $aType
-                )
-            );
-
-            if (true === $bIsArray)
-            {
-                $sTemp .= 'array ';
-            }
-            else
-            {
-                if ($oReflectionParameter->getName())
-                {
-                    $sTemp .= $oReflectionParameter->getName() . ' ';
-                }
-            }
-
-            if ($oReflectionParameter->isPassedByReference())
-            {
-                $sTemp .= '&';
-            }
-
-            $sTemp .= '$' . $oReflectionParameter->name;
-
-            if ($oReflectionParameter->isOptional())
-            {
-                $sTemp .= ' = ' . var_export($oReflectionParameter->getDefaultValue(), true);
-            }
-
-            $aParam [] = $sTemp;
-        }
-
-        $sString = 'function (' . preg_replace('!\s+!', ' ', implode(', ', $aParam)) . '){' . PHP_EOL;
-        $aLine = file($oReflectionFunction->getFileName());
-
-        for ($iCount = $oReflectionFunction->getStartLine(); $iCount < $oReflectionFunction->getEndLine(); $iCount++)
-        {
-            $sString .= $aLine[$iCount];
-        }
-
-        return $sString;
+        return self::toString($oClosure, $bShrink);
     }
 
     /**

@@ -139,7 +139,7 @@ class Event
     {
         // make $sSource a unique one
         $sDebug .= ' (' . uniqid() . ')';
-        $sSource = serialize($sDebug);
+        $sSource = Convert::serialize($sDebug);
         self::$aEvent[$sEvent][$sSource] = $oClosure;
     }
 
@@ -241,7 +241,7 @@ class Event
             // run bonded closure
             if (true === filter_var(Closure::is($sCallback), FILTER_VALIDATE_BOOLEAN))
             {
-                $sMessage = $sRunType . $sPreLog . ' --> bonded by `' . unserialize($sKey) . ', try to run its Closure: ' . Closure::toString($sCallback);
+                $sMessage = $sRunType . $sPreLog . ' --> bonded by `' . Convert::unserialize($sKey) . ', try to run its Closure: ' . Closure::toString($sCallback);
                 Log::write($sMessage, Config::get_MVC_LOG_FILE_EVENT(), false);
 
                 $oDTEventContext = DTEventContext::create()
@@ -260,7 +260,7 @@ class Event
                 // error occurred
                 if (false === $mRunPackage)
                 {
-                    Log::write("ERROR\t" . $sRunType . $sPreLog . ' *** Closure could not be run: ' . serialize($sCallback), Config::get_MVC_LOG_FILE_ERROR(), false);
+                    Log::write("ERROR\t" . $sRunType . $sPreLog . ' *** Closure could not be run: ' . Convert::serialize($sCallback), Config::get_MVC_LOG_FILE_ERROR(), false);
                 }
             }
         }

@@ -74,4 +74,25 @@ class Convert
     {
         return (true === $bValue) ? 'true' : 'false';
     }
+
+    /**
+     * converts a storable representation of a value.
+     * @param mixed $mValue
+     * @return string
+     */
+    public static function serialize(mixed $mValue) : string
+    {
+        return \Opis\Closure\serialize($mValue);
+    }
+
+    /**
+     * takes a single serialized string value and converts it back into a PHP value.
+     * @param string $mValue
+     * @return mixed
+     */
+    public static function unserialize(string $mValue)
+    {
+        return \Opis\Closure\unserialize($mValue);
+    }
+
 }

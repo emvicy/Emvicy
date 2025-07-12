@@ -262,7 +262,7 @@ class Db
                 REFERENCES `" . $oDtDbForeign->get_sReferenceTable() . "` (`" . $oDtDbForeign->get_sReferenceKey() . "`)
                 " . $oDtDbForeign->get_sOnDelete() . " " . $oDtDbForeign->get_sOnUpdate() . ";";
 
-        $sCacheKey = __METHOD__ . '.' . $sTable . '.' . md5(serialize($oDtDbForeign));
+        $sCacheKey = __METHOD__ . '.' . $sTable . '.' . md5(Convert::serialize($oDtDbForeign));
 
         // add to final, completed  field array
         if (false === in_array($oDtDbForeign->get_sForeignKey(), $this->aFieldArrayComplete))
@@ -613,7 +613,7 @@ class Db
         }
 
         $sCacheSyncKey = __METHOD__ . '.' . $this->sTableName;
-        $sCacheSyncValue = serialize($aColumnFinal) . '.' . serialize($this->sCacheValueTableName);
+        $sCacheSyncValue = Convert::serialize($aColumnFinal) . '.' . Convert::serialize($this->sCacheValueTableName);
 
         if ($sCacheSyncValue === Cache::getCache($sCacheSyncKey))
         {
@@ -1204,7 +1204,7 @@ class Db
     {
         if (true === $bCacheAtRuntime)
         {
-            $sRegistryKey = $this->sTableName . '.' . __METHOD__ . '.' . md5(serialize($aDTDBWhere) . serialize($aDTDBOption));
+            $sRegistryKey = $this->sTableName . '.' . __METHOD__ . '.' . md5(Convert::serialize($aDTDBWhere) . Convert::serialize($aDTDBOption));
 
             if (true === Registry::isRegistered($sRegistryKey))
             {

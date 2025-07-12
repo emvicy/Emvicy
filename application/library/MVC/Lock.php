@@ -44,7 +44,7 @@ class Lock
         $sPrefix = preg_replace('/[^-a-z0-9_]+/', '', $sPrefix);
         $sPrefix = substr($sPrefix, 0, 10);
         $sPrefix = str_pad($sPrefix, 10, '_');
-        $sKey = $sPrefix . '.' . str_pad(strlen($sKey), 2, '_', STR_PAD_LEFT) . '.' . md5($sKey) . '.' . md5(serialize($aBacktrace)) . '.lock';
+        $sKey = $sPrefix . '.' . str_pad(strlen($sKey), 2, '_', STR_PAD_LEFT) . '.' . md5($sKey) . '.' . md5(Convert::serialize($aBacktrace)) . '.lock';
         $sFile = $sCacheDir . '/' . $sKey;
         $oDTArrayObject = DTArrayObject::create()
             ->add_aKeyValue(DTKeyValue::create()

@@ -11,6 +11,7 @@ namespace MVC\Generator;
 
 use MVC\Cache;
 use MVC\Closure;
+use MVC\Convert;
 use MVC\DataType\DTClass;
 use MVC\DataType\DTConfig;
 use MVC\DataType\DTConstant;
@@ -192,7 +193,7 @@ class DataType
             // we just need a simple string representation; this is enough
             ? md5(base64_encode((string) new \ReflectionFunction($oDTDataTypeGeneratorConfig)))
             // default way
-            : md5(base64_encode(serialize($oDTDataTypeGeneratorConfig)))
+            : md5(base64_encode(Convert::serialize($oDTDataTypeGeneratorConfig)))
         ;
         $sCacheKey = preg_replace('/[^a-zA-Z0-9\.]+/', '_', trim(__CLASS__) . '.' . $sMd5);
         $bUnlinkDir = ('' !== $oDTDataTypeGeneratorConfig->get_unlinkDir())
@@ -461,7 +462,7 @@ class DataType
             // hash constant
             $sContent.= $this->createConst(DTConstant::create()
                 ->set_key('DTHASH')
-                ->set_value("'" . md5(base64_encode(serialize($oDTDataTypeGeneratorClass->get_constant()) . serialize($oDTDataTypeGeneratorClass->get_property()))) . "'")
+                ->set_value("'" . md5(base64_encode(Convert::serialize($oDTDataTypeGeneratorClass->get_constant()) . Convert::serialize($oDTDataTypeGeneratorClass->get_property()))) . "'")
                 ->set_visibility('public'));
 
             foreach ($oDTDataTypeGeneratorClass->get_constant() as $oConstant)
