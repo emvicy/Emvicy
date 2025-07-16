@@ -51,13 +51,14 @@ class Openapi
         foreach ($aProperty as $oProperty)
         {
             $sProperty = $oProperty->getName();
-            $bMethodExists = method_exists($oDB->$sProperty, 'getFieldInfo');
 
             // skip
             if (true === in_array($sProperty, array('oDbPDO', '_oInstance')))
             {
                 continue;
             }
+
+            $bMethodExists = method_exists($oDB->$sProperty, 'getFieldInfo');
 
             if (false === $bMethodExists)
             {
