@@ -40,16 +40,24 @@ class Openapi
 
         $sDTFolderPre = '\\' . Config::get_MVC_MODULE_PRIMARY_NAME() . '\\' . basename(Config::get_MVC_MODULE_PRIMARY_DATATYPE_DIR());
         $sYamlFile = Config::get_MVC_MODULE_PRIMARY_DATATYPE_DIR() . '/' . basename($sYamlFileName);
-        $aClassVar = get_object_vars($oDB);
+        $oReflectionClass = new \ReflectionClass($oDB);
+        $aProperty = $oReflectionClass->getProperties();
         $aTmp = [
             'components' => [
                 'schemas' => []
             ]
         ];
 
-        foreach ($aClassVar as $sProperty => $mFoo)
+        foreach ($aProperty as $oProperty)
         {
+            $sProperty = $oProperty->getName();
             $bMethodExists = method_exists($oDB->$sProperty, 'getFieldInfo');
+
+            // skip
+            if (true === in_array($sProperty, array('oDbPDO', '_oInstance')))
+            {
+                continue;
+            }
 
             if (false === $bMethodExists)
             {
