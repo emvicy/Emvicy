@@ -35,6 +35,8 @@ class User extends Db
             "description"   => "text            NULL                COMMENT 'Description'",
         );
 
+        Event::run('', $this->aField);
+
         // run setup after "foreign tables"
         Event::bind('mvc.db.model.db.setForeignKey.after', function ($oDTValue) {
             // after `id_FooModelTableGroup` was added to this table
