@@ -160,6 +160,9 @@ class Db
         $this->sCacheKeyTableName = __CLASS__ . '.' . $this->sTableName;
         $this->sCacheValueTableName = func_get_args();
 
+        // identify database
+        self::$sRegistryKeyDbPDO = self::createDbIdentStringOnConfig($aDbConfig);
+
         $this->setCachingState();
         $this->setSqlLoggingState();
 
@@ -181,6 +184,17 @@ class Db
     }
 
     /**
+     * creates a string based on (config) host, db name and db port
+     * @param array $aDbConfig
+     * @return string
+     */
+    public static function createDbIdentStringOnConfig(array $aDbConfig = array())
+    {
+        return Strings::seofy(($aDbConfig['db']['host'] ?? 'host') . '_' . ($aDbConfig['db']['dbname'] ?? 'dbname') . '_' . ($aDbConfig['db']['port'] ?? 'port'));
+    }
+
+    /**
+     * assumes a local database is meant
      * @return \MVC\DB\Model\DbPDO
      * @throws \ReflectionException
      */

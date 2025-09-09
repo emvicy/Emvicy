@@ -42,16 +42,18 @@ class DbCollection
         // try default fallback config; assuming it is called 'DB'
         (true === empty($aConfig)) ? $aConfig = self::getConfig() : false;
 
+        // identify database
+        $sDbIdent = Db::createDbIdentStringOnConfig($aConfig);
+
         Cache::init(Config::get_MVC_CACHE_CONFIG());
-        (Registry::isRegistered(Db::$sRegistryKeyDbPDO)) ? $this->oDbPDO = Registry::get(Db::$sRegistryKeyDbPDO) : false;
+        (Registry::isRegistered($sDbIdent)) ? $this->oDbPDO = Registry::get($sDbIdent) : false;
 
         if (null === $this->oDbPDO)
         {
             try
             {
                 $this->oDbPDO = new DbPDO($aConfig);
-                /** @todo getter/setter für Registry based on aConfig */
-                Registry::set(Db::$sRegistryKeyDbPDO, $this->oDbPDO);
+                Registry::set($sDbIdent, $this->oDbPDO);
             } catch (\PDOException $oPDOException)
             {
                 Error::exception($oPDOException);
@@ -60,7 +62,7 @@ class DbCollection
             }
         }
 
-        Event::run('mvc.db.model.dbcollection.construct.after', Registry::get(Db::$sRegistryKeyDbPDO));
+        Event::run('mvc.db.model.dbcollection.construct.after', Registry::get($sDbIdent));
     }
 
     /**
