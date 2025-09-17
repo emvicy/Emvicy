@@ -90,6 +90,33 @@ class Strings
     }
 
     /**
+     * @param string $sString
+     * @return array
+     */
+    public static function getJson(string $sString = '') : array
+    {
+        // RegEx pattern
+        $sPattern = '
+        /
+        \{              # { character
+            (?:         # non-capturing group
+                [^{}]   # anything that is not a { or }
+                |       # OR
+                (?R)    # recurses the entire pattern
+            )*          # previous group zero or more times
+        \}              # } character
+        /x
+        ';
+
+        // get Json
+        preg_match_all($sPattern, $sString, $aJson);
+        $aJson = current($aJson);
+
+        // Result
+        return $aJson;
+    }
+
+    /**
      * checks whether a string is utf8
      * @param string $sString
      * @return bool
