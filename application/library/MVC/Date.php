@@ -11,6 +11,7 @@
 namespace MVC;
 
 use DateTime;
+use MVC\DataType\DTDateWeekInfo;
 
 class Date
 {
@@ -79,4 +80,69 @@ class Date
 
         return false;
     }
+
+    /**
+     * returns DTDateWeekInfo object with: year, week number, start ISO date of week, end ISO date of week, first day of week, last day of week
+     * @param int $iYear         default=current year; e.g: 2025
+     * @param int $iCalendarWeek default=current week; e.g: 38
+     * @return \MVC\DataType\DTDateWeekInfo
+     * @throws \DateMalformedStringException
+     * @throws \ReflectionException
+     */
+    public static function getWeekInfo(int $iYear = 0, int $iCalendarWeek = 0)
+    {
+        // set current year if empty
+        if (true === empty($iYear))
+        {
+            $iYear = (int) date('Y');
+        }
+
+        // set current week number if empty
+        if (true === empty($iCalendarWeek))
+        {
+            $iCalendarWeek = (int) date('W');
+        }
+
+        $oDateTime = new DateTime();
+        $aDateIso['year'] = $iYear;
+        $aDateIso['week'] = $iCalendarWeek;
+        $aDateIso['dateStart'] = $oDateTime->setISODate($iYear, $iCalendarWeek)->format('Y-m-d');
+        $aDateIso['dateEnd'] = $oDateTime->modify('+6 days')->format('Y-m-d');
+        $aDateIso['dayStart'] = date('l', strtotime($aDateIso['dateStart']));
+        $aDateIso['dayEnd'] = date('l', strtotime($aDateIso['dateEnd']));
+
+        $oDTDateWeekInfo = DTDateWeekInfo::create($aDateIso);
+
+        return $oDTDateWeekInfo;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

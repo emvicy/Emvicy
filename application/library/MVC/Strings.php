@@ -91,9 +91,10 @@ class Strings
 
     /**
      * @param string $sString
+     * @param bool   $bReturnValidJsonOnly
      * @return array
      */
-    public static function getJson(string $sString = '') : array
+    public static function getJson(string $sString = '', bool $bReturnValidJsonOnly = true) : array
     {
         // RegEx pattern
         $sPattern = '
@@ -108,9 +109,21 @@ class Strings
         /x
         ';
 
-        // get Json
+        // get parsed matches
         preg_match_all($sPattern, $sString, $aJson);
         $aJson = current($aJson);
+
+        if (true === $bReturnValidJsonOnly)
+        {
+            $aJson = array_filter(
+                $aJson,
+                function($sJson) {
+                    if (true === json_validate($sJson)) {
+                        return $sJson;
+                    }
+                }
+            );
+        }
 
         // Result
         return $aJson;

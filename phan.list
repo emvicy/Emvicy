@@ -28,6 +28,7 @@ application/library/MVC/MVCInterface/InterfaceController.php
 application/library/MVC/MVCInterface/InterfaceRoute.php
 application/library/MVC/MVCInterface/InterfaceWorker.php
 application/library/MVC/DataType/DTArrayObject.php
+application/library/MVC/DataType/DTDateWeekInfo.php
 application/library/MVC/DataType/DTConstant.php
 application/library/MVC/DataType/DTRequestIn.php
 application/library/MVC/DataType/DTClass.php
