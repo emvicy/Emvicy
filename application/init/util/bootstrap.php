@@ -92,7 +92,10 @@ MVC_AUTOLOADING: {
 
         if (true === $aConfig['MVC_LOG_AUTOLOADER'])
         {
-            \MVC\Log::write('AUTOLOADING' . "\t" . $sFileName);
+            if (true === class_exists('\MVC\Log') && (true === class_exists('\MVC\Request')) && array_key_exists('REMOTE_ADDR', $_SERVER))
+            {
+                \MVC\Log::write('AUTOLOADING' . "\t" . $sFileName);
+            }
         }
 
         require_once $sFileName;

@@ -41,7 +41,7 @@ MVC_RUNTIME_SETTINGS: {
     $aConfig['MVC_INFOTOOL_ENABLE'] = true;
 
     // Log autoloader actions
-    $aConfig['MVC_LOG_AUTOLOADER'] = true;
+    $aConfig['MVC_LOG_AUTOLOADER'] = false;
 
     // address the built-in php server will run on ( php emvicy serve )
     $aConfig['MVC_PHP_SERVER'] = '127.0.0.1:1969';
