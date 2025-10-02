@@ -140,6 +140,9 @@ class DataType
                     (isset($aProperty['var']))
                         ? $oDTDataTypeGeneratorProperty->set_var($aProperty['var'])
                         : false;
+                    (isset($aProperty['nullable']))
+                        ? $oDTDataTypeGeneratorProperty->set_nullable($aProperty['nullable'])
+                        : false;
                     (isset($aProperty['visibility']))
                         ? $oDTDataTypeGeneratorProperty->set_visibility($aProperty['visibility'])
                         : false;
@@ -566,7 +569,7 @@ class DataType
         $sContent = '';
         $sContent.= "\t/**\n"
                     . "\t * @required " . ($oProperty->get_required() ? 'true' : 'false') . "\n"
-                    . "\t * @var " . $oProperty->get_var()
+                    . "\t * @var " . $oProperty->get_var() . (true === $oProperty->get_nullable() ? '|null' : '')
                     . ( ((false === empty($oProperty->get_var())) && (false === $oProperty->get_forceCasting())) ? '|' : '')
                     . ((false === $oProperty->get_forceCasting()) ? 'null' : '') . "\n"
                     . "\t */\n";
@@ -617,7 +620,7 @@ class DataType
             // regular Types
             if (in_array($oProperty->get_var(), $this->aType))
             {
-                if (is_null($oProperty->get_value()) || 'null' === $oProperty->get_value())
+                if (is_null($oProperty->get_value()) || 'null' === $oProperty->get_value() || true === $oProperty->get_nullable())
                 {
                     $sContent.= 'null;'. "\n";
                 }
@@ -911,14 +914,14 @@ class DataType
 
         if ('[]' !== $sRight2 && 'array' !== $oProperty->get_var())
         {
-            $sContent.= "\t/**\n" . "\t * @param " . $sVar . (('null' === $oProperty->get_value() || false === $oProperty->get_forceCasting()) ? '|null' : false) .' $mValue ' . "\n" . "\t * @return " . '$this' . "\n" . "\t * @throws \ReflectionException\n" . "\t */" . "\n";
+            $sContent.= "\t/**\n" . "\t * @param " . $sVar . (('null' === $oProperty->get_value() || false === $oProperty->get_forceCasting() || true === $oProperty->get_nullable()) ? '|null' : false) .' $mValue ' . "\n" . "\t * @return " . '$this' . "\n" . "\t * @throws \ReflectionException\n" . "\t */" . "\n";
             $sContent.= "\tpublic function set_" . $oProperty->get_key() . '(';
 
-            $sContent.= ( (false === $oProperty->get_forceCasting() && ($sVar !== 'mixed')) ? '?' : false );
+            $sContent.= ( ((false === $oProperty->get_forceCasting() && ($sVar !== 'mixed')) || true === $oProperty->get_nullable()) ? '?' : false );
 
             $sContent.= $sVar . ' ';
             $sContent.= '$mValue';
-            (('null' === $oProperty->get_value()) ? $sContent.= ' = null' : false);
+            (('null' === $oProperty->get_value() || true === $oProperty->get_nullable()) ? $sContent.= ' = null' : false);
             $sContent.= ')' . "\n" . "\t{" . "\n\t\t";
             $sContent.= '$oDTValue = DTValue::create()->set_mValue($mValue); ' . "\n\t\t";
 
@@ -1002,11 +1005,11 @@ class DataType
         $sReturnType = trim(preg_replace("/[^[:alnum:][:space:]_\\\]/ui", ' ', $oProperty->get_var()));
 
         $sContent = '';
-        $sContent.= "\t/**\n" . "\t * @return " . $oProperty->get_var() . ((false === $oProperty->get_forceCasting()) ? '|null' : '') . "\n" . "\t * @throws \ReflectionException\n" . "\t */\n";
+        $sContent.= "\t/**\n" . "\t * @return " . $oProperty->get_var() . ((false === $oProperty->get_forceCasting() || true === $oProperty->get_nullable()) ? '|null' : '') . "\n" . "\t * @throws \ReflectionException\n" . "\t */\n";
         $sContent.= "\tpublic function get_" . $oProperty->get_key() . '()';
 
         (($sReturnType === $oProperty->get_var()) && ($sVar !== 'mixed'))
-            ? $sContent.= ' : ' . ((false === $oProperty->get_forceCasting()) ? '?' : '') . $sVar
+            ? $sContent.= ' : ' . ((false === $oProperty->get_forceCasting() || true === $oProperty->get_nullable()) ? '?' : '') . $sVar
             : false;
 
         $sContent.= "\n";

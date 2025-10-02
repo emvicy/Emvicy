@@ -32,6 +32,11 @@ class DTProperty
     protected $var;
 
     /**
+     * @var boolean
+     */
+    protected $nullable;
+
+    /**
      * @var mixed
      */
     protected $value;
@@ -103,6 +108,7 @@ class DTProperty
 
         $this->key = '';
         $this->var = "string";
+        $this->nullable = false;
         $this->value = null;
         $this->visibility = "protected";
         $this->static = false;
@@ -166,6 +172,19 @@ class DTProperty
     {
         $oDTValue = DTValue::create()->set_mValue($sValue); \MVC\Event::RUN ('DTProperty.set_var.before', $oDTValue);
         $this->var = $oDTValue->get_mValue();
+
+        return $this;
+    }
+
+    /**
+     * @param bool $bValue
+     * @return $this
+     * @throws \ReflectionException
+     */
+    public function set_nullable($bValue)
+    {
+        $oDTValue = DTValue::create()->set_mValue($bValue); \MVC\Event::RUN ('DTProperty.set_nullable.before', $oDTValue);
+        $this->nullable = $oDTValue->get_mValue();
 
         return $this;
     }
@@ -349,6 +368,17 @@ class DTProperty
     }
 
     /**
+     * @return mixed|null
+     * @throws \ReflectionException
+     */
+    public function get_nullable()
+    {
+        $oDTValue = DTValue::create()->set_mValue($this->nullable); \MVC\Event::RUN ('DTProperty.get_nullable.before', $oDTValue);
+
+        return $oDTValue->get_mValue();
+    }
+
+    /**
      * @return mixed
      * @throws \ReflectionException
      */
@@ -494,6 +524,14 @@ class DTProperty
     public static function getPropertyName_var()
     {
         return 'var';
+    }
+
+    /**
+     * @return string
+     */
+    public static function getPropertyName_nullable()
+    {
+        return 'nullable';
     }
 
     /**
