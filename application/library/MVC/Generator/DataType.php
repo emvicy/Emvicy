@@ -911,6 +911,8 @@ class DataType
         $sVar = trim(preg_replace("/[^[:alnum:][:space:]_\\\]/ui", '', $oProperty->get_var()));
         $sRight2 = substr($oProperty->get_var(), -2);
         $sContent = '';
+        $sNullableBefore = (true === $oProperty->get_nullable()) ? ' (false === is_null($oDTValue->get_mValue())) ? ' : '';
+        $sNullableAfter = (true === $oProperty->get_nullable()) ? ' : $oDTValue->get_mValue()' : '';
 
         if ('[]' !== $sRight2 && 'array' !== $oProperty->get_var())
         {
@@ -932,22 +934,22 @@ class DataType
                 // common types
                 if (in_array($oProperty->get_var(), array('string', 'int', 'integer', 'array', 'bool', 'boolean', 'float', 'double')))
                 {
-                    $sContent.= '$this->' . $oProperty->get_key() . ' = (' . $oProperty->get_var() . ') $oDTValue->get_mValue();' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
+                    $sContent.= '$this->' . $oProperty->get_key() . ' = ' . $sNullableBefore . ' (' . $oProperty->get_var() . ') $oDTValue->get_mValue() ' . $sNullableAfter . ';' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
                 }
                 // mixed
                 elseif (in_array($oProperty->get_var(), array('mixed')))
                 {
-                    $sContent.= '$this->' . $oProperty->get_key() . ' = $oDTValue->get_mValue();' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
+                    $sContent.= '$this->' . $oProperty->get_key() . ' = ' . $sNullableBefore . ' $oDTValue->get_mValue() ' . $sNullableAfter . ';' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
                 }
                 // custom types
                 else
                 {
-                    $sContent.= '$this->' . $oProperty->get_key() . ' = $oDTValue->get_mValue();' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
+                    $sContent.= '$this->' . $oProperty->get_key() . ' = ' . $sNullableBefore . ' $oDTValue->get_mValue() ' . $sNullableAfter . ';' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
                 }
             }
             else
             {
-                $sContent.= '$this->' . $oProperty->get_key() . ' = $oDTValue->get_mValue();' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
+                $sContent.= '$this->' . $oProperty->get_key() . ' = ' . $sNullableBefore . ' $oDTValue->get_mValue() ' . $sNullableAfter . ';' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
             }
         }
         // type is array
@@ -980,7 +982,7 @@ class DataType
         }' . "\n";
             }
 
-            $sContent.= "\n\t\t" . '$this->' . $oProperty->get_key() . ' = $mValue;' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
+            $sContent.= "\n\t\t" . '$this->' . $oProperty->get_key() . ' = ' . $sNullableBefore . ' $mValue ' . $sNullableAfter . ';' . "\n\n" . "\t\treturn " . '$this;' . "\n\t}\n\n";
 
             $sContent.= $this->createAddFunctionForArray($oProperty, $sClassName);
         }
