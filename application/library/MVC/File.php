@@ -77,7 +77,6 @@ class File
 
         return (false === $mMimeType) ? '' : $mMimeType;
     }
-
     /**
      * creates a -temporary- file; returns absolute path to that file
      * @param string $sPrefix optional
@@ -87,14 +86,19 @@ class File
     public static function temp(string $sPrefix = '', string $sSuffix = '')
     {
         $sPrefix = (true === empty($sPrefix))
-            ? __FUNCTION__ . '.'
+            ? str_replace('\\', '_',__METHOD__) . '.'
             : $sPrefix
         ;
-        $mResult = tempnam(sys_get_temp_dir(), $sPrefix) . $sSuffix;
+        $mResult = tempnam(sys_get_temp_dir(), $sPrefix);
 
         if (false === $mResult)
         {
             return '';
+        }
+
+        if (false === empty($sSuffix))
+        {
+            rename($mResult, $mResult . $sSuffix);
         }
 
         return $mResult;
