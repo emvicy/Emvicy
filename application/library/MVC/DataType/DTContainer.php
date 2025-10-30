@@ -61,7 +61,7 @@ class DTContainer
     {
         $this->sIdentifier = microtime(true) . '.' . uniqid();
         $this->bSuccess = false;
-        $this->oMessage = ArrDot::create();
+        $this->oMessage = new ArrDot();
         $this->mData = null;
     }
 
