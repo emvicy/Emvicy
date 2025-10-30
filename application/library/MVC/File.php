@@ -77,6 +77,7 @@ class File
 
         return (false === $mMimeType) ? '' : $mMimeType;
     }
+
     /**
      * creates a -temporary- file; returns absolute path to that file
      * @param string $sPrefix optional
