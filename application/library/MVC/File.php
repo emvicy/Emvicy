@@ -87,7 +87,7 @@ class File
     public static function temp(string $sPrefix = '', string $sSuffix = '')
     {
         $sPrefix = (true === empty($sPrefix))
-            ? str_replace('\\', '_',__METHOD__) . '.'
+            ? __FUNCTION__ . '.'
             : $sPrefix
         ;
         $mResult = tempnam(sys_get_temp_dir(), $sPrefix);
@@ -100,6 +100,8 @@ class File
         if (false === empty($sSuffix))
         {
             rename($mResult, $mResult . $sSuffix);
+
+            return $mResult . $sSuffix;
         }
 
         return $mResult;
