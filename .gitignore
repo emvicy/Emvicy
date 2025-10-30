@@ -56,5 +56,7 @@ _gitPush.sh.example
 _phanlistcreate.sh
 _curl.php
 Changelog.md
+gource.sh
+*.mp4
 #**/*.min.css
 #**/*.min.js

@@ -103,11 +103,13 @@ class File
     /**
      * writes data into a -temporary- file; returns absolute path to that file
      * @param mixed|null $mData
+     * @param string $sPrefix optional
+     * @param string $sSuffix optional
      * @return string absolute path to file | empty on fail
      */
-    public static function saveIntoTemp(mixed $mData = null)
+    public static function saveIntoTemp(mixed $mData = null, string $sPrefix = '', string $sSuffix = '')
     {
-        $sTmpFilePdfAbs = self::temp();
+        $sTmpFilePdfAbs = self::temp($sPrefix, $sSuffix);
         $mPut = file_put_contents(
             $sTmpFilePdfAbs,
             $mData
