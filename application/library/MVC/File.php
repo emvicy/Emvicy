@@ -77,4 +77,47 @@ class File
 
         return (false === $mMimeType) ? '' : $mMimeType;
     }
+
+    /**
+     * creates a -temporary- file; returns absolute path to that file
+     * @param string $sPrefix optional
+     * @param string $sSuffix optional
+     * @return string absolute path to file | empty on fail
+     */
+    public static function temp(string $sPrefix = '', string $sSuffix = '')
+    {
+        $sPrefix = (true === empty($sPrefix))
+            ? __FUNCTION__ . '.'
+            : $sPrefix
+        ;
+        $mResult = tempnam(sys_get_temp_dir(), $sPrefix) . $sSuffix;
+
+        if (false === $mResult)
+        {
+            return '';
+        }
+
+        return $mResult;
+    }
+
+    /**
+     * writes data into a -temporary- file; returns absolute path to that file
+     * @param mixed|null $mData
+     * @return string absolute path to file | empty on fail
+     */
+    public static function saveIntoTemp(mixed $mData = null)
+    {
+        $sTmpFilePdfAbs = self::temp();
+        $mPut = file_put_contents(
+            $sTmpFilePdfAbs,
+            $mData
+        );
+
+        if ($mPut === false)
+        {
+            return '';
+        }
+
+        return $sTmpFilePdfAbs;
+    }
 }
