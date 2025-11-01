@@ -16,7 +16,7 @@ class Type_Application_toml
     use TraitMediaType;
 
     /**
-     * @reference [Ben_van_Hartingsveldt][https://github.com/toml-lang/toml/issues/870]
+     * @reference [Ben_van_Hartingsveldt][https://github.com/toml-lang/toml/issues/870][2]
      */
     const DESCRIPTION = 'application/toml';
 }

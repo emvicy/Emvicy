@@ -16,7 +16,7 @@ class Type_Application_toc_cbor
     use TraitMediaType;
 
     /**
-     * @reference [TCG_DICE][Ned_M._Smith]
+     * @reference [TCG DICE][TCG_DICE_WG][Ned_M._Smith]
      */
     const DESCRIPTION = 'application/toc+cbor';
 }

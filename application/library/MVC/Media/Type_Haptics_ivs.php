@@ -16,7 +16,7 @@ class Type_Haptics_ivs
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-mediaman-haptics-05]
+     * @reference [RFC9695]
      */
     const DESCRIPTION = 'haptics/ivs';
 }

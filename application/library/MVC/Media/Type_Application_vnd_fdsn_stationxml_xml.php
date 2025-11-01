@@ -16,7 +16,7 @@ class Type_Application_vnd_fdsn_stationxml_xml
     use TraitMediaType;
 
     /**
-     * @reference [Chad_Trabant]
+     * @reference [International_FDSN]
      */
     const DESCRIPTION = 'application/vnd.fdsn.stationxml+xml';
 }

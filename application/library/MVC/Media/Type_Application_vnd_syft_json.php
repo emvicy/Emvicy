@@ -16,7 +16,7 @@ class Type_Application_vnd_syft_json
     use TraitMediaType;
 
     /**
-     * @reference [Dan_Luhring]
+     * @reference [Dan_Nurmi]
      */
     const DESCRIPTION = 'application/vnd.syft+json';
 }

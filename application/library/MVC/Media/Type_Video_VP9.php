@@ -16,7 +16,7 @@ class Type_Video_VP9
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-payload-vp9-16]
+     * @reference [RFC9628]
      */
     const DESCRIPTION = 'video/VP9';
 }

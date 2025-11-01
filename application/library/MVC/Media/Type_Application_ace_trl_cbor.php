@@ -16,7 +16,7 @@ class Type_Application_ace_trl_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-ace-revoked-token-notification-09]
+     * @reference [RFC9770]
      */
     const DESCRIPTION = 'application/ace-trl+cbor';
 }

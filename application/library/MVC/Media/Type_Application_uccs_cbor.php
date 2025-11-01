@@ -16,7 +16,7 @@ class Type_Application_uccs_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-rats-uccs-12]
+     * @reference [RFC9781]
      */
     const DESCRIPTION = 'application/uccs+cbor';
 }

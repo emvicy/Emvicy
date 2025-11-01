@@ -16,7 +16,7 @@ class Type_Image_png
     use TraitMediaType;
 
     /**
-     * @reference [W3C][PNG_WG]
+     * @reference [W3C][PNG_WG][PNG]
      */
     const DESCRIPTION = 'image/png';
 }
