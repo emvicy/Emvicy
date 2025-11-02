@@ -57,4 +57,26 @@ class Arr
                 : $mData
             );
     }
+
+    /**
+     * changes case keys in a multidimensional array
+     * @param array $aData
+     * @param       $iCase CASE_LOWER|CASE_UPPER; default=CASE_LOWER
+     * @return array|array[]
+     */
+    public static function changeKeyCaseRecursively(array $aData = array(), $iCase = CASE_LOWER)
+    {
+        return array_map(
+            function($mItem) use ($iCase) {
+
+                if (true === is_array($mItem))
+                {
+                    $mItem = self::changeKeyCaseRecursively($mItem, $iCase);
+                }
+
+                return $mItem;
+            },
+            array_change_key_case($aData, $iCase)
+        );
+    }
 }

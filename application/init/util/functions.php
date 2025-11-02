@@ -89,6 +89,7 @@ function ct()
 }
 
 /**
+ * displays the time passed from start until calling this method
  * @return float
  * @throws \ReflectionException
  */
@@ -424,6 +425,7 @@ function parse_str_clean($querystr, &$arr): array
 }
 
 /**
+ * returns an assoc array based on phpinfo information.
  * @return array
  */
 function phpinfo_array()
@@ -432,24 +434,24 @@ function phpinfo_array()
     phpinfo();
     $aInfo = array();
     $aInfoLine = explode("\n", strip_tags(ob_get_clean(), "<tr><td><h2>"));
-    $sCategory = "General";
+    $sCategory = 'General';
 
     foreach ($aInfoLine as $sLine)
     {
         preg_match("~<h2>(.*)</h2>~", $sLine, $sTitle)
-            ? $sCategory = $sTitle[1]
+            ? $sCategory = trim($sTitle[1])
             : null
         ;
 
         if (preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $sLine, $aValue))
         {
-            $aInfo[$sCategory][$aValue[1]] = $aValue[2];
+            $aInfo[$sCategory][trim($aValue[1])] = trim($aValue[2]);
         }
         elseif (preg_match("~<tr><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td><td[^>]+>([^<]*)</td></tr>~", $sLine, $aValue))
         {
-            $aInfo[$sCategory][$aValue[1]] = array("local" => $aValue[2], "master" => $aValue[3]);
+            $aInfo[$sCategory][trim($aValue[1])] = array("local" => trim($aValue[2]), "master" => trim($aValue[3]));
         }
     }
 
-    return $aInfo;
+    return \MVC\Arr::changeKeyCaseRecursively($aInfo);
 }

@@ -16,7 +16,7 @@ use Parsedown;
 class Strings
 {
     /**
-     * removes doubleDot+Slashes (../) from string
+     * removes all doubleDot+Slashes (../) from string
      * @param string $sString
      * @return string
      */
@@ -66,6 +66,7 @@ class Strings
     }
 
     /**
+     * converts markdown syntax into markup
      * @param string $sMarkdown
      * @return string
      */
@@ -90,6 +91,7 @@ class Strings
     }
 
     /**
+     * parse JSON out of a mixed String; returns Array with detected JSON;
      * @param string $sString
      * @param bool   $bReturnValidJsonOnly
      * @return array

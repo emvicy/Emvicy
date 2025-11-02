@@ -291,10 +291,11 @@ class Debug
     }
 
     /**
+     * returns time passed from start until calling this method
      * @return float
      * @throws \ReflectionException
      */
-    public static function constructionTime()
+    public static function constructionTime() : float
     {
         // calc now
         $fMicrotime = microtime(true);

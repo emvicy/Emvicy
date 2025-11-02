@@ -84,7 +84,7 @@ class File
      * @param string $sSuffix optional
      * @return string absolute path to file | empty on fail
      */
-    public static function temp(string $sPrefix = '', string $sSuffix = '')
+    public static function temp(string $sPrefix = '', string $sSuffix = '') : string
     {
         $sPrefix = (true === empty($sPrefix))
             ? __FUNCTION__ . '.'
@@ -114,7 +114,7 @@ class File
      * @param string $sSuffix optional
      * @return string absolute path to file | empty on fail
      */
-    public static function saveIntoTemp(mixed $mData = null, string $sPrefix = '', string $sSuffix = '')
+    public static function saveIntoTemp(mixed $mData = null, string $sPrefix = '', string $sSuffix = '') : string
     {
         $sTmpFilePdfAbs = self::temp($sPrefix, $sSuffix);
         $mPut = file_put_contents(
