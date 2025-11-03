@@ -2,6 +2,7 @@
 
 
 use Emvicy\Emvicy;
+use MVC\Config;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -206,6 +207,36 @@ $oSymfonyComponentConsoleApplication
     ->setDescription($sColCmd . "php emvicy routes:list" . $sColOff . ' => lists available routes in a markdown table')
     ->setCode(function (InputInterface $oInputInterface, OutputInterface $oOutputInterface): int {
         Emvicy::routes('list');
+        return Command::SUCCESS;
+    });
+
+$oSymfonyComponentConsoleApplication
+    ->register('routes:call')
+    ->setAliases(['rtc'])
+    ->setDescription($sColCmd . "php emvicy routes:call " . $sColOff . ' => calls a route. Example: ' . $sColCmd . 'php emvicy rtc /' . $sColOff)
+    ->addArgument('route', InputArgument::REQUIRED)
+    ->setCode(function (InputInterface $oInputInterface, OutputInterface $oOutputInterface): int {
+
+        $sCommand = 'cd ' . Config::get_MVC_PUBLIC_PATH() . '; ' . Config::get_MVC_BIN_PHP_BINARY() . ' index.php "' . $oInputInterface->getArgument('route') . '"';
+        echo shell_exec($sCommand);
+
+        return Command::SUCCESS;
+    });
+
+$oSymfonyComponentConsoleApplication
+    ->register('routes:call-non-blocking')
+    ->setAliases(['rtcnb'])
+    ->setDescription($sColCmd . "php emvicy routes:call-non-blocking" . $sColOff . ' => calls a route non-blocking. Example: ' . $sColCmd . 'php emvicy rtcnb /' . $sColOff)
+    ->addArgument('route', InputArgument::REQUIRED)
+    ->setCode(function (InputInterface $oInputInterface, OutputInterface $oOutputInterface): int {
+
+        $iPid = \MVC\Process::callRoute(
+            sRoute: $oInputInterface->getArgument('route')
+        );
+        nl();
+        echo 'Called Route: ' . $oInputInterface->getArgument('route') . "\n" . 'PID: ' . $iPid;
+        nl(2);
+
         return Command::SUCCESS;
     });
 
