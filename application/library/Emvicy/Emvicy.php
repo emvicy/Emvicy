@@ -1291,8 +1291,6 @@ class Emvicy
 
         Route::init();
         $aIndex = Route::$aMethodRoute;
-        dump($aIndex);
-
 
         if (true === empty($aIndex))
         {
