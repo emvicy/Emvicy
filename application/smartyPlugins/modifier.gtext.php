@@ -2,18 +2,22 @@
 
 /**
  * This Smarty modifier helps instantly translating Strings into other Languages using the PHP Extension 'gettext'
- * @author Guido K.B.W. Üffing <info ueffing net>
- * @license GNU GENERAL PUBLIC LICENSE Version 3
- * @require gettext extension, ext-intl
- * @example
- *      {'Frontend'|gtext:backend}
- *      {'Frontend'|gtext:backend:de_DE}
- * @see https://blog.ueffing.net/post/2013/07/19/php-smarty-a-modifier-for-internationalization-tool-gettext/
  * @param string $sString String to be translated
  * @param string $sDomain e.g. "backend"; means the File (backend.mo) which will be consulted for Translation
  * @param string $sLang Translation into a certain Language, e.g. "de_DE"
  * @return string translated String
  * @throws \ReflectionException
+ * @license GNU GENERAL PUBLIC LICENSE Version 3
+ * @require
+ *         installed
+ *              gettext extension, ext-intl
+ *         Config Settings
+ *              $aConfig['APP'] = array('GETTEXT' => '/var/www/App/languages', 'LANG' => 'de_DE');
+ * @example
+ *      {'Frontend'|gtext:'backend'}
+ *      {'Frontend'|gtext:'backend':'de_DE'}
+ * @see https://blog.ueffing.net/post/2013/07/19/php-smarty-a-modifier-for-internationalization-tool-gettext/
+ * @author Guido K.B.W. Üffing <info ueffing net>
  */
 function smarty_modifier_gtext(string $sString = '', string $sDomain = 'term', string $sLang = '') : string
 {

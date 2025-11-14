@@ -2,13 +2,17 @@
 
 /**
  * converts eurocent into euro (1000 => 10,00 €)
- * @example {$aData|centToEuro}
- *          {$aData|centToEuro:false} # Do not display the euro symbol
  * @param int  $iValue
  * @param bool $bShowEuroSymbol
  * @return string
+ * @license   GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
+ * @package   Emvicy
+ * @copyright ueffing.net
+ * @author    Guido K.B.W. Üffing <emvicy@ueffing.net>
+ * @example {1000|centToEuro}
+ *          {1000|centToEuro:false} # Do not display the euro symbol
  */
-function smarty_modifier_centToEuro(mixed $iValue = 0, bool $bShowEuroSymbol = true)
+function smarty_modifier_centToEuro(mixed $iValue = 0, bool $bShowEuroSymbol = true) : string
 {
     if (true === empty($iValue))
     {
