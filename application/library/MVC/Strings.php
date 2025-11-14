@@ -66,11 +66,22 @@ class Strings
     }
 
     /**
-     * converts markdown syntax into markup
+     * @deprecated use instead: \MVC\Strings::parsedown()
+     * converts "markdown" syntax into markup
      * @param string $sMarkdown
      * @return string
      */
     public static function markdown(string $sMarkdown) : string
+    {
+        return self::parsedown($sMarkdown);
+    }
+
+    /**
+     * converts "markdown" syntax into markup
+     * @param string $sMarkdown
+     * @return string
+     */
+    public static function parsedown(string $sMarkdown) : string
     {
         return Parsedown::instance()->text($sMarkdown);
     }
@@ -422,34 +433,89 @@ class Strings
     }
 
     /**
+     * @deprecated use instead: Strings::random()
      * creates a password
-     * @param int    $iMaxLength default=15; maximum=57
-     * @param string $sCharSpecial default='#*!$.'
+     * @param int    $iLength               default=15 (minimum is 4)
+     * @param string $sCharSpecial          default='#*!$.'
+     * @param int    $iMandatoryStringLower amount of mandatory lower strings
+     * @param int    $iMandatoryStringUpper amount of mandatory upper strings
+     * @param int    $iMandatoryInt         amount of mandatory int
+     * @param int    $iMandatorySpecial     amount of mandatory special chars
+     * @param string $sCharLower            default='abcdefghijklmnopqrstuvwxyz'
+     * @param string $sCharUpper            default='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+     * @param string $sCharInt              default='123467890'
      * @return string
      */
-    public static function createPassword(int $iMaxLength = 15, string $sCharSpecial = '#*!$.') : string
+    public static function createPassword(
+        int $iLength = 15,
+        string $sCharSpecial = '#*!$.',
+        int $iMandatoryStringLower = 1,
+        int $iMandatoryStringUpper = 1,
+        int $iMandatoryInt = 1,
+        int $iMandatorySpecial = 1,
+        string $sCharLower = 'abcdefghijklmnopqrstuvwxyz',
+        string $sCharUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        string $sCharInt = '123467890'
+    ) : string
     {
-        $sCharLower = 'abcdefghijklmnopqrstuvwxyz';
-        $sCharUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $sCharInt = '123467890';
+        return self::random($iLength, $sCharSpecial, $iMandatoryStringLower, $iMandatoryStringUpper, $iMandatoryInt, $iMandatorySpecial, $sCharLower, $sCharUpper, $sCharInt);
+    }
 
+    /**
+     * creates a random string
+     * @param int    $iLength               default=16 (minimum is 4)
+     * @param string $sCharSpecial          default='#*!$.'
+     * @param int    $iMandatoryStringLower amount of mandatory lower strings
+     * @param int    $iMandatoryStringUpper amount of mandatory upper strings
+     * @param int    $iMandatoryInt         amount of mandatory int
+     * @param int    $iMandatorySpecial     amount of mandatory special chars
+     * @param string $sCharLower            default='abcdefghijklmnopqrstuvwxyz'
+     * @param string $sCharUpper            default='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+     * @param string $sCharInt              default='123467890'
+     * @return string
+     */
+    public static function random(
+        int $iLength = 16,
+        string $sCharSpecial = '#*!$.',
+        int $iMandatoryStringLower = 1,
+        int $iMandatoryStringUpper = 1,
+        int $iMandatoryInt = 1,
+        int $iMandatorySpecial = 1,
+        string $sCharLower = 'abcdefghijklmnopqrstuvwxyz',
+        string $sCharUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+        string $sCharInt = '123467890'
+    ) : string
+    {
         // each special char only once
         $sCharSpecial = count_chars($sCharSpecial, 3);
 
+        // fallbacks
         (true === empty($sCharSpecial)) ? $sCharSpecial = '#*!$.' : false;
+        ($iLength < 4) ? $iLength = 4 : false;
+        (true === empty($sCharLower)) ? $sCharLower = 'abcdefghijklmnopqrstuvwxyz' : false;
+        (true === empty($sCharUpper)) ? $sCharUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : false;
+        (true === empty($sCharInt)) ? $sCharInt = '123467890' : false;
 
-        // first 4 chars; make sure at least one of each lower, upper, int, special char is contained
-        $sStringPre = str_shuffle(
-            substr(str_shuffle($sCharLower), 0, 1) .
-            substr(str_shuffle($sCharUpper), 0, 1) .
-            substr(str_shuffle($sCharSpecial), 0, 1) .
-            substr(str_shuffle($sCharInt), 0, 1)
-        );
+        // auto correct
+        if (($iMandatoryStringLower + $iMandatoryStringUpper + $iMandatoryInt + $iMandatorySpecial) > $iLength)
+        {
+            $iMandatoryStringLower = $iMandatoryStringUpper = $iMandatoryInt = $iMandatorySpecial = 1;
+        }
 
-        $sHash = substr(password_hash(str_shuffle($sCharLower . $sCharInt . $sCharSpecial . $sCharUpper),PASSWORD_DEFAULT), 7);
-        $sString = $sStringPre . $sHash;
-        $sString = substr($sString, 0, $iMaxLength);
+        $sLower = '';   while (strlen($sLower) < $iMandatoryStringLower)    { $sLower.=     substr(str_shuffle($sCharLower), 0, $iMandatoryStringLower); }  $sLower =   substr($sLower, 0, $iMandatoryStringLower);
+        $sUpper = '';   while (strlen($sUpper) < $iMandatoryStringUpper)    { $sUpper.=     substr(str_shuffle($sCharUpper), 0, $iMandatoryStringUpper); }  $sUpper =   substr($sUpper, 0, $iMandatoryStringUpper);
+        $sInt = '';     while (strlen($sInt) < $iMandatoryInt)              { $sInt.=       substr(str_shuffle($sCharInt), 0, $iMandatoryInt); }            $sInt =     substr($sInt, 0, $iMandatoryInt);
+        $sSpecial = ''; while (strlen($sSpecial) < $iMandatorySpecial)      { $sSpecial.=   substr(str_shuffle($sCharSpecial), 0, $iMandatorySpecial); }    $sSpecial = substr($sSpecial, 0, $iMandatorySpecial);
+        $sStringMandatory = $sLower . $sUpper . $sInt . $sSpecial;
 
-        return str_shuffle($sString);
+        while (strlen($sString) < $iLength)
+        {
+            $sString.= substr(password_hash($sStringMandatory, PASSWORD_DEFAULT), 7);
+        }
+
+        $sString = substr($sStringMandatory . $sString, 0, $iLength);
+        $sString = str_shuffle($sString);
+
+        return $sString;
     }
 }

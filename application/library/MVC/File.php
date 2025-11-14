@@ -129,4 +129,28 @@ class File
 
         return $sTmpFilePdfAbs;
     }
+
+    /**
+     * Checks whether a URL or file exists and is therefore available.
+     * @param string $sResource URL or File
+     * @return bool
+     */
+    public static function isAvailable(string $sResource = '') : bool
+    {
+        $bAvailable = false;
+
+        // url
+        if (filter_var($sResource, FILTER_VALIDATE_URL))
+        {
+            $mHeader = @get_headers($sResource);
+            $bAvailable = (boolean) strpos(($mHeader[0] ?? ''), '200');
+        }
+        // file
+        elseif (true === file_exists($sResource))
+        {
+            $bAvailable = true;
+        }
+
+        return $bAvailable;
+    }
 }
