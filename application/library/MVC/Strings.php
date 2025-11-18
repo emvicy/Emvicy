@@ -83,7 +83,15 @@ class Strings
      */
     public static function parsedown(string $sMarkdown) : string
     {
-        return Parsedown::instance()->text($sMarkdown);
+        $sMarkup = Parsedown::instance()->text($sMarkdown);
+
+        $sStart = '<p>';
+        $sEnd = '</p>';
+
+        (true === str_starts_with($sMarkup, $sStart)) ? $sMarkup = substr($sMarkup, strlen($sStart)) : false;
+        (true === str_ends_with($sMarkup, $sEnd)) ? $sMarkup = substr($sMarkup, 0, (strlen($sMarkup) - strlen($sEnd))) : false;
+
+        return $sMarkup;
     }
 
     /**
