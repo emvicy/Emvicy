@@ -461,10 +461,12 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
             return DTRoute::create();
         }
 
+        $sRegistryKey = __FUNCTION__ . '.' . $sTag;
+
         // only once at runtime
-        if (true === $bCacheAtRuntime && true === Registry::isRegistered(__FUNCTION__ . '.' . $sTag))
+        if (true === $bCacheAtRuntime && true === Registry::isRegistered($sRegistryKey))
         {
-            return Registry::get(__FUNCTION__ . '.' . $sTag);
+            return Registry::get($sRegistryKey);
         }
 
         // only once at runtime
@@ -482,9 +484,19 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
             array_column($aRoute, 'tag')
         );
 
+        if (false === $iKey)
+        {
+            if (true === $bCacheAtRuntime)
+            {
+                Registry::set($sRegistryKey, DTRoute::create());
+            }
+
+            return DTRoute::create();
+        }
+
         if (true === $bCacheAtRuntime)
         {
-            Registry::set(__FUNCTION__ . '.' . $sTag, self::$aRoute[array_keys($aRoute)[$iKey]]);
+            Registry::set($sRegistryKey, self::$aRoute[array_keys($aRoute)[$iKey]]);
         }
 
         return self::$aRoute[array_keys($aRoute)[$iKey]];
