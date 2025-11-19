@@ -24,32 +24,35 @@ class Application
      * @throws \DateMalformedStringException
      * @throws \ReflectionException
      */
-    public function __construct()
+    public function __construct(bool $bInit = true)
     {
-        // get config via global
-        // write configs into registry
-        Config::init($GLOBALS['aConfig']);
-
-        // Event Procedures of current module
-        Event::init();
-
-        // handle Errors
-        Error::init();
-
-        // Caching
-        Cache::init();
-
-        // add a CLI wrapper to enable requests from command line
-        if (true === Config::get_MVC_CLI())
+        if (true === $bInit)
         {
-            self::cliWrapper();
+            // get config via global
+            // write configs into registry
+            Config::init($GLOBALS['aConfig']);
+
+            // Event Procedures of current module
+            Event::init();
+
+            // handle Errors
+            Error::init();
+
+            // Caching
+            Cache::init();
+
+            // add a CLI wrapper to enable requests from command line
+            if (true === Config::get_MVC_CLI())
+            {
+                self::cliWrapper();
+            }
+
+            // Routing
+            Route::init();
+
+            // Policy Rules
+            Policy::init();
         }
-
-        // Routing
-        Route::init();
-
-        // Policy Rules
-        Policy::init();
 
         // Run target Controller's __preconstruct()
         Controller::runTargetClassPreconstruct();

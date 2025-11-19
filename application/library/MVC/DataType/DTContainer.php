@@ -10,7 +10,6 @@ use MVC\ArrDot;
 use MVC\Convert;
 
 /**
- * @experimental
  * @example
  * $oDTContainer = DTContainer::create()
    * ->set_bSuccess(false)
@@ -22,7 +21,6 @@ use MVC\Convert;
    * ;
    * info($oDTContainer->get_Message()->get(E_USER_NOTICE));
  */
-#[experimental]
 #[\Attribute]
 class DTContainer
 {
