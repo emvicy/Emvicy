@@ -865,37 +865,6 @@ class DataType
     }
 
     /**
-     * @param mixed $mObject
-     * @return array
-     */
-    private function convertObjectToArray($mObject)
-    {
-        (is_object($mObject))
-            ? $mObject = (array)$mObject
-            : false;
-
-        if (is_array($mObject))
-        {
-            $aNew = array();
-
-            foreach ($mObject as $sKey => $mValue)
-            {
-                $sFirstChar = trim(substr(trim($sKey), 0, 1));
-                (('*' === $sFirstChar))
-                    ? $sKey = trim(substr(trim($sKey), 1))
-                    : false;
-                $aNew[$sKey] = $this->convertObjectToArray($mValue);
-            }
-        }
-        else
-        {
-            $aNew = $mObject;
-        }
-
-        return $aNew;
-    }
-
-    /**
      * @param \MVC\DataType\DTProperty $oProperty
      * @param string                   $sClassName
      * @return string
@@ -1057,6 +1026,6 @@ class DataType
      */
     private function writeInto($sFile = '', string $sContent = '')
     {
-        return (bool)file_put_contents($sFile, $sContent . PHP_EOL, FILE_APPEND);
+        return (bool) file_put_contents($sFile, $sContent . PHP_EOL, FILE_APPEND);
     }
 }
