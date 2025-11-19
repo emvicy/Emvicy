@@ -1117,7 +1117,7 @@ class Emvicy
         if (true === empty($bNewline))
         {
             $bNewline = (false === empty(($_GET['nl'] ?? null)))
-                ? (boolean) ($_GET['nl'] ?? null)
+                ? (bool) ($_GET['nl'] ?? null)
                 : false
             ;
         }

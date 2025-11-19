@@ -100,7 +100,7 @@ class Minify
         $sContent = JSMin::minify(file_get_contents($oSplFileInfo->getPathname()));
         $aPathInfo = pathinfo($oSplFileInfo->getPathname());
 
-        return (boolean) file_put_contents(
+        return (bool) file_put_contents(
             $aPathInfo['dirname'] . '/' . $aPathInfo['filename'] . '.min.js',
             $sContent
         );
@@ -131,7 +131,7 @@ class Minify
 
         $aPathInfo = pathinfo($oSplFileInfo->getPathname());
 
-        return (boolean) file_put_contents(
+        return (bool) file_put_contents(
             $aPathInfo['dirname'] . '/' . $aPathInfo['filename'] . '.min.css',
             $sContent
         );

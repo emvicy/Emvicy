@@ -88,7 +88,7 @@ trait TraitDataType
                 }
                 elseif ('bool' === $sTypeFirst || 'boolean' === $sTypeFirst)
                 {
-                    $aData[$sKey] = (boolean) $aData[$sKey];
+                    $aData[$sKey] = (bool) $aData[$sKey];
                 }
                 elseif ('float' === $sTypeFirst)
                 {

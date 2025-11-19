@@ -24,7 +24,7 @@
             }
             elseif ('bool' === $sType || 'boolean' === $sType)
             {
-                $aData[$sKey] = (boolean) $aData[$sKey];
+                $aData[$sKey] = (bool) $aData[$sKey];
             }
             elseif ('float' === $sType)
             {

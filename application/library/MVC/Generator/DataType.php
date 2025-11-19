@@ -200,7 +200,7 @@ class DataType
         ;
         $sCacheKey = preg_replace('/[^a-zA-Z0-9\.]+/', '_', trim(__CLASS__) . '.' . $sMd5);
         $bUnlinkDir = ('' !== $oDTDataTypeGeneratorConfig->get_unlinkDir())
-            ? (boolean) $oDTDataTypeGeneratorConfig->get_unlinkDir()
+            ? (bool) $oDTDataTypeGeneratorConfig->get_unlinkDir()
             : false;
 
         if ($sCacheKey != Cache::getCache($sCacheKey))
@@ -1057,6 +1057,6 @@ class DataType
      */
     private function writeInto($sFile = '', string $sContent = '')
     {
-        return (boolean)file_put_contents($sFile, $sContent . PHP_EOL, FILE_APPEND);
+        return (bool)file_put_contents($sFile, $sContent . PHP_EOL, FILE_APPEND);
     }
 }

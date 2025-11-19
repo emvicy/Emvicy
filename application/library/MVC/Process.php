@@ -183,7 +183,7 @@ class Process
         }
 
         // save pidfile containing JSON $mContent
-        return (boolean) file_put_contents(self::getPidFileFolder() . $iPid, json_encode(Convert::objectToArray($mContent)));
+        return (bool) file_put_contents(self::getPidFileFolder() . $iPid, json_encode(Convert::objectToArray($mContent)));
     }
 
     /**

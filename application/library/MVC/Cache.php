@@ -208,10 +208,10 @@ class Cache
                 $mRemove = shell_exec($sCmd);
             }
 
-            return (boolean) $mRemove;
+            return (bool) $mRemove;
         }
 
-        return (boolean) $mFind;
+        return (bool) $mFind;
     }
 
     /**
@@ -232,6 +232,6 @@ class Cache
         $sCmd = self::$sBinRemove . ' -rf ' . self::$sCacheDir . '/*';
         $mResult = shell_exec($sCmd);
 
-        return (boolean) $mResult;
+        return (bool) $mResult;
     }
 }

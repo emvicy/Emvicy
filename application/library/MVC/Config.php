@@ -41,7 +41,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_AUTOLOADER'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_AUTOLOADER'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_AUTOLOADER'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return true;
@@ -370,7 +370,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_PROCESS'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_PROCESS'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_PROCESS'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return true;
@@ -394,7 +394,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_QUEUE'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_QUEUE'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_QUEUE'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return true;
@@ -418,7 +418,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_CRON'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_CRON'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_CRON'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return true;
@@ -550,7 +550,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_SECURE_REQUEST'))
         {
-            return (boolean) filter_var(Registry::get('MVC_SECURE_REQUEST'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_SECURE_REQUEST'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -635,7 +635,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_SESSION_ENABLE'))
         {
-            return (boolean) filter_var(Registry::get('MVC_SESSION_ENABLE'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_SESSION_ENABLE'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -659,7 +659,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_CLI'))
         {
-            return (boolean) filter_var(Registry::get('MVC_CLI'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_CLI'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -673,7 +673,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_SMARTY_CACHE_STATUS'))
         {
-            return (boolean) filter_var(Registry::get('MVC_SMARTY_CACHE_STATUS'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_SMARTY_CACHE_STATUS'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -863,7 +863,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_INFOTOOL_ENABLE'))
         {
-            return (boolean) filter_var(Registry::get('MVC_INFOTOOL_ENABLE'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_INFOTOOL_ENABLE'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1197,7 +1197,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_EVENT_RUN'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_EVENT_RUN'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_EVENT_RUN'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1221,7 +1221,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_EVENT_ENABLE_WILDCARD'))
         {
-            return (boolean) filter_var(Registry::get('MVC_EVENT_ENABLE_WILDCARD'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_EVENT_ENABLE_WILDCARD'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1245,7 +1245,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_REQUEST'))
         {
-            return (boolean) Registry::get('MVC_LOG_REQUEST');
+            return (bool) Registry::get('MVC_LOG_REQUEST');
         }
 
         return false;
@@ -1365,7 +1365,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_SQL'))
         {
-            return (boolean) Registry::get('MVC_LOG_SQL');
+            return (bool) Registry::get('MVC_LOG_SQL');
         }
 
         return false;
@@ -1460,7 +1460,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_EVENT'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_EVENT'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_EVENT'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1489,7 +1489,7 @@ class Config
 
         if (Registry::isRegistered('MVC_LOG_DEFAULT'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_DEFAULT'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_DEFAULT'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1513,7 +1513,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_ERROR'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_ERROR'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_ERROR'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1537,7 +1537,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_WARNING'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_WARNING'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_WARNING'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1561,7 +1561,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_NOTICE'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_NOTICE'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_NOTICE'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1585,7 +1585,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_POLICY'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_POLICY'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_POLICY'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;
@@ -1609,7 +1609,7 @@ class Config
     {
         if (Registry::isRegistered('MVC_LOG_ROUTEINTERVALL'))
         {
-            return (boolean) filter_var(Registry::get('MVC_LOG_ROUTEINTERVALL'), FILTER_VALIDATE_BOOLEAN);
+            return (bool) filter_var(Registry::get('MVC_LOG_ROUTEINTERVALL'), FILTER_VALIDATE_BOOLEAN);
         }
 
         return false;

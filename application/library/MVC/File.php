@@ -143,7 +143,7 @@ class File
         if (filter_var($sResource, FILTER_VALIDATE_URL))
         {
             $mHeader = @get_headers($sResource);
-            $bAvailable = (boolean) strpos(($mHeader[0] ?? ''), '200');
+            $bAvailable = (bool) strpos(($mHeader[0] ?? ''), '200');
         }
         // file
         elseif (true === file_exists($sResource))
