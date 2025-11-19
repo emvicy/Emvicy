@@ -41,7 +41,6 @@ class Index extends Master
     public function __construct(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute)
     {
         parent::__construct($oDTRequestIn, $oDTRoute);
-
         Menu::build(
             Config::MODULE()['Menu'],
             bGetPropertiesFromRouteOnTag: true,

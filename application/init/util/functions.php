@@ -455,3 +455,13 @@ function phpinfo_array()
 
     return \MVC\Arr::changeKeyCaseRecursively($aInfo);
 }
+
+/**
+ * @param string $sTag
+ * @return string
+ * @throws \ReflectionException
+ */
+function href(string $sTag = '')
+{
+    return \MVC\Route::getOnTag($sTag)->get_path();
+}
