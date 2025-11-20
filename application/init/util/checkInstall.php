@@ -40,6 +40,7 @@ class MyMVCInstaller
 	/**
 	 * Constructor
      * @param array $aConfig
+     * @throws \ReflectionException
      */
 	public function __construct (array $aConfig = array())
 	{
