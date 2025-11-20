@@ -14,7 +14,7 @@ $sColOff = "\033[0m";
 #-----------------------------
 
 \MVC\Application::setServerVarsForCli();
-$oSymfonyComponentConsoleApplication = new Application('Emvicy', '2.x');
+$oSymfonyComponentConsoleApplication = new Application('Emvicy', '3.x');
 
 #---
 
