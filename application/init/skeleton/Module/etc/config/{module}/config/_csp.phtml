@@ -14,7 +14,7 @@ $aConfig['MODULE']['{module}']['CSP']['Content-Security-Policy'] = "default-src 
                                                               . "script-src 'self' 'unsafe-inline';"
                                                               . "style-src 'self' 'unsafe-inline';"
                                                               . "img-src 'self' blob: data: ;"
-                                                              . "connect-src 'self';"
+                                                              . "connect-src 'self' wss://" . $_SERVER['SERVER_NAME'] . ":8000;"
                                                               . "font-src 'self';"
                                                               . "object-src 'none';"
                                                               . "media-src 'self';"
