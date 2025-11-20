@@ -14,7 +14,6 @@
 namespace {module}\Controller\Regular;
 
 use App\Controller;
-use MVC\Request;
 use MVC\DataType\DTRequestIn;
 use MVC\DataType\DTRoute;
 use MVC\Http\Header;
@@ -44,7 +43,7 @@ class Master extends Controller
     public function __construct(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute)
     {
         parent::__construct($oDTRequestIn, $oDTRoute);
-        view()->assign('sHost', Request::in()->get_protocol() . Request::in()->get_host());
+        view();
         Header::init()->ContentSecurityPolicy();
     }
 
