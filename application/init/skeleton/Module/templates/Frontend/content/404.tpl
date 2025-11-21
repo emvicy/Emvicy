@@ -13,10 +13,11 @@
         {* @see https://getbootstrap.com/docs/5.3/examples/cheatsheet/ *}
         <div class="container py-4 shadow bg-white padding20">
             <div class="text-center">
-                <h1 class="text-danger">404 - Not found</h1>
+                <h1 id="h1Title" class="text-danger">404 - Not found</h1>
                 <p>
                     the source you requested can not be found
                 </p>
+                {include file="Frontend/parts/see_documentation.tpl"}
             </div>
             <br>
             {include file="Frontend/content/_info.tpl"}

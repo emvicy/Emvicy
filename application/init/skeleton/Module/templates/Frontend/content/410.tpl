@@ -1,5 +1,5 @@
 <!doctype html>{* @see https://getbootstrap.com/docs/5.3/getting-started/introduction/ *}
-<!--403.tpl-->
+<!--410.tpl-->
 <html lang="en">
     <head>
         {include file="Frontend/layout/_head.tpl"}
@@ -13,9 +13,9 @@
         {* @see https://getbootstrap.com/docs/5.3/examples/cheatsheet/ *}
         <div class="container py-4 shadow bg-white padding20">
             <div class="text-center">
-                <h1 id="h1Title" class="text-danger">403 - Forbidden</h1>
+                <h1 id="h1Title" class="text-danger">410 - Gone</h1>
                 <p>
-                    You don't have permission to access the requested document
+                    the source you requested does not exist anymore
                 </p>
                 {include file="Frontend/parts/see_documentation.tpl"}
             </div>

@@ -6,21 +6,19 @@
  *      Route::Tag
  * ]
  */
-$aConfig['MODULE']['{module}']['Menu'] = [
+$aConfig['MODULE']['Foo']['Menu'] = [
 
     // Name
     'frontend' => [
+        'user',
+        'imprint',
+        'privacyPolicy',
+        'info',
         'PullDown Menu' => [ # Array key names can also be freely assigned and do not need to correspond to an existing tag
              'info',
-             '403',
-             '404',
+             'user',
              'imprint',
              'privacyPolicy',
         ],
-        'info',
-        '403',
-        '404',
-        'imprint',
-        'privacyPolicy',
     ],
 ];

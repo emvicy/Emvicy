@@ -1,23 +1,52 @@
-
 <div class="row padding20">
     <table class="col-md-12 small table table-hover table-borderless table-sm">
+        {if 'true' === getenv('IS_DDEV_PROJECT')}
+
+            <tr>
+                <td width="200">
+                    phpMyAdmin
+                </td>
+                <td>
+                    <a href="{$sHost}:8037/" target="_blank">{$sHost}:8037/</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Mailpit
+                </td>
+                <td>
+                    <a href="{$sHost}:8026/" target="_blank">{$sHost}:8026/</a>
+                </td>
+            </tr>
+        {/if}
+        <!---------------------------->
         <tr>
+            <td>Demonstration</td>
             <td>
-                <a href="https://emvicy2x.ddev.site:8037/" target="_blank">https://emvicy2x.ddev.site:8037/</a>
+                An API Endpoint <a href="{href('api')}" target="_blank">{href('api')}</a>
             </td>
         </tr>
         <tr>
+            <td>&nbsp;</td>
             <td>
-                <a href="https://emvicy2x.ddev.site/api/" target="_blank">https://emvicy2x.ddev.site/api/</a>
+                Downloading a file <a href="{href('download')}">{href('download')}</a>
             </td>
         </tr>
         <tr>
+            <td>&nbsp;</td>
             <td>
-                <a href="https://emvicy2x.ddev.site/download/">https://emvicy2x.ddev.site/download/</a>
+                Redirect Path <a href="/impressum/">/impressum/</a> => to => <a href="/imprint/">/imprint/</a>
             </td>
         </tr>
         <tr>
-            <td>module's Directory</td><td><code>{MVC\Config::get_MVC_MODULE_PRIMARY_DIR()}</code></td>
+            <td>&nbsp;</td>
+            <td>
+                Error Sites <a href="{href('403')}">403</a>, <a href="{href('404')}">404</a>, <a href="{href('410')}">410</a>
+            </td>
+        </tr>
+        <!---------------------------->
+        <tr>
+            <td width="200">module's Directory</td><td><code>{MVC\Config::get_MVC_MODULE_PRIMARY_DIR()}</code></td>
         </tr>
         <tr>
             <td>Controller</td><td><code>{MVC\Route::getCurrent()->get_query()}</code></td>
@@ -32,11 +61,32 @@
             <td>smarty caching active</td><td><code>{MVC\Convert::boolToString(MVC\Config::get_MVC_MODULE_PRIMARY_VIEW()->caching)}</code></td>
         </tr>
         <tr>
-            <td colspan="2">
-                Date/time: <kbd class="text-bg-light">{$smarty.now|dateformat:"Y-m-d H:i:s"}</kbd>
+            <td>Device Pixel Ratio</td><td><div id="oDevicePixelRatio"></div></td>
+        </tr>
+        <tr>
+            <td>
+                Date/time
+            </td>
+            <td>
+                creation: <kbd class="text-bg-light">{$smarty.now|dateformat:"Y-m-d H:i:s"}</kbd>
                 <br>
-                Date/time: with <code>{ldelim}nocache{rdelim}</code>: <kbd class="text-bg-light">{nocache}{$smarty.now|dateformat:"Y-m-d H:i:s"}{/nocache}</kbd>
+                current: <code>{ldelim}nocache{rdelim}</code>: <kbd class="text-bg-light">{nocache}{$smarty.now|dateformat:"Y-m-d H:i:s"}{/nocache}</kbd>
             </td>
         </tr>
     </table>
 </div>
+<script>
+    {literal}
+    let remove = null;
+    const oDevicePixelRatio = document.querySelector("#oDevicePixelRatio");
+    const updatePixelRatio = () => {
+        remove?.();
+        const mqString = `(resolution: ${window.devicePixelRatio}dppx)`;
+        const media = matchMedia(mqString);
+        media.addEventListener("change", updatePixelRatio);
+        remove = () => {media.removeEventListener("change", updatePixelRatio);};
+        oDevicePixelRatio.textContent = `${window.devicePixelRatio} dppx`;
+    };
+    updatePixelRatio();
+    {/literal}
+</script>

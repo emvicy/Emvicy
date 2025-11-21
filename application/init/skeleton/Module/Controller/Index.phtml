@@ -20,6 +20,7 @@ use MVC\DataType\DTRequestIn;
 use MVC\DataType\DTRoute;
 use MVC\Http\Status_Forbidden_403;
 use MVC\Http\Status_Not_Found_404;
+use MVC\Http\Status_Gone_410;
 
 
 class Index extends Master
@@ -101,6 +102,18 @@ class Index extends Master
     public function notFound(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute)
     {
         Status_Not_Found_404::header();
+        view()->autoAssign();
+    }
+
+    /**
+     * @param \MVC\DataType\DTRequestIn $oDTRequestIn
+     * @param \MVC\DataType\DTRoute     $oDTRoute
+     * @return void
+     * @throws \ReflectionException
+     */
+    public function gone(DTRequestIn $oDTRequestIn, DTRoute $oDTRoute)
+    {
+        Status_Gone_410::header();
         view()->autoAssign();
     }
 
