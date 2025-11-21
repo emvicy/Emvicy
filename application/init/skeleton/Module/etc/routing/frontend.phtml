@@ -66,15 +66,58 @@ $oDTRoutingAdditional = \{module}\DataType\DTRoutingAdditional::create()
     mOptional: clone $oDTRoutingAdditional->set_sTitle('phpinfo()')->set_sTemplate('Frontend/content/info.tpl'),
     sTag: 'info',
 );
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+/*
+ * Redirects
+ */
+$aRedirect = array(
+    '/impressum/' => array('sLocation' => '/imprint/', 'iResponseCode' => 301),
+);
+
+if (true === isset($aRedirect[\MVC\Request::in()->get_path()]))
+{
+    \MVC\RequestHelper::redirect(
+        sLocation: $aRedirect[\MVC\Request::in()->get_path()]['sLocation'],
+        bReplace: ($aRedirect[\MVC\Request::in()->get_path()]['bReplace'] ?? true),
+        iResponseCode: ($aRedirect[\MVC\Request::in()->get_path()]['iResponseCode'] ?? 302),
+    );
+}
+
+/*
+ * 403
+ */
 \MVC\Route::any(
     sPath: '/403/',
     sClassMethod: '\{module}\Controller\Index::forbidden',
-    mOptional: clone $oDTRoutingAdditional->set_sTitle('403')->set_sTemplate('Frontend/content/403.tpl'),
+    mOptional: clone $oDTRoutingAdditional->set_sTitle('403 - Forbidden')->set_sTemplate('Frontend/content/403.tpl'),
     sTag: '403',
 );
+
+/*
+ * 404
+ */
 \MVC\Route::any(
     sPath: '/404/',
     sClassMethod: '\{module}\Controller\Index::notFound',
-    mOptional: clone $oDTRoutingAdditional->set_sTitle('404')->set_sTemplate('Frontend/content/404.tpl'),
+    mOptional: clone $oDTRoutingAdditional->set_sTitle('404 - Not Found')->set_sTemplate('Frontend/content/404.tpl'),
     sTag: '404',
 );
+
+/*
+ * 410
+ */
+$aGone = array(
+    '/gone/',
+);
+
+foreach ($aGone as $sGone)
+{
+    \MVC\Route::any(
+        sPath: $sGone,
+        sClassMethod: '\{module}\Controller\Index::gone',
+        mOptional: clone $oDTRoutingAdditional->set_sTitle('410 - Gone')->set_sTemplate('Frontend/content/410.tpl'),
+        sTag: '410',
+    );
+}

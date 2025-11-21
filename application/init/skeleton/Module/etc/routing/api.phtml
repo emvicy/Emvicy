@@ -1,4 +1,12 @@
 <?php
 
-\MVC\Route::any(sPath: '/api/', sClassMethod: '\{module}\Controller\Api\Api::index');
-\MVC\Route::any(sPath: '/download/', sClassMethod: '\{module}\Controller\Api\Api::download');
+\MVC\Route::any(
+    sPath: '/api/',
+    sClassMethod: '\{module}\Controller\Api\Api::index',
+    sTag: 'api'
+);
+\MVC\Route::any(
+    sPath: '/download/',
+    sClassMethod: '\{module}\Controller\Api\Api::download',
+    sTag: 'download'
+);
