@@ -42,6 +42,8 @@ $aConfig['MVC_INFOTOOL_ENABLE'] = true;         // recommended to set to true fo
 $sUniqueId = preg_replace("/[^[:alnum:]]/ui", '', (array_change_key_case(getallheaders(), CASE_LOWER)['mvc-unique-id'] ?? ''));
 (false === empty($sUniqueId)) ? $aConfig['MVC_UNIQUE_ID'] = $sUniqueId : false;
 
+// smarty caching status
+$aConfig['MVC_SMARTY_CACHE_STATUS'] = false;
 
 //######################################################################################################################
 // Module {module}

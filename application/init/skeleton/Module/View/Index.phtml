@@ -31,7 +31,7 @@ class Index extends View
     {
         parent::__construct();
 
-        $this->caching = true;
+        $this->caching = \MVC\Config::get_MVC_SMARTY_CACHE_STATUS();
         $this->registerForSmarty();
     }
 
