@@ -31,7 +31,7 @@ class Index extends View
     {
         parent::__construct();
 
-        $this->caching = true;
+        $this->caching = \MVC\Config::get_MVC_SMARTY_CACHE_STATUS();
         $this->registerForSmarty();
     }
 
@@ -43,24 +43,34 @@ class Index extends View
     {
         // classes
         $this->registerClass('App\Model\Menu', 'App\Model\Menu');
+        $this->registerClass('MVC\Application', 'MVC\Application');
         $this->registerClass('MVC\Asset', 'MVC\Asset');
         $this->registerClass('MVC\Config', 'MVC\Config');
         $this->registerClass('MVC\Convert', 'MVC\Convert');
         $this->registerClass('MVC\Error', 'MVC\Error');
+        $this->registerClass('MVC\Process', 'MVC\Process');
         $this->registerClass('MVC\Request', 'MVC\Request');
         $this->registerClass('MVC\Route', 'MVC\Route');
         $this->registerClass('MVC\Strings', 'MVC\Strings');
         $this->registerClass('MVC\Session', 'MVC\Session');
         $this->registerClass('MVC\View', 'MVC\View');
+        $this->registerClass('MVC\DataType\DTDBOption', 'MVC\DataType\DTDBOption');
+        $this->registerClass('MVC\DataType\DTDBWhere', 'MVC\DataType\DTDBWhere');
         $this->registerClass('Parsedown', 'Parsedown');
         $this->registerClass('\Parsedown', '\Parsedown');
         $this->registerClass('Emvicy\Emvicy', 'Emvicy\Emvicy');
 
         // modifiers
+        $this->registerPlugin('modifier','href', 'href');
+        $this->registerPlugin('modifier','json_decode', 'json_decode');
+        $this->registerPlugin('modifier','strtoupper', 'strtoupper');
         $this->registerPlugin('modifier','str_replace', 'str_replace');
         $this->registerPlugin('modifier','print_r', 'print_r');
         $this->registerPlugin('modifier','getenv', 'getenv');
+        $this->registerPlugin('modifier','ucfirst', 'ucfirst');
+        $this->registerPlugin('modifier','get', 'get');
         $this->registerPlugin('modifier','get_class', 'get_class');
         $this->registerPlugin('modifier','floor', 'floor');
+        $this->registerPlugin('modifier','is_string', 'is_string');
     }
 }
