@@ -6,6 +6,7 @@ use MVC\Application;
 use MVC\Cache;
 use MVC\Config;
 use MVC\Convert;
+use MVC\DataType\DTContainer;
 use MVC\DataType\DTRoute;
 use MVC\Debug;
 use MVC\Dir;
@@ -1074,7 +1075,7 @@ class Emvicy
                     echo str_pad(substr($aValue['sComposerJson'], 0, 70), 80, '.', STR_PAD_RIGHT);
                 }
 
-                $sCmd = 'cd ' . pathinfo($aValue['sComposerJson'])['dirname'] . '; ' . PHP_BINARY . ' ' . Config::get_MVC_APPLICATION_PATH() . '/composer.phar audit --format=json;';
+                $sCmd = 'cd ' . pathinfo($aValue['sComposerJson'])['dirname'] . '; ' . PHP_BINARY . ' ' . Config::get_MVC_APPLICATION_PATH() . '/composer.phar --quiet audit --format=json;';
                 $sResult = self::shellExecute($sCmd, false);
                 $aAudit[$sModule]['sResult'] = json_decode($sResult, true);
                 $advisories = ($aAudit[$sModule]['sResult']['advisories'] ?? '');
