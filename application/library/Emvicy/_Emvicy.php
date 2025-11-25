@@ -13,8 +13,10 @@ $sColCmd = "\033[0;36m";
 $sColOff = "\033[0m";
 #-----------------------------
 
+mvcStoreEnv(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
 \MVC\Application::setServerVarsForCli();
-$oSymfonyComponentConsoleApplication = new Application('Emvicy', '3.x');
+$oSymfonyComponentConsoleApplication = new Application('Emvicy', getenv('Emvicy'));
+$oSymfonyComponentConsoleApplication->getDefinition()->setOptions();
 
 #---
 
@@ -241,6 +243,18 @@ $oSymfonyComponentConsoleApplication
     });
 
 #-----------------------------------------------------------------------------------------------------------------------
+
+$oSymfonyComponentConsoleApplication
+    ->register('composer:audit')
+    ->setAliases(['audit'])
+    ->setDescription($sColCmd . "php emvicy composer:audit [?bool]" . $sColOff . ' => audits all `composer.json` files; If adding param `bool` there will only be a boolean return `true|false` on audit success.')
+    ->addArgument('param', InputArgument::OPTIONAL)
+    ->setCode(function (InputInterface $oInputInterface, OutputInterface $oOutputInterface): int {
+        Emvicy::audit(
+            (('bool' === $oInputInterface->getArgument('param')) ? true : false)
+        );
+        return Command::SUCCESS;
+    });
 
 $oSymfonyComponentConsoleApplication
     ->register('update')
