@@ -1048,69 +1048,6 @@ class Emvicy
     }
 
     /**
-     * @param bool $bOutputJson
-     * @return void
-     * @throws \ReflectionException
-     */
-    public static function audit(bool $bOutputJson = false)
-    {
-        $aModule = preg_grep('/^([^.])/', scandir($GLOBALS['aConfig']['MVC_MODULES_DIR']));
-        $aAudit = array();
-        $aReport = array();
-
-        // application
-        $aAudit['application']['sComposerJson'] = Config::get_MVC_APPLICATION_PATH() . '/composer.json';
-
-        foreach ($aModule as $sModule)
-        {
-            $aAudit[$sModule]['sComposerJson'] = $GLOBALS['aConfig']['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/' . $sModule . '/composer.json';
-        }
-
-        foreach ($aAudit as $sModule => $aValue)
-        {
-            if (true === file_exists($aValue['sComposerJson']))
-            {
-                if (false === $bOutputJson)
-                {
-                    echo str_pad(substr($aValue['sComposerJson'], 0, 70), 80, '.', STR_PAD_RIGHT);
-                }
-
-                $sCmd = 'cd ' . pathinfo($aValue['sComposerJson'])['dirname'] . '; ' . PHP_BINARY . ' ' . Config::get_MVC_APPLICATION_PATH() . '/composer.phar --quiet audit --format=json;';
-                $sResult = self::shellExecute($sCmd, false);
-                $aAudit[$sModule]['sResult'] = json_decode($sResult, true);
-                $advisories = ($aAudit[$sModule]['sResult']['advisories'] ?? '');
-                $abandoned = ($aAudit[$sModule]['sResult']['abandoned'] ?? '');
-
-                if (true === empty($advisories) && true === empty($abandoned))
-                {
-                    echo (false === $bOutputJson) ? "\033[0;36m" . '✅' . "\033[0m" : '';
-                }
-                else
-                {
-                    echo (false === $bOutputJson) ?  "\033[0;36m" . '❌' . "\033[0m" : '';
-                    (false === $bOutputJson) ? dump($aAudit[$sModule]['sResult']) : false;
-
-                    if (true === $bOutputJson)
-                    {
-                        echo json_encode(false);
-                        exit();
-                    }
-                }
-
-                (false === empty($advisories)) ? $aReport['advisories'][] = $aAudit[$sModule] : false;
-                (false === empty($abandoned)) ? $aReport['abandoned'][] = $aAudit[$sModule] : false;
-                (false === $bOutputJson) ? nl() : false;
-            }
-        }
-
-        if (true === $bOutputJson)
-        {
-            echo json_encode(true);
-            exit();
-        }
-    }
-
-    /**
      * @return void
      * @throws \ReflectionException
      */

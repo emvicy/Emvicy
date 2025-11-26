@@ -245,19 +245,6 @@ $oSymfonyComponentConsoleApplication
 #-----------------------------------------------------------------------------------------------------------------------
 
 $oSymfonyComponentConsoleApplication
-    ->register('composer:audit')
-    ->setAliases(['audit'])
-    ->setDescription($sColCmd . "php emvicy composer:audit [?bool]" . $sColOff . ' => audits all `composer.json` files; If adding param `bool` there will only be a boolean return `true|false` on audit success.')
-    ->addArgument('param', InputArgument::OPTIONAL)
-    ->setCode(function (InputInterface $oInputInterface, OutputInterface $oOutputInterface): int {
-        Emvicy::audit(
-            (('bool' === $oInputInterface->getArgument('param')) ? true : false)
-        );
-        return Command::SUCCESS;
-    });
-
-
-$oSymfonyComponentConsoleApplication
     ->register('update')
     ->setAliases(['up'])
     ->setDescription($sColCmd . "php emvicy update" . $sColOff . ' => updates: - Emvicy Framework and its vendor installed libraries, - vendor installed libraries of existing modules. requires: - Emvicy installed via `git clone` command, - bash, git')
