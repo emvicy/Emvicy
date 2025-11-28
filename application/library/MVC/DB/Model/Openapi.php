@@ -158,6 +158,10 @@ class Openapi
         {
             $sType = 'integer';
         }
+        if (str_starts_with(strtolower($sFieldInfoType), 'bigint'))
+        {
+            $sType = 'integer';
+        }
         if (str_ends_with(strtolower($sFieldInfoType), 'text'))
         {
             $sType = 'string';
