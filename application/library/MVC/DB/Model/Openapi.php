@@ -148,7 +148,7 @@ class Openapi
      * @param string $sFieldInfoType
      * @return string
      */
-    protected static function getType(string $sFieldInfoType = '')
+    protected static function getType(string $sFieldInfoType = '') : string
     {
         if (true === empty($sFieldInfoType))
         {
@@ -168,7 +168,7 @@ class Openapi
      * @param string $sType
      * @return string
      */
-    protected static function getFormat(string $sType = '')
+    protected static function getFormat(string $sType = '') : string
     {
         $sFormat = '';
 
@@ -189,7 +189,7 @@ class Openapi
      * @param string $mType
      * @return bool
      */
-    protected static function isNullable(mixed $mType = '')
+    protected static function isNullable(mixed $mType = '') : bool
     {
         $bNullable = false;
 
