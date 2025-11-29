@@ -12,6 +12,7 @@ namespace MVC\DB\Model;
 
 use MVC\Cache;
 use MVC\Config;
+use MVC\Equiv\SqlToOpenApi;
 use Symfony\Component\Yaml\Yaml;
 
 class Openapi
@@ -85,7 +86,7 @@ class Openapi
 
             foreach ($oDtTmp->getPropertyArray() as $sKey => $mValue)
             {
-                $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['type'] = self::getType(gettype($mValue), ($aFieldInfo[$sKey]['Type'] ?? ''));
+                $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['type'] = self::getType(($aFieldInfo[$sKey]['Type'] ?? ''));
 
                 if ('enum' === ($aFieldInfo[$sKey]['_type'] ?? null))
                 {
@@ -144,37 +145,23 @@ class Openapi
     }
 
     /**
-     * @param string $sType
      * @param string $sFieldInfoType
      * @return string
      */
-    protected static function getType(string $sType = '', string $sFieldInfoType = '')
+    protected static function getType(string $sFieldInfoType = '')
     {
-        if (str_starts_with(strtolower($sFieldInfoType), 'varchar'))
+        if (true === empty($sFieldInfoType))
         {
-            $sType = 'string';
-        }
-        if (str_starts_with(strtolower($sFieldInfoType), 'int'))
-        {
-            $sType = 'integer';
-        }
-        if (str_starts_with(strtolower($sFieldInfoType), 'bigint'))
-        {
-            $sType = 'integer';
-        }
-        if (str_ends_with(strtolower($sFieldInfoType), 'text'))
-        {
-            $sType = 'string';
+            return 'string';
         }
 
-        $aType = array('string', 'number', 'integer', 'boolean', 'array');
+        $sFieldInfoType = strtolower(trim($sFieldInfoType));
 
-        if (false === in_array($sType, $aType))
-        {
-            $sType = 'string';
-        }
+        // get type name properly out of string
+        preg_match('/^[a-zA-Z]*/', $sFieldInfoType, $aMatch);
+        $sFieldInfoType = current($aMatch);
 
-        return $sType;
+        return SqlToOpenApi::getEquivalentType($sFieldInfoType);
     }
 
     /**

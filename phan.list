@@ -122,6 +122,10 @@ application/library/MVC/View.php
 application/library/MVC/Minify.php
 application/library/MVC/Attr.php
 application/library/MVC/Cache.php
+application/library/MVC/Equiv/OpenApiToPhp.php
+application/library/MVC/Equiv/PhpToOpenApi.php
+application/library/MVC/Equiv/SqlToPhp.php
+application/library/MVC/Equiv/SqlToOpenApi.php
 application/library/MVC/Generator/DataType.php
 application/library/MVC/_ConcreteRoute.php
 application/library/MVC/MVCAbstract/AbstractRouteConcrete.php
