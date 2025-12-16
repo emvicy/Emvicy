@@ -15,6 +15,10 @@ application/library/App/Controller/Cron.php
 application/library/MVC/Lock.php
 application/library/MVC/Queue.php
 application/library/MVC/Strings.php
+application/library/MVC/_Init/MvcWhereis.php
+application/library/MVC/_Init/MvcStoreEnv.php
+application/library/MVC/_Init/MvcGetallheaders.php
+application/library/MVC/_Init/MvcConfigLoader.php
 application/library/MVC/Request.php
 application/library/MVC/Registry.php
 application/library/MVC/WorkerTrait.php

@@ -129,6 +129,9 @@ if (!function_exists('getallheaders'))
  */
 function mvcStoreEnv(string $sEnvFile = '')
 {
+echo microtime(true) . ', ' . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n";
+die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
+
     (true === empty($sEnvFile))
         ? $sEnvFile = realpath(__DIR__ . '/../../../') . '/.env'
         : false
@@ -174,6 +177,9 @@ function mvcStoreEnv(string $sEnvFile = '')
  */
 function mvcConfigLoader(array $aConfig = array())
 {
+echo microtime(true) . ', ' . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n";
+die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
+
     #-----------------------------
     # main config
 
@@ -263,6 +269,9 @@ function mvcConfigLoader(array $aConfig = array())
  */
 function whereis(string $sWhereIsItem = '')
 {
+echo microtime(true) . ', ' . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n";
+die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
+
     $sWhereIsItem = escapeshellarg(trim($sWhereIsItem));
 
     ob_start();

@@ -515,6 +515,7 @@ class Strings
         $sInt = '';     while (strlen($sInt) < $iMandatoryInt)              { $sInt.=       substr(str_shuffle($sCharInt), 0, $iMandatoryInt); }            $sInt =     substr($sInt, 0, $iMandatoryInt);
         $sSpecial = ''; while (strlen($sSpecial) < $iMandatorySpecial)      { $sSpecial.=   substr(str_shuffle($sCharSpecial), 0, $iMandatorySpecial); }    $sSpecial = substr($sSpecial, 0, $iMandatorySpecial);
         $sStringMandatory = $sLower . $sUpper . $sInt . $sSpecial;
+        $sString = '';
 
         while (strlen($sString) < $iLength)
         {

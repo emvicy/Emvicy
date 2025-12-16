@@ -33,6 +33,11 @@ class DbCollection
     public $oDbPDO = null;
 
     /**
+     * @var array
+     */
+    public static $aConfigArray = array();
+
+    /**
      * Constructor
      * @param array $aConfig
      * @throws \ReflectionException
@@ -44,6 +49,8 @@ class DbCollection
 
         // identify database
         $sDbIdent = Db::createDbIdentStringOnConfig($aConfig);
+
+        self::$aConfigArray = $aConfig;
 
         Cache::init(Config::get_MVC_CACHE_CONFIG());
         (Registry::isRegistered($sDbIdent)) ? $this->oDbPDO = Registry::get($sDbIdent) : false;
@@ -72,6 +79,13 @@ class DbCollection
      */
     public static function getConfig(string $sModuleConfigKey = 'DB')
     {
+//        if (false === empty(self::$aConfigArray))
+//        {
+//            return self::$aConfigArray;
+//        }
+////        return current(self::$aConfigArray);
+//        dump((self::$aConfigArray));
+
         // try default fallback config; assuming it is called 'DB'
         // DB config key
         $aConfig = Config::MODULE()[$sModuleConfigKey];

@@ -62,6 +62,8 @@ class Application
 
         // Run the requested target Controller
         Controller::init();
+//        echo microtime(true) . ', ' . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n";
+//        die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
 
         Event::run ('mvc.application.construct.after');
     }

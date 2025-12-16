@@ -6,7 +6,6 @@ use MVC\Application;
 use MVC\Cache;
 use MVC\Config;
 use MVC\Convert;
-use MVC\DataType\DTContainer;
 use MVC\DataType\DTRoute;
 use MVC\Debug;
 use MVC\Dir;
@@ -317,13 +316,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetWorkerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetWorkerFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{class}" ' . $sTargetWorkerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{class}/' . $sClass . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{class}" ' . $sTargetWorkerFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{class}/' . $sClass . '/g"'
         );
 
         echo '✔ Worker class created: ' . $sTargetWorkerFile;nl(2);
@@ -387,13 +386,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetPolicyFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetPolicyFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{class}" ' . $sTargetPolicyFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{class}/' . $sClass . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{class}" ' . $sTargetPolicyFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{class}/' . $sClass . '/g"'
         );
 
         echo '✔ Policy class created: ' . $sTargetPolicyFile;nl(2);
@@ -640,13 +639,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetControllerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetControllerFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{controller}" ' . $sTargetControllerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{controller}/' . $sController . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{controller}" ' . $sTargetControllerFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{controller}/' . $sController . '/g"'
         );
 
         echo '✔ Controller created: ' . $sTargetControllerFile;
@@ -706,13 +705,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetModelFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetModelFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{model}" ' . $sTargetModelFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{model}/' . $sModel . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{model}" ' . $sTargetModelFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{model}/' . $sModel . '/g"'
         );
 
         echo '✔ Model created: ' . $sTargetModelFile;
@@ -772,13 +771,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetViewFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetViewFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{view}" ' . $sTargetViewFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{view}/' . $sView . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{view}" ' . $sTargetViewFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{view}/' . $sView . '/g"'
         );
 
         echo '✔ View created: ' . $sTargetViewFile;
@@ -842,13 +841,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{table}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{table}/' . $sTable . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{table}" ' . $sTargetTableFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{table}/' . $sTable . '/g"'
         );
 
         echo '✔ Table class created: ' . $sTargetTableFile;nl();
@@ -863,13 +862,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetTraitTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetTraitTableFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{table}" ' . $sTargetTraitTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{table}/' . $sTable . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{table}" ' . $sTargetTraitTableFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{table}/' . $sTable . '/g"'
         );
 
         echo '✔ TraitTable class created: ' . $sTargetTraitTableFile;nl(2);
@@ -941,13 +940,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{class}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{class}/' . $sClass . '/g"'
+        Emvicy::shellExecute(\MVC\_Init\MvcWhereis::do('grep') . ' -rl "{class}" ' . $sTargetTableFile . ' | '
+                             . \MVC\_Init\MvcWhereis::do('xargs') . ' '
+                             . \MVC\_Init\MvcWhereis::do('sed') . ' -i "s/{class}/' . $sClass . '/g"'
         );
 
         echo '✔ DB table collection class created: ' . $sTargetTableFile;nl(2);
@@ -1003,10 +1002,10 @@ class Emvicy
             exit();
         }
 
-        $sCmd = whereis('find') . ' ' . $sPath . ' -type f -name "*.php" '
+        $sCmd = \MVC\_Init\MvcWhereis::do('find') . ' ' . $sPath . ' -type f -name "*.php" '
                 . ' -exec ' . PHP_BINARY . ' -l {} \;'
                 .' 2>&1 '
-                #. '| (! ' . whereis('grep') . ' -v "errors detected")'
+                #. '| (! ' . \MVC\_Init\MvcWhereis::do('grep') . ' -v "errors detected")'
         ;
         $sResult = self::shellExecute($sCmd, false);
         $aMessage = preg_split("@\n@", $sResult, -1, PREG_SPLIT_NO_EMPTY);
@@ -1053,7 +1052,7 @@ class Emvicy
      */
     public static function update(): void
     {
-        $xGit = whereis('git');
+        $xGit = \MVC\_Init\MvcWhereis::do('git');
 
         UPDATE_FRAMEWORK: {
 
@@ -1125,11 +1124,11 @@ class Emvicy
 
         // sort with awk on 8. field (Emvicy Log increment number)
         $sCmd = "cd " . Config::get_MVC_LOG_FILE_DIR() . "; "
-                . whereis('grep') .  " " . $sLogId . " *.log "
-                . "| " . whereis('awk') . " '{ print $0 | \"" . whereis('sort') . " -nk8\"}'";
+                . \MVC\_Init\MvcWhereis::do('grep') .  " " . $sLogId . " *.log "
+                . "| " . \MVC\_Init\MvcWhereis::do('awk') . " '{ print $0 | \"" . \MVC\_Init\MvcWhereis::do('sort') . " -nk8\"}'";
 
         // replace string \n in output by a real linebreak
-        (true === $bNewline) ? $sCmd.= " | " . whereis('sed') . " -E 's/" . '\\\n' . "/" . '\n' . "/g'" : false;
+        (true === $bNewline) ? $sCmd.= " | " . \MVC\_Init\MvcWhereis::do('sed') . " -E 's/" . '\\\n' . "/" . '\n' . "/g'" : false;
 
         hr();
         echo $sCmd;

@@ -7,16 +7,19 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
  */
 
-MVC_FUNCTIONS: {
-
-    require_once __DIR__ . '/functions.php';
-}
+//MVC_FUNCTIONS: {
+//
+//    require_once __DIR__ . '/functions.php';
+//}
 
 READ_ENV: {
 
     $sBasePath = realpath(__DIR__ . '/../../../');
     (false === file_exists ($sBasePath . '/.env')) ? copy($sBasePath . '/.env.example',$sBasePath . '/.env') : false;
-    mvcStoreEnv($sBasePath . '/.env');
+
+//    mvcStoreEnv($sBasePath . '/.env');
+    require_once realpath(__DIR__ . '/../../') . '/library/MVC/_Init/MvcStoreEnv.php';
+    \MVC\_Init\MvcStoreEnv::do($sBasePath . '/.env');
     unset($sBasePath);
 }
 
@@ -33,10 +36,14 @@ MVC_ENV: {
 
 CONFIG: {
 
-    $aConfig = mvcConfigLoader($aConfig);
+    require_once realpath(__DIR__ . '/../../') . '/library/MVC/_Init/MvcConfigLoader.php';
+//    $aConfig = mvcConfigLoader($aConfig);
+    $aConfig = \MVC\_Init\MvcConfigLoader::do($aConfig);
 }
 
 LOAD_FIRST_ESSENTIALS:{
+
+    require_once realpath(__DIR__ . '/../../') . '/library/MVC/_Init/MvcWhereis.php';
 
     require_once realpath(__DIR__ . '/../../') . '/library/MVC/Config.php';
     require_once realpath(__DIR__ . '/../../') . '/library/MVC/Debug.php';
