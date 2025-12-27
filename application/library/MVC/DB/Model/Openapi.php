@@ -53,7 +53,13 @@ class Openapi
             $sProperty = $oProperty->getName();
 
             // skip
-            if (true === in_array($sProperty, array('oDbPDO', '_oInstance')))
+            if (
+                // reserved
+                (true === in_array($sProperty, array('oDbPDO', '_oInstance')))
+                ||
+                // static ones, e.g. DB::$aConfigArray
+                (true === $oProperty->isStatic())
+            )
             {
                 continue;
             }
