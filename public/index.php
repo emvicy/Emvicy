@@ -11,3 +11,6 @@ require_once '../application/init/util/bootstrap.php';
 
 // run
 $oMVCApplication = new \MVC\Application();
+
+//die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
+//echo '<pre>' . print_r($aConfig, true) . '</pre><hr>';

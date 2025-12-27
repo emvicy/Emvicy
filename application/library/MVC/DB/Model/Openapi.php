@@ -12,7 +12,8 @@ namespace MVC\DB\Model;
 
 use MVC\Cache;
 use MVC\Config;
-use MVC\Equiv\SqlToOpenApi;
+use MVC\Convert;
+use MVC\Log;
 use Symfony\Component\Yaml\Yaml;
 
 class Openapi
@@ -54,13 +55,20 @@ class Openapi
             $sProperty = $oProperty->getName();
 
             // skip
-            if (true === in_array($sProperty, array('oDbPDO', '_oInstance')))
+            if (
+                // reserved
+                (true === in_array($sProperty, array('oDbPDO', '_oInstance')))
+                ||
+                // static ones, e.g. DB::$aConfigArray
+                (true === $oProperty->isStatic())
+            )
             {
                 continue;
             }
 
             $bMethodExists = method_exists($oDB->$sProperty, 'getFieldInfo');
 
+            // skip
             if (false === $bMethodExists)
             {
                 continue;
@@ -86,7 +94,7 @@ class Openapi
 
             foreach ($oDtTmp->getPropertyArray() as $sKey => $mValue)
             {
-                $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['type'] = self::getType(($aFieldInfo[$sKey]['Type'] ?? ''));
+                $aTmp['components']['schemas'][$sDtClassName]['properties'][$sKey]['type'] = self::getType(gettype($mValue), ($aFieldInfo[$sKey]['Type'] ?? ''));
 
                 if ('enum' === ($aFieldInfo[$sKey]['_type'] ?? null))
                 {
@@ -145,30 +153,44 @@ class Openapi
     }
 
     /**
+     * @param string $sType
      * @param string $sFieldInfoType
      * @return string
      */
-    protected static function getType(string $sFieldInfoType = '') : string
+    protected static function getType(string $sType = '', string $sFieldInfoType = '')
     {
-        if (true === empty($sFieldInfoType))
+        if (str_starts_with(strtolower($sFieldInfoType), 'varchar'))
         {
-            return 'string';
+            $sType = 'string';
+        }
+        if (str_starts_with(strtolower($sFieldInfoType), 'int'))
+        {
+            $sType = 'integer';
+        }
+        if (str_starts_with(strtolower($sFieldInfoType), 'bigint'))
+        {
+            $sType = 'integer';
+        }
+        if (str_ends_with(strtolower($sFieldInfoType), 'text'))
+        {
+            $sType = 'string';
         }
 
-        $sFieldInfoType = strtolower(trim($sFieldInfoType));
+        $aType = array('string', 'number', 'integer', 'boolean', 'array');
 
-        // get type name properly out of string
-        preg_match('/^[a-zA-Z]*/', $sFieldInfoType, $aMatch);
-        $sFieldInfoType = current($aMatch);
+        if (false === in_array($sType, $aType))
+        {
+            $sType = 'string';
+        }
 
-        return SqlToOpenApi::getEquivalentType($sFieldInfoType);
+        return $sType;
     }
 
     /**
      * @param string $sType
      * @return string
      */
-    protected static function getFormat(string $sType = '') : string
+    protected static function getFormat(string $sType = '')
     {
         $sFormat = '';
 
@@ -189,7 +211,7 @@ class Openapi
      * @param string $mType
      * @return bool
      */
-    protected static function isNullable(mixed $mType = '') : bool
+    protected static function isNullable(mixed $mType = '')
     {
         $bNullable = false;
 

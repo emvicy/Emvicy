@@ -13,15 +13,16 @@
 
 use MVC\Config;
 
-(true === isset($aConfig) && false === isset($GLOBALS['aConfig'])) ? $GLOBALS['aConfig'] = $aConfig : false;
-
-$oMyMVCInstaller = new MyMVCInstaller($GLOBALS['aConfig']);
-
 /**
  * MyMVCInstaller
  */
 class MyMVCInstaller
 {
+    /**
+     * @var self|null
+     */
+    protected static $_oInstance = null;
+
     /**
      * @var array
      */
@@ -37,22 +38,29 @@ class MyMVCInstaller
      */
 	protected static $_bOutputStarted = false;
 
-	/**
-	 * Constructor
+    /**
      * @param array $aConfig
+     * @throws \ReflectionException
      */
-	public function __construct (array $aConfig = array())
+    protected function __construct (array $aConfig = array())
 	{
         $this->_aConfig = $aConfig;
-		$this->setupDirsAndFiles();
-		$this->checkForPHPExtensions();
-        $this->createLogrotateFiles();
-        $this->installModuleLibraries();
+        $sCacheFunctionFile = $aConfig['MVC_CACHE_DIR'] . '/.' . __METHOD__;
+
+        if (false === file_exists($sCacheFunctionFile))
+        {
+            $this->setupDirsAndFiles($aConfig);         # once
+            $this->checkForPHPExtensions($aConfig);     # once and later recurring
+            $this->createLogrotateFiles($aConfig);      # once
+            $this->installModuleLibraries($aConfig);    # once
+
+            touch($sCacheFunctionFile);
+        }
 
         // do not check if source of request is emvicy tool
         if ('cli.emvicy' !== self::getEnvironmentOfRequest())
         {
-            $this->checkOnModulesInstalled();
+            $this->checkOnModulesInstalled($aConfig);
         }
 
         if (true === self::$_bOutputStarted)
@@ -64,6 +72,21 @@ class MyMVCInstaller
             exit();
         }
 	}
+
+    /**
+     * @param array $aConfig
+     * @return \MyMVCInstaller|\Singleton|self|null
+     * @throws \ReflectionException
+     */
+    public static function create(array $aConfig = array())
+    {
+        if (null === self::$_oInstance)
+        {
+            self::$_oInstance = new self($aConfig);
+        }
+
+        return self::$_oInstance;
+    }
 
     /**
      * @return string
@@ -103,20 +126,20 @@ class MyMVCInstaller
     /**
      * @return void
      */
-	public function checkOnModulesInstalled()
+    protected function checkOnModulesInstalled(array $aConfig = array())
     {
         // check on any module
-        $aModule = glob($this->_aConfig['MVC_MODULES_DIR'] . '/*', GLOB_ONLYDIR);
+        $aModule = glob($aConfig['MVC_MODULES_DIR'] . '/*', GLOB_ONLYDIR);
 
         // check on primary module
-        $aModulePrimary = glob($this->_aConfig['MVC_MODULES_DIR'] . '/*' . $this->_aConfig['MVC_MODULE_PRIMARY_ESSENTIAL']);
+        $aModulePrimary = glob($aConfig['MVC_MODULES_DIR'] . '/*' . $aConfig['MVC_MODULE_PRIMARY_ESSENTIAL']);
 
-        if (empty($aModule) || empty($aModulePrimary))
+        if (true === empty($aModule) || true === empty($aModulePrimary))
         {
             $this->prepareForOutput();
             $this->_text("\n<br><span class='text-info'><b>🛈</b> You need to install at least one Module as primary to be able to work.</span>");
             $this->_text("\n<hr><i><u>Example</u>: create the primary module 'Foo'</i>");
-            $this->_text("\n\t<br><pre class='bg-black text-white padding10 rounded-1'>cd " . $this->_aConfig['MVC_BASE_PATH'] . "; \\\n" . PHP_BINDIR . "/php emvicy module:add Foo primary</pre>\n");
+            $this->_text("\n\t<br><pre class='bg-black text-white padding10 rounded-1'>cd " . $aConfig['MVC_BASE_PATH'] . "; \\\n" . PHP_BINDIR . "/php emvicy module:add Foo primary</pre>\n");
             $this->_text("Afterwards, reload this page");
             exit();
         }
@@ -137,15 +160,16 @@ class MyMVCInstaller
 	}
 
     /**
+     * @param array $aConfig
      * @return string
      */
-	protected function checkPhpExtension()
+	protected function checkPhpExtension(array $aConfig = array())
 	{
 		$aExt = get_loaded_extensions();
 		$aExtMissing = array();
 		$sMsg = '';
 
-		foreach ($this->_aConfig['MVC_CORE']['phpExtensionsRequired'] as $sExt)
+		foreach ($aConfig['MVC_CORE']['phpExtensionsRequired'] as $sExt)
 		{
 			if (!in_array ($sExt, $aExt))
 			{
@@ -165,21 +189,22 @@ class MyMVCInstaller
 
 			$sMsg.='</ul>' . "\n";
             $sMsg.= "Required Extensions: \n";
-            $sMsg.= implode(', ', $this->_aConfig['MVC_CORE']['phpExtensionsRequired']);
+            $sMsg.= implode(', ', $aConfig['MVC_CORE']['phpExtensionsRequired']);
 		}
 
 		return $sMsg;
 	}
 
     /**
+     * @param array $aConfig
      * @return string
      */
-	protected function checkFunction()
+	protected function checkFunction(array $aConfig = array())
 	{
         $aFuncMissing = array();
         $sMsg = '';
 
-        foreach ($this->_aConfig['MVC_CORE']['phpFunctionsRequired'] as $sExt)
+        foreach ($aConfig['MVC_CORE']['phpFunctionsRequired'] as $sExt)
         {
             if (false === function_exists ($sExt))
             {
@@ -199,7 +224,7 @@ class MyMVCInstaller
 
             $sMsg.='</ul>' . "\n";
             $sMsg.= "Required Extensions: \n";
-            $sMsg.= implode(', ', $this->_aConfig['MVC_CORE']['phpExtensionsRequired']);
+            $sMsg.= implode(', ', $aConfig['MVC_CORE']['phpExtensionsRequired']);
         }
 
         return $sMsg;
@@ -221,33 +246,61 @@ class MyMVCInstaller
 	}
 
     /**
+     * @param array $aConfig
      * @return bool
      */
-	protected function setupDirsAndFiles()
+	protected function setupDirsAndFiles(array $aConfig = array()) : bool
 	{
-		(!file_exists ($this->_aConfig['MVC_CACHE_DIR'])) ? mkdir ($this->_aConfig['MVC_CACHE_DIR']) : false;
-		(!file_exists ($this->_aConfig['MVC_SESSION_PATH'])) ? mkdir ($this->_aConfig['MVC_SESSION_PATH']) : false;
-		(!file_exists ($this->_aConfig['MVC_SMARTY_TEMPLATE_CACHE_DIR'])) ? mkdir ($this->_aConfig['MVC_SMARTY_TEMPLATE_CACHE_DIR']) : false;
-		(!file_exists ($this->_aConfig['MVC_CONFIG_DIR'])) ? mkdir ($this->_aConfig['MVC_CONFIG_DIR']) : false;
-		(!file_exists ($this->_aConfig['MVC_LOG_FILE_DIR'])) ? mkdir ($this->_aConfig['MVC_LOG_FILE_DIR']) : false;
+        $bSuccess = true;
+        $sCacheFunctionFile = $aConfig['MVC_CACHE_DIR'] . '/.' . __METHOD__;
 
-		return false;
+        if (true === file_exists($sCacheFunctionFile))
+        {
+            return $bSuccess;
+        }
+
+        $aDir = array(
+            $aConfig['MVC_CACHE_DIR'],
+            $aConfig['MVC_SESSION_PATH'],
+            $aConfig['MVC_SMARTY_TEMPLATE_CACHE_DIR'],
+            $aConfig['MVC_CONFIG_DIR'],
+            $aConfig['MVC_LOG_FILE_DIR'],
+        );
+
+        foreach ($aDir as $sDir)
+        {
+            if (false === file_exists($sDir))
+            {
+                if (false === mkdir ($sDir))
+                {
+                    $bSuccess = false;
+                }
+            }
+        }
+
+        if (true === $bSuccess)
+        {
+            touch($sCacheFunctionFile);
+        }
+
+        return $bSuccess;
     }
 
     /**
+     * @param array $aConfig
      * @return true
      * @throws \ReflectionException
      */
-    protected function createLogrotateFiles()
+    protected function createLogrotateFiles(array $aConfig = array())
     {
-        if (true === file_exists($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf') && true === file_exists($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh'))
+        if (true === file_exists($aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf') && true === file_exists($aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh'))
         {
             return true;
         }
 
-        $aUser = posix_getpwuid(fileowner($this->_aConfig['MVC_LOG_FILE_DIR']));
-        $aGroup = posix_getgrgid(filegroup($this->_aConfig['MVC_LOG_FILE_DIR']));
-        $sLogrotate = "\"" . $this->_aConfig['MVC_LOG_FILE_DIR'] . "*.log\"
+        $aUser = posix_getpwuid(fileowner($aConfig['MVC_LOG_FILE_DIR']));
+        $aGroup = posix_getgrgid(filegroup($aConfig['MVC_LOG_FILE_DIR']));
+        $sLogrotate = "\"" . $aConfig['MVC_LOG_FILE_DIR'] . "*.log\"
 {
     rotate 2
     daily
@@ -259,10 +312,10 @@ class MyMVCInstaller
     copytruncate
     size=250k
 }";
-        file_put_contents($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf', $sLogrotate);
-        $sCmdLogrotate = '#!' . whereis('bash') . "\n" . whereis('logrotate') . ' -v -s /tmp/' . uniqid() . ' ' . $this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf';
-        file_put_contents($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh', $sCmdLogrotate);
-        chmod($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh',0744);
+        file_put_contents($aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf', $sLogrotate);
+        $sCmdLogrotate = '#!' . whereis('bash') . "\n" . whereis('logrotate') . ' -v -s /tmp/' . uniqid() . ' ' . $aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf';
+        file_put_contents($aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh', $sCmdLogrotate);
+        chmod($aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh',0744);
 
         return true;
     }
@@ -316,12 +369,13 @@ class MyMVCInstaller
     }
 
     /**
+     * @param array $aConfig
      * @return void
      */
-    protected function checkForPHPExtensions()
+    protected function checkForPHPExtensions(array $aConfig = array())
     {
-        $sPhpExtensionMissing = $this->checkPhpExtension();
-        $sPhpFunctionMissing = $this->checkFunction();
+        $sPhpExtensionMissing = $this->checkPhpExtension($aConfig);
+        $sPhpFunctionMissing = $this->checkFunction($aConfig);
 
         if ('' !== $sPhpExtensionMissing)
         {
@@ -442,13 +496,14 @@ class MyMVCInstaller
 	}
 
     /**
+     * @param array $aConfig
      * @return void
      */
-    protected function installModuleLibraries()
+    protected function installModuleLibraries(array $aConfig = array())
     {
-        $this->installVendor($this->_aConfig['MVC_APPLICATION_PATH']);
+        $this->installVendor($aConfig['MVC_APPLICATION_PATH']);
 
-        $sCmd = $this->_aConfig['MVC_BIN_FIND'] . ' ' . $this->_aConfig['MVC_MODULES_DIR'] . '/ -name "composer.json" -print | ' . $this->_aConfig['MVC_BIN_GREP'] . ' -v vendor';
+        $sCmd = $aConfig['MVC_BIN_FIND'] . ' ' . $aConfig['MVC_MODULES_DIR'] . '/ -name "composer.json" -print | ' . $aConfig['MVC_BIN_GREP'] . ' -v vendor';
         $sResult = shell_exec($sCmd);
         $sFind = trim(($sResult ?? ''));
         $aFind = explode("\n", $sFind);
@@ -517,3 +572,14 @@ class MyMVCInstaller
 		}
 	}
 }
+
+#-----------------------------
+
+(true === isset($aConfig) && false === isset($GLOBALS['aConfig']))
+    ? $GLOBALS['aConfig'] = $aConfig
+    : false
+;
+
+//$oMyMVCInstaller = new MyMVCInstaller($GLOBALS['aConfig']);
+
+MyMVCInstaller::create($GLOBALS['aConfig']);
