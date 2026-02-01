@@ -18,6 +18,13 @@ use MVC\Error;
 #[experimental]
 trait TraitAttribute
 {
+    /**
+     * @param string|null $sClassName
+     * @param int|null    $iFlag
+     * @param string|null $sScope
+     * @return array|false|mixed|string
+     * @throws \ReflectionException
+     */
     public function trait_getAttributeClass(?string $sClassName = null, ?int $iFlag = null, ?string $sScope = '')
     {
         try {
@@ -30,6 +37,14 @@ trait TraitAttribute
         return Attr::getData($oReflectionClass, $sClassName, $iFlag, $sScope);
     }
 
+    /**
+     * @param string      $sAttribute
+     * @param string|null $sClassName
+     * @param int|null    $iFlag
+     * @param string|null $sScope
+     * @return array|false|mixed|string
+     * @throws \ReflectionException
+     */
     public function trait_getAttributeProperty(string $sAttribute = '', ?string $sClassName = null, ?int $iFlag = null, ?string $sScope = '')
     {
         try {
@@ -42,6 +57,14 @@ trait TraitAttribute
         return Attr::getData($oReflectionProperty, $sClassName, $iFlag, $sScope);
     }
 
+    /**
+     * @param string|null $sMethod
+     * @param string|null $sClassName
+     * @param int|null    $iFlag
+     * @param string|null $sScope
+     * @return array|false|mixed|string
+     * @throws \ReflectionException
+     */
     public function trait_getAttributeMethod(?string $sMethod = '', ?string $sClassName = null, ?int $iFlag = null, ?string $sScope = '')
     {
         (true === empty($sMethod)) ? $sMethod = (debug_backtrace(limit: 2)[1]['function'] ?? '') : false;
@@ -50,8 +73,6 @@ trait TraitAttribute
         {
             return false;
         }
-
-        echo 'method: <code>' . $sMethod . '</code><br>';
 
         try {
             $oReflectionProperty = new \ReflectionMethod($this::class, $sMethod);

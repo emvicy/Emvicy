@@ -10,6 +10,9 @@
 
 namespace MVC;
 
+use Attribute;
+
+#[Attribute]
 class Cache
 {
     /**

@@ -7,10 +7,10 @@
  * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
  */
 
-//MVC_FUNCTIONS: {
-//
-//    require_once __DIR__ . '/functions.php';
-//}
+MVC_FUNCTIONS: {
+
+    require_once __DIR__ . '/functions.php';
+}
 
 READ_ENV: {
 

@@ -12,6 +12,7 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
+use MVC\MVCTrait\TraitAttribute;
 
 /**
  * Controller
@@ -31,6 +32,10 @@ class Controller
         $sTargetClass = $oDTRoute->get_class();
         $sTargetClassFile = $oDTRoute->get_classFile();
         $sMethodNamePreconstruct = Config::get_MVC_METHODNAME_PRECONSTRUCT();
+
+        info(
+            Attr::getData(new \ReflectionClass($sTargetClass))
+        );
 
         if (false === file_exists ($sTargetClassFile))
         {
