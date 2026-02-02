@@ -2,6 +2,8 @@
 
 namespace MVC;
 
+use function Sodium\library_version_minor;
+
 /**
  * @experimental
  */
@@ -47,5 +49,47 @@ class Attr
 
         /** @var array $aResult */
         return $aResult;
+    }
+
+    /**
+     * @param string $sClassName
+     * @return array|\ReflectionAttribute[]
+     * @throws \ReflectionException
+     */
+    public static function getOnClass(string $sClassName = '')
+    {
+        if (true === empty($sClassName))
+        {
+            $sClassName = debug_backtrace(limit: 2)[1]['class'];
+        }
+
+        if (true === empty($sClassName))
+        {
+            return array();
+        }
+
+        return new \ReflectionClass($sClassName)->getAttributes();
+    }
+
+    /**
+     * @param string|null $sAttributeName
+     * @param string      $sMethodName
+     * @return array|\ReflectionAttribute[]
+     * @throws \ReflectionException
+     */
+    public static function getOnMethod(?string $sAttributeName = null, string $sMethodName = '')
+    {
+        if (true === empty($sMethodName))
+        {
+            $oClassObject = (debug_backtrace(limit: 2)[1]['object'] ?? null);
+            $sMethodName = (debug_backtrace(limit: 2)[1]['function'] ?? '');
+        }
+
+        if (true === empty($oClassObject) || true === empty($sMethodName))
+        {
+            return array();
+        }
+
+        return new \ReflectionMethod($oClassObject, $sMethodName)->getAttributes($sAttributeName);
     }
 }

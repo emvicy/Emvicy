@@ -20,7 +20,7 @@ use Attribute;
 /**
  * Policy
  */
-#[Attribute]
+#[\Attribute]
 class Policy
 {
     /**
@@ -36,7 +36,6 @@ class Policy
      */
     public static function init(bool $bApply = true, bool $bEventRun = true) : void
     {
-        display();
         (true === $bEventRun) ? Event::run('mvc.policy.init.before') : false;
 
         $sPolicyDir = Config::get_MVC_MODULE_PRIMARY_ETC_DIR() . '/policy';

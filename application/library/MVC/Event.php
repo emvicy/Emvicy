@@ -13,7 +13,6 @@ use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTEventContext;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Attribute;
 
 /**
  * @example
@@ -24,7 +23,6 @@ use Attribute;
  * \MVC\Event::run('test', function(){...});
  * \MVC\Event::delete('test');
  */
-#[Attribute]
 class Event
 {
     /**

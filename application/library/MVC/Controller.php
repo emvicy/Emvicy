@@ -33,10 +33,6 @@ class Controller
         $sTargetClassFile = $oDTRoute->get_classFile();
         $sMethodNamePreconstruct = Config::get_MVC_METHODNAME_PRECONSTRUCT();
 
-        info(
-            Attr::getData(new \ReflectionClass($sTargetClass))
-        );
-
         if (false === file_exists ($sTargetClassFile))
         {
             $sMessage = "\n"

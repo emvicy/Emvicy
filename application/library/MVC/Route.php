@@ -99,7 +99,7 @@ class Route extends AbstractRouteConcrete
      */
     public static function get(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::$sRouteClassConcrete::add('GET', $sPath, $sClassMethod, $mOptional, $sTag);
+        self::$sRouteClassConcrete::add(Http\Method::GET(), $sPath, $sClassMethod, $mOptional, $sTag);
     }
 
     /**
@@ -112,7 +112,7 @@ class Route extends AbstractRouteConcrete
      */
     public static function post(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::$sRouteClassConcrete::add('POST', $sPath, $sClassMethod, $mOptional, $sTag);
+        self::$sRouteClassConcrete::add(Http\Method::POST(), $sPath, $sClassMethod, $mOptional, $sTag);
     }
 
     /**
@@ -125,7 +125,7 @@ class Route extends AbstractRouteConcrete
      */
     public static function put(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::$sRouteClassConcrete::add('PUT', $sPath, $sClassMethod, $mOptional, $sTag);
+        self::$sRouteClassConcrete::add(Http\Method::PUT(), $sPath, $sClassMethod, $mOptional, $sTag);
     }
 
     /**
@@ -138,7 +138,7 @@ class Route extends AbstractRouteConcrete
      */
     public static function patch(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::$sRouteClassConcrete::add('PATCH', $sPath, $sClassMethod, $mOptional, $sTag);
+        self::$sRouteClassConcrete::add(Http\Method::PATCH(), $sPath, $sClassMethod, $mOptional, $sTag);
     }
 
     /**
@@ -151,7 +151,7 @@ class Route extends AbstractRouteConcrete
      */
     public static function options(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = '') : void
     {
-        self::$sRouteClassConcrete::add('OPTIONS', $sPath, $sClassMethod, $mOptional, $sTag);
+        self::$sRouteClassConcrete::add(Http\Method::OPTIONS(), $sPath, $sClassMethod, $mOptional, $sTag);
     }
 
     /**
@@ -164,7 +164,7 @@ class Route extends AbstractRouteConcrete
      */
     public static function delete(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = ''): void
     {
-        self::$sRouteClassConcrete::add('DELETE', $sPath, $sClassMethod, $mOptional, $sTag);
+        self::$sRouteClassConcrete::add(Http\Method::DELETE(), $sPath, $sClassMethod, $mOptional, $sTag);
     }
 
     /**
