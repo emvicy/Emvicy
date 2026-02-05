@@ -31,10 +31,11 @@ class Event
     public static array $aEvent = array();
 
     /**
+     * @param array $aEventFile
      * @return bool
      * @throws \ReflectionException
      */
-    public static function init(): bool
+    public static function init(array $aEventFile = array()): bool
     {
         $sEventDir = Config::get_MVC_MODULE_PRIMARY_ETC_DIR() . '/event';
 
@@ -43,13 +44,24 @@ class Event
             return false;
         }
 
-        //  require recursively all php files in module's event dir
-        /** @var \SplFileInfo $oSplFileInfo */
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sEventDir)) as $oSplFileInfo)
+        // require specific event files
+        if (false === empty($aEventFile))
         {
-            if ('php' === strtolower($oSplFileInfo->getExtension()))
+            foreach ($aEventFile as $sEventFile)
             {
-                require_once $oSplFileInfo->getPathname();
+                require_once $sEventDir . '/' . $sEventFile . '.php';
+            }
+        }
+        //  require recursively all php files in module's event dir
+        else
+        {
+            /** @var \SplFileInfo $oSplFileInfo */
+            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sEventDir)) as $oSplFileInfo)
+            {
+                if ('php' === strtolower($oSplFileInfo->getExtension()))
+                {
+                    require_once $oSplFileInfo->getPathname();
+                }
             }
         }
 

@@ -15,12 +15,10 @@ use MVC\DataType\DTKeyValue;
 use MVC\DataType\DTRoute;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
-use Attribute;
 
 /**
  * Policy
  */
-#[\Attribute]
 class Policy
 {
     /**
@@ -29,12 +27,13 @@ class Policy
     private static array $aApplied = array();
 
     /**
-     * @param bool $bApply
-     * @param bool $bEventRun
+     * @param array $aPolicyFile
+     * @param bool  $bApply
+     * @param bool  $bEventRun
      * @return void
      * @throws \ReflectionException
      */
-    public static function init(bool $bApply = true, bool $bEventRun = true) : void
+    public static function init(array $aPolicyFile = array(), bool $bApply = true, bool $bEventRun = true) : void
     {
         (true === $bEventRun) ? Event::run('mvc.policy.init.before') : false;
 
@@ -42,13 +41,24 @@ class Policy
 
         if (true === file_exists($sPolicyDir))
         {
-            //  require recursively all php files in module's policy dir
-            /** @var \SplFileInfo $oSplFileInfo */
-            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sPolicyDir)) as $oSplFileInfo)
+            // require specific policy files
+            if (false === empty($aPolicyFile))
             {
-                if ('php' === strtolower($oSplFileInfo->getExtension()))
+                foreach ($aPolicyFile as $sPolicyFile)
                 {
-                    require_once $oSplFileInfo->getPathname();
+                    require_once $sPolicyDir . '/' . $sPolicyFile . '.php';
+                }
+            }
+            //  require recursively all php files in module's policy dir
+            else
+            {
+                /** @var \SplFileInfo $oSplFileInfo */
+                foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sPolicyDir)) as $oSplFileInfo)
+                {
+                    if ('php' === strtolower($oSplFileInfo->getExtension()))
+                    {
+                        require_once $oSplFileInfo->getPathname();
+                    }
                 }
             }
         }

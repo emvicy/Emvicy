@@ -24,6 +24,7 @@ application/library/MVC/Enum/EnumHttpHeaderCacheControl.php
 application/library/MVC/Lock.php
 application/library/MVC/Config.php
 application/library/MVC/Session.php
+application/library/MVC/MVCAttribute/AttributePolicy.php
 application/library/MVC/RouteIntervall.php
 application/library/MVC/Log.php
 application/library/MVC/Convert.php
