@@ -122,6 +122,7 @@ if (!function_exists('getallheaders'))
 }
 
 /**
+ * @removed
  * reads environment key/values from a given file
  * and stores them via putenv so that they will be accessible via getenv()
  * @param string $sEnvFile
@@ -172,6 +173,7 @@ die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "
 }
 
 /**
+ * @removed
  * @param array $aConfig
  * @return array
  */
@@ -262,6 +264,7 @@ die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "
 }
 
 /**
+ * @removed
  * locates source/binary for a specified file
  * @param string $sWhereIsItem
  * @return string
@@ -339,71 +342,71 @@ const PSCspace = 'ZZZPSCspaceZZZ';
  */
 function PSCsanitizeKeys(&$aArray, $sQueryString)
 {
-    foreach ($aArray as $key => $val)
+    foreach ($aArray as $sKey => $mValue)
     {
         // restore values to original
-        $newval = $val;
+        $mNewValue = $mValue;
 
-        if (is_string($val))
+        if (true === is_string($mValue))
         {
-            $newval = str_replace([PSCperiod, PSCspace], [".", " "], $val);
+            $mNewValue = str_replace([PSCperiod, PSCspace], [".", " "], $mValue);
         }
 
-        $newkey = str_replace([PSCperiod, PSCspace], [".", " "], $key);
+        $sNewkey = str_replace([PSCperiod, PSCspace], [".", " "], $sKey);
 
-        if (str_contains($newkey, '_'))
+        if (true === str_contains($sNewkey, '_'))
         {
             // periode of space or [ or ] converted to _. Restore with querystring
-            $regex = '/&(' . str_replace('_', '[ \.\[\]]', preg_quote($newkey, '/')) . ')=/';
-            $matches = null;
+            $sRegex = '/&(' . str_replace('_', '[ \.\[\]]', preg_quote($sNewkey, '/')) . ')=/';
+            $aMatch = null;
 
-            if (preg_match_all($regex, "&" . urldecode($sQueryString), $matches))
+            if (preg_match_all($sRegex, "&" . urldecode($sQueryString), $aMatch))
             {
-                if (count(array_unique($matches[1])) === 1 && $key != $matches[1][0])
+                if (count(array_unique($aMatch[1])) === 1 && $sKey != $aMatch[1][0])
                 {
-                    $newkey = $matches[1][0];
+                    $sNewkey = $aMatch[1][0];
                 }
             }
         }
 
-        if ($newkey != $key)
+        if ($sNewkey != $sKey)
         {
-            unset($aArray[$key]);
-            $aArray[$newkey] = $newval;
+            unset($aArray[$sKey]);
+            $aArray[$sNewkey] = $mNewValue;
         }
-        elseif ($val != $newval)
+        elseif ($mValue != $mNewValue)
         {
-            $aArray[$key] = $newval;
+            $aArray[$sKey] = $mNewValue;
         }
 
-        if (is_array($val))
+        if (true === is_array($mValue))
         {
-            PSCsanitizeKeys($aArray[$newkey], $sQueryString);
+            PSCsanitizeKeys($aArray[$sNewkey], $sQueryString);
         }
     }
 }
 
 /**
  * leaves key names preserved
- * @param $querystr
- * @param $arr
+ * @param $sQueryString
+ * @param $aData
  * @return array|null
  */
-function parse_str_clean($querystr, &$arr): array
+function parse_str_clean($sQueryString, &$aData): array
 {
     // without the converting of spaces and dots etc to underscores.
-    $qquerystr = str_ireplace(['.', '%2E', '+', ' ', '%20'], [
+    $sQquerystr = str_ireplace(['.', '%2E', '+', ' ', '%20'], [
         PSCperiod,
         PSCperiod,
         PSCspace,
         PSCspace,
         PSCspace,
-    ], $querystr);
-    $arr = null;
-    parse_str($qquerystr, $arr);
-    PSCsanitizeKeys($arr, $querystr);
+    ], $sQueryString);
+    $aData = null;
+    parse_str($sQquerystr, $aData);
+    PSCsanitizeKeys($aData, $sQueryString);
 
-    return $arr;
+    return $aData;
 }
 
 /**

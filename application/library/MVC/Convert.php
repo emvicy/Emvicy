@@ -94,5 +94,4 @@ class Convert
     {
         return \Opis\Closure\unserialize($mValue);
     }
-
 }

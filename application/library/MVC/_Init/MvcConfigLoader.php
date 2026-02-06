@@ -2,23 +2,30 @@
 
 namespace MVC\_Init;
 
+use MVC\Convert;
+
 class MvcConfigLoader
 {
     public static function do(array $aConfig = array())
     {
-        #-----------------------------
-        # main config
-
-        // place of main Emvicy config
-        $aConfig['MVC_CONFIG_DIR'] = realpath(__DIR__ . '/../../../../') . '/config';
-
-        // load main config from /config/*.php
-        foreach (glob ($aConfig['MVC_CONFIG_DIR'] . '/*.php') as $sFile)
+        if (true === file_exists($aConfig['MVC_CACHE_DIR'] . '/config.json'))
         {
-            require_once $sFile;
-            $sFile = null;
-            unset ($sFile);
+            return self::getFromCache($aConfig);
         }
+
+//        #-----------------------------
+//        # main config
+//
+//        // place of main Emvicy config
+//        $aConfig['MVC_CONFIG_DIR'] = realpath(__DIR__ . '/../../../../') . '/config';
+//
+//        // load main config from /config/*.php
+//        foreach (glob ($aConfig['MVC_CONFIG_DIR'] . '/*.php') as $sFile)
+//        {
+//            require_once $sFile;
+//            $sFile = null;
+//            unset ($sFile);
+//        }
 
         #-----------------------------
         # module config
@@ -84,6 +91,34 @@ class MvcConfigLoader
         // load requirements from /application/init/util/_mvc.php
         require_once $aConfig['MVC_APPLICATION_INIT_DIR'] . '/util/_mvc.php';
 
+        // save to cache
+        if (false === file_exists($aConfig['MVC_CACHE_DIR'] . '/config.json'))
+        {
+            self::saveToCache($aConfig);
+        }
+
         return $aConfig;
+    }
+
+    /**
+     * @param array $aConfig
+     * @return mixed
+     */
+    protected static function getFromCache(array $aConfig)
+    {
+        require_once realpath(__DIR__ . '/../') . '/Convert.php';
+        $aConfig = Convert::unserialize(file_get_contents($aConfig['MVC_CACHE_DIR'] . '/config.json'));
+
+        return $aConfig;
+    }
+
+    /**
+     * @param $aConfig
+     * @return bool success
+     */
+    protected static function saveToCache($aConfig)
+    {
+        require_once realpath(__DIR__ . '/../') . '/Convert.php';
+        return (bool) file_put_contents($aConfig['MVC_CACHE_DIR'] . '/config.json', Convert::serialize($aConfig));
     }
 }
