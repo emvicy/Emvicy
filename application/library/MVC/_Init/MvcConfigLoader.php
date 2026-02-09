@@ -8,10 +8,10 @@ class MvcConfigLoader
 {
     public static function do(array $aConfig = array())
     {
-        if (true === file_exists($aConfig['MVC_CACHE_DIR'] . '/config.json'))
-        {
-            return self::getFromCache($aConfig);
-        }
+//        if (true === file_exists($aConfig['MVC_CACHE_DIR'] . '/config.json'))
+//        {
+//            return self::getFromCache($aConfig);
+//        }
 
 //        #-----------------------------
 //        # main config
@@ -26,6 +26,8 @@ class MvcConfigLoader
 //            $sFile = null;
 //            unset ($sFile);
 //        }
+
+//        self::createConfigClass($aConfig);
 
         #-----------------------------
         # module config
@@ -91,11 +93,11 @@ class MvcConfigLoader
         // load requirements from /application/init/util/_mvc.php
         require_once $aConfig['MVC_APPLICATION_INIT_DIR'] . '/util/_mvc.php';
 
-        // save to cache
-        if (false === file_exists($aConfig['MVC_CACHE_DIR'] . '/config.json'))
-        {
-            self::saveToCache($aConfig);
-        }
+//        // save to cache
+//        if (false === file_exists($aConfig['MVC_CACHE_DIR'] . '/config.json'))
+//        {
+//            self::saveToCache($aConfig);
+//        }
 
         return $aConfig;
     }
@@ -120,5 +122,27 @@ class MvcConfigLoader
     {
         require_once realpath(__DIR__ . '/../') . '/Convert.php';
         return (bool) file_put_contents($aConfig['MVC_CACHE_DIR'] . '/config.json', Convert::serialize($aConfig));
+    }
+
+    protected static function createConfigClass(array $aConfig)
+    {
+        // statics
+        $sClassName = 'Konfig';
+        $sFilenameAbs = $aConfig['MVC_LIBRARY'] . '/MVC/' . $sClassName . '.php';
+        $sFileContent = '';
+        $sFileContent.= "<?php\n\n";
+        $sFileContent.="namespace MVC;\n\n";
+        $sFileContent.= "class " . $sClassName . "\n{\n\n";
+
+        foreach ($aConfig as $sKey => $mValue)
+        {
+//            $sFileContent.= "\tpublic static $" . $sKey . ' = ' . var_export($mValue, true) . ';' . "\n";
+            $sFileContent.= "\tpublic const " . $sKey . ' = ' . var_export($mValue, true) . ';' . "\n";
+        }
+
+        $sFileContent.= "\n}";
+        file_put_contents($sFilenameAbs, $sFileContent);
+
+        stop();
     }
 }

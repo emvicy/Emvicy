@@ -81,8 +81,59 @@ MODULE_CONFIG:
 //    require_once realpath(__DIR__ . '/../../') . '/library/MVC/_Init/MvcConfigLoader.php';
 //    $aConfig = mvcConfigLoader($aConfig);
     $aConfig = \MVC\_Init\MvcConfigLoader::do($aConfig);
-}
 
+//    dump($aConfig);
+//    stop();
+
+//if (false === file_exists(realpath(__DIR__ . '/../../') . '/library/MVC/Konfig.php'))
+//{
+    // statics
+    $sClassName = 'Konfig';
+    $sFilenameAbs = $aConfig['MVC_LIBRARY'] . '/MVC/' . $sClassName . '.php';
+    $sFileContent = '';
+    $sFileContent.= "<?php\n\n";
+    $sFileContent.="namespace MVC;\n\n";
+    $sFileContent.= "class " . $sClassName . "\n{\n";
+    $sFileContent.="\tpublic const timestamp = '" . time() . "';\n\n";
+
+    foreach ($aConfig as $sKey => $mValue)
+    {
+        if (stristr(\MVC\Convert::serialize($mValue),'\Closure'))
+        {
+            $mValue = "'" . base64_encode(\MVC\Convert::serialize($mValue)) . "'";
+        }
+        else
+        {
+            $mValue = var_export($mValue, true);
+        }
+
+        $sFileContent.= "\tprotected const " . $sKey . ' = ' . $mValue . ';' . "\n";
+    }
+
+    foreach ($aConfig as $sKey => $mValue)
+    {
+        $sFileContent.= "\tpublic static function get_" . $sKey . "()\n";
+        $sFileContent.= "\t{\n";
+
+        if (stristr(\MVC\Convert::serialize($mValue),'\Closure'))
+        {
+            $sFileContent.= "\t\treturn \MVC\Convert::unserialize(base64_decode(self::" . $sKey . "));\n";
+        }
+        else
+        {
+            $sFileContent.= "\t\treturn self::" . $sKey . ";\n";
+        }
+
+        $sFileContent.= "\t}\n";
+    }
+
+    $sFileContent.= "\n}";
+    file_put_contents($sFilenameAbs, $sFileContent);
+}
+//else
+//{
+//    require_once realpath(__DIR__ . '/../../') . '/library/MVC/Konfig.php';
+//}
 
 //LOAD_FIRST_ESSENTIALS:{
 //

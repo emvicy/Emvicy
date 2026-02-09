@@ -248,6 +248,9 @@ MODULES: {
 
     // array for module configs
     $aConfig['MODULE'] = array();
+
+    $aConfig['MVC_MODULE_SECONDARY'] = array();
+    $aConfig['MVC_MODULE_SET'] = array();
 }
 
 MVC_APPLICATION_SETTINGS_II:
