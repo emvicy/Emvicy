@@ -195,7 +195,11 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
             ->set_tag($sTag)
         ;
 
+        // value: complete DTRoute
         self::$aRoute[$sPath] = $oDTRoute;
+
+        // value: just path of DTRoute
+        self::$aTag[$sTag] = $sPath;
 
         #--------------------------
 
@@ -456,50 +460,12 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
      */
     public static function getOnTag(string $sTag = '', bool $bCacheAtRuntime = true) : DTRoute
     {
-        if (true === empty($sTag))
+        if (true === empty(self::$aTag[$sTag] ?? null))
         {
             return DTRoute::create();
         }
 
-        $sRegistryKey = __FUNCTION__ . '.' . $sTag;
-
-        // only once at runtime
-        if (true === $bCacheAtRuntime && true === Registry::isRegistered($sRegistryKey))
-        {
-            return Registry::get($sRegistryKey);
-        }
-
-        // only once at runtime
-        if (false === Registry::isRegistered('mvc_route_getOnTag_aRoute'))
-        {
-            $aRoute = Convert::objectToArray(self::$aRoute);
-            Registry::set('mvc_route_getOnTag_aRoute', $aRoute);
-        }
-
-        $aRoute = Registry::get('mvc_route_getOnTag_aRoute');
-        $iKey = array_search(
-            // what to search for
-            $sTag,
-            // Array to search in & Key to look after
-            array_column($aRoute, 'tag')
-        );
-
-        if (false === $iKey)
-        {
-            if (true === $bCacheAtRuntime)
-            {
-                Registry::set($sRegistryKey, DTRoute::create());
-            }
-
-            return DTRoute::create();
-        }
-
-        if (true === $bCacheAtRuntime)
-        {
-            Registry::set($sRegistryKey, self::$aRoute[array_keys($aRoute)[$iKey]]);
-        }
-
-        return self::$aRoute[array_keys($aRoute)[$iKey]];
+        return (self::$aRoute[self::$aTag[$sTag]] ?? DTRoute::create());
     }
 
     /**

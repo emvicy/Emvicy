@@ -28,6 +28,11 @@ abstract class AbstractRouteConcrete implements InterfaceRoute
     /**
      * @var array
      */
+    public static array $aTag = array();
+
+    /**
+     * @var array
+     */
     public static array $aMethod = array();
 
     /**

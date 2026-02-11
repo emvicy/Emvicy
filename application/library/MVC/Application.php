@@ -24,14 +24,11 @@ class Application
      * @throws \DateMalformedStringException
      * @throws \ReflectionException
      */
-    public function __construct(bool $bInit = true)
+    public function __construct()
     {
+
         #--------------------------------------------
         # new
-
-        // get config via global
-        // write configs into registry
-        Config::init($GLOBALS['aConfig']);
 
         // handle Errors
         Error::init();

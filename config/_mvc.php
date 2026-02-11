@@ -91,6 +91,7 @@ MVC_APPLICATION_SETTINGS_I: {
 
     $aConfig['MVC_APPLICATION_INIT_DIR'] = $aConfig['MVC_APPLICATION_PATH'] . '/init';
 
+    $aConfig['MVC_PERSIST'] = $aConfig['MVC_APPLICATION_PATH'] . '/persist';
     $aConfig['MVC_LIBRARY'] = $aConfig['MVC_APPLICATION_PATH'] . '/library';
     $aConfig['MVC_MODULES_DIR'] = $aConfig['MVC_BASE_PATH'] . '/modules';
 
@@ -244,11 +245,11 @@ MODULES: {
     $aConfig['MVC_MODULE_PRIMARY_MODEL_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/Model';
     $aConfig['MVC_MODULE_PRIMARY_POLICY_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/Policy';
     $aConfig['MVC_MODULE_PRIMARY_VIEW_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/View';
+//    $aConfig['MVC_MODULE_PRIMARY_VIEW'] = null;
     $aConfig['MVC_MODULE_PRIMARY_COMPOSER_DIR'] = $aConfig['MVC_MODULE_PRIMARY_CONFIG_DIR'] . '/' . $aConfig['MVC_MODULE_PRIMARY_NAME'];
 
     // array for module configs
     $aConfig['MODULE'] = array();
-
     $aConfig['MVC_MODULE_SECONDARY'] = array();
     $aConfig['MVC_MODULE_SET'] = array();
 }

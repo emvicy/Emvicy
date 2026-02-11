@@ -45,27 +45,27 @@ class Error
     /**
      * @var array
      */
-	protected static array $_aError = array();
+    protected static array $_aError = array();
 
-	/**
-	 * sets error handlers;
-	 * bind event 'mvc.error' to function
+    /**
+     * sets error handlers;
+     * bind event 'mvc.error' to function
      * @return void
      * @throws \ReflectionException
      */
-	public static function init() : void
-	{
-		register_shutdown_function ("\MVC\Error::fatal");
-		set_error_handler ("\MVC\Error::errorHandler");
-		set_exception_handler ("\MVC\Error::exception");
+    public static function init() : void
+    {
+        register_shutdown_function ("\MVC\Error::fatal");
+        set_error_handler ("\MVC\Error::errorHandler");
+        set_exception_handler ("\MVC\Error::exception");
 
-		Event::bind ('mvc.error', function(DTArrayObject $oDTArrayObject) {
-			Error::addERROR ($oDTArrayObject);
-		});
-	}
+        Event::bind ('mvc.error', function(DTArrayObject $oDTArrayObject) {
+            Error::addERROR ($oDTArrayObject);
+        });
+    }
 
-	/**
-	 * this catches an error on runtime, creates a new ErrorException Object of it and passes it to Exception Handler
+    /**
+     * this catches an error on runtime, creates a new ErrorException Object of it and passes it to Exception Handler
      * @param int    $iCode
      * @param string $sMessage
      * @param string $sFilename
@@ -73,15 +73,15 @@ class Error
      * @return void
      * @throws \ReflectionException
      */
-	public static function errorHandler(int $iCode, string $sMessage, string $sFilename, int $iLineNr) : void
-	{	
-		$oErrorException = new Errorexception($sMessage, $iCode, 1, $sFilename, $iLineNr);
-		
-		self::exception($oErrorException);
-	}	
-	
-	/**
-	 * Error handler, passes flow over the exception logger with new ErrorException.
+    public static function errorHandler(int $iCode, string $sMessage, string $sFilename, int $iLineNr) : void
+    {
+        $oErrorException = new Errorexception($sMessage, $iCode, 1, $sFilename, $iLineNr);
+
+        self::exception($oErrorException);
+    }
+
+    /**
+     * Error handler, passes flow over the exception logger with new ErrorException.
      * @param string $sMessage
      * @param int    $iCode
      * @param int    $iSeverity
@@ -90,15 +90,15 @@ class Error
      * @return void
      * @throws \ReflectionException
      */
-	public static function error (string $sMessage = '', int $iCode = E_ERROR, int $iSeverity = 0, string $sFilename = '', int $iLineNr = 0) : void
-	{
+    public static function error (string $sMessage = '', int $iCode = E_ERROR, int $iSeverity = 0, string $sFilename = '', int $iLineNr = 0) : void
+    {
         $aDebug = Debug::prepareBacktraceArray(debug_backtrace(limit: 2));
         (true === empty($sFilename)) ? $sFilename = $aDebug['sFile'] : false;
         (true === empty($iLineNr)) ? $iLineNr = $aDebug['sLine'] : false;
-		$oErrorException = new Errorexception($sMessage, $iCode, $iSeverity, $sFilename, (int) $iLineNr );
+        $oErrorException = new Errorexception($sMessage, $iCode, $iSeverity, $sFilename, (int) $iLineNr );
 
-		self::exception($oErrorException);
-	}
+        self::exception($oErrorException);
+    }
 
     /**
      * @param string $sMessage
@@ -143,10 +143,10 @@ class Error
      * @return void
      * @throws \ReflectionException
      */
-	public static function exception(\Error|Exception $oErrorException) : void
-	{
-		$sLogfile = Config::get_MVC_LOG_FILE_ERROR();
-		$sMsg = '';
+    public static function exception(\Error|Exception $oErrorException) : void
+    {
+        $sLogfile = Config::get_MVC_LOG_FILE_ERROR();
+        $sMsg = '';
 
         /** @var \ErrorException $oErrorException */
         if (method_exists ($oErrorException, 'getSeverity'))
@@ -163,61 +163,61 @@ class Error
         }
 
         $sMsg.= (self::$aExceptionTranslation[$oErrorException->getCode()] ?? 'E_???') . "\t";
-		$sMsg.= '(Code: ' . $oErrorException->getCode()
-            . ' / Class: ' . get_class ($oErrorException)
-            . '), File: ' . $oErrorException->getFile()
-            . ', Line: ' . $oErrorException->getLine()
-            . ', Message: ' . $oErrorException->getMessage()
-            . ', Trace: ' . $oErrorException->getTraceAsString();
-		self::addERROR (
-		    DTArrayObject::create()
+        $sMsg.= '(Code: ' . $oErrorException->getCode()
+                . ' / Class: ' . get_class ($oErrorException)
+                . '), File: ' . $oErrorException->getFile()
+                . ', Line: ' . $oErrorException->getLine()
+                . ', Message: ' . $oErrorException->getMessage()
+                . ', Trace: ' . $oErrorException->getTraceAsString();
+        self::addERROR (
+            DTArrayObject::create()
                 ->add_aKeyValue(DTKeyValue::create()->set_sKey('sMessage')->set_sValue($sMsg))
                 ->add_aKeyValue(DTKeyValue::create()->set_sKey('$oException')->set_sValue($oErrorException))
         );
-		Log::write (
+        Log::write (
             $sMsg,
             $sLogfile,
             false
         );
-	}
+    }
 
-	/**
-	 * Checks for a fatal error, work around for set_error_handler not working on fatal errors.
+    /**
+     * Checks for a fatal error, work around for set_error_handler not working on fatal errors.
      * @return void
      * @throws \ReflectionException
      */
-	public static function fatal() : void
-	{
-		$aError = error_get_last ();
+    public static function fatal() : void
+    {
+        $aError = error_get_last ();
 
-		if (!empty($aError))
-		{
-			self::error (
-				$aError["message"], 
-				E_ERROR, 
-				0, 
-				$aError["file"], 
-				$aError["line"] 
-			);
-		}
-	}
+        if (!empty($aError))
+        {
+            self::error (
+                $aError["message"],
+                E_ERROR,
+                0,
+                $aError["file"],
+                $aError["line"]
+            );
+        }
+    }
 
-	/**
-	 * adds an error to the error array 
+    /**
+     * adds an error to the error array
      * @param \MVC\DataType\DTArrayObject $oDTArrayObject
      * @return void
      * @throws \ReflectionException
      */
-	protected static function addERROR(DTArrayObject $oDTArrayObject) : void
-	{
-	    // add time
+    protected static function addERROR(DTArrayObject $oDTArrayObject) : void
+    {
+        // add time
         $oDTArrayObject->add_aKeyValue(
             DTKeyValue::create()
                 ->set_sKey('_sErrorTime')
                 ->set_sValue((string) microtime(true))
         );
-		self::$_aError[] = $oDTArrayObject;
-	}
+        self::$_aError[] = $oDTArrayObject;
+    }
 
     /**
      * @param bool $bConvertToArray

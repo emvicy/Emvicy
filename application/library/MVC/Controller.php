@@ -12,7 +12,6 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
-use MVC\MVCTrait\TraitAttribute;
 
 /**
  * Controller
@@ -104,13 +103,13 @@ class Controller
     /**
      * @throws \ReflectionException
      */
-	public function __destruct ()
-	{
+    public function __destruct ()
+    {
         Event::run('mvc.controller.destruct.before',
             DTArrayObject::create()
                 ->add_aKeyValue(
                     DTKeyValue::create()->set_sKey('oController')->set_sValue($this)
                 )
         );
-	}
+    }
 }

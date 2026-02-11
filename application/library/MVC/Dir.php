@@ -44,6 +44,8 @@ class Dir
             glob($sDirectory . '/{,.}[!.,!..]*', GLOB_BRACE)
         );
 
+        Registry::delete('Dir_remove_bForce');
+
         return (true === file_exists($sDirectory)) ? rmdir($sDirectory) : true;
     }
 
