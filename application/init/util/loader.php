@@ -1,4 +1,4 @@
 <?php
 
-require_once realpath(__DIR__ . '/../../../') . '/application/init/util/bootstrap.php';
-require_once realpath(__DIR__ . '/../../../') . '/config/_mvc.php';
+require realpath(__DIR__ . '/../../../') . '/application/init/util/bootstrap.php';
+require realpath(__DIR__ . '/../../../') . '/config/_mvc.php';
