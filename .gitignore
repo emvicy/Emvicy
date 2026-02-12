@@ -19,6 +19,7 @@ lint.sh
 application/.composer
 application/cache/*
 application/log/*
+application/persist/*
 application/pid/*
 application/session/*
 application/templates_c/*
