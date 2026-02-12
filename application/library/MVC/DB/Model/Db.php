@@ -338,7 +338,7 @@ class Db
         $sClassName = $this->getGenerateDataTypeClassName();
 
         $aDTConfig = array(
-            'dir' => Registry::get('MVC_MODULES_DIR') . '/' . $sModulename . '/DataType/',
+            'dir' => Config::get_MVC_MODULES_DIR() . '/' . $sModulename . '/DataType/',
             'unlinkDir' => false,
             'createEvents' => true,
             'class' => array(

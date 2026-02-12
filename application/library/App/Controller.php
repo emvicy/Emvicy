@@ -10,7 +10,6 @@
 
 namespace App;
 
-use MVC\_Init\MvcStoreEnv;
 use MVC\Config;
 use MVC\DataType\DTRequestIn;
 use MVC\DataType\DTRoute;
@@ -37,15 +36,14 @@ class Controller implements InterfaceController
         Event::run('app.controller.__construct.before', $oDTRequestIn);
 
         // get .version of Emvicy Framework
-//        mvcStoreEnv(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
-        MvcStoreEnv::do(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
+        storeEnv(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
 
         // get .version of Emvicy Modules if available
         foreach (glob(Config::get_MVC_MODULES_DIR() . '/*', GLOB_ONLYDIR) as $sModuleAbs)
         {
             $sVersionAbs = $sModuleAbs . '/.version';
             (true === file_exists($sVersionAbs))
-                ? MvcStoreEnv::do($sVersionAbs) #mvcStoreEnv($sVersionAbs)
+                ? storeEnv($sVersionAbs) #mvcStoreEnv($sVersionAbs)
                 : false
             ;
         }
