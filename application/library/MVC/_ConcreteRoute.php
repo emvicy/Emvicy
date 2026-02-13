@@ -151,6 +151,19 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
     }
 
     /**
+     * @param string $sPath
+     * @param string $sClassMethod
+     * @param mixed  $mOptional
+     * @param string $sTag
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function cli(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = ''): void
+    {
+        self::add('CLI', $sPath, $sClassMethod, $mOptional, $sTag);
+    }
+
+    /**
      * @param string $sRequestMethod
      * @param string $sPath
      * @param string $sClassMethod

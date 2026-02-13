@@ -23,7 +23,7 @@ class Controller implements InterfaceController
 {
     public static function __preconstruct()
     {
-        ;
+        stop();
     }
 
     /**

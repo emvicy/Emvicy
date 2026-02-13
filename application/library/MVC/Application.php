@@ -155,6 +155,7 @@ class Application
             );
         }
 
+        stop();
         self::setServerVarsForCli();
     }
 

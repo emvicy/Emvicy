@@ -73,7 +73,7 @@ $cLoadConfigforMain = function (array $aConfig = array()) {
     );
 
     // load requirements from /application/init/util/_mvc.php
-    require_once $aConfig['MVC_APPLICATION_INIT_DIR'] . '/util/_mvc.php';
+    require $aConfig['MVC_APPLICATION_INIT_DIR'] . '/util/_mvc.php';
 
     return $aConfig;
 };
@@ -96,7 +96,7 @@ $cLoadConfigforModule = function (array $aConfig) {
                 // load common config files
                 foreach (glob ($aConfig['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/*.php') as $sFile)
                 {
-                    require_once $sFile;
+                    require $sFile;
                 }
 
                 // load staging config
@@ -110,7 +110,7 @@ $cLoadConfigforModule = function (array $aConfig) {
 
                 if (file_exists($sConfigFileName))
                 {
-                    include_once $sConfigFileName;
+                    require $sConfigFileName;
                 }
 
                 // External composer Libraries
@@ -118,7 +118,7 @@ $cLoadConfigforModule = function (array $aConfig) {
 
                 if (file_exists($sVendorAutoload))
                 {
-                    require_once $sVendorAutoload;
+                    require $sVendorAutoload;
                 }
             }
         }
@@ -157,7 +157,7 @@ $cAutoload = function (array $aConfig) {
         {
             if (true === class_exists('\MVC\Log') && (true === class_exists('\MVC\Request')) && array_key_exists('REMOTE_ADDR', $_SERVER))
             {
-                Log::write('AUTOLOADING' . "\t" . $sFileName);
+                \MVC\Log::write('AUTOLOADING' . "\t" . $sFileName);
             }
         }
 
@@ -250,6 +250,46 @@ function stop()
 function ct()
 {
     return \MVC\Debug::constructionTime();
+}
+
+/**
+ * locates source/binary for a specified file
+ * @param string $sWhereIsItem
+ * @return string
+ * @throws \ReflectionException
+ */
+function whereis(string $sWhereIsItem = '')
+{
+    $sWhereIsItem = escapeshellarg(trim($sWhereIsItem));
+
+    ob_start();
+    system('/bin/bash -c "type -p ' . $sWhereIsItem . '"', $iCode);
+    $mResult = ob_get_contents();
+    $sResult = trim(((false === $mResult) ? '' : $mResult));
+    ob_end_clean();
+
+    if (true === empty($sResult))
+    {
+        ob_start();
+        system('/bin/bash -c "type -p whereis"', $iCode);
+        $mWhereis = ob_get_contents();
+        $sWhereis = trim(((false === $mWhereis) ? '' : $mWhereis));
+        ob_end_clean();
+
+        if (false === empty($sWhereis))
+        {
+            $sCmd = $sWhereis . ' ' . $sWhereIsItem;
+            $sResult = \Emvicy\Emvicy::shellExecute($sCmd);
+            list($sItem, $sResult) = array_filter(explode(' ', $sResult));
+        }
+
+        if (true === empty($sResult))
+        {
+            \MVC\Error::warning('function `' . __FUNCTION__ . '()` > requested program `' . $sWhereIsItem . '` not found.');
+        }
+    }
+
+    return (string) $sResult;
 }
 
 ///**
