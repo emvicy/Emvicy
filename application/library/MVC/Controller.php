@@ -35,7 +35,7 @@ class Controller
         if (false === file_exists ($sTargetClassFile))
         {
             $sMessage = "\n"
-                        . "Classfile missing: " . $sTargetClassFile . "\n"
+                        . "Classfile missing: `" . $sTargetClassFile . "`\n"
                         . "Abort.\n\n"
                         . str_repeat('-', 80) . "\n\n"
                         . "Documentation\nhttps://emvicy.com/\n\n"

@@ -39,17 +39,25 @@ class Request
             return Registry::get('oDTRequestIn');
         }
 
-        $aUriInfo = parse_url(self::getTheUriProtocol() . $_SERVER['HTTP_HOST'] . self::getTheServerRequestUri());
+        $aUriInfo = parse_url(self::getTheUriProtocol() . ((false === Config::get_MVC_CLI()) ? $_SERVER['HTTP_HOST'] : '') . self::getTheServerRequestUri());
         (false === is_array($aUriInfo)) ? $aUriInfo = array() : false;
 
         $oDTRequestIn = DTRequestIn::create($aUriInfo);
-        $oDTRequestIn->set_requestUri(self::getTheServerRequestUri());
-        $oDTRequestIn->set_protocol(self::getTheUriProtocol());
-
-        $oDTRequestIn->set_full(self::getTheUriProtocol() . $_SERVER['HTTP_HOST'] . self::getTheServerRequestUri());
+        $oDTRequestIn->set_requestMethod(self::getTheServerRequestMethod());
+        $oDTRequestIn->set_full(
+            (false === ('CLI' === $oDTRequestIn->get_requestMethod()))
+                ? (self::getTheUriProtocol() . $_SERVER['HTTP_HOST'] . self::getTheServerRequestUri())
+                : ''
+        );
+        $oDTRequestIn->set_protocol(
+            (false === ('CLI' === $oDTRequestIn->get_requestMethod()))
+            ? self::getTheUriProtocol()
+                : ''
+        );
+        $oDTRequestIn->set_requestUri((false === Config::get_MVC_CLI()) ? self::getTheServerRequestUri() : '');
+        $oDTRequestIn->set_host($_SERVER['HTTP_HOST']);
         $oDTRequestIn->set_pathArray(RequestHelper::getPathArrayOnUrl($oDTRequestIn->get_full()));
 
-        $oDTRequestIn->set_requestMethod(self::getTheServerRequestMethod());
         $oDTRequestIn->set_input(file_get_contents("php://input"));
         $oDTRequestIn->set_isSecure(Config::get_MVC_SECURE_REQUEST());
         parse_str($oDTRequestIn->get_query(), $aQueryArray);
@@ -172,6 +180,11 @@ class Request
      */
     private static function getTheUriProtocol(mixed $mSsl = null) : string
     {
+        if (true === Config::get_MVC_CLI())
+        {
+            return '';
+        }
+
         // detect on ssl or not
         if (isset($mSsl))
         {
@@ -252,10 +265,13 @@ class Request
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
     private static function getTheServerRequestMethod() : string
     {
-        return (array_key_exists('REQUEST_METHOD', $_SERVER) ? (string) $_SERVER['REQUEST_METHOD'] : '');
+        $sRequestMethod = ($_SERVER['REQUEST_METHOD'] ?? ((true == self::itIsCli()) ? 'CLI' : ''));
+
+        return $sRequestMethod;
     }
 
     /**

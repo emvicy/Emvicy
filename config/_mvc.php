@@ -270,6 +270,9 @@ $aConfig['MVC_ROUTING_DIR'] = array(
  * Note: Possibility of a direct call (http|cli) of this route is disabled
  */
 $aConfig['MVC_ROUTING_FALLBACK'] = '\\' . $aConfig['MVC_MODULE_PRIMARY_NAME'] . '\\Controller\\Index::notFound';
+$aConfig['MVC_ROUTING_FALLBACK_CLOSURE'] = function(){
+    view()->notFound();
+};
 
 //======================================================================================================================
 // MVC_TEMPLATE_ENGINE_SMARTY

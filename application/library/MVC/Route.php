@@ -203,13 +203,13 @@ class Route extends AbstractRouteConcrete
     }
 
     /**
-     * @example Route::getRouteIndexArrayOnKey('query', Config::get_MVC_ROUTING_FALLBACK())
+     * @example Route::getRouteIndexArrayOnKey('classMethod', Config::get_MVC_ROUTING_FALLBACK())
      *          returns [0 => '/403/', 1 => '/404/']
      * @param string $sKey
      * @param string $sValue
      * @return array
      */
-    public static function getRouteIndexArrayOnKey(string $sKey = 'query', string $sValue = '') : array
+    public static function getRouteIndexArrayOnKey(string $sKey = 'classMethod', string $sValue = '') : array
     {
         return self::$sRouteClassConcrete::getRouteIndexArrayOnKey($sKey, $sValue);
     }

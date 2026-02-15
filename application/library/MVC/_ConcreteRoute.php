@@ -12,7 +12,9 @@ namespace MVC;
 
 use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
+use MVC\DataType\DTRequestIn;
 use MVC\DataType\DTRoute;
+use MVC\Http\Status_Not_Found_404;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionClass;
@@ -199,7 +201,7 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
             ->set_path($sPath)
             ->set_requestMethod(strtoupper($sRequestMethod))
             ->set_methodsAssigned($aRequestMethodAssigned)
-            ->set_query($sClassMethod)
+            ->set_classMethod($sClassMethod)
             ->set_module(current(preg_split('%\\\%', $sClass, -1, PREG_SPLIT_NO_EMPTY)))
             ->set_class($sClass)
             ->set_classFile($oReflectionClass->getFileName())
@@ -257,13 +259,13 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
     }
 
     /**
-     * @example Route::getRouteIndexArrayOnKey('query', Config::get_MVC_ROUTING_FALLBACK())
+     * @example Route::getRouteIndexArrayOnKey('classMethod', Config::get_MVC_ROUTING_FALLBACK())
      *          returns [0 => '/403/', 1 => '/404/']
      * @param string $sKey
      * @param string $sValue
      * @return array
      */
-    public static function getRouteIndexArrayOnKey(string $sKey = 'query', string $sValue = '') : array
+    public static function getRouteIndexArrayOnKey(string $sKey = 'classMethod', string $sValue = '') : array
     {
         $aRoute = Convert::objectToArray(self::$aRoute);
         $aIndex = array();
@@ -437,32 +439,59 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
      */
     public static function handleFallback(bool $bCacheAtRuntime = true) : DTRoute
     {
-        // only once at runtime
-        if (true === $bCacheAtRuntime && true === Registry::isRegistered(__METHOD__))
-        {
-            return Registry::get(__METHOD__);
-        }
+//        // only once at runtime
+//        if (true === $bCacheAtRuntime && true === Registry::isRegistered(__METHOD__))
+//        {
+//            stop();
+//            return Registry::get(__METHOD__);
+//        }
 
-        $sIndex = current(self::getRouteIndexArrayOnKey('query', Config::get_MVC_ROUTING_FALLBACK()));
-
-        /** @var DTRoute $oRoutingCurrent */
-        $oRoutingCurrent = (self::$aRoute[$sIndex] ?? array());
-
-        if (true === empty($oRoutingCurrent))
-        {
-            return DTRoute::create();
-        }
-
-        Event::run (
-            'mvc.route.handleFallback.after',
-            DTArrayObject::create()
-                ->add_aKeyValue(DTKeyValue::create()->set_sKey('sRequest')->set_sValue(Request::in()->get_requestUri()))
-                ->add_aKeyValue(DTKeyValue::create()->set_sKey('sForward')->set_sValue($sIndex))
-        );
-
-        Registry::set(__METHOD__, $oRoutingCurrent);
-
-        return $oRoutingCurrent;
+        call_user_func($GLOBALS['aConfig']['MVC_ROUTING_FALLBACK_CLOSURE']);
+////        info(
+////            $GLOBALS['aConfig']['MVC_ROUTING_FALLBACK_CLOSURE'],
+////        );
+//
+//        stop();
+//
+////        info(
+////            Route::getCurrent()
+////        );
+////        stop();
+//
+//        $sIndex = current(self::getRouteIndexArrayOnKey('classMethod', Config::get_MVC_ROUTING_FALLBACK()));
+//        display(
+//            $sIndex
+//        );
+//        stop();
+//
+//        /** @var DTRoute $oRoutingCurrent */
+//        $oRoutingCurrent = (self::$aRoute[$sIndex] ?? array());
+//        display(
+//            $oRoutingCurrent
+//        );
+//
+//        info(
+//            Config::get_MVC_ROUTING_FALLBACK()
+//        );
+//        stop();
+//
+//        if (true === empty($oRoutingCurrent))
+//        {
+//            stop();
+//            return DTRoute::create();
+//        }
+//
+//        Event::run (
+//            'mvc.route.handleFallback.after',
+//            DTArrayObject::create()
+//                ->add_aKeyValue(DTKeyValue::create()->set_sKey('sRequest')->set_sValue(Request::in()->get_requestUri()))
+//                ->add_aKeyValue(DTKeyValue::create()->set_sKey('sForward')->set_sValue($sIndex))
+//        );
+//
+//        Registry::set(__METHOD__, $oRoutingCurrent);
+//
+//        stop();
+//        return $oRoutingCurrent;
     }
 
     /**

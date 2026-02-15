@@ -94,6 +94,15 @@ interface InterfaceRoute
     public static function delete(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = ''): void;
 
     /**
+     * @param string $sPath
+     * @param string $sClassMethod
+     * @param mixed  $mOptional
+     * @param string $sTag
+     * @return void
+     */
+    public static function cli(string $sPath = '', string $sClassMethod = '', mixed $mOptional = '', string $sTag = ''): void;
+
+    /**
      * @param string $sRequestMethod
      * @param string $sPath
      * @param string $sClassMethod

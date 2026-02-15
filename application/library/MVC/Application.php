@@ -33,6 +33,9 @@ class Application
         // handle Errors
         Error::init();
 
+        // cli handling
+        Application::cliWrapper();
+
         // Routing
         Route::init();
 
@@ -141,12 +144,18 @@ class Application
      */
     public static function cliWrapper() : void
     {
+        if (false === Config::get_MVC_CLI())
+        {
+            return;
+        }
+
         // check user/file permission
         $sIndex = Config::get_MVC_PUBLIC_PATH() . '/index.php';
 
+        // die on missing permission
         if (posix_getuid() != File::info($sIndex)->get_uid())
         {
-            $aUser = posix_getpwuid(posix_getuid ());
+            $aUser = posix_getpwuid(posix_getuid());
 
             die (
                 "\n\tERROR\tCLI - access granted for User `" . File::info($sIndex)->get_name() . "` only "
@@ -155,7 +164,6 @@ class Application
             );
         }
 
-        stop();
         self::setServerVarsForCli();
     }
 
@@ -168,7 +176,7 @@ class Application
         $aParseUrl = parse_url(($GLOBALS['argv'][1] ?? ''));
 
         (false === is_array($_SERVER)) ? $_SERVER = array () : false;
-        $_SERVER['REQUEST_METHOD'] = ($_SERVER['REQUEST_METHOD'] ?? 'GET');
+        $_SERVER['REQUEST_METHOD'] = ($_SERVER['REQUEST_METHOD'] ?? 'CLI');
         $_SERVER['REQUEST_URI'] = ($_SERVER['REQUEST_URI'] ?? $GLOBALS['argv'][1]);
         $_SERVER['REMOTE_ADDR'] = ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
         $_SERVER['HTTP_HOST'] = ($_SERVER['HTTP_HOST'] ?? 'localhost');
