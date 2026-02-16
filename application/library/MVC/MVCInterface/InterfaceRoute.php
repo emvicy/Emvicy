@@ -149,10 +149,9 @@ interface InterfaceRoute
     public static function getPathOnPlaceholderIndex(string $sPath = ''): string;
 
     /**
-     * @return DTRoute
-     * @throws \ReflectionException
+     * @return mixed
      */
-    public static function handleFallback(): DTRoute;
+    public static function handleFallback();
 
     /**
      * returns DTRoute object at first matching tag | null if not found

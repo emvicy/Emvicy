@@ -265,12 +265,10 @@ $aConfig['MVC_ROUTING_DIR'] = array(
 );
 
 /**
- * MVC fallback routing
- * this routing will be used if none is specified for routing
- * Note: Possibility of a direct call (http|cli) of this route is disabled
+ * MVC routing fallback
+ * this closure will be used if routing fails
  */
-$aConfig['MVC_ROUTING_FALLBACK'] = '\\' . $aConfig['MVC_MODULE_PRIMARY_NAME'] . '\\Controller\\Index::notFound';
-$aConfig['MVC_ROUTING_FALLBACK_CLOSURE'] = function(){
+$aConfig['MVC_ROUTING_FALLBACK'] = function(){
     view()->notFound();
 };
 

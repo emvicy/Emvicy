@@ -26,10 +26,6 @@ class Application
      */
     public function __construct()
     {
-
-        #--------------------------------------------
-        # new
-
         // handle Errors
         Error::init();
 
@@ -42,56 +38,8 @@ class Application
         // Run target Controller's __preconstruct()
         Controller::runTargetClassPreconstruct();
 
-//        dump(
-//            Route::getCurrent()
-//        );
-//
-//        die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
-
-//        #--------------------------------------------
-//        # legacy
-//
-//        if (true === $bInit)
-//        {
-//            // get config via global
-//            // write configs into registry
-//            Config::init($GLOBALS['aConfig']);
-//
-//            // Event Procedures of current module
-//            Event::init();
-//
-//            // handle Errors
-//            Error::init();
-//
-//            // Caching
-//            Cache::init();
-//
-//            // add a CLI wrapper to enable requests from command line
-//            if (true === Config::get_MVC_CLI())
-//            {
-//                self::cliWrapper();
-//            }
-//
-//            // Routing
-//            Route::init();
-//
-//            // Policy Rules
-//            Policy::init();
-//        }
-//
-//        // Run target Controller's __preconstruct()
-//        Controller::runTargetClassPreconstruct();
-//
-//        // Session
-//        self::initSession();
-//
-//        # /legacy
-//        #--------------------------------------------
-
         // Run the requested target Controller
         Controller::init();
-//        echo microtime(true) . ', ' . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n";
-//        die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
 
         Event::run ('mvc.application.construct.after');
     }
@@ -229,6 +177,5 @@ class Application
                     DTKeyValue::create()->set_sKey('oController')->set_sValue($this)
                 )
         );
-//        dct();
     }
 }

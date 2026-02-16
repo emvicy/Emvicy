@@ -19,6 +19,7 @@ require __DIR__ . '/functions.php';
 
 // Read and store .env
 (false === file_exists ($sBasePath . '/.env')) ? copy($sBasePath . '/.env.example',$sBasePath . '/.env') : false;
+storeEnv($sBasePath . '/.version');
 storeEnv($sBasePath . '/.env');
 
 // we need the variable MVC_ENV set. So this fallback sets it to "develop" if MVC_ENV is not already set before

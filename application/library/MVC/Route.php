@@ -244,10 +244,9 @@ class Route extends AbstractRouteConcrete
     }
 
     /**
-     * @return DTRoute
-     * @throws \ReflectionException
+     * @return mixed
      */
-    public static function handleFallback() : DTRoute
+    public static function handleFallback()
     {
         return self::$sRouteClassConcrete::handleFallback();
     }

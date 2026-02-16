@@ -93,7 +93,7 @@ class Controller
 
         // start requested Module/Class/Method
         $oReflex = new Reflex();
-        $bSuccess = $oReflex->reflect ();
+        $bSuccess = $oReflex->reflect();
 
         Event::run('mvc.controller.init.after', $bSuccess);
 

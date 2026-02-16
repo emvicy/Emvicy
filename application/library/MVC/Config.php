@@ -69,11 +69,11 @@ class Config
     }
 
     /**
-     * @return string
+     * @return \Closure
      */
-    public static function get_MVC_ROUTING_FALLBACK(): string
+    public static function get_MVC_ROUTING_FALLBACK() : \Closure
     {
-        return (string) $GLOBALS['aConfig']['MVC_ROUTING_FALLBACK'];
+        return $GLOBALS['aConfig']['MVC_ROUTING_FALLBACK'];
     }
 
     /**

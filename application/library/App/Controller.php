@@ -35,9 +35,6 @@ class Controller implements InterfaceController
     {
         Event::run('app.controller.__construct.before', $oDTRequestIn);
 
-        // get .version of Emvicy Framework
-        storeEnv(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
-
         // get .version of Emvicy Modules if available
         foreach (glob(Config::get_MVC_MODULES_DIR() . '/*', GLOB_ONLYDIR) as $sModuleAbs)
         {

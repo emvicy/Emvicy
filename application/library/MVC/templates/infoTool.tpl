@@ -507,14 +507,14 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 				<div class="subtab41">
 					<h6>MVC_BASE_PATH</h6>
 					<code>
-						{$aToolbar.aRegistry.MVC_BASE_PATH|escape:'htmlall'}
+						{MVC\Config::get_MVC_BASE_PATH()|escape:'htmlall'}
 					</code>
 					<pre>Config::get_MVC_BASE_PATH()</pre>
 
 					<h6>Files</h6>
 					<ol class="prettyprint">
 						{foreach key=key item=item from=$aToolbar.aFilesIncluded}
-							<li>{$item|replace:$aToolbar.aRegistry.MVC_BASE_PATH:''|escape:'htmlall'}</li>
+							<li>{$item|replace:MVC\Config::get_MVC_BASE_PATH():''|escape:'htmlall'}</li>
 						{/foreach}
 					</ol>
 					<pre>get_required_files()</pre>
@@ -582,7 +582,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 				<div class="subtab71">
 					<h6>Cache Folder</h6>
 					<code>
-						{$aToolbar.aRegistry.MVC_CACHE_DIR}
+						{MVC\Config::get_MVC_CACHE_DIR()}
 					</code>
 					<pre>Config::get_MVC_CACHE_DIR()</pre>
 

@@ -10,11 +10,7 @@
 
 namespace MVC;
 
-use MVC\DataType\DTArrayObject;
-use MVC\DataType\DTKeyValue;
-use MVC\DataType\DTRequestIn;
 use MVC\DataType\DTRoute;
-use MVC\Http\Status_Not_Found_404;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionClass;
@@ -434,64 +430,22 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
 
     /**
      * @param bool $bCacheAtRuntime
-     * @return \MVC\DataType\DTRoute
+     * @return mixed|void
      * @throws \ReflectionException
      */
-    public static function handleFallback(bool $bCacheAtRuntime = true) : DTRoute
+    public static function handleFallback(bool $bCacheAtRuntime = true)
     {
-//        // only once at runtime
-//        if (true === $bCacheAtRuntime && true === Registry::isRegistered(__METHOD__))
-//        {
-//            stop();
-//            return Registry::get(__METHOD__);
-//        }
+        // only once at runtime
+        if (true === $bCacheAtRuntime && true === Registry::isRegistered(__METHOD__))
+        {
+            return Registry::get(__METHOD__);
+        }
 
-        call_user_func($GLOBALS['aConfig']['MVC_ROUTING_FALLBACK_CLOSURE']);
-////        info(
-////            $GLOBALS['aConfig']['MVC_ROUTING_FALLBACK_CLOSURE'],
-////        );
-//
-//        stop();
-//
-////        info(
-////            Route::getCurrent()
-////        );
-////        stop();
-//
-//        $sIndex = current(self::getRouteIndexArrayOnKey('classMethod', Config::get_MVC_ROUTING_FALLBACK()));
-//        display(
-//            $sIndex
-//        );
-//        stop();
-//
-//        /** @var DTRoute $oRoutingCurrent */
-//        $oRoutingCurrent = (self::$aRoute[$sIndex] ?? array());
-//        display(
-//            $oRoutingCurrent
-//        );
-//
-//        info(
-//            Config::get_MVC_ROUTING_FALLBACK()
-//        );
-//        stop();
-//
-//        if (true === empty($oRoutingCurrent))
-//        {
-//            stop();
-//            return DTRoute::create();
-//        }
-//
-//        Event::run (
-//            'mvc.route.handleFallback.after',
-//            DTArrayObject::create()
-//                ->add_aKeyValue(DTKeyValue::create()->set_sKey('sRequest')->set_sValue(Request::in()->get_requestUri()))
-//                ->add_aKeyValue(DTKeyValue::create()->set_sKey('sForward')->set_sValue($sIndex))
-//        );
-//
-//        Registry::set(__METHOD__, $oRoutingCurrent);
-//
-//        stop();
-//        return $oRoutingCurrent;
+        if (true === is_callable(Config::get_MVC_ROUTING_FALLBACK()))
+        {
+            Event::run ('mvc.route.handleFallback');
+            call_user_func(Config::get_MVC_ROUTING_FALLBACK());
+        }
     }
 
     /**
