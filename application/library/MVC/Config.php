@@ -14,6 +14,8 @@
 namespace MVC;
 
 
+use phpDocumentor\Reflection\Types\Self_;
+
 /**
  * Application
  */
@@ -636,6 +638,14 @@ class Config
     public static function get_MVC_MODULE_PRIMARY_VIEW_DIR(): string
     {
         return (string) $GLOBALS['aConfig']['MVC_MODULE_PRIMARY_VIEW_DIR'];
+    }
+
+    /**
+     * @return string
+     */
+    public static function get_MVC_MODULE_PRIMARY_ETC_CONFIG_PRIMARY(): string
+    {
+        return (string) $GLOBALS['aConfig']['MVC_MODULE_PRIMARY_ETC_CONFIG_PRIMARY'];
     }
 
     /**
@@ -1270,5 +1280,22 @@ class Config
     public static function set_MVC_ROUTE_CLASS(string $sRouteClass = ''): void
     {
         $GLOBALS['aConfig']['MVC_ROUTE_CLASS'] = $sRouteClass;
+    }
+
+    #-------------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @param $aConfigFile
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function init($aConfigFile = array())
+    {
+        global $aConfig;
+
+        foreach ($aConfigFile as $sConfigFile)
+        {
+            require self::get_MVC_MODULE_PRIMARY_STAGING_CONFIG_DIR() . '/' . $sConfigFile . '.php';
+        }
     }
 }

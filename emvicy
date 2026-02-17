@@ -4,7 +4,11 @@
 /**
  * run this script on cli
  * @usage php emvicy
+ * @package Emvicy
+ * @copyright ueffing.net
+ * @author Guido K.B.W. Üffing <info@ueffing.net>
+ * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
  */
 putenv('emvicy=1');
-require_once realpath(__DIR__) . '/application/init/util/loader.php';
-require_once 'application/library/Emvicy/_Emvicy.php';
+require './application/init/util/bootstrap.php';
+require './application/library/Emvicy/_Emvicy.php';

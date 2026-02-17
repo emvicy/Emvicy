@@ -13,8 +13,6 @@ $sColCmd = "\033[0;36m";
 $sColOff = "\033[0m";
 #-----------------------------
 
-storeEnv(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
-
 \MVC\Application::setServerVarsForCli();
 $oSymfonyComponentConsoleApplication = new Application('Emvicy', getenv('Emvicy'));
 $oSymfonyComponentConsoleApplication->getDefinition()->setOptions();

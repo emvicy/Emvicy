@@ -26,11 +26,11 @@ class Application
      */
     public function __construct()
     {
-        // handle Errors
-        Error::init();
-
         // cli handling
         Application::cliWrapper();
+
+        // handle Errors
+        Error::init();
 
         // Routing
         Route::init();
