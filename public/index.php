@@ -6,7 +6,10 @@
  * @author Guido K.B.W. Üffing <info@ueffing.net>
  * @license GNU GENERAL PUBLIC LICENSE Version 3. See application/doc/COPYING
  */
+define('MVC_START_MICROTIME', microtime(true));
 require '../application/init/util/bootstrap.php';
 new \MVC\Application();
-//die("die at: " . __FILE__ . ', ' . __LINE__ . "<br>\n" . str_repeat('-', 80) . "<br>\n");
-//echo '<pre>' . print_r($aConfig, true) . '</pre><hr>';
+
+display(
+    round((microtime(true) - MVC_START_MICROTIME), 3)
+);

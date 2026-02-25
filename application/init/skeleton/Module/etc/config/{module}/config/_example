@@ -34,7 +34,6 @@ $aConfig['MVC_LOG_REQUEST'] = true;
 $aConfig['MVC_LOG_DEFAULT'] = true;
 $aConfig['MVC_LOG_EVENT_RUN'] = false;
 $aConfig['MVC_LOG_AUTOLOADER'] = false;         // recommended to set to true for develop environments only: Log autoloader actions
-$aConfig['MVC_LOG_ROUTEINTERVALL'] = false;      // recommended to set to true for develop environments only: Log Route Intervall actions
 $aConfig['MVC_LOG_FORCE_LINEBREAK'] = true;     // force linebreaks in logfiles no matter what, improves readability of logs but blows up logfile
 $aConfig['MVC_INFOTOOL_ENABLE'] = true;         // recommended to set to true for develop environments only: show InfoTool bar
 

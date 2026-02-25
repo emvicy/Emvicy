@@ -37,7 +37,9 @@ $aConfig['MVC_ENV'] = getenv('MVC_ENV');
 
 require $sBasePath . '/config/_mvc.php';
 $aConfig = $cLoadConfigforMain($aConfig); # use Closure
-$aConfig = $cLoadConfigforModule($aConfig); # use Closure
+
+/** @try loading in preconstruct in certain module controller via `Config::init(aConfigFile: ['session','csp','menu']);`  */
+//$aConfig = $cLoadConfigforModule($aConfig); # use Closure
 
 //----------------------------------------------------------------------------------------------------------------------
 // Autoloader
@@ -45,4 +47,4 @@ $aConfig = $cLoadConfigforModule($aConfig); # use Closure
 $cAutoload($aConfig); # use Closure
 
 //----------------------------------------------------------------------------------------------------------------------
-unset($sBasePath, $cLoadConfigforMain, $cLoadConfigforModule, $cAutoload);
+unset($sBasePath, $cIdentifyPrimary, $cLoadConfigforMain, $cLoadConfigforModule, $cAutoload);

@@ -1,7 +1,5 @@
 <?php
 
-use MVC\Log;
-
 /**
  * @param string $sEnvFile
  * @return void
@@ -50,9 +48,35 @@ function storeEnv(string $sEnvFile = '')
 /**
  * Closure
  * @param array $aConfig
+ * @return array
+ */
+$cIdentifyPrimary = function(array $aConfig = array()) {
+
+    $aConfig['MVC_MODULE_PRIMARY'] = array_filter(
+        array_map(
+            function ($sValue) use ($aConfig){
+                return str_replace($aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'], '', str_replace($aConfig['MVC_MODULES_DIR'] . '/', '', $sValue));
+            }, glob($aConfig['MVC_MODULES_DIR'] . '/*' . $aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'])),
+        'trim'
+    );
+
+    return $aConfig;
+};
+
+/**
+ * Closure
+ * @param array $aConfig
  * @return array|void
  */
 $cLoadConfigforMain = function (array $aConfig = array()) {
+
+    $aConfig['MVC_MODULE_PRIMARY'] = array_filter(
+        array_map(
+            function ($sValue) use ($aConfig){
+                return str_replace($aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'], '', str_replace($aConfig['MVC_MODULES_DIR'] . '/', '', $sValue));
+            }, glob($aConfig['MVC_MODULES_DIR'] . '/*' . $aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'])),
+        'trim'
+    );
 
     if (count($aConfig['MVC_MODULE_PRIMARY']) > 1)
     {
@@ -68,8 +92,8 @@ $cLoadConfigforMain = function (array $aConfig = array()) {
     }, glob($aConfig['MVC_MODULES_DIR'] . '/*', GLOB_ONLYDIR)), 'trim'), $aConfig['MVC_MODULE_PRIMARY']);
 
     $aConfig['MVC_MODULE_SET'] = array(
-        'SECONDARY' => $aConfig['MVC_MODULE_SECONDARY'],    # handle 'SECONDARY' first
-        'PRIMARY' => $aConfig['MVC_MODULE_PRIMARY'],        # handle 'PRIMARY' second
+        'SECONDARY' => $aConfig['MVC_MODULE_SECONDARY'],    # place 'SECONDARY' first
+        'PRIMARY' => $aConfig['MVC_MODULE_PRIMARY'],        # place 'PRIMARY' second
     );
 
     // load requirements from /application/init/util/_mvc.php
@@ -88,22 +112,16 @@ $cLoadConfigforModule = function (array $aConfig) {
     // Modules
     foreach ($aConfig['MVC_MODULE_SET'] as $sType => $aModule)
     {
-        // walk modules
+        // walk modules; SECONDARY first, then PRIMARY
         foreach ($aModule as $sModule)
         {
             if (file_exists($aConfig['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/'))
             {
-                // load common config files
-                foreach (glob ($aConfig['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/*.php') as $sFile)
-                {
-                    require $sFile;
-                }
-
-                // load staging config
+                // load staging config file (develop|test|live)
                 $sConfigFileName =
                     $aConfig['MVC_MODULES_DIR'] . '/' . $sModule
                     . '/etc/config/'
-                    . basename($sModule)
+                    . $sModule
                     . '/config/'
                     . getenv('MVC_ENV')
                     . '.php';
@@ -113,8 +131,14 @@ $cLoadConfigforModule = function (array $aConfig) {
                     require $sConfigFileName;
                 }
 
+                // load further common config files
+                foreach (glob ($aConfig['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/*.php') as $sFile)
+                {
+                    require $sFile;
+                }
+
                 // External composer Libraries
-                $sVendorAutoload = $aConfig['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/' . basename($sModule) . '/vendor/autoload.php';
+                $sVendorAutoload = $aConfig['MVC_MODULES_DIR'] . '/' . $sModule . '/etc/config/' . $sModule . '/vendor/autoload.php';
 
                 if (file_exists($sVendorAutoload))
                 {
@@ -136,8 +160,8 @@ $cLoadConfigforModule = function (array $aConfig) {
 $cAutoload = function (array $aConfig) {
 
     // set Include paths
-    set_include_path (
-        get_include_path ()
+    set_include_path(
+        get_include_path()
 
         // MVC Application
         . PATH_SEPARATOR . $aConfig['MVC_PERSIST']
@@ -152,14 +176,6 @@ $cAutoload = function (array $aConfig) {
     spl_autoload_register(function ($sClassName) {
 
         $sFileName = str_replace('\\', DIRECTORY_SEPARATOR, $sClassName) . '.php';
-
-        if (true === ($aConfig['MVC_LOG_AUTOLOADER'] ?? false))
-        {
-            if (true === class_exists('\MVC\Log') && (true === class_exists('\MVC\Request')) && array_key_exists('REMOTE_ADDR', $_SERVER))
-            {
-                \MVC\Log::write('AUTOLOADING' . "\t" . $sFileName);
-            }
-        }
 
         require_once $sFileName;
     });

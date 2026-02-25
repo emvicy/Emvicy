@@ -130,7 +130,6 @@ $aConfig['MVC_LOG_NOTICE'] = true;              // logging enabled true|false
 $aConfig['MVC_LOG_WARNING'] = true;             // logging enabled true|false
 $aConfig['MVC_LOG_REQUEST'] = true;            // logging enabled true|false
 $aConfig['MVC_LOG_DEFAULT'] = true;             // logging enabled true|false
-$aConfig['MVC_LOG_ROUTEINTERVALL'] = true;      // logging enabled true|false
 $aConfig['MVC_LOG_FORCE_LINEBREAK'] = false;    // force linebreaks in logfiles no matter what
 
 // Log file places
@@ -144,7 +143,6 @@ $aConfig['MVC_LOG_FILE_EVENT'] = $aConfig['MVC_LOG_FILE_DIR'] . 'event.log';
 $aConfig['MVC_LOG_FILE_EVENT_RUN'] = $aConfig['MVC_LOG_FILE_DIR'] . 'event_run.log';
 $aConfig['MVC_LOG_FILE_REQUEST'] = $aConfig['MVC_LOG_FILE_DIR'] . 'request.log';
 $aConfig['MVC_LOG_FILE_SQL'] = $aConfig['MVC_LOG_FILE_DIR'] . 'sql.log';
-$aConfig['MVC_LOG_FILE_ROUTEINTERVALL'] = $aConfig['MVC_LOG_FILE_DIR'] . 'route_intervall.log';
 $aConfig['MVC_LOG_FILE_PROCESS'] = $aConfig['MVC_LOG_FILE_DIR'] . 'process.log';
 $aConfig['MVC_LOG_FILE_QUEUE'] = $aConfig['MVC_LOG_FILE_DIR'] . 'queue.log';
 $aConfig['MVC_LOG_FILE_CRON'] = $aConfig['MVC_LOG_FILE_DIR'] . 'cron.log';
@@ -227,13 +225,8 @@ $aConfig['MVC_CLI'] = (('cli' === php_sapi_name()) ? true : false);
 $aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'] = '/.primary';
 
 // identify primary module
-$aConfig['MVC_MODULE_PRIMARY'] = array_filter(
-    array_map(
-        function ($sValue) use ($aConfig){
-            return str_replace($aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'], '', str_replace($aConfig['MVC_MODULES_DIR'] . '/', '', $sValue));
-        }, glob($aConfig['MVC_MODULES_DIR'] . '/*' . $aConfig['MVC_MODULE_PRIMARY_ESSENTIAL'])),
-    'trim'
-);
+$aConfig['MVC_MODULE_PRIMARY'] = array();
+$aConfig = $cIdentifyPrimary($aConfig);
 $aConfig['MVC_MODULE_PRIMARY_NAME'] = current($aConfig['MVC_MODULE_PRIMARY']);
 $aConfig['MVC_MODULE_PRIMARY_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/' . $aConfig['MVC_MODULE_PRIMARY_NAME'];
 $aConfig['MVC_MODULE_PRIMARY_CONFIG_DIR'] = $aConfig['MVC_MODULE_PRIMARY_DIR'] . '/etc/config';
@@ -245,7 +238,7 @@ $aConfig['MVC_MODULE_PRIMARY_STAGING_CONFIG_DIR'] = $aConfig['MVC_MODULE_PRIMARY
 $aConfig['MVC_MODULE_PRIMARY_MODEL_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/Model';
 $aConfig['MVC_MODULE_PRIMARY_POLICY_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/Policy';
 $aConfig['MVC_MODULE_PRIMARY_VIEW_DIR'] = $aConfig['MVC_MODULES_DIR'] . '/View';
-//    $aConfig['MVC_MODULE_PRIMARY_VIEW'] = null;
+$aConfig['MVC_MODULE_PRIMARY_VIEW'] = null;
 $aConfig['MVC_MODULE_PRIMARY_COMPOSER_DIR'] = $aConfig['MVC_MODULE_PRIMARY_CONFIG_DIR'] . '/' . $aConfig['MVC_MODULE_PRIMARY_NAME'];
 
 // array for module configs

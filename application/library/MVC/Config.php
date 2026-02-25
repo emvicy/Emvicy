@@ -926,23 +926,6 @@ class Config
     }
 
     /**
-     * @return string
-     */
-    public static function get_MVC_LOG_FILE_ROUTEINTERVALL(): string
-    {
-        return (string) $GLOBALS['aConfig']['MVC_LOG_FILE_ROUTEINTERVALL'];
-    }
-
-    /**
-     * @param string $sLogFileName
-     * @return void
-     */
-    public static function set_MVC_LOG_FILE_ROUTEINTERVALL(string $sLogFileName = ''): void
-    {
-        $GLOBALS['aConfig']['MVC_LOG_FILE_ROUTEINTERVALL'] = $sLogFileName;
-    }
-
-    /**
      * @return bool
      */
     public static function get_MVC_LOG_EVENT(): bool
@@ -1042,23 +1025,6 @@ class Config
     public static function set_MVC_LOG_POLICY(bool $bVar = false): void
     {
         $GLOBALS['aConfig']['MVC_LOG_POLICY'] = $bVar;
-    }
-
-    /**
-     * @return bool
-     */
-    public static function get_MVC_LOG_ROUTEINTERVALL(): bool
-    {
-        return (bool) filter_var($GLOBALS['aConfig']['MVC_LOG_ROUTEINTERVALL'], FILTER_VALIDATE_BOOLEAN);
-    }
-
-    /**
-     * @param bool $bVar
-     * @return void
-     */
-    public static function set_MVC_LOG_ROUTEINTERVALL(bool $bVar = false): void
-    {
-        $GLOBALS['aConfig']['MVC_LOG_ROUTEINTERVALL'] = $bVar;
     }
 
     /**

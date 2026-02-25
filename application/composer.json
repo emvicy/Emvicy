@@ -21,15 +21,15 @@
     "ext-simplexml": "*",
     "ext-spl": "*",
     "ext-zip": "*",
-    "adbario/php-dot-notation": "3.*",
-    "egulias/email-validator": "@stable",
-    "erusev/parsedown":"dev-master#c9dc49f68f7bd14e5aa107d86a08ce59203f02ee",
-    "ezyang/htmlpurifier": "v4.*",
-    "mrclay/jsmin-php": "2.*",
-    "opis/closure": "^4",
-    "respect/validation": "@stable",
+
+    "adbario/php-dot-notation": "@stable",
+    "erusev/parsedown":"@stable",
+    "ezyang/htmlpurifier": "@stable",
+    "mrclay/jsmin-php": "@stable",
+    "opis/closure": "@stable",
     "rmccue/requests": "@stable",
-    "smarty/smarty": "4.*",
+    "smarty/smarty": "@stable",
+
     "symfony/var-dumper": "@stable",
     "symfony/http-kernel": "@stable",
     "symfony/http-foundation": "@stable",
@@ -37,9 +37,8 @@
     "symfony/console": "@stable"
   },
   "require-dev": {
-    "php-webdriver/webdriver": "@stable",
-    "phpstan/phpstan": "@stable",
-    "phpunit/phpunit": "@stable",
-    "phpunit/phpunit-selenium": "@stable"
+    "fakerphp/faker": "^1.23",
+    "nunomaduro/collision": "^8.6",
+    "phpunit/phpunit": "^11.5.3"
   }
 }

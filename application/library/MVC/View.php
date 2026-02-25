@@ -14,7 +14,7 @@ use MVC\DataType\DTArrayObject;
 use MVC\DataType\DTKeyValue;
 use Smarty;
 
-class View extends Smarty
+class View extends Smarty\Smarty
 {
     /**
      * switch rendering on/off
@@ -76,7 +76,7 @@ class View extends Smarty
         $this->caching = Config::get_MVC_SMARTY_CACHE_STATUS();
         $aPlugInDir = array(Config::get_MVC_APPLICATION_PATH() . '/vendor/smarty/smarty/libs/plugins/');
         (!empty(Config::get_MVC_SMARTY_PLUGINS_DIR())) ? $aPlugInDir = array_merge ($aPlugInDir, Config::get_MVC_SMARTY_PLUGINS_DIR()) : false;
-        $this->setPluginsDir ($aPlugInDir);
+        $this->addPluginsDir($aPlugInDir);
         $this->checkDirs();
 
         Event::bind('mvc.view.render.off', function() {
@@ -117,7 +117,7 @@ class View extends Smarty
      * returns a given template rendered as String
      * @param string $sTemplate
      * @return string
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function loadTemplateAsString(string $sTemplate = '') : string
     {
@@ -129,7 +129,7 @@ class View extends Smarty
      * @param string $sTemplateString
      * @return void
      * @throws \ReflectionException
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function renderString(string $sTemplateString = '') : void
     {
@@ -154,7 +154,7 @@ class View extends Smarty
      * renders the template $this->sTemplate
      * @return void
      * @throws \ReflectionException
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
     public function render() : void
     {

@@ -31,6 +31,20 @@ class Application
 
         // handle Errors
         Error::init();
+//        pr(get_required_files());stop();
+
+//        /** @todo identify primary module; then load custom settings via primary module */
+//        info(
+//            $GLOBALS['aConfig']['MVC_MODULE_PRIMARY_NAME']
+//        );
+//        stop();
+//        global $aConfig;
+//        global $cLoadConfigforModule;
+//        $aConfig = $cLoadConfigforModule($aConfig); # use Closure
+//        info(
+//            $aConfig
+//        );
+//        stop();
 
         // Routing
         Route::init();

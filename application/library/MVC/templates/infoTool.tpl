@@ -1,3 +1,4 @@
+{assign var=oViewCurrent value=MVC\Config::get_MVC_MODULE_PRIMARY_VIEW()}
 {nocache}
 {*
 application/library/MVC/templates/infoTool.tpl
@@ -127,7 +128,7 @@ blue: hsl(210,50%,50%)
 					</ul>
 
 					<h6>Session Status
-						<a id="myMvcToolbar_Session_Status"></a> 
+						<a id="myMvcToolbar_Session_Status"></a>
 					</h6>
 					enabled: <code>{if "1" == MVC\Session::is()->enabled()}true{else}false{/if}</code>
 					<pre>Session::is()->enabled()</pre>
@@ -136,7 +137,7 @@ blue: hsl(210,50%,50%)
 					<pre>Session::is()->getSessionId()</pre>
 
 					<h6>Session Values
-						<a id="myMvcToolbar_Session_Values"></a> 
+						<a id="myMvcToolbar_Session_Values"></a>
 					</h6>
 					<b>Namespace</b>
 					<code>{MVC\Session::is()->getNamespace()}</code>
@@ -423,7 +424,9 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<!-- menu -->
 			<navi>
 				<label for="subtab31">Template</label>
-				<label for="subtab32">Smarty Template Vars</label>
+				<label for="subtab32">
+					Smarty Template Vars <amount>{count($oViewCurrent::init()->getTemplateVars())-1}</amount>
+				</label>
 				<label for="subtab33">Rendered</label>
 			</navi>
 
@@ -435,7 +438,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 				<div class="subtab31">
 					<!-------------------------------------------------------->
 					<h6>Current View</h6>
-					{assign var=oViewCurrent value=MVC\Config::get_MVC_MODULE_PRIMARY_VIEW()}
+{*					{assign var=oViewCurrent value=MVC\Config::get_MVC_MODULE_PRIMARY_VIEW()}*}
 					<code>{get_class(MVC\Config::get_MVC_MODULE_PRIMARY_VIEW())}</code>
 					<br>
 					<i>ClassName</i>
@@ -511,7 +514,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 					</code>
 					<pre>Config::get_MVC_BASE_PATH()</pre>
 
-					<h6>Files</h6>
+					<h6>Files<br><small>Amount of loaded files: <code>{count($aToolbar.aFilesIncluded)}</code></small></h6>
 					<ol class="prettyprint">
 						{foreach key=key item=item from=$aToolbar.aFilesIncluded}
 							<li>{$item|replace:MVC\Config::get_MVC_BASE_PATH():''|escape:'htmlall'}</li>
@@ -528,7 +531,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 
 			<!-- menu -->
 			<navi>
-				<label for="subtab51">Files loaded</label>
+				<label for="subtab51">Memory consumption</label>
 			</navi>
 
 			<!-- content -->
@@ -639,20 +642,20 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<i class="fa fa-code"></i> View
 		</label>
 		<label for="tab6">
-			<i class="fa fa-key"></i> Registry
+			<i class="fa fa-key"></i> Registry <amount>{count(MVC\Registry::getStorageArray())-1}</amount>
 		</label>
 		<label for="tab7">
-			<i class="fa fa-refresh"></i> Cache
+			<i class="fa fa-refresh"></i> Cache <amount>{$aToolbar.aCacheFilesAmount}</amount>
 		</label>
 		<label for="tab4">
-			<i class="fa fa-file"></i> Files
+			<i class="fa fa-file"></i> Files <amount>{count($aToolbar.aFilesIncluded)}</amount>
 		</label>
 		<label for="tab5">
 			<i class="fa fa-bar-chart"></i> Memory
 		</label>
 		{if !empty($aToolbar.aError)}
 			<label for="tab8" class="myMvcToolbar-bg-primaryx" style="position: relative;">
-				<i class="fa fa-warning myMvcToolbarBlinkx"></i> E_* <sup>({count($aToolbar.aError)})</sup>
+				<i class="fa fa-warning myMvcToolbarBlinkx"></i> E_* <amount>({count($aToolbar.aError)})</amount>
 			</label>
 		{/if}
 		<label id="myMvcToolbar_toggle" class="myMvcToolbar-bg-info" title="toggle"><b>&larr;&rarr;</b></label>

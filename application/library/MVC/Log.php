@@ -126,7 +126,6 @@ class Log
         if ($sLogfile === Config::get_MVC_LOG_FILE_NOTICE() && false === Config::get_MVC_LOG_NOTICE()) {return;}
         if ($sLogfile === Config::get_MVC_LOG_FILE_REQUEST() && false === Config::get_MVC_LOG_REQUEST()) {return;}
         if ($sLogfile === Config::get_MVC_LOG_FILE_DEFAULT() && false === Config::get_MVC_LOG_DEFAULT()) {return;}
-        if ($sLogfile === Config::get_MVC_LOG_FILE_ROUTEINTERVALL() && false === Config::get_MVC_LOG_ROUTEINTERVALL()) {return;}
         if ($sLogfile === Config::get_MVC_LOG_FILE_PROCESS() && false === Config::get_MVC_LOG_PROCESS()) {return;}
         if ($sLogfile === Config::get_MVC_LOG_FILE_QUEUE() && false === Config::get_MVC_LOG_QUEUE()) {return;}
         if ($sLogfile === Config::get_MVC_LOG_FILE_CRON() && false === Config::get_MVC_LOG_FILE_CRON()) {return;}

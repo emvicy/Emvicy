@@ -132,6 +132,13 @@ navi label {
 /*.tab7 {height: 300px !important;}*/
 .tab5 {height: 100px !important;}
 .tab8 {height: 600px !important;}
+#myMvcToolbar amount {
+    border-radius: 3px;
+    background-color: #eee;
+    color: #333;
+    font-size: 9px;
+    padding: 0 2px 0 2px;
+}
 
 /**
  sub menu

@@ -24,10 +24,10 @@ class InfoTool
      * Index constructor.
      * adds Event Listener to 'mvc.view.render.before'
      * starts collecting Infos and save it to Registry
-     * @param \Smarty $oView
+     * @param \Smarty\Smarty $oView
      * @throws \ReflectionException
      */
-    public function __construct(Smarty $oView)
+    public function __construct(Smarty\Smarty $oView)
     {
         $oDTRoutingAdditional = Route::getCurrent()->get_additional();
 
@@ -58,13 +58,13 @@ class InfoTool
 
     /**
      * adds the toolbar to the html dom before closing body tag
-     * @param \Smarty $oView
+     * @param \Smarty\Smarty $oView
      * @return void
      * @throws \DOMException
      * @throws \ReflectionException
-     * @throws \SmartyException
+     * @throws \Smarty\Exception
      */
-    public static function injectToolbar(Smarty $oView): void
+    public static function injectToolbar(Smarty\Smarty $oView): void
     {
         if (false === Registry::isRegistered('aToolbar'))
         {
@@ -133,12 +133,11 @@ class InfoTool
 
     /**
      * collects all Info for being displayed by the Toolbar
-     * @param \Smarty $oView
+     * @param \Smarty\Smarty $oView
      * @return array
      * @throws \ReflectionException
-     * @throws \Exception
      */
-    protected function collectInfo(Smarty $oView) : array
+    protected function collectInfo(Smarty\Smarty $oView) : array
     {
         $aToolbar = array ();
         $aGetEnv = getenv();
@@ -264,9 +263,10 @@ class InfoTool
         $aToolbar['aRegistry'] = $aRegistry;
         $aToolbar['sRegistry'] = self::buildMarkupListTree($aToolbar['aRegistry']);
         $aToolbar['aCache'] = self::buildMarkupListTree($this->getCaches());
+        $aToolbar['aCacheFilesAmount'] = count($this->getCaches());
         $aToolbar['aError'] = Error::get(bConvertToArray: false);
         $aToolbar['aModuleCurrentConfig'] = self::buildMarkupListTree(Config::MODULE());
-        $aToolbar['sConstructionTime'] = Debug::constructionTime();
+        $aToolbar['sConstructionTime'] = round(Debug::constructionTime(), 3);
 
         return $aToolbar;
     }

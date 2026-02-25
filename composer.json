@@ -1,19 +1,24 @@
 {
-    "name": "emvicy/emvicy",
-    "type": "framework",
-    "description": "MVC Framework, written in PHP. MVC Structure, +Events, +Policies, +DataTypes, Smarty Template Engine, Modular, Expandable. https://emvicy.com/",
-    "keywords": ["framework","emvicy"],
-    "license": "GPL-3.0-or-later",
-    "homepage": "https://emvicy.com/",
-    "require": {
-        "php": ">=8.5",
-        "emvicy/emvicy": "^3",
-      "ext-pdo": "*"
-    },
-    "authors": [
-        {
-            "name": "Guido K.B.W. Üffing"
-        }
-    ],
-    "minimum-stability": "dev"
+  "name": "emvicy/emvicy",
+  "type": "framework",
+  "description": "MVC Framework, written in PHP. MVC Structure, +Events, +Policies, +DataTypes, Smarty Template Engine, Modular, Expandable. https://emvicy.com/",
+  "keywords": [
+    "emvicy",
+    "framework",
+    "php"
+  ],
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://emvicy.com/",
+  "require": {
+    "php": ">=8.5",
+    "emvicy/emvicy": "^3",
+    "ext-pdo": "*"
+  },
+  "authors": [
+    {
+      "name": "Guido K.B.W. Üffing"
+    }
+  ],
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
