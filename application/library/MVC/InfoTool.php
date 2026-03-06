@@ -146,6 +146,7 @@ class InfoTool
         $aRegistry = Registry::getStorageArray();
         $a_MVC_SESSION_OPTIONS = Config::get_MVC_SESSION_OPTIONS();
 
+        $_POST = ($_POST ?? []);
         ksort($aConstants['user'], SORT_STRING|SORT_FLAG_CASE);
         ksort($aGetEnv, SORT_STRING|SORT_FLAG_CASE);
         ksort($_SERVER, SORT_STRING|SORT_FLAG_CASE);
