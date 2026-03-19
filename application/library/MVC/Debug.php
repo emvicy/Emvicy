@@ -71,13 +71,13 @@ class Debug
         // output Web
         else
         {
-            echo '<div class="draggable" style="box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); position: fixed !important; bottom:80px !important;left:20px !important;z-index:65535 !important;float:left !important;text-align:left !important;background-color:white !important;border:1px solid grey !important;padding:5px !important;filter: Alpha (opacity=80) !important;opacity: 0.8 !important; moz-opacity: 0.8 !important;-moz-border-radius: 3px !important; border-radius: 3px !important;width: 50% !important;min-height: 550px !important;">
+            echo '<div id="debugInfo" class="draggable" style="position: fixed; box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); z-index:65535 !important;float:left !important;text-align:left !important;background-color:white !important;border:1px solid grey !important;padding: 5px !important;filter: Alpha (opacity=80) !important;opacity: 0.8 !important; moz-opacity: 0.8 !important;-moz-border-radius: 3px !important; border-radius: 3px !important;width: 50% !important;min-height: 550px !important;display: block;">
                 <div style="overflow: auto !important;font-weight: normal;font-family: \'FreeMono\', \'Andale Mono\', monospace; color: #000;"><!--overflow-wrap: break-word !important;word-wrap: break-word !important;hyphens: auto !important;">-->
                     <nobr><b>File:</b> ' . $aBacktrace['sFile'] . '</nobr><br>
                     <nobr><b>Line:</b> ' . $aBacktrace['sLine'] . '</nobr><br>
                     <nobr><b>Class/Method:</b> ' . $aBacktrace['sClass'] . '::' . $aBacktrace['sFunction'] . '</nobr><br>
                 </div>
-                <div class="draggable" style="overflow: auto !important;float:left !important;border:1px dotted grey !important;background-color: whitesmoke; width:100% !important;height:465px !important;font-size:medium !important;-moz-border-radius: 3px !important; border-radius: 3px !important;padding:10px !important;font-family: monospace !important;"><b>';
+                <div style="overflow: auto !important;float:left !important;border:1px dotted grey !important;background-color: whitesmoke; width:100% !important;height:465px !important;font-size:medium !important;-moz-border-radius: 3px !important; border-radius: 3px !important;padding:10px !important;font-family: monospace !important;"><b>';
                 $sHighlight = highlight_string('<?php' . "\n" . $mData, true);
                 echo trim(str_replace('&lt;?php', '', $sHighlight));
                 echo '</b></div>
@@ -135,7 +135,7 @@ class Debug
             $sDisplay .= $sConsultation . '<textarea style="font-size:10px;width:100% !important;min-height: 60px !important;margin:0 !important;background-color:blue !important;color:white !important;border: none !important;padding: 5px !important;font-family: monospace !important;">' . $mData . '</textarea>';
 
             // Display
-            echo '<div class="draggable" style="box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); overflow: auto !important;max-height: 90%;z-index:65535 !important;position:fixed !important;bottom:10px !important;right:10px !important;background-color:blue !important;color:white !important;border:1px solid #333 !important;width:500px !important;-moz-border-radius:3px !important; border-radius: 3px !important;font-size:12px !important;font-family: monospace !important;"><b>';
+            echo '<div style="box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); overflow: auto !important;max-height: 90%;z-index:65535 !important;position:fixed !important;bottom:10px !important;right:10px !important;background-color:blue !important;color:white !important;border:1px solid #333 !important;width:500px !important;-moz-border-radius:3px !important; border-radius: 3px !important;font-size:12px !important;font-family: monospace !important;"><b>';
             echo $sDisplay;
             echo '</b></div>';
         }

@@ -289,3 +289,8 @@ ul.quickjump li:first-child {
 .top {
 	margin-top: 50px;
 }
+.draggable {
+	cursor: pointer !important;
+	position: fixed !important;
+	display: none;
+}
