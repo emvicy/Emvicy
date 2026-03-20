@@ -23,7 +23,7 @@ $(document).ready(function() {
     if (undefined === cookieExists(sCookieName)) {$('#' + sCookieName).fadeIn();}
     $('#' + sCookieName + ' button').on('click', function(oEvent){
         if (true === $('#' + sCookieName + ' input').is(':checked')) {
-            document.cookie = sCookieName + "=true; expires=365; path='/'; SameSite=None; Secure;";
+            document.cookie = sCookieName + "=true; expires=365; path=/; SameSite=None; Secure;";
             $('#' + sCookieName).fadeOut(function(){'slow', location.reload();});
         }
     });
