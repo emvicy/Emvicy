@@ -76,9 +76,11 @@ class Debug
         // output Web
         else
         {
-            echo '<div id="debugInfo' . md5(Convert::serialize($aBacktrace)) . '" class="emvicy_draggable" style="position: fixed; box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); z-index:65535 !important;float:left !important;text-align:left !important;background-color:white !important;border:1px solid grey !important;padding: 5px !important;filter: Alpha (opacity=80) !important;opacity: 0.8 !important; moz-opacity: 0.8 !important;-moz-border-radius: 3px !important; border-radius: 3px !important;width: 50% !important;min-height: 550px !important;display: block;">
+            $sId = 'debugInfo' . md5(Convert::serialize($aBacktrace));
+            echo '<div id="' . $sId . '" class="emvicy_draggable" style="position: fixed; box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); z-index:65535 !important;float:left !important;text-align:left !important;background-color:white !important;border:1px solid grey !important;padding: 5px !important;filter: Alpha (opacity=80) !important;opacity: 0.8 !important; moz-opacity: 0.8 !important;-moz-border-radius: 3px !important; border-radius: 3px !important;width: 50% !important;min-height: 550px !important;display: block;">
                 <div style="overflow: auto !important;font-weight: normal;font-family: \'FreeMono\', \'Andale Mono\', monospace; color: #000;"><!--overflow-wrap: break-word !important;word-wrap: break-word !important;hyphens: auto !important;">-->
-                <span style="color: white; background-color: blue; padding: 2px;">' . $iCount . '</span>
+                <span style="color: white; background-color: blue; padding: 2px;border-radius: 3px;">' . $iCount . '</span>
+                <span style="color: white; background-color: red; padding: 2px 8px;border-radius: 3px;float: right" onclick="document.getElementById(\'' . $sId . '\').remove()">X</span>
                     <nobr><b>File:</b> ' . $aBacktrace['sFile'] . '</nobr><br>
                     <nobr><b>Line:</b> ' . $aBacktrace['sLine'] . '</nobr><br>
                     <nobr><b>Class/Method:</b> ' . $aBacktrace['sClass'] . '::' . $aBacktrace['sFunction'] . '</nobr><br>
