@@ -289,7 +289,7 @@ ul.quickjump li:first-child {
 .top {
 	margin-top: 50px;
 }
-.draggable {
+.emvicy_draggable {
 	cursor: pointer !important;
 	position: fixed !important;
 	display: none;

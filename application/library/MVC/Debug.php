@@ -54,6 +54,10 @@ class Debug
      */
     public static function info(mixed $mData = '', array $aDebugBacktrace = array()) : void
     {
+        static $iCount;
+
+        $iCount++;
+
         // source
         $aBacktrace = self::prepareBacktraceArray((false === empty($aDebugBacktrace)) ? $aDebugBacktrace : debug_backtrace(limit: 2));
         $mData = self::obDump($mData);
@@ -62,6 +66,7 @@ class Debug
         if (isset ($GLOBALS['argc']))
         {
             echo "\n---DEBUG-------------------------";
+            echo "\nInfo Count:\t\t" . $iCount . "";
             echo "\nFile:\t\t\t" . $aBacktrace['sFile'] . "";
             echo "\nLine:\t\t\t" . $aBacktrace['sLine'] . "";
             echo "\nClass::function:\t" . $aBacktrace['sClass'] . '::' . $aBacktrace['sFunction'] . "\n";
@@ -71,8 +76,9 @@ class Debug
         // output Web
         else
         {
-            echo '<div id="debugInfo" class="draggable" style="position: fixed; box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); z-index:65535 !important;float:left !important;text-align:left !important;background-color:white !important;border:1px solid grey !important;padding: 5px !important;filter: Alpha (opacity=80) !important;opacity: 0.8 !important; moz-opacity: 0.8 !important;-moz-border-radius: 3px !important; border-radius: 3px !important;width: 50% !important;min-height: 550px !important;display: block;">
+            echo '<div id="debugInfo' . md5(Convert::serialize($aBacktrace)) . '" class="emvicy_draggable" style="position: fixed; box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); z-index:65535 !important;float:left !important;text-align:left !important;background-color:white !important;border:1px solid grey !important;padding: 5px !important;filter: Alpha (opacity=80) !important;opacity: 0.8 !important; moz-opacity: 0.8 !important;-moz-border-radius: 3px !important; border-radius: 3px !important;width: 50% !important;min-height: 550px !important;display: block;">
                 <div style="overflow: auto !important;font-weight: normal;font-family: \'FreeMono\', \'Andale Mono\', monospace; color: #000;"><!--overflow-wrap: break-word !important;word-wrap: break-word !important;hyphens: auto !important;">-->
+                <span style="color: white; background-color: blue; padding: 2px;">' . $iCount . '</span>
                     <nobr><b>File:</b> ' . $aBacktrace['sFile'] . '</nobr><br>
                     <nobr><b>Line:</b> ' . $aBacktrace['sLine'] . '</nobr><br>
                     <nobr><b>Class/Method:</b> ' . $aBacktrace['sClass'] . '::' . $aBacktrace['sFunction'] . '</nobr><br>
@@ -135,7 +141,7 @@ class Debug
             $sDisplay .= $sConsultation . '<textarea style="font-size:10px;width:100% !important;min-height: 60px !important;margin:0 !important;background-color:blue !important;color:white !important;border: none !important;padding: 5px !important;font-family: monospace !important;">' . $mData . '</textarea>';
 
             // Display
-            echo '<div style="box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); overflow: auto !important;max-height: 90%;z-index:65535 !important;position:fixed !important;bottom:10px !important;right:10px !important;background-color:blue !important;color:white !important;border:1px solid #333 !important;width:500px !important;-moz-border-radius:3px !important; border-radius: 3px !important;font-size:12px !important;font-family: monospace !important;"><b>';
+            echo '<div id="debugDisplay' . $iCount . '" style="box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); overflow: auto !important;max-height: 90%;z-index:65535 !important;position:fixed !important;bottom:10px !important;right:10px !important;background-color:blue !important;color:white !important;border:1px solid #333 !important;width:500px !important;-moz-border-radius:3px !important; border-radius: 3px !important;font-size:12px !important;font-family: monospace !important;"><b>';
             echo $sDisplay;
             echo '</b></div>';
         }
