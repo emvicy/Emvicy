@@ -16,7 +16,7 @@ class Type_Application_sd_jwt_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-oauth-selective-disclosure-jwt-22]
+     * @reference [RFC9901]
      */
     const DESCRIPTION = 'application/sd-jwt+json';
 }

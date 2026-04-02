@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_bsf_xml
     use TraitMediaType;
 
     /**
-     * @reference [John_M_Meredith]
+     * @reference [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp.bsf+xml';
 }

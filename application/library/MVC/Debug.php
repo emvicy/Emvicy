@@ -79,19 +79,48 @@ class Debug
             $sId = 'debugInfo' . md5(Convert::serialize($aBacktrace));
             echo '<div '
                  . 'id="' . $sId . '" '
+                 . 'style="position: fixed;top: 400px;left: 400px;
+                         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                         z-index: 65535 !important;
+                         float: left !important; text-align: left !important;
+                         background-color: #f1f1f1;border: 1px solid #d3d3d3;
+                         text-align: center;
+                         opacity: 0.8;transition: opacity 0.5s;" '
                  . 'class="emvicy_draggable" '
-                 . 'style="position: fixed; box-shadow: 0px 0px 10px 0px rgba(100, 100, 100, 1); z-index:65535 !important;float:left !important;text-align:left !important;background-color:white !important;border:1px solid grey !important;padding: 5px !important;opacity: 0.8 !important; border-radius: 3px !important;width: 50% !important;min-height: 550px !important;display: block;" '
                  . 'onmouseover="this.style.opacity=1.0;this.style.transition=\'opacity 0.5s ease\'"'
                  . 'onmouseout="this.style.opacity=0.8;this.style.transition=\'opacity 0.5s ease\'"'
                  . '>
-                <div style="overflow: auto !important;font-weight: normal;font-family: \'FreeMono\', \'Andale Mono\', monospace; color: #000;"><!--overflow-wrap: break-word !important;word-wrap: break-word !important;hyphens: auto !important;">-->
-                <span style="color: white; background-color: blue; padding: 2px;border-radius: 3px;">' . $iCount . '</span>
-                <span style="color: white; background-color: red; padding: 2px 8px;border-radius: 3px;float: right" onclick="document.getElementById(\'' . $sId . '\').remove()">X</span>
+                <div id="' . $sId . '_mover" style="
+                    padding: 2px;
+                    cursor: move;
+                    z-index: 10;
+                    background-color: darkblue;
+                    color: #fff;
+                    text-align: center;"
+                >:: :: :: :: :: :: :: info() :: :: :: :: :: :: ::</div>
+                <div style="
+                    overflow: auto !important;
+                    font-weight: normal;
+                    font-family: \'FreeMono\', \'Andale Mono\', monospace;
+                    color: #000;
+                    padding: 0 10px 0 10px;
+                ">
+                <div style="position: absolute; top: 0px; left: 0px;color: white; background-color: darkblue ; padding: 2px 5px;border-radius: 0px;">&#128468; ' . $iCount . '</div>
+                <div title="close" style="cursor: pointer;position: absolute; top: 0px; right: 0px;color: white; background-color: red; padding: 2px 8px;border-radius: 3px;float: right" onclick="document.getElementById(\'' . $sId . '\').remove()">X</div>
                     <nobr><b>File:</b> ' . $aBacktrace['sFile'] . '</nobr><br>
                     <nobr><b>Line:</b> ' . $aBacktrace['sLine'] . '</nobr><br>
                     <nobr><b>Class/Method:</b> ' . $aBacktrace['sClass'] . '::' . $aBacktrace['sFunction'] . '</nobr><br>
                 </div>
-                <div style="overflow: auto !important;float:left !important;border:1px dotted grey !important;background-color: whitesmoke; width:100% !important;height:465px !important;font-size:medium !important;-moz-border-radius: 3px !important; border-radius: 3px !important;padding:10px !important;font-family: monospace !important;"><b>';
+                <div  id="' . $sId . '_content" style="
+                    resize: both;overflow: auto !important;
+                    float:left !important;
+                    background-color: whitesmoke;
+                    width:100%;
+                    height:300px;
+                    font-size:medium !important;
+                    padding: 10px !important;
+                    font-family: monospace !important;"
+                ><b>';
                 $sHighlight = highlight_string('<?php' . "\n" . $mData, true);
                 echo trim(str_replace('&lt;?php', '', $sHighlight));
                 echo '</b></div>

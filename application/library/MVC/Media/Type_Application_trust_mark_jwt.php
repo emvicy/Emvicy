@@ -16,7 +16,7 @@ class Type_Application_trust_mark_jwt
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG]
+     * @reference [OpenID_Foundation_Artifact_Binding_WG][Michael_B_Jones]
      */
     const DESCRIPTION = 'application/trust-mark+jwt';
 }

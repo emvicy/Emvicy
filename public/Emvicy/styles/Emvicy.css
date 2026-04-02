@@ -289,8 +289,10 @@ ul.quickjump li:first-child {
 .top {
 	margin-top: 50px;
 }
-.emvicy_draggable {
-	cursor: pointer !important;
-	position: fixed !important;
-	display: none;
+.emvicy_draggable pre {
+	margin: 0 !important;
+	padding: 0px 10px 10px 10px !important;
+	background-color: white !important;
+	border: none !important;
+	border-radius: 10px;
 }

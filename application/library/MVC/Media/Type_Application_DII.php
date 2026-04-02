@@ -16,7 +16,7 @@ class Type_Application_DII
     use TraitMediaType;
 
     /**
-     * @reference [ASAM][Thomas_Thomsen]
+     * @reference [ASAM][Bernd_Wenzel]
      */
     const DESCRIPTION = 'application/DII';
 }

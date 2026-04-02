@@ -26,31 +26,59 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     });
 
-    // draggable
-    function Emvicy_dragElement(sElementId) {
-        function Emvicy_closeDragElement() {
-            document.onmouseup = null;
-            document.onmousemove = null;
+    const Emvicy_resizeObserver = new ResizeObserver((aResizeObserverEntry) => {
+        for (const oElement of aResizeObserverEntry) {
+            var sPosition = localStorage.getItem(oElement.target.id);
+            if (null === sPosition || 0 === oElement.contentRect.width || 0 === oElement.contentRect.height) {
+                return;
+            }
+            (null === sPosition) ? sPosition = '{"top":' + ((window.innerHeight / 4)) + ',"left":' + ((window.innerWidth / 4)) + '}' : false;
+            var oPosition = JSON.parse(sPosition);
+            localStorage.setItem(
+                oElement.target.id,
+                '{"top":' + oPosition.top + ',"left":' + oPosition.left + ',"width":' + oElement.contentRect.width + ',"height":' + oElement.contentRect.height + '}'
+            );
         }
-        function Emvicy_elementDrag(oEvent) {
-            oEvent = oEvent || window.event;
-            oEvent.preventDefault();
-            iPos1 = iPos3 - oEvent.clientX;
-            iPos2 = iPos4 - oEvent.clientY;
-            iPos3 = oEvent.clientX;
-            iPos4 = oEvent.clientY;
-            oElement.style.top = (oElement.offsetTop - iPos2) + "px";
-            oElement.style.left = (oElement.offsetLeft - iPos1) + "px";
-            localStorage.setItem(sElementId, '{"top":' + (oElement.offsetTop - iPos2) + ',"left":' + (oElement.offsetLeft - iPos1) + '}');
+    });
+
+    function Emvicy_dragElement(oElement) {
+
+        Emvicy_resizeObserver.observe(oElement);
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        Emvicy_dragRestore(oElement);
+
+        if (document.getElementById(oElement.id + "_mover")) {
+            document.getElementById(oElement.id + "_mover").onmousedown = Emvicy_dragMouseDown;
+        } else {
+            oElement.onmousedown = Emvicy_dragMouseDown;
         }
+
         function Emvicy_dragMouseDown(oEvent) {
             oEvent = oEvent || window.event;
             oEvent.preventDefault();
-            iPos3 = oEvent.clientX;
-            iPos4 = oEvent.clientY;
-            document.onmouseup = Emvicy_closeDragElement;
+            // get the mouse cursor position at startup:
+            pos3 = oEvent.clientX;
+            pos4 = oEvent.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
             document.onmousemove = Emvicy_elementDrag;
         }
+
+        function Emvicy_elementDrag(oEvent) {
+            oEvent = oEvent || window.event;
+            oEvent.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - oEvent.clientX;
+            pos2 = pos4 - oEvent.clientY;
+            pos3 = oEvent.clientX;
+            pos4 = oEvent.clientY;
+            // set the element's new position:
+            oElement.style.top = (oElement.offsetTop - pos2) + "px";
+            oElement.style.left = (oElement.offsetLeft - pos1) + "px";
+
+            localStorage.setItem(oElement.id, '{"top":' + (oElement.offsetTop - pos2) + ',"left":' + (oElement.offsetLeft - pos1) + ',"width":' + oElement.clientWidth + ',"height":' + oElement.clientHeight + '}');
+        }
+
         function Emvicy_dragRestore(oElement) {
             var sPosition = localStorage.getItem(oElement.id);
             (null === sPosition) ? sPosition = '{"top":' + ((window.innerHeight / 4)) + ',"left":' + ((window.innerWidth / 4)) + '}' : false;
@@ -58,16 +86,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
             oElement.style.top = oPosition.top + 'px';
             oElement.style.left = oPosition.left + 'px';
             oElement.style.display = 'block';
+
+            document.getElementById(oElement.id + '_content').style.width = oPosition.width + 'px';
+            document.getElementById(oElement.id + '_content').style.height = (oPosition.height - 100) + 'px';
         }
 
-        var oElement = document.getElementById(sElementId);
-        var iPos1 = 0, iPos2 = 0, iPos3 = 0, iPos4 = 0;
-        Emvicy_dragRestore(oElement);
-        oElement.onmousedown = Emvicy_dragMouseDown;
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
     }
+
     // init all draggable
     for (var oElement of document.getElementsByClassName('emvicy_draggable')) {
-        Emvicy_dragElement(oElement.id);
+        Emvicy_dragElement(document.getElementById(oElement.id));
     }
 });
 

@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_mid_call_xml
     use TraitMediaType;
 
     /**
-     * @reference [Frederic_Firmin]
+     * @reference [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp.mid-call+xml';
 }

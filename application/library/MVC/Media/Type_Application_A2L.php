@@ -16,7 +16,7 @@ class Type_Application_A2L
     use TraitMediaType;
 
     /**
-     * @reference [ASAM][Thomas_Thomsen]
+     * @reference [ASAM][Bernd_Wenzel]
      */
     const DESCRIPTION = 'application/A2L';
 }

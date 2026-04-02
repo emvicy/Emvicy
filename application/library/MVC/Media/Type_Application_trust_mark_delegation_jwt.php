@@ -16,7 +16,7 @@ class Type_Application_trust_mark_delegation_jwt
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG]
+     * @reference [OpenID_Foundation_Artifact_Binding_WG][Roland_Hedberg]
      */
     const DESCRIPTION = 'application/trust-mark-delegation+jwt';
 }

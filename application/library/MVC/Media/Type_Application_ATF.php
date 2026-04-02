@@ -16,7 +16,7 @@ class Type_Application_ATF
     use TraitMediaType;
 
     /**
-     * @reference [ASAM][Thomas_Thomsen]
+     * @reference [ASAM][Bernd_Wenzel]
      */
     const DESCRIPTION = 'application/ATF';
 }

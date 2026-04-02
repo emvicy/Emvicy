@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_pic_bw_large
     use TraitMediaType;
 
     /**
-     * @reference [John_M_Meredith]
+     * @reference [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp.pic-bw-large';
 }

@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_mcvideo_affiliation_info_xml_OBSOLETED_in_favor_
     use TraitMediaType;
 
     /**
-     * @reference [Frederic_Firmin]
+     * @reference [Dongwook_Kim]
 	 * @deprecated OBSOLETED in favor of application/vnd3gppmcvideo-infoxml
      */
     const DESCRIPTION = 'application/vnd.3gpp.mcvideo-affiliation-info+xml';

@@ -16,7 +16,7 @@ class Type_Application_session_info
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Frederic_Firmin]
+     * @reference [_3GPP][Dongwook_Kim]
      */
     const DESCRIPTION = 'application/session-info';
 }
