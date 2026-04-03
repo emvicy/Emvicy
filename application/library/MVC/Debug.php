@@ -83,18 +83,16 @@ class Debug
                          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                          z-index: 65535 !important;
                          float: left !important; text-align: left !important;
-                         background-color: #f1f1f1;border: 1px solid #d3d3d3;
+                         background-color: transparent;border: 1px solid #d3d3d3;
                          text-align: center;
-                         opacity: 0.8;transition: opacity 0.5s;" '
+                         " '
                  . 'class="emvicy_draggable" '
-                 . 'onmouseover="this.style.opacity=1.0;this.style.transition=\'opacity 0.5s ease\'"'
-                 . 'onmouseout="this.style.opacity=0.8;this.style.transition=\'opacity 0.5s ease\'"'
                  . '>
                 <div id="' . $sId . '_mover" style="
                     padding: 2px;
                     cursor: move;
                     z-index: 10;
-                    background-color: darkblue;
+                    background-color: #0D6EFD;
                     color: #fff;
                     text-align: center;"
                 >:: :: :: :: :: :: :: info() :: :: :: :: :: :: ::</div>
@@ -104,8 +102,9 @@ class Debug
                     font-family: \'FreeMono\', \'Andale Mono\', monospace;
                     color: #000;
                     padding: 0 10px 0 10px;
+                    background-color: #f1f1f1;
                 ">
-                <div style="position: absolute; top: 0px; left: 0px;color: white; background-color: darkblue ; padding: 2px 5px;border-radius: 0px;">&#128468; ' . $iCount . '</div>
+                <div style="position: absolute; top: 0px; left: 0px;color: white; background-color: #0D6EFD ; padding: 2px 5px;border-radius: 0px;">&#128468; ' . $iCount . '</div>
                 <div title="close" style="cursor: pointer;position: absolute; top: 0px; right: 0px;color: white; background-color: red; padding: 2px 8px;border-radius: 3px;float: right" onclick="document.getElementById(\'' . $sId . '\').remove()">X</div>
                     <nobr><b>File:</b> ' . $aBacktrace['sFile'] . '</nobr><br>
                     <nobr><b>Line:</b> ' . $aBacktrace['sLine'] . '</nobr><br>
@@ -119,7 +118,10 @@ class Debug
                     height:300px;
                     font-size:medium !important;
                     padding: 10px !important;
-                    font-family: monospace !important;"
+                    font-family: monospace !important;
+                    opacity: 0.8;transition: opacity 0.5s;"
+                    onmouseover="this.style.opacity=1.0;this.style.transition=\'opacity 0.5s ease\'"
+                    onmouseout="this.style.opacity=0.8;this.style.transition=\'opacity 0.5s ease\'"                    
                 ><b>';
                 $sHighlight = highlight_string('<?php' . "\n" . $mData, true);
                 echo trim(str_replace('&lt;?php', '', $sHighlight));
