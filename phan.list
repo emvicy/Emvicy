@@ -48,7 +48,6 @@ application/library/MVC/DataType/._datatype.php
 application/library/MVC/DataType/DTResponse.php
 application/library/MVC/DataType/DTEventContext.php
 application/library/MVC/DataType/DTKeyValue.php
-application/library/MVC/DataType/.test/DTRoutingAdditional.php
 application/library/MVC/DataType/DTDBWhere.php
 application/library/MVC/DataType/DTRequestOut.php
 application/library/MVC/Asset.php

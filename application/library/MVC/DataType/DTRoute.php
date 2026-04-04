@@ -62,10 +62,9 @@ class DTRoute
 	 */
 	protected $method;
 
-	/**
-	 * @required false
-	 * @var \MVC\DataType\DTRoutingAdditional|null
-	 */
+    /**
+     * @var mixed|null
+     */
 	protected $additional;
 
 	/**
@@ -243,12 +242,12 @@ class DTRoute
 		return $this;
 	}
 
-	/**
-	 * @param \MVC\DataType\DTRoutingAdditional|null $mValue 
-	 * @return $this
-	 * @throws \ReflectionException
-	 */
-	public function set_additional(?\MVC\DataType\DTRoutingAdditional $mValue)
+    /**
+     * @param mixed $mValue
+     * @return $this
+     * @throws \ReflectionException
+     */
+	public function set_additional(mixed $mValue)
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTRoute.set_additional.before', $oDTValue);
@@ -367,11 +366,11 @@ class DTRoute
 		return $oDTValue->get_mValue();
 	}
 
-	/**
-	 * @return \MVC\DataType\DTRoutingAdditional|null
-	 * @throws \ReflectionException
-	 */
-	public function get_additional() : ?\MVC\DataType\DTRoutingAdditional
+    /**
+     * @return mixed
+     * @throws \ReflectionException
+     */
+	public function get_additional() : mixed
 	{
 		$oDTValue = DTValue::create()->set_mValue($this->additional); 
 		\MVC\Event::run('DTRoute.get_additional.before', $oDTValue);

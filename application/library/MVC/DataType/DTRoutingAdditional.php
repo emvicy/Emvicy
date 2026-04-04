@@ -12,7 +12,7 @@ class DTRoutingAdditional
 {
 	use TraitDataType;
 
-	public const DTHASH = '7f9a10857e96506212abc60a0e1644f9';
+	public const DTHASH = '17bb980b01eacfe1cc8ea9c531dff587';
 
 	/**
 	 * @required true
@@ -45,6 +45,12 @@ class DTRoutingAdditional
 	protected $aScript;
 
 	/**
+	 * @required true
+	 * @var mixed
+	 */
+	protected $mData;
+
+	/**
 	 * DTRoutingAdditional constructor.
 	 * @param DTValue $oDTValue
 	 * @throws \ReflectionException 
@@ -58,6 +64,7 @@ class DTRoutingAdditional
 		$this->sContent = '';
 		$this->aStyle = [];
 		$this->aScript = [];
+		$this->mData = null;
 		$this->setProperties($oDTValue);
 
 		$oDTValue = DTValue::create()->set_mValue($aData); 
@@ -89,7 +96,7 @@ class DTRoutingAdditional
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTRoutingAdditional.set_sTitle.before', $oDTValue);
-		$this->sTitle = (string) $oDTValue->get_mValue();
+		$this->sTitle =  (string) $oDTValue->get_mValue() ;
 
 		return $this;
 	}
@@ -103,7 +110,7 @@ class DTRoutingAdditional
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTRoutingAdditional.set_sTemplate.before', $oDTValue);
-		$this->sTemplate = (string) $oDTValue->get_mValue();
+		$this->sTemplate =  (string) $oDTValue->get_mValue() ;
 
 		return $this;
 	}
@@ -117,7 +124,7 @@ class DTRoutingAdditional
 	{
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTRoutingAdditional.set_sContent.before', $oDTValue);
-		$this->sContent = (string) $oDTValue->get_mValue();
+		$this->sContent =  (string) $oDTValue->get_mValue() ;
 
 		return $this;
 	}
@@ -132,7 +139,7 @@ class DTRoutingAdditional
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTRoutingAdditional.set_aStyle.before', $oDTValue);
 
-		$this->aStyle = $mValue;
+		$this->aStyle =  $mValue ;
 
 		return $this;
 	}
@@ -162,7 +169,7 @@ class DTRoutingAdditional
 		$oDTValue = DTValue::create()->set_mValue($mValue); 
 		\MVC\Event::run('DTRoutingAdditional.set_aScript.before', $oDTValue);
 
-		$this->aScript = $mValue;
+		$this->aScript =  $mValue ;
 
 		return $this;
 	}
@@ -178,6 +185,20 @@ class DTRoutingAdditional
 		\MVC\Event::run('DTRoutingAdditional.add_aScript.before', $oDTValue);
 
 		$this->aScript[] = $mValue;
+
+		return $this;
+	}
+
+	/**
+	 * @param mixed|null $mValue 
+	 * @return $this
+	 * @throws \ReflectionException
+	 */
+	public function set_mData(mixed $mValue = null)
+	{
+		$oDTValue = DTValue::create()->set_mValue($mValue); 
+		\MVC\Event::run('DTRoutingAdditional.set_mData.before', $oDTValue);
+		$this->mData =  $oDTValue->get_mValue() ;
 
 		return $this;
 	}
@@ -243,6 +264,18 @@ class DTRoutingAdditional
 	}
 
 	/**
+	 * @return mixed
+	 * @throws \ReflectionException
+	 */
+	public function get_mData()
+	{
+		$oDTValue = DTValue::create()->set_mValue($this->mData); 
+		\MVC\Event::run('DTRoutingAdditional.get_mData.before', $oDTValue);
+
+		return $oDTValue->get_mValue();
+	}
+
+	/**
 	 * @return string
 	 */
 	public static function getPropertyName_sTitle()
@@ -280,6 +313,14 @@ class DTRoutingAdditional
 	public static function getPropertyName_aScript()
 	{
         return 'aScript';
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function getPropertyName_mData()
+	{
+        return 'mData';
 	}
 
 	/**

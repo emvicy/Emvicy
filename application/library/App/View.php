@@ -46,7 +46,7 @@ class View extends \MVC\View
     }
 
     /**
-     * @param \MVC\DataType\DTRoute $oDTRoute
+     * @param \MVC\DataType\DTRoute|null $oDTRoute
      * @return void
      * @throws \ReflectionException
      */
