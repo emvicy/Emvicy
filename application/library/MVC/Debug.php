@@ -76,7 +76,7 @@ class Debug
         // output Web
         else
         {
-            $sId = 'debugInfo' . md5(Convert::serialize($aBacktrace));
+            $sId = 'debugInfo' . md5(Convert::serialize($aBacktrace)) . $iCount;
             echo '<div '
                  . 'id="' . $sId . '" '
                  . 'style="position: fixed;top: 400px;left: 400px;

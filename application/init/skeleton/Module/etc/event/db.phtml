@@ -46,12 +46,11 @@
     ],
 ]);
 
+/*
 \MVC\Event::processBindConfigStack([
 
     'DT{module}ModelTableUser.set_password.before' => [
-        /*
-         * encrypt the transferred password
-         */
+        // encrypt the transferred password
         function(\MVC\DataType\DTValue $oDTValue){
             $oDTValue->set_mValue(
                 password_hash(
@@ -63,9 +62,7 @@
     ],
 
     'mvc.db.model.*.sql' => array(
-        /*
-         * log all SQL Statements, if enabled via config
-         */
+        // log all SQL Statements, if enabled via config
         function(string $sSql) {
             if (true === \MVC\Config::get_MVC_LOG_SQL())
             {
@@ -77,3 +74,4 @@
         }
     ),
 ]);
+*/

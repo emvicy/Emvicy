@@ -1,7 +1,7 @@
 <?php
 /**
  * Asset.php
- * @usage Asset::init()->get('User.email.form.markup');
+ * @usage Asset::init('/path/to/my/asset.yaml')->get('User.email.form.markup');
  *
  * @package Emvicy
  * @copyright ueffing.net
@@ -19,25 +19,34 @@ use Symfony\Component\Yaml\Yaml;
 class Asset extends ArrDot
 {
     /**
-     * @var \MVC\Asset|null
+     * @var \MVC\Asset[]
      */
-    protected static ?Asset $_oInstance = null;
+    protected static array $_aInstance = [];
 
     /**
      * @param string $sPathAbs
-     * @return \MVC\ArrDot|\MVC\Asset
+     * @return mixed|\MVC\Asset|self|null
      */
-    public static function init(string $sPathAbs = ''): ArrDot|Asset
+    public static function init(string $sPathAbs = '')
     {
-        if (null === self::$_oInstance)
+        // backwards compatibility (prior 2026-04-06); returns first element of array
+        /** @deprecated wil be rmoved in upcoming releases */
+        if (true === empty($sPathAbs))
         {
-            self::$_oInstance = new self(
+            return array_first(self::$_aInstance);
+        }
+
+        $sIdentifier = md5($sPathAbs);
+
+        if (false === in_array($sIdentifier, self::$_aInstance))
+        {
+            self::$_aInstance[$sIdentifier] = new self(
                 (true === file_exists($sPathAbs))
                     ? Yaml::parseFile($sPathAbs)
                     : array()
             );
         }
 
-        return self::$_oInstance;
+        return self::$_aInstance[$sIdentifier];
     }
 }
