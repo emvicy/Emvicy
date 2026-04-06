@@ -36,17 +36,15 @@ class Asset extends ArrDot
             return array_first(self::$_aInstance);
         }
 
-        $sIdentifier = md5($sPathAbs);
-
-        if (false === in_array($sIdentifier, self::$_aInstance))
+        if (false === in_array($sPathAbs, self::$_aInstance))
         {
-            self::$_aInstance[$sIdentifier] = new self(
+            self::$_aInstance[$sPathAbs] = new self(
                 (true === file_exists($sPathAbs))
                     ? Yaml::parseFile($sPathAbs)
                     : array()
             );
         }
 
-        return self::$_aInstance[$sIdentifier];
+        return self::$_aInstance[$sPathAbs];
     }
 }
