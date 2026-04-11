@@ -81,12 +81,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         function Emvicy_dragRestore(oElement) {
             var sPosition = localStorage.getItem(oElement.id);
-            (null === sPosition) ? sPosition = '{"top":' + ((window.innerHeight / 4)) + ',"left":' + ((window.innerWidth / 4)) + '}' : false;
+            (null === sPosition) ? sPosition = '{"top":50,"left":50}' : false;
             var oPosition = JSON.parse(sPosition);
             oElement.style.top = oPosition.top + 'px';
             oElement.style.left = oPosition.left + 'px';
             oElement.style.display = 'block';
-
+            oElement.style.maxWidth = (window.innerWidth - 100)+ 'px';
+            oElement.style.maxHeight = (window.innerWidth - 100) + 'px';
             document.getElementById(oElement.id + '_content').style.width = oPosition.width + 'px';
             document.getElementById(oElement.id + '_content').style.height = (oPosition.height - 100) + 'px';
         }
