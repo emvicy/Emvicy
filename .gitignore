@@ -1,4 +1,6 @@
 public/index2.php
+public/Installers
+public/Installers/*
 application/init/util/bootstrap2.php
 translation
 QChain
