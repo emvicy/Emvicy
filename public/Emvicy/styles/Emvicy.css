@@ -296,3 +296,8 @@ ul.quickjump li:first-child {
 	border: none !important;
 	border-radius: 10px;
 }
+.wrap {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	hyphens: auto;
+}
