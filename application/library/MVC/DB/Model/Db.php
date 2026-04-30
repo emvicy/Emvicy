@@ -228,8 +228,15 @@ class Db
     protected function setSqlLoggingState() : void
     {
         $sSql = '';
+
         (isset($this->aConfig['logging']['log_output'])) ? $sSql.= "SET GLOBAL log_output = '" . strtoupper($this->aConfig['logging']['log_output']) . "';" : false;
-        (isset($this->aConfig['logging']['general_log'])) ? $sSql.= "SET GLOBAL general_log = '" . strtoupper($this->aConfig['logging']['general_log']) . "';" : false;
+
+        if (true === isset($this->aConfig['logging']['general_log']))
+        {
+            (true === is_string($this->aConfig['logging']['general_log'])) ? $sSql.= "SET GLOBAL general_log = '" . strtoupper($this->aConfig['logging']['general_log']) . "';" : false;
+            (true === is_numeric($this->aConfig['logging']['general_log'])) ? $sSql.= "SET GLOBAL general_log = " . (int) $this->aConfig['logging']['general_log'] . ";" : false;
+        }
+
         (isset($this->aConfig['logging']['general_log_file'])) ? $sSql.= "SET GLOBAL general_log_file = '" . $this->aConfig['logging']['general_log_file'] . "';" : false;
         $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
 
