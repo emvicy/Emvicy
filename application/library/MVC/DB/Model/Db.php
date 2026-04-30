@@ -198,11 +198,13 @@ class Db
      * @return \MVC\DB\Model\DbPDO
      * @throws \ReflectionException
      */
-    public static function getDbPdo()
+    public static function getDbPdo(string $sMode = 'read')
     {
+        self::$sRegistryKeyDbPDO = 'DbPDO' . $sMode;
+
         if (false === Registry::isRegistered(self::$sRegistryKeyDbPDO))
         {
-            $oDbPDO = new DbPDO(DbCollection::getConfig());
+            $oDbPDO = new DbPDO(DbCollection::getConfig(sMode: $sMode));
             Registry::set(self::$sRegistryKeyDbPDO, $oDbPDO);
         }
 
@@ -229,7 +231,7 @@ class Db
         (isset($this->aConfig['logging']['log_output'])) ? $sSql.= "SET GLOBAL log_output = '" . strtoupper($this->aConfig['logging']['log_output']) . "';" : false;
         (isset($this->aConfig['logging']['general_log'])) ? $sSql.= "SET GLOBAL general_log = '" . strtoupper($this->aConfig['logging']['general_log']) . "';" : false;
         (isset($this->aConfig['logging']['general_log_file'])) ? $sSql.= "SET GLOBAL general_log_file = '" . $this->aConfig['logging']['general_log_file'] . "';" : false;
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
 
         try
         {
@@ -286,7 +288,9 @@ class Db
 
         if ($sSql !== Cache::getCache($sCacheKey))
         {
-            $oStmt = self::getDbPdo()->prepare($sSql);
+            Event::run('mvc.db.model.db.setForeignKey.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
+
+            $oStmt = self::getDbPdo('write')->prepare($sSql);
 
             try
             {
@@ -336,6 +340,13 @@ class Db
     {
         $sModulename = Config::get_MVC_MODULE_PRIMARY_NAME();
         $sClassName = $this->getGenerateDataTypeClassName();
+
+        $sCacheKey = __METHOD__ . $sModulename . $sClassName;
+
+        if (false === empty(Cache::getCache($sCacheKey)))
+        {
+            return true;
+        }
 
         $aDTConfig = array(
             'dir' => Registry::get('MVC_MODULES_DIR') . '/' . $sModulename . '/DataType/',
@@ -404,6 +415,8 @@ class Db
 
         $bSuccess = DataType::create()->initConfigArray($aDTConfig);
 
+        Cache::saveCache($sCacheKey, $bSuccess);
+
         return $bSuccess;
     }
 
@@ -440,7 +453,7 @@ class Db
         try
         {
             // Select will be empty if the table does not exist.
-            $aResult = self::getDbPdo()->fetchAll("
+            $aResult = self::getDbPdo('read')->fetchAll("
                 SELECT * 
                 FROM information_schema.tables 
                 WHERE table_schema = '" . $this->aConfig['db']['dbname'] . "' 
@@ -525,7 +538,7 @@ class Db
 
         try
         {
-            $oStmt = self::getDbPdo()->query($sSql);
+            $oStmt = self::getDbPdo(sMode: 'write')->query($sSql);
             $oStmt->closeCursor();
         }
         catch (\Exception $oException)
@@ -557,7 +570,10 @@ class Db
         foreach ($this->aField as $sFieldName => $sFieldSetting)
         {
             $sSql = "ALTER TABLE " . $this->sTableName . " MODIFY `" . $sFieldName . "` " . Strings::tidy($sFieldSetting) . " AFTER `" . $sPredecessor . "`";
-            $oStmt = self::getDbPdo()->query($sSql);
+
+            Event::run('mvc.db.model.db.reOrder.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
+
+            $oStmt = self::getDbPdo(sMode: 'write')->query($sSql);
             $oStmt->closeCursor();
             $sPredecessor = $sFieldName;
         }
@@ -581,21 +597,37 @@ class Db
         $sFieldSetting = Strings::tidy($sInfo);
         $sSql = "ALTER TABLE " . $this->sTableName . " MODIFY `" . $sFieldName . "` " . $sFieldSetting . " AFTER `" . $sAfter . "`";
 
-        return self::getDbPdo()->query($sSql)->closeCursor();
+        Event::run('mvc.db.model.db.moveColumn.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
+
+        return self::getDbPdo(sMode: 'write')->query($sSql)->closeCursor();
     }
 
     /**
+     * synchronizes PHP table classes to DB tables
+     * @param string $sTableName
      * @return bool
      * @throws \ReflectionException
      */
-    protected function synchronizeFields() : bool
+    public function synchronizeFields(string $sTableName = '') : bool
     {
+        $sCacheKey = __METHOD__ . '.' . $sTableName;
+
+        if (false === empty(Cache::getCache($sCacheKey)))
+        {
+            return true;
+        }
+
+        if (true === empty($sTableName))
+        {
+            $sTableName = $this->sTableName;
+        }
+
         $this->dropIndices();
-        $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
+        $sSql = "SHOW FULL COLUMNS FROM " . $sTableName;
 
         try
         {
-            $aColumn = self::getDbPdo()->fetchAll ($sSql);
+            $aColumn = self::getDbPdo(sMode: 'read')->fetchAll ($sSql);
         }
         catch (\Exception $oException)
         {
@@ -626,15 +658,9 @@ class Db
             }
         }
 
-        $sCacheSyncKey = __METHOD__ . '.' . $this->sTableName;
         $sCacheSyncValue = Convert::serialize($aColumnFinal) . '.' . Convert::serialize($this->sCacheValueTableName);
 
-        if ($sCacheSyncValue === Cache::getCache($sCacheSyncKey))
-        {
-            return true;
-        }
-
-        Cache::saveCache($sCacheSyncKey, $sCacheSyncValue);
+        Cache::saveCache($sCacheKey, $sCacheSyncValue);
 
         $aTableNoForeignKeys = array_diff(array_keys($this->getFieldInfo()), array_filter(array_keys($this->aForeign)));
         $aTableFieldDef = array_keys(($this->aFieldArrayComplete ?? []));
@@ -656,11 +682,11 @@ class Db
 
             if ('' !== $oDTDBConstraint->get_CONSTRAINT_NAME())
             {
-                $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP FOREIGN KEY `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`;\n";
-                $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP INDEX `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`;\n";
+                $sSql.= "ALTER TABLE  `" . $sTableName  . "` DROP FOREIGN KEY `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`;\n";
+                $sSql.= "ALTER TABLE  `" . $sTableName  . "` DROP INDEX `" . $oDTDBConstraint->get_CONSTRAINT_NAME() . "`;\n";
             }
 
-            $sSql.= "ALTER TABLE  `" . $this->sTableName  . "` DROP  `" . $sFieldName . "`; \n";
+            $sSql.= "ALTER TABLE  `" . $sTableName  . "` DROP  `" . $sFieldName . "`; \n";
 
             if (false === empty($sSql))
             {
@@ -668,7 +694,7 @@ class Db
 
                 try
                 {
-                    $oStmt = self::getDbPdo()->query($sSql);
+                    $oStmt = self::getDbPdo(sMode: 'write')->query($sSql);
                     $oStmt->closeCursor();
                 }
                 catch (\Exception $oException)
@@ -689,13 +715,13 @@ class Db
                 continue;
             }
 
-            $sSql = "ALTER TABLE  `" . $this->sTableName  . "` ADD  `" . $sKey . "` " . $aValue . " AFTER  `id` \n";
+            $sSql = "ALTER TABLE  `" . $sTableName  . "` ADD  `" . $sKey . "` " . $aValue . " AFTER  `id` \n";
 
             Event::run('mvc.db.model.db.insert.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
 
             try
             {
-                $oStmt = self::getDbPdo()->query ($sSql);
+                $oStmt = self::getDbPdo(sMode: 'write')->query ($sSql);
                 $oStmt->closeCursor();
             }
             catch (\Exception $oException)
@@ -709,13 +735,13 @@ class Db
         // UPDATE
         foreach ($this->getFieldArray() as $sKey => $sValue)
         {
-            $sSql = "ALTER TABLE `" . $this->sTableName . "` CHANGE  `" . $sKey . "`\n`" . $sKey . "` " . $sValue . "; \n";
+            $sSql = "ALTER TABLE `" . $sTableName . "` CHANGE  `" . $sKey . "`\n`" . $sKey . "` " . $sValue . "; \n";
 
-            Event::run('mvc.db.model.db.' . $this->sTableName . '.update.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
+            Event::run('mvc.db.model.db.' . $sTableName . '.update.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
 
             try
             {
-                $oStmt = self::getDbPdo()->query ($sSql);
+                $oStmt = self::getDbPdo(sMode: 'write')->query ($sSql);
                 $oStmt->closeCursor();
             }
             catch (\Exception $oException)
@@ -801,7 +827,7 @@ class Db
         $aResult = array();
         $sSql = "SHOW FULL COLUMNS FROM " . $this->sTableName;
         ('' !== $sFieldName) ? $sSql.= " where Field =:sFieldName" : false;
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
         ('' !== $sFieldName) ? $oStmt->bindValue(':sFieldName', $sFieldName, \PDO::PARAM_STR) : false;
         $oStmt->execute();
         $aFieldName = $oStmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -971,7 +997,7 @@ class Db
         ('' !== $sFieldName) ? $sSql.= "AND COLUMN_NAME=:sFieldName\n" : false;
         $sSql.= ";";
 
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
         $oStmt->bindValue(':sTableName', $this->sTableName, \PDO::PARAM_STR);
         ('' !== $sFieldName) ? $oStmt->bindValue(':sFieldName', $sFieldName, \PDO::PARAM_STR) : false;
 
@@ -1062,7 +1088,7 @@ class Db
         $sSql = substr($sSql, 0, -1);
         $sSql.= "\n);\n";
 
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'write')->prepare($sSql);
 
         // BINDINGS
         foreach ($aField as $sField)
@@ -1096,7 +1122,7 @@ class Db
         {
             // Create DB Entries
             $oStmt->execute();
-            $iId = self::getDbPdo()->lastInsertId();
+            $iId = self::getDbPdo(sMode: 'write')->lastInsertId();
             $oTableDataType->set_id($iId);
             $oStmt->closeCursor();
         }
@@ -1117,7 +1143,7 @@ class Db
     public function checksum() : int
     {
         $sSql = 'CHECKSUM TABLE `' . $this->sTableName . '`';
-        $aChecksum = self::getDbPdo()->fetchRow($sSql);
+        $aChecksum = self::getDbPdo(sMode: 'read')->fetchRow($sSql);
 
         return (int) ($aChecksum['Checksum'] ?? null);
     }
@@ -1265,7 +1291,7 @@ class Db
 
         Event::run('mvc.db.model.db.retrieve.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
 
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
@@ -1361,7 +1387,7 @@ class Db
 
         Event::run('mvc.db.model.db.count.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
 
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $oDTDBWhere)
@@ -1501,7 +1527,7 @@ class Db
 
         #---
 
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'write')->prepare($sSql);
 
         /** @var \MVC\DataType\DTDBSet $oDTDBSet */
         foreach ($aDTDBSet as $iKey => $oDTDBSet)
@@ -1650,7 +1676,7 @@ class Db
             }
         }
 
-        $mResult = self::getDbPdo()->fetchRow($sSql);
+        $mResult = self::getDbPdo(sMode: 'read')->fetchRow($sSql);
 
         if (true === $bReturnDatatypeObject)
         {
@@ -1692,7 +1718,7 @@ class Db
             }
         }
 
-        $mResult = self::getDbPdo()->fetchAll($sSql);
+        $mResult = self::getDbPdo(sMode: 'read')->fetchAll($sSql);
 
         if (true === $bReturnDatatypeArray)
         {
@@ -1744,7 +1770,7 @@ class Db
 
         Event::run('mvc.db.model.db.delete.sql', $sSqlExplain . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
 
-        $oStmt = self::getDbPdo()->prepare($sSql);
+        $oStmt = self::getDbPdo(sMode: 'write')->prepare($sSql);
 
         /** @var \MVC\DataType\DTDBWhere $oDTDBWhere */
         foreach ($aDTDBWhere as $iKey => $oDTDBWhere)
@@ -1823,19 +1849,28 @@ class Db
 
     /**
      * drops indices from table
+     * @param string $sTableName
      * @return void
      * @throws \ReflectionException
      */
-    protected function dropIndices()
+    protected function dropIndices(string $sTableName = '')
     {
+        if (true === empty($sTableName))
+        {
+            $sTableName = $this->sTableName;
+        }
+
         // drop indeces
-        $aIndex = $this->fetchAll("SHOW INDEXES FROM `" . $this->sTableName . "`;");
+        $aIndex = $this->fetchAll("SHOW INDEXES FROM `" . $sTableName . "`;");
 
         foreach ($aIndex as $aSet)
         {
             if ('PRIMARY' === $aSet['Key_name'] || $aSet['Key_name'] === $aSet['Column_name']) {continue;}
-            $sSql = "ALTER TABLE `" . $this->sTableName . "` DROP INDEX `" . $aSet['Key_name'] . "`;";
-            $oStmt = self::getDbPdo()->query($sSql);
+            $sSql = "ALTER TABLE `" . $sTableName . "` DROP INDEX `" . $aSet['Key_name'] . "`;";
+
+            Event::run('mvc.db.model.db.dropIndices.sql', $sSql . (' /* ' . Log::prepareDebug(debug_backtrace(limit: 1)) . ' */ ') . "\n");
+
+            $oStmt = self::getDbPdo(sMode: 'write')->query($sSql);
             $oStmt->closeCursor();
         }
     }

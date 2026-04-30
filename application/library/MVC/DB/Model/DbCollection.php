@@ -67,14 +67,31 @@ class DbCollection
 
     /**
      * @param string $sModuleConfigKey
-     * @return array
+     * @param string $sMode
+     * @return mixed
      * @throws \ReflectionException
      */
-    public static function getConfig(string $sModuleConfigKey = 'DB')
+    public static function getConfig(string $sModuleConfigKey = 'DB', string $sMode = 'read')
     {
         // try default fallback config; assuming it is called 'DB'
         // DB config key
         $aConfig = Config::MODULE()[$sModuleConfigKey];
+
+        // handle sticky
+        if (true === ($aConfig['sticky'] ?? true) && 'write' === $sMode)
+        {
+            Registry::set('DbCollection.sMode', 'write');
+        }
+
+        $sMode = (true === Registry::isRegistered('DbCollection.sMode'))
+            ? Registry::get('DbCollection.sMode')
+            : $sMode;
+
+        $aConfig['db'] = array_merge(
+            $aConfig['db'],
+            (Config::MODULE()[$sModuleConfigKey][$sMode] ?? array())
+        );
+        Event::run('mvc.db.model.dbcollection.getConfig.after', array('sMode' => $sMode, 'aConfig' => $aConfig));
 
         // no DB module config found
         if (true === empty($aConfig))
@@ -109,6 +126,6 @@ class DbCollection
             array_map('trim', explode("\n", $sDocComment))
         )))));
 
-        return $sClass::init(self::getConfig());
+        return $sClass::init(self::getConfig(sMode: 'read'));
     }
 }

@@ -4,7 +4,12 @@
 // Module DB
 
 $aConfig['MODULE']['{module}']['DB'] = array(
-
+    'read' => [
+        'dbname' => getenv('db.dbname'),
+    ],
+    'write' => [
+        'dbname' => getenv('db.dbname'),
+    ],
     'db' => array(
         'type' => getenv('db.type'),
         'host' => getenv('db.host'),
@@ -14,6 +19,12 @@ $aConfig['MODULE']['{module}']['DB'] = array(
         'dbname' => getenv('db.dbname'),
         'charset' => 'utf8',
     ),
+
+    // If you set sticky to true, Emvicy will use the write connection for subsequent reads
+    // in the same request cycle to ensure data consistency, which is critical even when hosts are identical
+    // if you are simulating replication behavior.
+    'sticky' => true,
+
     'caching' => array(
         'enabled' => true,
         'lifetime' => '1', # minutes
@@ -22,7 +33,19 @@ $aConfig['MODULE']['{module}']['DB'] = array(
         'log_output' => 'FILE',
 
         // consider to turn it on for develop and test environments only
-        'general_log' => 'OFF',
+        //
+        // MySQL: ON|OFF
+        // MariaDB: 1|0
+        //
+        // Note: MariaDB documentation suggests using 1 to enable logging, and 0 to disable it.
+        // see https://mariadb.com/docs/server/server-management/variables-and-modes/server-system-variables#general_log
+        //
+        // ddev:
+        //  to watch under ddev, connect to
+        //      ddev ssh -s db
+        //  then
+        //      tail -f /tmp/*.log
+        'general_log' => 1,
 
         // 1) make sure write access is given to the folder
         // as long as the db user is going to write and not the webserver user
