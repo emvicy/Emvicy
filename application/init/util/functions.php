@@ -279,6 +279,8 @@ function mvcConfigLoader(array $aConfig = array())
     // load requirements from /application/init/util/_mvc.php
     require_once __DIR__ . '/_mvc.php';
 
+    $aConfig['MVC_ROUTING_DIR'] = array_unique($aConfig['MVC_ROUTING_DIR']);
+
     return $aConfig;
 }
 

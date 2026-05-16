@@ -25,7 +25,7 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
      */
     public static function init() : void
     {
-        foreach (array_unique(Config::get_MVC_ROUTING_DIR()) as $sRoutingDir)
+        foreach (Config::get_MVC_ROUTING_DIR() as $sRoutingDir)
         {
             if (true === file_exists($sRoutingDir))
             {

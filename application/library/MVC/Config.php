@@ -1640,6 +1640,16 @@ class Config
     }
 
     /**
+     * @param array $aDir
+     * @return void
+     */
+    public static function set_MVC_ROUTING_DIR(array $aDir = array()) : void
+    {
+        Registry::set('MVC_ROUTING_DIR', $aDir);
+        $GLOBALS['aConfig']['MVC_ROUTING_DIR'] = $aDir;
+    }
+
+    /**
      * @return string
      * @throws \ReflectionException
      */
