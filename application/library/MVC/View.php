@@ -68,7 +68,7 @@ class View extends Smarty
             $this->sTemplateDir = Config::get_MVC_MODULES_DIR() . '/' . Route::getCurrent()->get_module() . '/templates';
         }
 
-        $this->setAbsolutePathToTemplateDir($this->sTemplateDir);
+        $this->addAbsolutePathToTemplateDir($this->sTemplateDir);
         $this->sTemplate = Config::get_MVC_SMARTY_TEMPLATE_DEFAULT();
         $this->iSmartyVersion = (int) preg_replace ('/[^0-9]+/', '', self::SMARTY_VERSION);
         $this->setCompileDir (Config::get_MVC_SMARTY_TEMPLATE_CACHE_DIR());
