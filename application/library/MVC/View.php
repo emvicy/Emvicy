@@ -194,8 +194,19 @@ class View extends Smarty
      * set absolute Path to Smarty Template Dir and saves this into includePath
      * @param string $sAbsolutePathToTemplateDir
      * @return void
+     * @deprecated use instead: addAbsolutePathToTemplateDir()
      */
     public function setAbsolutePathToTemplateDir(string $sAbsolutePathToTemplateDir = '') : void
+    {
+        $this->addAbsolutePathToTemplateDir($sAbsolutePathToTemplateDir);
+    }
+
+    /**
+     * add absolute Path to Smarty Template Dir and add this into includePath
+     * @param string $sAbsolutePathToTemplateDir
+     * @return void
+     */
+    public function addAbsolutePathToTemplateDir(string $sAbsolutePathToTemplateDir = '') : void
     {
         if (is_dir($sAbsolutePathToTemplateDir))
         {
