@@ -61,10 +61,6 @@ class Debug
         {
             $sTitle = ':: :: :: :: :: :: :: info() :: :: :: :: :: :: ::';
         }
-        else
-        {
-            $sTitle = preg_replace('!\s+!', ' ', preg_replace("/[^[:alnum:][:space:]]/ui", ' ', $sTitle));
-        }
 
         $iCount++;
 
