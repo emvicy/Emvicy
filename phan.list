@@ -80,6 +80,7 @@ application/library/MVC/Http/Status_Length_Required_411.php
 application/library/MVC/Http/Status_Too_Many_Requests_429.php
 application/library/MVC/Http/Status_Payment_Required_402.php
 application/library/MVC/Http/Status_Internal_Server_Error_500.php
+application/library/MVC/Http/Header.php
 application/library/MVC/Http/Status_Upload_Resumption_Supported_TEMPORARY_registered_2024_11_13_104.php
 application/library/MVC/Http/Status_Early_Hints_103.php
 application/library/MVC/Http/Status_Conflict_409.php
