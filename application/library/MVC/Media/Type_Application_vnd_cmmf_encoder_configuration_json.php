@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_vnd_apple_mpegurl.php
+ * Type_Application_vnd_cmmf_encoder_configuration_json.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_vnd_apple_mpegurl
+class Type_Application_vnd_cmmf_encoder_configuration_json
 {
     use TraitMediaType;
 
     /**
-     * @reference [RFC-pantos-hls-rfc8216bis-22]
+     * @reference [Jason_Cloud]
      */
-    const DESCRIPTION = 'application/vnd.apple.mpegurl';
+    const DESCRIPTION = 'application/vnd.cmmf-encoder-configuration+json';
 }

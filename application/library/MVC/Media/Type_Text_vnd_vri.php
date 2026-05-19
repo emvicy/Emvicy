@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_application_resolve_response_jwt.php
+ * Type_Text_vnd_vri.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_application_resolve_response_jwt
+class Type_Text_vnd_vri
 {
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG]
+     * @reference [Huynh_Canh_Duongh]
      */
-    const DESCRIPTION = 'application/resolve-response+jwt';
+    const DESCRIPTION = 'text/vnd.vri';
 }

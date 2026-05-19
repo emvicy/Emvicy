@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_application_trust_mark_delegation_jwt.php
+ * Type_Application_vnd_digitalstack_document_zip.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_application_trust_mark_delegation_jwt
+class Type_Application_vnd_digitalstack_document_zip
 {
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG]
+     * @reference [Edwin_Spradley]
      */
-    const DESCRIPTION = 'application/trust-mark-delegation+jwt';
+    const DESCRIPTION = 'application/vnd.digitalstack.document+zip';
 }

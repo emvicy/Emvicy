@@ -80,7 +80,6 @@ application/library/MVC/Http/Status_Length_Required_411.php
 application/library/MVC/Http/Status_Too_Many_Requests_429.php
 application/library/MVC/Http/Status_Payment_Required_402.php
 application/library/MVC/Http/Status_Internal_Server_Error_500.php
-application/library/MVC/Http/Header.php
 application/library/MVC/Http/Status_Upload_Resumption_Supported_TEMPORARY_registered_2024_11_13_104.php
 application/library/MVC/Http/Status_Early_Hints_103.php
 application/library/MVC/Http/Status_Conflict_409.php
@@ -260,6 +259,7 @@ application/library/MVC/Media/Type_Application_vnd_3gpp_mc_signalling_ear.php
 application/library/MVC/Media/Type_Text_jcr_cnd.php
 application/library/MVC/Media/Type_Application_vnd_openxmlformats_officedocument_presentationml_presProps_xml.php
 application/library/MVC/Media/Type_Application_vnd_nokia_conml_wbxml.php
+application/library/MVC/Media/Type_Application_client_authentication_jwt.php
 application/library/MVC/Media/Type_Application_vnd_geoplan.php
 application/library/MVC/Media/Type_Application_yang.php
 application/library/MVC/Media/Type_Application_vnd_ibm_rights_management.php
@@ -277,6 +277,7 @@ application/library/MVC/Media/Type_Application_prs_cww.php
 application/library/MVC/Media/Type_Application_auth_policy_xml.php
 application/library/MVC/Media/Type_Model_e57.php
 application/library/MVC/Media/Type_Video_vnd_motorola_videop.php
+application/library/MVC/Media/Type_Text_vnd_vri.php
 application/library/MVC/Media/Type_Application_prs_implied_object_json.php
 application/library/MVC/Media/Type_Application_vnd_radisys_msml_dialog_base_xml.php
 application/library/MVC/Media/Type_Application_vnd_sealed_net.php
@@ -288,6 +289,7 @@ application/library/MVC/Media/Type_Application_vnd_oma_bcast_drm_trigger_xml.php
 application/library/MVC/Media/Type_Application_vnd_radisys_msml_audit_stream_xml.php
 application/library/MVC/Media/Type_Application_dssc_xml.php
 application/library/MVC/Media/Type_Application_json_patch_json.php
+application/library/MVC/Media/Type_Text_vnd_hekaya.php
 application/library/MVC/Media/Type_Application_vnd_oma_bcast_sprov_xml.php
 application/library/MVC/Media/Type_Application_ATXML.php
 application/library/MVC/Media/Type_Application_passport.php
@@ -489,6 +491,7 @@ application/library/MVC/Media/Type_Text_wgsl.php
 application/library/MVC/Media/Type_Image_ief.php
 application/library/MVC/Media/Type_Application_vnd_etsi_pstn_xml.php
 application/library/MVC/Media/Type_Model_vnd_collada_xml.php
+application/library/MVC/Media/Type_Application_cmcd.php
 application/library/MVC/Media/Type_Text_vnd_a.php
 application/library/MVC/Media/Type_Application_vnd_insors_igm.php
 application/library/MVC/Media/Type_Application_vnd_gentoo_xpak.php
@@ -514,6 +517,7 @@ application/library/MVC/Media/Type_Application_vnd_syncml_dmtnds_xml.php
 application/library/MVC/Media/Type_Application_vnd_unity.php
 application/library/MVC/Media/Type_Application_geo_json.php
 application/library/MVC/Media/Type_Application_msc_mixer_xml.php
+application/library/MVC/Media/Type_Application_vnd_vimina_vma.php
 application/library/MVC/Media/Type_Application_vnd_fgb.php
 application/library/MVC/Media/Type_Application_vnd_ecowin_fileupdate.php
 application/library/MVC/Media/Type_Application_vnd_apple_keynote.php
@@ -569,7 +573,6 @@ application/library/MVC/Media/Type_Application_prs_bwtc32key.php
 application/library/MVC/Media/Type_Application_vnd_xmpie_cpkg.php
 application/library/MVC/Media/Type_Text_dns.php
 application/library/MVC/Media/Type_Application_vnd_wap_sic.php
-application/library/MVC/Media/Type_Application_application_jwk_set_jwt.php
 application/library/MVC/Media/Type_Audio_G7221.php
 application/library/MVC/Media/Type_Application_senml_cbor.php
 application/library/MVC/Media/Type_Video_H263_1998.php
@@ -627,6 +630,7 @@ application/library/MVC/Media/Type_Audio_CN.php
 application/library/MVC/Media/Type_Video_vnd_sealedmedia_softseal_mov.php
 application/library/MVC/Media/Type_Application_ccmp_xml.php
 application/library/MVC/Media/Type_Audio_G722.php
+application/library/MVC/Media/Type_Application_vnd_nila_protobuf_bundle_zip.php
 application/library/MVC/Media/Type_Application_vc.php
 application/library/MVC/Media/Type_Application_sipc.php
 application/library/MVC/Media/Type_Application_its_xml.php
@@ -653,6 +657,7 @@ application/library/MVC/Media/Type_Application_vnd_3gpp_seal_data_delivery_info_
 application/library/MVC/Media/Type_Application_kb_jwt.php
 application/library/MVC/Media/Type_Application_vnd_pvi_ptid1.php
 application/library/MVC/Media/Type_Application_vnd_openxmlformats_officedocument_customXmlProperties_xml.php
+application/library/MVC/Media/Type_Application_syslog_msg.php
 application/library/MVC/Media/Type_Image_vnd_globalgraphics_pgb.php
 application/library/MVC/Media/Type_Application_tm_json.php
 application/library/MVC/Media/Type_Text_javascript.php
@@ -689,6 +694,7 @@ application/library/MVC/Media/Type_Application_ocsp_request.php
 application/library/MVC/Media/Type_Application_vnd_pp_systemverify_xml.php
 application/library/MVC/Media/Type_Application_vnd_sealed_csf.php
 application/library/MVC/Media/Type_Application_session_info.php
+application/library/MVC/Media/Type_Application_vnd_fafm_yaml.php
 application/library/MVC/Media/Type_Message_s_http_OBSOLETE.php
 application/library/MVC/Media/Type_Application_vnd_3gpp_mcvideo_affiliation_command_xml.php
 application/library/MVC/Media/Type_Application_vnd_oasis_opendocument_image_template.php
@@ -738,6 +744,7 @@ application/library/MVC/Media/Type_Application_vnd_vsf.php
 application/library/MVC/Media/Type_Audio_G729.php
 application/library/MVC/Media/Type_Audio_mpeg4_generic.php
 application/library/MVC/Media/Type_Text_rtx.php
+application/library/MVC/Media/Type_Application_vnd_foritech_container.php
 application/library/MVC/Media/Type_Message_rfc822.php
 application/library/MVC/Media/Type_Application_vnd_sema.php
 application/library/MVC/Media/Type_Application_vnd_etsi_iptvsad_bc_xml.php
@@ -766,6 +773,7 @@ application/library/MVC/Media/Type_Application_vnd_sss_cod.php
 application/library/MVC/Media/Type_Application_private_token_response.php
 application/library/MVC/Media/Type_Application_vnd_xmpie_plan.php
 application/library/MVC/Media/Type_Application_vnd_eclipse_ditto_json.php
+application/library/MVC/Media/Type_Text_vnd_longform.php
 application/library/MVC/Media/Type_Application_vnd_motorola_flexsuite_ttc.php
 application/library/MVC/Media/Type_Application_vnd_gnu_taler_exchange_json.php
 application/library/MVC/Media/Type_Application_vnd_3gpp_s1ap.php
@@ -774,6 +782,7 @@ application/library/MVC/Media/Type_Application_vnd_ms_powerpoint_presentation_ma
 application/library/MVC/Media/Type_Application_vnd_oasis_opendocument_graphics.php
 application/library/MVC/Media/Type_Application_x_www_form_urlencoded.php
 application/library/MVC/Media/Type_Application_vnd_wantverse.php
+application/library/MVC/Media/Type_Application_vnd_cmmf_encoder_configuration_json.php
 application/library/MVC/Media/Type_Image_prs_btif.php
 application/library/MVC/Media/Type_Application_ulpfec.php
 application/library/MVC/Media/Type_Video_nv.php
@@ -793,6 +802,7 @@ application/library/MVC/Media/Type_Image_tiff.php
 application/library/MVC/Media/Type_Application_vnd_wasmflow_wafl.php
 application/library/MVC/Media/Type_Application_ibe_pp_data.php
 application/library/MVC/Media/Type_Application_vnd_kde_kspread.php
+application/library/MVC/Media/Type_Application_cloudevents_batch_json.php
 application/library/MVC/Media/Type_Application_vnd_ecip_rlp.php
 application/library/MVC/Media/Type_Application_vnd_dvb_ipdcesgaccess.php
 application/library/MVC/Media/Type_Text_vnd_curl.php
@@ -879,7 +889,6 @@ application/library/MVC/Media/Type_Application_vnd_syft_json.php
 application/library/MVC/Media/Type_Application_vnd_gentoo_manifest.php
 application/library/MVC/Media/Type_Application_vnd_3gpp_mcdata_user_profile_xml.php
 application/library/MVC/Media/Type_Application_linkset.php
-application/library/MVC/Media/Type_Application_rpki_ghostbusters.php
 application/library/MVC/Media/Type_Application_rdap_json.php
 application/library/MVC/Media/Type_Application_dns_json.php
 application/library/MVC/Media/Type_Application_vnd_apple_installer_xml.php
@@ -950,6 +959,7 @@ application/library/MVC/Media/Type_Audio_vnd_blockfact_facta.php
 application/library/MVC/Media/Type_Video_vnd_iptvforum_ttsmpeg2.php
 application/library/MVC/Media/Type_Audio_prs_sid.php
 application/library/MVC/Media/Type_Message_bhttp.php
+application/library/MVC/Media/Type_Application_vnd_cmmf_efd_xml.php
 application/library/MVC/Media/Type_Application_vnd_pwg_xhtml_print_xml.php
 application/library/MVC/Media/Type_Audio_vnd_lucent_voice.php
 application/library/MVC/Media/Type_Audio_VMR_WB.php
@@ -1001,6 +1011,7 @@ application/library/MVC/Media/Type_Application_vnd_epson_esf.php
 application/library/MVC/Media/Type_Text_grammar_ref_list.php
 application/library/MVC/Media/Type_Application_simpleSymbolContainer.php
 application/library/MVC/Media/Type_Application_vnd_las_las_json.php
+application/library/MVC/Media/Type_Application_vnd_phbk_xml.php
 application/library/MVC/Media/Type_Application_vnd_cirpack_isdn_ext.php
 application/library/MVC/Media/Type_Application_vnd_oma_dcdc.php
 application/library/MVC/Media/Type_Application_vc_jwt.php
@@ -1069,7 +1080,6 @@ application/library/MVC/Media/Type_Application_spdx_json.php
 application/library/MVC/Media/Type_Application_vnd_ipld_dag_json.php
 application/library/MVC/Media/Type_Application_vnd_afpc_modca.php
 application/library/MVC/Media/Type_Application_EmergencyCallData_SubscriberInfo_xml.php
-application/library/MVC/Media/Type_Application_application_trust_chain_json.php
 application/library/MVC/Media/Type_Application_vnd_oma_poc_detailed_progress_report_xml.php
 application/library/MVC/Media/Type_Audio_GSM_EFR.php
 application/library/MVC/Media/Type_Application_vnd_ipunplugged_rcprofile.php
@@ -1089,6 +1099,7 @@ application/library/MVC/Media/Type_Application_vnd_mynfc.php
 application/library/MVC/Media/Type_Application_vnd_geo_json_OBSOLETED_by_RFC7946_in_favor_of_application_geo_json.php
 application/library/MVC/Media/Type_Text_SGML.php
 application/library/MVC/Media/Type_Application_p21_zip.php
+application/library/MVC/Media/Type_Application_vnd_edulith_edux_json.php
 application/library/MVC/Media/Type_Application_vnd_oma_lwm2m_cbor.php
 application/library/MVC/Media/Type_Application_vnd_wordlift.php
 application/library/MVC/Media/Type_Application_alto_costmapfilter_json.php
@@ -1099,6 +1110,7 @@ application/library/MVC/Media/Type_Model_vnd_valve_source_compiled_map.php
 application/library/MVC/Media/Type_Application_vnd_kde_kpresenter.php
 application/library/MVC/Media/Type_Application_vnd_3gpp_mcptt_ue_init_config_xml.php
 application/library/MVC/Media/Type_Application_mpeg4_generic.php
+application/library/MVC/Media/Type_Text_vnd_tps.php
 application/library/MVC/Media/Type_Application_vnd_americandynamics_acc.php
 application/library/MVC/Media/Type_Text_org.php
 application/library/MVC/Media/Type_Application_vnd_oma_dcd.php
@@ -1147,6 +1159,7 @@ application/library/MVC/Media/Type_Video_vnd_CCTV.php
 application/library/MVC/Media/Type_Application_mbms_msk_xml.php
 application/library/MVC/Media/Type_Model_vnd_vtu.php
 application/library/MVC/Media/Type_Application_vnd_uic_tlb_fcb.php
+application/library/MVC/Media/Type_Application_vnd_digitalstack_document_zip.php
 application/library/MVC/Media/Type_Application_vnd_intergeo.php
 application/library/MVC/Media/Type_Text_vnd_debian_copyright.php
 application/library/MVC/Media/Type_Application_vnd_3gpp_vae_info_xml.php
@@ -1360,6 +1373,7 @@ application/library/MVC/Media/Type_Application_cbor_seq.php
 application/library/MVC/Media/Type_Application_stratum.php
 application/library/MVC/Media/Type_Application_vnd_aristanetworks_swi.php
 application/library/MVC/Media/Type_Application_fdf.php
+application/library/MVC/Media/Type_Application_cloudevents_json.php
 application/library/MVC/Media/Type_Multipart_voice_message.php
 application/library/MVC/Media/Type_Application_ppsp_tracker_json.php
 application/library/MVC/Media/Type_Video_vnd_dece_sd.php
@@ -1456,6 +1470,7 @@ application/library/MVC/Media/Type_Application_vnd_hp_hpid.php
 application/library/MVC/Media/Type_Application_vnd_Mobius_MBK.php
 application/library/MVC/Media/Type_Application_vnd_nato_bindingdataobject_cbor.php
 application/library/MVC/Media/Type_Text_vnd_IPTC_NITF.php
+application/library/MVC/Media/Type_Application_vnd_gp3.php
 application/library/MVC/Media/Type_Application_vnd_msign.php
 application/library/MVC/Media/Type_Application_vnd_3gpp_mcptt_info_xml.php
 application/library/MVC/Media/Type_Application_mbms_user_service_description_xml.php
@@ -1548,6 +1563,7 @@ application/library/MVC/Media/Type_Application_vnd_pt_mundusmundi.php
 application/library/MVC/Media/Type_Text_vnd_vcf.php
 application/library/MVC/Media/Type_Application_vnd_japannet_registration.php
 application/library/MVC/Media/Type_Video_raptorfec.php
+application/library/MVC/Media/Type_Application_vnd_majikah_bundle.php
 application/library/MVC/Media/Type_Application_vnd_truedoc.php
 application/library/MVC/Media/Type_Application_linkset_json.php
 application/library/MVC/Media/Type_Application_prs_implied_object_json_seq.php
@@ -1615,6 +1631,7 @@ application/library/MVC/Media/Type_Application_vnd_genozip.php
 application/library/MVC/Media/Type_Application_trust_chain_json.php
 application/library/MVC/Media/Type_Application_vnd_dvb_ipdcesgpdd.php
 application/library/MVC/Media/Type_Application_atsc_dwd_xml.php
+application/library/MVC/Media/Type_Image_vnd_sld.php
 application/library/MVC/Media/Type_Text_vnd_ficlab_flt.php
 application/library/MVC/Media/Type_Application_gnap_binding_jws.php
 application/library/MVC/Media/Type_Application_vnd_japannet_registration_wakeup.php
@@ -1626,11 +1643,11 @@ application/library/MVC/Media/Type_Application_vnd_gentoo_gpkg.php
 application/library/MVC/Media/Type_Application_vnd_amundsen_maze_xml.php
 application/library/MVC/Media/Type_Video_iso_segment.php
 application/library/MVC/Media/Type_Application_vnd_visio.php
-application/library/MVC/Media/Type_Application_application_trust_mark_delegation_jwt.php
 application/library/MVC/Media/Type_Application_vnd_as207960_vas_tap_uper.php
 application/library/MVC/Media/Type_Application_vnd_micro_json.php
 application/library/MVC/Media/Type_Application_lgr_xml.php
 application/library/MVC/Media/Type_Application_fhir_json.php
+application/library/MVC/Media/Type_Application_vnd_vertifile_pvf.php
 application/library/MVC/Media/Type_Application_PDX.php
 application/library/MVC/Media/Type_Application_ipfix.php
 application/library/MVC/Media/Type_Application_ISUP.php
@@ -1641,6 +1658,7 @@ application/library/MVC/Media/Type_Application_vnd_piaccess_application_licence.
 application/library/MVC/Media/Type_Application_vnd_ms_tnef.php
 application/library/MVC/Media/Type_Application_rfc_xml.php
 application/library/MVC/Media/Type_Application_vnd_coffeescript.php
+application/library/MVC/Media/Type_Application_vnd_cmmf_configuration_information_json.php
 application/library/MVC/Media/Type_Application_alto_endpointcostparams_json.php
 application/library/MVC/Media/Type_Application_tei_xml.php
 application/library/MVC/Media/Type_Application_senml_etch_cbor.php
@@ -2025,7 +2043,6 @@ application/library/MVC/Media/Type_Image_aces.php
 application/library/MVC/Media/Type_Image_ktx2.php
 application/library/MVC/Media/Type_Video_3gpp.php
 application/library/MVC/Media/Type_Audio_PCMU_WB.php
-application/library/MVC/Media/Type_Application_application_trust_mark_jwt.php
 application/library/MVC/Media/Type_Model_x3d_vrml.php
 application/library/MVC/Media/Type_Text_encaprtp.php
 application/library/MVC/Media/Type_Application_vnd_nacamar_ybrid_json.php
@@ -2058,7 +2075,6 @@ application/library/MVC/Media/Type_Image_dpx.php
 application/library/MVC/Media/Type_Audio_ATRAC3.php
 application/library/MVC/Media/Type_Audio_vnd_digital_winds.php
 application/library/MVC/Media/Type_Application_vnd_ncd_reference.php
-application/library/MVC/Media/Type_Application_application_resolve_response_jwt.php
 application/library/MVC/Media/Type_Text_RED.php
 application/library/MVC/Media/Type_Application_vnd_oma_cab_feature_handler_xml.php
 application/library/MVC/Media/Type_Audio_matroska.php
@@ -2068,10 +2084,12 @@ application/library/MVC/Media/Type_Image_vnd_fujixerox_edmics_rlc.php
 application/library/MVC/Media/Type_Application_vnd_mcd.php
 application/library/MVC/Media/Type_Application_pkcs10.php
 application/library/MVC/Media/Type_Audio_vnd_nokia_mobile_xmf.php
+application/library/MVC/Media/Type_Application_vnd_sri.php
 application/library/MVC/Media/Type_Application_vnd_oipf_dae_svg_xml.php
 application/library/MVC/Media/Type_Application_xml_external_parsed_entity.php
 application/library/MVC/Media/Type_Image_vnd_dxf.php
 application/library/MVC/Media/Type_Application_city_json_seq.php
+application/library/MVC/Media/Type_Application_vnd_lukuid_package_zip.php
 application/library/MVC/Media/Type_Application_index_obj.php
 application/library/MVC/Media/Type_Application_vnd_fujixerox_ddd.php
 application/library/MVC/Media/Type_Application_alto_updatestreamcontrol_json.php
@@ -2115,6 +2133,7 @@ application/library/MVC/Media/Type_Application_vnd_ocf_cbor.php
 application/library/MVC/Media/Type_Multipart_header_set.php
 application/library/MVC/Media/Type_Application_vnd_3gpp_seal_info_xml.php
 application/library/MVC/Media/Type_Application_vnd_etsi_iptvsad_cod_xml.php
+application/library/MVC/Media/Type_Application_vnd_rego.php
 application/library/MVC/Media/Type_Application_vnd_openxmlformats_officedocument_vmlDrawing.php
 application/library/MVC/Media/Type_Application_cms.php
 application/library/MVC/Media/Type_Audio_MP4A_LATM.php

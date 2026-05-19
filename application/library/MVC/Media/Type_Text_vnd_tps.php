@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_application_jwk_set_jwt.php
+ * Type_Text_vnd_tps.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_application_jwk_set_jwt
+class Type_Text_vnd_tps
 {
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG]
+     * @reference [Konstantin_Semenenko]
      */
-    const DESCRIPTION = 'application/jwk-set+jwt';
+    const DESCRIPTION = 'text/vnd.tps';
 }

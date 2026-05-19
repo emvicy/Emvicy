@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_application_trust_mark_jwt.php
+ * Type_Application_cloudevents_json.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_application_trust_mark_jwt
+class Type_Application_cloudevents_json
 {
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG]
+     * @reference [Linux_Foundation][CloudEvents_Maintainers]
      */
-    const DESCRIPTION = 'application/trust-mark+jwt';
+    const DESCRIPTION = 'application/cloudevents+json';
 }

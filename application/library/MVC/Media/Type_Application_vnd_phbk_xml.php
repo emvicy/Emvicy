@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_vnd_apple_mpegurl.php
+ * Type_Application_vnd_phbk_xml.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_vnd_apple_mpegurl
+class Type_Application_vnd_phbk_xml
 {
     use TraitMediaType;
 
     /**
-     * @reference [RFC-pantos-hls-rfc8216bis-22]
+     * @reference [Lost_Idea_Experiments]
      */
-    const DESCRIPTION = 'application/vnd.apple.mpegurl';
+    const DESCRIPTION = 'application/vnd.phbk+xml';
 }

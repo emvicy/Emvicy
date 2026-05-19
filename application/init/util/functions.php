@@ -46,14 +46,15 @@ function display(mixed $mData = '', array $aDebugBacktrace = array())
 
 /**
  * shorthand for `Debug::info()` on userland
- * @param mixed $mData
+ * @param mixed  $mData
+ * @param string $sTitle
  * @return void
  */
-function info(mixed $mData = '')
+function info(mixed $mData = '', string $sTitle = '')
 {
     if (true === class_exists('\MVC\Debug', true))
     {
-        \MVC\Debug::info($mData, debug_backtrace(limit: 2));
+        \MVC\Debug::info($mData, debug_backtrace(limit: 2), $sTitle);
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_application_trust_chain_json.php
+ * Type_Application_vnd_gp3.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_application_trust_chain_json
+class Type_Application_vnd_gp3
 {
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG]
+     * @reference [Robert_Clausing]
      */
-    const DESCRIPTION = 'application/trust-chain+json';
+    const DESCRIPTION = 'application/vnd.gp3';
 }
