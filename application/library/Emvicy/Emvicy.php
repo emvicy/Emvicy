@@ -1288,7 +1288,10 @@ class Emvicy
             $sArg = implode(' ', $GLOBALS['argv']);
         }
 
-        echo "\n# Route List\n";
+        if ('list' === $sOption)
+        {
+            echo "\n# Route List\n";
+        }
 
         Route::init();
         $aIndex = Route::$aMethodRoute;
