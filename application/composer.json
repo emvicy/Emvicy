@@ -29,11 +29,11 @@
     "ezyang/htmlpurifier": "v4.*",
     "erusev/parsedown":"dev-master#c9dc49f68f7bd14e5aa107d86a08ce59203f02ee",
     "adbario/php-dot-notation": "3.*",
-    "symfony/var-dumper": "v8.0.8",
-    "symfony/http-kernel": "v8.0.11",
-    "symfony/http-foundation": "v8.0.8",
+    "symfony/var-dumper": "v8.0.*",
+    "symfony/http-kernel": "v8.0.*",
+    "symfony/http-foundation": "v8.0.*",
     "symfony/yaml": "v6.4.*",
-    "symfony/console": "v8.0.11",
+    "symfony/console": "v8.0.*",
     "opis/closure": "^4"
   },
   "require-dev": {
