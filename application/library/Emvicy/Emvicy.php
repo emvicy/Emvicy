@@ -131,24 +131,9 @@ class Emvicy
      * @return void
      * @throws \ReflectionException
      */
-    public static function clearcache(): void
+    public static function clearcache()
     {
-        $sDir = Config::get_MVC_CACHE_DIR() . '/*';
-        $aPath = array_filter((array) glob($sDir));
-
-        foreach ($aPath as $sPath)
-        {
-            if (true === is_file($sPath))
-            {
-                unlink($sPath);
-            }
-            elseif (true === is_dir($sPath))
-            {
-                $aSubFile = glob($sPath . '/{,.}[!.,!..]*', GLOB_MARK|GLOB_BRACE);
-                array_map('unlink', $aSubFile);
-                Dir::remove($sPath);
-            }
-        }
+        \MVC\Cache::flushCache(bForce: true);
     }
 
     /**

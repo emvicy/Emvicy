@@ -216,22 +216,27 @@ class Cache
 
     /**
      * flushes cache (deletes all cachefiles immediatly)
-     * @require Linux command `rm` executable via shell_exec
+     * @param bool $bForce default=true
      * @return bool
      * @throws \ReflectionException
      */
-    public static function flushCache() : bool
+    public static function flushCache(bool $bForce = true) : bool
     {
-        self::init();
+        $sDir = Config::get_MVC_CACHE_DIR() . '/*';
+        $aPath = array_filter((array) glob($sDir));
 
-        if (false === self::$bCaching)
+        foreach ($aPath as $sPath)
         {
-            return false;
+            if (true === is_file($sPath))
+            {
+                unlink($sPath);
+            }
+            elseif (true === is_dir($sPath))
+            {
+                Dir::remove(sDirectory: $sPath, bForce: $bForce);
+            }
         }
 
-        $sCmd = self::$sBinRemove . ' -rf ' . self::$sCacheDir . '/*';
-        $mResult = shell_exec($sCmd);
-
-        return (bool) $mResult;
+        return (Dir::exists(Config::get_MVC_CACHE_DIR()) && Dir::isEmpty(Config::get_MVC_CACHE_DIR()));
     }
 }
