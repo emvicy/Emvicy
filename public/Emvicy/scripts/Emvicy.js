@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const Emvicy_resizeObserver = new ResizeObserver((aResizeObserverEntry) => {
         for (const oElement of aResizeObserverEntry) {
             var sPosition = localStorage.getItem(oElement.target.id);
+            (null === sPosition) ? sPosition = '{"top":50,"left":50}' : false;
             if (null === sPosition || 0 === oElement.contentRect.width || 0 === oElement.contentRect.height) {
                 return;
             }
