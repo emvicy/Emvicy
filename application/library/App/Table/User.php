@@ -62,27 +62,6 @@ class User extends Db
         );
     }
 
-    /**
-     * @param string $sField
-     * @param mixed  $mValue
-     * @return \App\DataType\DTAppTableUser
-     * @throws \ReflectionException
-     */
-    public function getOnFieldValue(string $sField = '', mixed $mValue)
-    {
-        if (false === isset($this->aField[$sField]))
-        {
-            return DTAppTableUser::create();
-        }
-
-        $oDTAppTableUser = current($this->retrieve([
-            DTDBWhere::create()->set_sKey($sField)->set_sValue($mValue)
-        ]));
-        (false === $oDTAppTableUser) ? $oDTAppTableUser = DTAppTableUser::create() : false;
-
-        return $oDTAppTableUser;
-    }
-
     //------------------------------------------------------------------------------------------------------------------
 
     /**

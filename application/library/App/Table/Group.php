@@ -45,27 +45,6 @@ class Group extends Db
         );
     }
 
-    /**
-     * @param string $sField
-     * @param mixed  $mValue
-     * @return \App\DataType\DTAppTableGroup
-     * @throws \ReflectionException
-     */
-    public function getOnFieldValue(string $sField = '', mixed $mValue)
-    {
-        if (false === isset($this->aField[$sField]))
-        {
-            return DTAppTableGroup::create();
-        }
-
-        $oDTAppTableGroup = current($this->retrieve([
-            DTDBWhere::create()->set_sKey($sField)->set_sValue($mValue)
-        ]));
-        (false === $oDTAppTableGroup) ? $oDTAppTableGroup = DTAppTableGroup::create() : false;
-
-        return $oDTAppTableGroup;
-    }
-
     //------------------------------------------------------------------------------------------------------------------
 
     /**

@@ -1859,6 +1859,44 @@ class Db
     }
 
     /**
+     * @param string $sField
+     * @param mixed  $mValue
+     * @param bool   $bCacheAtRuntime
+     * @return false|mixed|\MVC\DB\DataType\DB\TableDataType
+     * @throws \ReflectionException
+     */
+    public function getOnFieldValue(string $sField = '', mixed $mValue, bool $bCacheAtRuntime = true)
+    {
+        if (false === isset($this->aField[$sField]))
+        {
+            return TableDataType::create();
+        }
+
+        if (true === $bCacheAtRuntime)
+        {
+            $sRegistryKey = $this->sTableName . '.' . __FUNCTION__ . '.' . md5(Convert::serialize($sField . $mValue));
+
+            if (true === Registry::isRegistered($sRegistryKey))
+            {
+                return Registry::get($sRegistryKey);
+            }
+        }
+
+        $oTableDataType = current($this->retrieve([
+            DTDBWhere::create()->set_sKey($sField)->set_sValue($mValue)
+        ]));
+        (false === $oTableDataType) ? $oTableDataType = TableDataType::create() : false;
+
+        if (true === $bCacheAtRuntime)
+        {
+            // save to Registry
+            Registry::set($sRegistryKey, $oTableDataType);
+        }
+
+        return $oTableDataType;
+    }
+
+    /**
      * drops indices from table
      * @param string $sTableName
      * @return void
