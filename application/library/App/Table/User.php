@@ -2,6 +2,8 @@
 
 namespace App\Table;
 
+use App\DataType\DTAppTableUser;
+use MVC\DataType\DTDBWhere;
 use MVC\DB\DataType\DB\Foreign;
 use MVC\DB\Model\Db;
 use MVC\DB\Trait\TraitDbInit;
@@ -59,6 +61,29 @@ class User extends Db
                 ->set_sComment('Group')
         );
     }
+
+    /**
+     * @param string $sField
+     * @param mixed  $mValue
+     * @return \App\DataType\DTAppTableUser
+     * @throws \ReflectionException
+     */
+    public function getOnFieldValue(string $sField = '', mixed $mValue)
+    {
+        if (false === isset($this->aField[$sField]))
+        {
+            return DTAppTableUser::create();
+        }
+
+        $oDTAppTableUser = current($this->retrieve([
+            DTDBWhere::create()->set_sKey($sField)->set_sValue($mValue)
+        ]));
+        (false === $oDTAppTableUser) ? $oDTAppTableUser = DTAppTableUser::create() : false;
+
+        return $oDTAppTableUser;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     /**
      * @param string $sTablename

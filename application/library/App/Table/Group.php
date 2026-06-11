@@ -2,6 +2,8 @@
 
 namespace App\Table;
 
+use App\DataType\DTAppTableGroup;
+use MVC\DataType\DTDBWhere;
 use MVC\DB\Model\Db;
 use MVC\DB\Trait\TraitDbInit;
 use MVC\Event;
@@ -42,6 +44,29 @@ class Group extends Db
             $aDbConfig
         );
     }
+
+    /**
+     * @param string $sField
+     * @param mixed  $mValue
+     * @return \App\DataType\DTAppTableGroup
+     * @throws \ReflectionException
+     */
+    public function getOnFieldValue(string $sField = '', mixed $mValue)
+    {
+        if (false === isset($this->aField[$sField]))
+        {
+            return DTAppTableGroup::create();
+        }
+
+        $oDTAppTableGroup = current($this->retrieve([
+            DTDBWhere::create()->set_sKey($sField)->set_sValue($mValue)
+        ]));
+        (false === $oDTAppTableGroup) ? $oDTAppTableGroup = DTAppTableGroup::create() : false;
+
+        return $oDTAppTableGroup;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
 
     /**
      * @param string $sTablename

@@ -238,16 +238,20 @@ class Db
         }
 
         (isset($this->aConfig['logging']['general_log_file'])) ? $sSql.= "SET GLOBAL general_log_file = '" . $this->aConfig['logging']['general_log_file'] . "';" : false;
-        $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
 
-        try
+        if (false === empty($sSql))
         {
-            $oStmt->execute();
-            $oStmt->closeCursor();
-        }
-        catch (\Exception $oException)
-        {
-            \MVC\Error::exception($oException);
+            $oStmt = self::getDbPdo(sMode: 'read')->prepare($sSql);
+
+            try
+            {
+                $oStmt->execute();
+                $oStmt->closeCursor();
+            }
+            catch (\Exception $oException)
+            {
+                \MVC\Error::exception($oException);
+            }
         }
     }
 
