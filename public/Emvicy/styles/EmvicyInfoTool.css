@@ -1,4 +1,4 @@
-#myMvcToolbar {/* div */
+#EmvicyToolbar {/* div */
     position: fixed !important;
     bottom: 0px !important;
     /*left: px !important;*/
@@ -6,17 +6,17 @@
     display: none;
     z-index: 9999999999 !important;
 }
-.myMvcToolbar_shrink {left: -657px;}
-.myMvcToolbar_expand {left: 0px;}
+.EmvicyToolbar_shrink {left: -657px;}
+.EmvicyToolbar_expand {left: 0px;}
 
-#myMvcToolbar * {
+#EmvicyToolbar * {
     box-sizing: unset !important;
 }
-#myMvcToolbar navi label, #myMvcToolbar figure {
+#EmvicyToolbar navi label, #EmvicyToolbar figure {
     font-size: 12px;
     box-sizing: unset !important;
 }
-#myMvcToolbar_head {/* div */
+#EmvicyToolbar_head {/* div */
     position: fixed;
     bottom: 43px !important;
     /*left: 0px !important;*/
@@ -24,7 +24,7 @@
     font-size: 12px;
     z-index: -1;
 }
-#myMvcToolbar_head span {
+#EmvicyToolbar_head span {
     font-family: monospace, monospace;
     font-size: 10px;
     background-color: antiquewhite;
@@ -39,66 +39,66 @@ figure h6 {
 pre.prettyprint {
     font-size: 12px !important;
 }
-.myMvcToolbar-float-right {
+.EmvicyToolbar-float-right {
     float: right;
 }
-.myMvcToolbar-tree {
+.EmvicyToolbar-tree {
     overflow-wrap: break-word !important;
     word-wrap: break-word !important;
     hyphens: auto !important;
 }
-.myMvcToolbar-bg-info {
+.EmvicyToolbar-bg-info {
     background-color: darkgray !important;
 }
-.myMvcToolbar-bg-primary {
+.EmvicyToolbar-bg-primary {
     /*background-color: hsl(210,50%,50%) !important;*/
     background-color: #0D6EFD !important;
     border-radius: 3px;
     color: white !important;
     padding: 2px;
 }
-.myMvcToolbar-bg-warning {
+.EmvicyToolbar-bg-warning {
     background-color: orangered !important;
     color: white !important;
 }
-.myMvcToolbar-bg-danger {
+.EmvicyToolbar-bg-danger {
     background-color: darkred !important;
     color: white !important;
 }
-.myMvcToolbar-bg-kbd {
+.EmvicyToolbar-bg-kbd {
     background-color: #333 !important;
     border-radius: 3px;
     color: white !important;
     padding: 10px;
 }
-.myMvcToolbarBlink {
-    animation: myMvcToolbarBlink 1s steps(5, start) infinite;
-    -webkit-animation: myMvcToolbarBlink 1s steps(5, start) infinite;
+.EmvicyToolbarBlink {
+    animation: EmvicyToolbarBlink 1s steps(5, start) infinite;
+    -webkit-animation: EmvicyToolbarBlink 1s steps(5, start) infinite;
 }
-@keyframes myMvcToolbarBlink {
+@keyframes EmvicyToolbarBlink {
     to {
         visibility: hidden;
     }
 }
-@-webkit-keyframes myMvcToolbarBlink {
+@-webkit-keyframes EmvicyToolbarBlink {
     to {
         visibility: hidden;
     }
 }
 /*******************************************************************/
 
-#myMvcToolbar figure {
+#EmvicyToolbar figure {
     display: block;
     clear: both;
 }
 
-#myMvcToolbar > input,
-#myMvcToolbar figure > div {
+#EmvicyToolbar > input,
+#EmvicyToolbar figure > div {
     height: 100%;
     display: none;
 }
 
-#myMvcToolbar figure > div {
+#EmvicyToolbar figure > div {
     width: 100%;
     line-height: 1.5em;
     letter-spacing: 0.3px;
@@ -136,11 +136,11 @@ navi label {
 /**
  sub menu
  */
-#myMvcToolbar figure div input {
+#EmvicyToolbar figure div input {
     height: 100%;
     display: none;
 }
-#myMvcToolbar figure div figure {
+#EmvicyToolbar figure div figure {
     display: block;
     width: 800px;
     height: 100%;

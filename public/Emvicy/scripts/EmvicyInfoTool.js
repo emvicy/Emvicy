@@ -16,39 +16,39 @@ function getOffset(oElement) {
     return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
 }
 
-document.getElementById("myMvcToolbar").addEventListener("click", function(oEvent){
+document.getElementById("EmvicyToolbar").addEventListener("click", function(oEvent){
     oEvent.stopPropagation();
 });
 
 function setExpand()
 {
-    document.getElementById("myMvcToolbar").classList.remove('myMvcToolbar_shrink');
-    document.getElementById("myMvcToolbar_head").classList.remove('myMvcToolbar_shrink');
-    document.getElementById("myMvcToolbar").classList.add('myMvcToolbar_expand');
-    document.getElementById("myMvcToolbar_head").classList.remove('myMvcToolbar_expand');
+    document.getElementById("EmvicyToolbar").classList.remove('EmvicyToolbar_shrink');
+    document.getElementById("EmvicyToolbar_head").classList.remove('EmvicyToolbar_shrink');
+    document.getElementById("EmvicyToolbar").classList.add('EmvicyToolbar_expand');
+    document.getElementById("EmvicyToolbar_head").classList.remove('EmvicyToolbar_expand');
 }
 
 function setShrink()
 {
-    document.getElementById("myMvcToolbar").classList.remove('myMvcToolbar_expand');
-    document.getElementById("myMvcToolbar_head").classList.remove('myMvcToolbar_expand');
-    document.getElementById("myMvcToolbar").classList.add('myMvcToolbar_shrink');
-    document.getElementById("myMvcToolbar_head").classList.remove('myMvcToolbar_shrink');
+    document.getElementById("EmvicyToolbar").classList.remove('EmvicyToolbar_expand');
+    document.getElementById("EmvicyToolbar_head").classList.remove('EmvicyToolbar_expand');
+    document.getElementById("EmvicyToolbar").classList.add('EmvicyToolbar_shrink');
+    document.getElementById("EmvicyToolbar_head").classList.remove('EmvicyToolbar_shrink');
 }
 
 function toggleInOut()
 {
     // Using an if statement to check the class
-    if (document.getElementById("myMvcToolbar").classList.contains('myMvcToolbar_shrink')) {
+    if (document.getElementById("EmvicyToolbar").classList.contains('EmvicyToolbar_shrink')) {
         setExpand();
-        localStorage.setItem("myMvcToolbar_toggle", localStorage.getItem('myMvcToolbar_width'));
+        localStorage.setItem("EmvicyToolbar_toggle", localStorage.getItem('EmvicyToolbar_width'));
     } else {
         setShrink();
-        localStorage.setItem("myMvcToolbar_toggle", 0);
+        localStorage.setItem("EmvicyToolbar_toggle", 0);
     }
 }
 
-document.getElementById("myMvcToolbar_toggle").addEventListener("click", function(){
+document.getElementById("EmvicyToolbar_toggle").addEventListener("click", function(){
     toggleInOut();
 });
 
@@ -61,17 +61,17 @@ window.addEventListener('click', function (evt) {
     }
 });
 
-document.getElementById('myMvcToolbar').style.display = 'block';
-var fMyMvcToolbar_toggle = localStorage.getItem('myMvcToolbar_toggle');
+document.getElementById('EmvicyToolbar').style.display = 'block';
+var fEmvicyToolbar_toggle = localStorage.getItem('EmvicyToolbar_toggle');
 
-if (null === fMyMvcToolbar_toggle) {
+if (null === fEmvicyToolbar_toggle) {
 
-    localStorage.setItem("myMvcToolbar_width", document.getElementById("myMvcToolbar").offsetWidth);
-    localStorage.setItem("myMvcToolbar_toggle", localStorage.getItem('myMvcToolbar_width'));
-    fMyMvcToolbar_toggle = 0;
+    localStorage.setItem("EmvicyToolbar_width", document.getElementById("EmvicyToolbar").offsetWidth);
+    localStorage.setItem("EmvicyToolbar_toggle", localStorage.getItem('EmvicyToolbar_width'));
+    fEmvicyToolbar_toggle = 0;
 }
 
-if (0 === parseInt(localStorage.getItem('myMvcToolbar_toggle'))) {
+if (0 === parseInt(localStorage.getItem('EmvicyToolbar_toggle'))) {
     setShrink();
 }
 

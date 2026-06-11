@@ -6,7 +6,7 @@ colors
 ---------
 blue: hsl(210,50%,50%)
 
-<span class="myMvcToolbar-float-right"><small><a href="#myMvcToolbar_top">&uarr; top</a></small></span>
+<span class="EmvicyToolbar-float-right"><small><a href="#EmvicyToolbar_top">&uarr; top</a></small></span>
 *}
 
 {* value for css automatic generation parts *}
@@ -53,12 +53,12 @@ blue: hsl(210,50%,50%)
 	#subtab99:checked ~ navi label[for="subtab99"]:after {content: "";display: block;position: absolute;height: 2px;width: 100%;background: whitesmoke;left: 0;bottom: -1px;}
 	{/literal}
 	{literal}
-	/*#myMvcToolbar pre {background-color: lightgray; font-family: monospace, monospace; padding: 2px 5px; border: 1px dashed #333}*/
-	#myMvcToolbar pre {background-color: #333; font-family: monospace, monospace; padding: 2px 5px; border: none; color: whitesmoke;}
+	/*#EmvicyToolbar pre {background-color: lightgray; font-family: monospace, monospace; padding: 2px 5px; border: 1px dashed #333}*/
+	#EmvicyToolbar pre {background-color: #333; font-family: monospace, monospace; padding: 2px 5px; border: none; color: whitesmoke;}
 	{/literal}
 </style>
-<div id="myMvcToolbar" class="myMvcToolbar_expand">
-	<div id="myMvcToolbar_head" class="myMvcToolbar_expand">
+<div id="EmvicyToolbar" class="EmvicyToolbar_expand">
+	<div id="EmvicyToolbar_head" class="EmvicyToolbar_expand">
 		<span>
 			PHP {$aToolbar.sPHP}, Operating System {$aToolbar.sOS}, {if 'true' === getenv('IS_DDEV_PROJECT')}<mark>ddev {getenv('DDEV_VERSION')}</mark>, {/if}{$aToolbar.sEnvOfRequest}, Construction Time: {$aToolbar.sConstructionTime} s,
 			<a href="https://emvicy.com/" target="_blank">Documentation</a>
@@ -106,7 +106,7 @@ blue: hsl(210,50%,50%)
 			<!-- content -->
 			<figure>
 
-				<a id="myMvcToolbar_top"></a>
+				<a id="EmvicyToolbar_top"></a>
 
 				<div class="subtab11">
 					<p>
@@ -119,15 +119,15 @@ blue: hsl(210,50%,50%)
 				<div class="subtab15">
 					<h6>Overview</h6>
 					<ul>
-						<li><a href="#myMvcToolbar_Session_Status">Session Status</a></li>
-						<li><a href="#myMvcToolbar_Session_Values">Session Values</a></li>
-						<li><a href="#myMvcToolbar_Session_Rules">Session Activation Rules</a></li>
-						<li><a href="#myMvcToolbar_Session_Options">Session Options</a></li>
-						<li><a href="#myMvcToolbar_Session_Files">Session Files</a></li>
+						<li><a href="#EmvicyToolbar_Session_Status">Session Status</a></li>
+						<li><a href="#EmvicyToolbar_Session_Values">Session Values</a></li>
+						<li><a href="#EmvicyToolbar_Session_Rules">Session Activation Rules</a></li>
+						<li><a href="#EmvicyToolbar_Session_Options">Session Options</a></li>
+						<li><a href="#EmvicyToolbar_Session_Files">Session Files</a></li>
 					</ul>
 
 					<h6>Session Status
-						<a id="myMvcToolbar_Session_Status"></a> 
+						<a id="EmvicyToolbar_Session_Status"></a>
 					</h6>
 					enabled: <code>{if "1" == MVC\Session::is()->enabled()}true{else}false{/if}</code>
 					<pre>Session::is()->enabled()</pre>
@@ -136,7 +136,7 @@ blue: hsl(210,50%,50%)
 					<pre>Session::is()->getSessionId()</pre>
 
 					<h6>Session Values
-						<a id="myMvcToolbar_Session_Values"></a> 
+						<a id="EmvicyToolbar_Session_Values"></a>
 					</h6>
 					<b>Namespace</b>
 					<code>{MVC\Session::is()->getNamespace()}</code>
@@ -153,7 +153,7 @@ $_SESSION['{MVC\Session::is()->getNamespace()}']</pre>
 					<!------------------------------------------->
 
 					<h6>Session Rules
-						<a id="myMvcToolbar_Session_Rules"></a>
+						<a id="EmvicyToolbar_Session_Rules"></a>
 						<small>* = any</small>
 					</h6>
 					{assign var="aModuleConfig" value=MVC\Config::MODULE()}
@@ -171,13 +171,13 @@ Config::MODULE('{MVC\Config::get_MVC_MODULE_PRIMARY_NAME()}')['SESSION']</pre>
 
 					<!------------------------------------------->
 
-					<h6>Session Options <a id="myMvcToolbar_Session_Options"></a> </h6>
+					<h6>Session Options <a id="EmvicyToolbar_Session_Options"></a> </h6>
 					<p>
 						{$aToolbar.aSessionSettings.MVC_SESSION_OPTIONS}
 					</p>
 					<pre>Config::get_MVC_SESSION_OPTIONS()</pre>
 
-					<h6>Session Files <a id="myMvcToolbar_Session_Files"></a> </h6>
+					<h6>Session Files <a id="EmvicyToolbar_Session_Files"></a> </h6>
 					<p>
 						{$aToolbar.aSessionFiles}
 					</p>
@@ -186,16 +186,16 @@ Config::MODULE('{MVC\Config::get_MVC_MODULE_PRIMARY_NAME()}')['SESSION']</pre>
 				<div class="subtab17">
 					<h6>Overview</h6>
 					<ul>
-						<li><a href="#myMvcToolbar_getenv">getenv()</a></li>
-						<li><a href="#myMvcToolbar_ENV">$_ENV</a></li>
+						<li><a href="#EmvicyToolbar_getenv">getenv()</a></li>
+						<li><a href="#EmvicyToolbar_ENV">$_ENV</a></li>
 					</ul>
 
-					<h6>getenv() <a id="myMvcToolbar_getenv"></a> </h6>
+					<h6>getenv() <a id="EmvicyToolbar_getenv"></a> </h6>
 					<p>
 						{$aToolbar.aEnvGetenv}
 					</p>
 
-					<h6>$_ENV <a id="myMvcToolbar_ENV"></a> </h6>
+					<h6>$_ENV <a id="EmvicyToolbar_ENV"></a> </h6>
 					<p>
 						{$aToolbar.aEnvEnv}
 					</p>
@@ -227,7 +227,7 @@ Config::MODULE('{MVC\Config::get_MVC_MODULE_PRIMARY_NAME()}')['SESSION']</pre>
 			<!-- content -->
 			<figure>
 
-				<a id="myMvcToolbar_top2"></a>
+				<a id="EmvicyToolbar_top2"></a>
 
 				<div class="subtab26">
 					<h6>Config Directories</h6>
@@ -278,7 +278,7 @@ Config::MODULE('{MVC\Config::get_MVC_MODULE_PRIMARY_NAME()}')['SESSION']</pre>
 					<pre>Request::in()</pre>
 					<br>
 
-					<h6>Path <small>requested</small><a id="myMvcToolbar_Path"></a> </h6>
+					<h6>Path <small>requested</small><a id="EmvicyToolbar_Path"></a> </h6>
 					<code>{$aToolbar.sRoutingPath|escape:"htmlall":"UTF-8"}</code>
 					<pre>Request::in()->get_path()</pre>
 
@@ -293,7 +293,7 @@ Config::MODULE('{MVC\Config::get_MVC_MODULE_PRIMARY_NAME()}')['SESSION']</pre>
 					<pre>Request::in()->get_pathParamArray();
 Request::in()->get_pathParamArray()[ $sKey ]</pre>
 
-					<h6>Query <small>requested</small><a id="myMvcToolbar_Query"></a> </h6>
+					<h6>Query <small>requested</small><a id="EmvicyToolbar_Query"></a> </h6>
 					<code>
 						{if '' === $aToolbar.sRoutingQuery}
 							...no GET query
@@ -308,13 +308,13 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 				<div class="subtab23">
 					<h6>Overview</h6>
 					<ul>
-						<li><a href="#myMvcToolbar_BINDindex">Event Listener <code>Event::bind()</code></a></li>
-						<li><a href="#myMvcToolbar_BINDname">Event Listener <code>Event::bind()</code> <small>group by event name</small></a></li>
-						<li><a href="#myMvcToolbar_RUN">run()</a></li>
-						<li><a href="#myMvcToolbar_DELETE">delete()</a></li>
+						<li><a href="#EmvicyToolbar_BINDindex">Event Listener <code>Event::bind()</code></a></li>
+						<li><a href="#EmvicyToolbar_BINDname">Event Listener <code>Event::bind()</code> <small>group by event name</small></a></li>
+						<li><a href="#EmvicyToolbar_RUN">run()</a></li>
+						<li><a href="#EmvicyToolbar_DELETE">delete()</a></li>
 					</ul>
 
-					<h6>Event Listener <code>Event::bind()</code> <a id="myMvcToolbar_BINDindex"></a> </h6>
+					<h6>Event Listener <code>Event::bind()</code> <a id="EmvicyToolbar_BINDindex"></a> </h6>
 					<pre>
 						{Emvicy\Emvicy::eventListener()}
 					</pre>
@@ -325,7 +325,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 					<i><code>bind</code> to an event</i><br>
 					<pre>Event::bind('event.name', \Closure $oClosure, $oObject = NULL);</pre>
 
-					<h6>Event Listener <code>Event::bind()</code> <small>group by event name</small> <a id="myMvcToolbar_BINDname"></a> </h6>
+					<h6>Event Listener <code>Event::bind()</code> <small>group by event name</small> <a id="EmvicyToolbar_BINDname"></a> </h6>
 					<p>
 						{$aToolbar.aEventBINDNAME}
 					</p>
@@ -336,7 +336,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 					<i><code>bind</code> to an event</i><br>
 					<pre>Event::bind('event.name', \Closure $oClosure, $oObject = NULL);</pre>
 
-					<h6>run() <a id="myMvcToolbar_RUN"></a> </h6>
+					<h6>run() <a id="EmvicyToolbar_RUN"></a> </h6>
 					<p>
 						{$aToolbar.aEventRUN}
 					</p>
@@ -347,7 +347,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 					<i><code>run</code> an event</i><br>
 					<pre>Event::run('event.name', DTArrayObject::create());</pre>
 
-					<h6>delete() <a id="myMvcToolbar_DELETE"></a> </h6>
+					<h6>delete() <a id="EmvicyToolbar_DELETE"></a> </h6>
 					{if !empty($aToolbar.aEventDELETE)}
 						<p>
 							{$aToolbar.aEventDELETE}
@@ -356,7 +356,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 					<pre>Event::delete('event.name');</pre>
 				</div>
 				<div class="subtab24">
-					<h6>Current Route <a id="myMvcToolbar_Routing"></a> </h6>
+					<h6>Current Route <a id="EmvicyToolbar_Routing"></a> </h6>
 					<pre>{MVC\Route::getCurrent()|@print_r:true}</pre>
 					<i>object</i>
 					<pre>MVC\Route::getCurrent()</pre>
@@ -382,7 +382,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 					<div class="table-responsive">{str_replace('<table>','<table class="table table-hover table-sm table-responsive" style="font-size: 10px;">', $sRouteList)}</div>
 					<hr>
 
-					<h6>Target Controller method <a id="myMvcToolbar_Target"></a> </h6>
+					<h6>Target Controller method <a id="EmvicyToolbar_Target"></a> </h6>
 					{*					<p>\{$aToolbar.aRouting.sModule}\Controller\{$aToolbar.aRouting.sController}::{$aToolbar.aRouting.sMethod}({$aToolbar.aRouting.sArg|escape:"htmlall":"UTF-8"})	</p>*}
 					{if isset($aToolbar.aRouting.aRoutingCurrent.class)}
 						<code>\{$aToolbar.aRouting.aRoutingCurrent.class}::{$aToolbar.aRouting.aRoutingCurrent.method}()</code>
@@ -395,17 +395,17 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 				<div class="subtab25">
 					<h6>Overview</h6>
 					<ul>
-						<li><a href="#myMvcToolbar_RULES">Policy Rules</a></li>
-						<li><a href="#myMvcToolbar_APPLIED">Policy Rules actually applied</a></li>
+						<li><a href="#EmvicyToolbar_RULES">Policy Rules</a></li>
+						<li><a href="#EmvicyToolbar_APPLIED">Policy Rules actually applied</a></li>
 					</ul>
 
-					<h6>Policy Rules <a id="myMvcToolbar_RULES"></a> </h6>
+					<h6>Policy Rules <a id="EmvicyToolbar_RULES"></a> </h6>
 					<p>
 						{$aToolbar.aPolicy.aRule}
 					</p>
 					<pre>Policy::getRules()</pre>
 
-					<h6>Policy Rules actually applied <a id="myMvcToolbar_APPLIED"></a> </h6>
+					<h6>Policy Rules actually applied <a id="EmvicyToolbar_APPLIED"></a> </h6>
 					<p>
 						{$aToolbar.aPolicy.aApplied}
 					</p>
@@ -430,7 +430,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<!-- content -->
 			<figure style="width: 1000px;">
 
-				<a id="myMvcToolbar_top"></a>
+				<a id="EmvicyToolbar_top"></a>
 
 				<div class="subtab31">
 					<!-------------------------------------------------------->
@@ -502,7 +502,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<!-- content -->
 			<figure>
 
-				<a id="myMvcToolbar_top"></a>
+				<a id="EmvicyToolbar_top"></a>
 
 				<div class="subtab41">
 					<h6>MVC_BASE_PATH</h6>
@@ -534,7 +534,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<!-- content -->
 			<figure>
 
-				<a id="myMvcToolbar_top"></a>
+				<a id="EmvicyToolbar_top"></a>
 
 				<div class="subtab51">
 					<b>Real Memory Usage</b>: <code>{$aToolbar.aMemory.iRealMemoryUsage} KB</code><br />
@@ -556,7 +556,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<!-- content -->
 			<figure style="width: 1000px;">
 
-				<a id="myMvcToolbar_top"></a>
+				<a id="EmvicyToolbar_top"></a>
 
 				<div class="subtab61">
 					<p>{$aToolbar.sRegistry}</p>
@@ -577,7 +577,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<!-- content -->
 			<figure>
 
-				<a id="myMvcToolbar_top"></a>
+				<a id="EmvicyToolbar_top"></a>
 
 				<div class="subtab71">
 					<h6>Cache Folder</h6>
@@ -606,7 +606,7 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<!-- content -->
 			<figure>
 
-				<a id="myMvcToolbar_top"></a>
+				<a id="EmvicyToolbar_top"></a>
 
 				<div class="subtab81">
 					<ul class="list-group">
@@ -651,11 +651,11 @@ Request::in()->get_pathParamArray()[ $sKey ]</pre>
 			<i class="fa fa-bar-chart"></i> Memory
 		</label>
 		{if !empty($aToolbar.aError)}
-			<label for="tab8" class="myMvcToolbar-bg-primaryx" style="position: relative;">
-				<i class="fa fa-warning myMvcToolbarBlinkx"></i> E_* <sup>({count($aToolbar.aError)})</sup>
+			<label for="tab8" class="EmvicyToolbar-bg-primaryx" style="position: relative;">
+				<i class="fa fa-warning EmvicyToolbarBlinkx"></i> E_* <sup>({count($aToolbar.aError)})</sup>
 			</label>
 		{/if}
-		<label id="myMvcToolbar_toggle" class="myMvcToolbar-bg-info" title="toggle"><b>&larr;&rarr;</b></label>
+		<label id="EmvicyToolbar_toggle" class="EmvicyToolbar-bg-info" title="toggle"><b>&larr;&rarr;</b></label>
 	</navi>
 </div>
 <script src="/Emvicy/scripts/EmvicyInfoTool.min.js" type="text/javascript"></script>
