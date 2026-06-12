@@ -26,6 +26,8 @@ class Controller
      */
     public static function runTargetClassPreconstruct () : void
     {
+        Event::run('mvc.controller.runTargetClassPreconstruct.before');
+
         // may be false
         $oDTRoute = Route::getCurrent();
         $sTargetClass = $oDTRoute->get_class();
