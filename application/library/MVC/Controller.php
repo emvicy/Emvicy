@@ -48,6 +48,8 @@ class Controller
                 $sMessage = nl2br($sMessage);
             }
 
+            Event::run('mvc.controller.runTargetClassPreconstruct.fail', $oDTRoute);
+
             echo $sMessage;
             Error::error(trim($sMessage));
             die();
