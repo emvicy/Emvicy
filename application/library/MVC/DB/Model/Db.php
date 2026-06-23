@@ -1862,10 +1862,10 @@ class Db
      * @param string $sField
      * @param mixed  $mValue
      * @param bool   $bCacheAtRuntime
-     * @return false|mixed|\MVC\DB\DataType\DB\TableDataType
+     * @return \MVC\DB\DataType\DB\TableDataType
      * @throws \ReflectionException
      */
-    public function getOnFieldValue(string $sField = '', mixed $mValue, bool $bCacheAtRuntime = true)
+    public function getOnFieldValue(string $sField = '', mixed $mValue = '', bool $bCacheAtRuntime = true)
     {
         if (false === isset($this->aField[$sField]))
         {
