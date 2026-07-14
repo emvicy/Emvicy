@@ -105,31 +105,45 @@ class Dir
      * copies a directory recursively
      * @param string $sSource
      * @param string $sDestination
-     * @return void
+     * @return bool
      * @throws \ReflectionException
      */
-    public static function recursiveCopy(string $sSource = '', string $sDestination = '') : void
+    public static function recursiveCopy(string $sSource = '', string $sDestination = '') : bool
     {
-        $rDir = opendir($sSource);
-        $bMkdir = mkdir($sDestination);
-        (false === $bMkdir) ? Error::error('mkdir failed: `' . $sDestination . '`') : false;
+        $bSuccess = true;
 
-        while (false !== ( $file = readdir($rDir)))
+        if (false === file_exists($sSource))
         {
-            if (( $file != '.' ) && ( $file != '..' ))
+            return false;
+        }
+
+        Dir::make($sDestination);
+
+        $rDir = opendir($sSource);
+
+        while (true === is_string($file = readdir($rDir)))
+        {
+            if (($file != '.') && ($file != '..') && false === file_exists($sDestination . '/' . $file))
             {
-                if (is_dir($sSource . '/' . $file))
+                if (true == is_dir($sSource . '/' . $file) && true === Dir::exists($sDestination))
                 {
                     self::recursiveCopy($sSource . '/' . $file, $sDestination . '/' . $file);
                 }
                 else
                 {
                     $bCopy = copy($sSource . '/' . $file, $sDestination . '/' . $file);
-                    (false === $bCopy) ? Error::error('copy failed: from `' . $sSource . '/' . $file . '` => to => `' . $sDestination . '/' . $file . '`') : false;
+
+                    if (false === $bCopy)
+                    {
+                        $bSuccess = false;
+                        Error::error('copy failed: from `' . $sSource . '/' . $file . '` => to => `' . $sDestination . '/' . $file . '`');
+                    }
                 }
             }
         }
 
         closedir($rDir);
+
+        return $bSuccess;
     }
 }

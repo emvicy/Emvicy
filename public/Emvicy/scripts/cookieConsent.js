@@ -24,7 +24,7 @@ $(document).ready(function() {
     $('#' + sCookieName + ' button').on('click', function(oEvent){
         if (true === $('#' + sCookieName + ' input').is(':checked')) {
             document.cookie = sCookieName + "=true; expires=365; path=/; SameSite=None; Secure;";
-            $('#' + sCookieName).fadeOut(function(){'slow', location.reload();});
+            $('#' + sCookieName).fadeOut(function(){'slow', window.location.reload(true);});
         }
     });
 });

@@ -41,5 +41,19 @@
     "phpunit/phpunit": "@stable",
     "php-webdriver/webdriver": "@stable",
     "phpunit/phpunit-selenium": "@stable"
+  },
+  "autoload": {
+    "files": [
+      "smartyPlugins/modifier.centToEuro.php",
+      "smartyPlugins/modifier.dateformat.php",
+      "smartyPlugins/modifier.filesize.php",
+      "smartyPlugins/modifier.gtext.php",
+      "smartyPlugins/modifier.hasValue.php",
+      "smartyPlugins/modifier.highlight_html.php",
+      "smartyPlugins/modifier.listArray.php",
+      "smartyPlugins/modifier.markdowntable.php",
+      "smartyPlugins/modifier.parsedown.php",
+      "smartyPlugins/modifier.shrink.php"
+    ]
   }
 }
