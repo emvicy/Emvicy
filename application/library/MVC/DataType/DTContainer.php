@@ -80,7 +80,7 @@ class DTContainer
     {
         $sLevel = Convert::constValueToKey($iLevel);
         (true === empty($sLevel)) ? $sLevel = 'E_USER_NOTICE' : false;
-        $sMessage = preg_replace('/[^\da-zA-Z0-9 \/\-_=>:]/i', '', $sMessage);
+        $sMessage = preg_replace('/[^\da-zA-Z0-9 \*\.;\/\-_=>:]/i', '', $sMessage);
         $this->oMessage->push($sLevel, $sMessage);
 
         return $this;
