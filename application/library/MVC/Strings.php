@@ -110,6 +110,78 @@ class Strings
     }
 
     /**
+     * returns an array of individual numeric values (which are found at the start or end of the string, or are surrounded by spaces)
+     * @param string $sString
+     * @param bool   $bCast
+     * @return array
+     */
+    public static function getNumeric(string $sString = '', bool $bCast = true) : array
+    {
+        $aNumeric = array_map(
+            callback: 'trim',
+            array: array_filter(
+                explode(
+                    separator: ' ',
+                    string: trim($sString)
+                ),
+                callback: 'is_numeric'
+        ));
+
+        if (true === $bCast)
+        {
+            $aNumeric = array_values(array_map(
+                function ($sNumeric) {
+                    if (true === ctype_digit($sNumeric))
+                    {
+                        return (int) $sNumeric;
+                    }
+                    elseif ($sNumeric == (string) (float) $sNumeric)
+                    {
+                        return (float) $sNumeric;
+                    }
+                    else
+                    {
+                        return $sNumeric;
+                    }
+                },
+                $aNumeric
+            ));
+        }
+
+        return $aNumeric;
+    }
+
+    /**
+     * returns an array of individual integer values (which are found at the start or end of the string, or are surrounded by spaces)
+     * @param string $sString
+     * @return array of integer values
+     */
+    public static function getInt(string $sString = '') : array
+    {
+        $aInt = array_values(array_filter(
+            self::getNumeric(sString: $sString, bCast: true),
+            callback: 'is_int'
+        ));
+
+        return $aInt;
+    }
+
+    /**
+     * returns an array of individual float values (which are found at the start or end of the string, or are surrounded by spaces)
+     * @param string $sString
+     * @return array of float values
+     */
+    public static function getFloat(string $sString = '') : array
+    {
+        $aFloat = array_values(array_filter(
+            self::getNumeric(sString: $sString, bCast: true),
+            callback: 'is_float'
+        ));
+
+        return $aFloat;
+    }
+
+    /**
      * parse JSON out of a mixed String; returns Array with detected JSON;
      * @param string $sString
      * @param bool   $bReturnValidJsonOnly

@@ -132,25 +132,40 @@ class File
 
     /**
      * Checks whether a URL or file exists and is therefore available.
-     * @param string $sResource URL or File
+     * @param string $sLocation URL or File
+     * @param bool   $bFollowRedirect
      * @return bool
      */
-    public static function isAvailable(string $sResource = '') : bool
+    public static function isAvailable(string $sLocation = '', bool $bFollowRedirect = true) : bool
     {
         $bAvailable = false;
 
         // url
-        if (filter_var($sResource, FILTER_VALIDATE_URL))
+        if (filter_var($sLocation, FILTER_VALIDATE_URL))
         {
-            $mHeader = @get_headers($sResource);
-            $bAvailable = (bool) strpos(($mHeader[0] ?? ''), '200');
+            $mHeader = @get_headers(url: $sLocation, associative: true);
+
+            if (true === is_array($mHeader))
+            {
+                if (true === $bFollowRedirect)
+                {
+                    if (true === (bool) strpos(haystack: $mHeader[0], needle: '301') || true === (bool) strpos(haystack: $mHeader[0], needle: '302'))
+                    {
+                        $sLocation = $mHeader['Location'];
+                        return self::isAvailable(sLocation: $sLocation, bFollowRedirect: false);
+                    }
+                }
+
+                $bAvailable = (bool) strpos(($mHeader[0] ?? ''), '200');
+            }
         }
         // file
-        elseif (true === file_exists($sResource))
+        elseif (true === file_exists($sLocation))
         {
             $bAvailable = true;
         }
 
         return $bAvailable;
     }
+
 }
