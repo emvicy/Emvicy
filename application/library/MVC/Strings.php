@@ -325,6 +325,24 @@ class Strings
     }
 
     /**
+     * @param string $sString
+     * @return bool
+     */
+    public static function isXml(string $sString = '')
+    {
+        libxml_use_internal_errors(true);
+        $oSimpleXMLElement = simplexml_load_string($sString);
+
+        if ($oSimpleXMLElement === false)
+        {
+            libxml_clear_errors();
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * cuts off a string at given limit, appends a custom string if string to cut off is longer than limit, can purify
      * broken markup string before return
      * @param string $sString
