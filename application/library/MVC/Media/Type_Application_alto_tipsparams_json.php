@@ -16,7 +16,7 @@ class Type_Application_alto_tipsparams_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9569]
+     * @reference [RFC 9569]
      */
     const DESCRIPTION = 'application/alto-tipsparams+json';
 }

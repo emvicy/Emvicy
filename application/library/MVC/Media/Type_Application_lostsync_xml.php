@@ -16,7 +16,7 @@ class Type_Application_lostsync_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6739]
+     * @reference [RFC 6739]
      */
     const DESCRIPTION = 'application/lostsync+xml';
 }

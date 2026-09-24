@@ -16,7 +16,7 @@ class Type_Application_pvd_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8801]
+     * @reference [RFC 8801]
      */
     const DESCRIPTION = 'application/pvd+json';
 }

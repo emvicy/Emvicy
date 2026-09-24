@@ -16,7 +16,7 @@ class Type_Application_x400_bp
     use TraitMediaType;
 
     /**
-     * @reference [RFC1494]
+     * @reference [RFC 1494]
      */
     const DESCRIPTION = 'application/x400-bp';
 }

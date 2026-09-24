@@ -16,7 +16,7 @@ class Type_Audio_GSM_EFR
     use TraitMediaType;
 
     /**
-     * @reference [RFC4856]
+     * @reference [RFC 4856]
      */
     const DESCRIPTION = 'audio/GSM-EFR';
 }

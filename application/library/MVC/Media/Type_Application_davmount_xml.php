@@ -16,7 +16,7 @@ class Type_Application_davmount_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4709]
+     * @reference [RFC 4709]
      */
     const DESCRIPTION = 'application/davmount+xml';
 }

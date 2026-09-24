@@ -16,7 +16,7 @@ class Type_Application_load_control_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC7200]
+     * @reference [RFC 7200]
      */
     const DESCRIPTION = 'application/load-control+xml';
 }

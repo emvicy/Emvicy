@@ -16,7 +16,7 @@ class Type_Application_sdp
     use TraitMediaType;
 
     /**
-     * @reference [RFC8866]
+     * @reference [RFC 8866]
      */
     const DESCRIPTION = 'application/sdp';
 }

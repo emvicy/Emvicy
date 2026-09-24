@@ -16,7 +16,7 @@ class Type_Application_dns_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8427]
+     * @reference [RFC 8427]
      */
     const DESCRIPTION = 'application/dns+json';
 }

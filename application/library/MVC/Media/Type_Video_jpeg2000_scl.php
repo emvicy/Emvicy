@@ -16,7 +16,7 @@ class Type_Video_jpeg2000_scl
     use TraitMediaType;
 
     /**
-     * @reference [RFC9828]
+     * @reference [RFC 9828]
      */
     const DESCRIPTION = 'video/jpeg2000-scl';
 }

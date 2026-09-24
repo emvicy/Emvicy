@@ -16,7 +16,7 @@ class Type_Application_yin_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6020]
+     * @reference [RFC 6020]
      */
     const DESCRIPTION = 'application/yin+xml';
 }

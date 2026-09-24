@@ -16,7 +16,7 @@ class Type_Application_jscalendar_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8984]
+     * @reference [RFC 8984]
      */
     const DESCRIPTION = 'application/jscalendar+json';
 }

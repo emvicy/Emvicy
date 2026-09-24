@@ -16,7 +16,7 @@ class Type_Audio_flexfec
     use TraitMediaType;
 
     /**
-     * @reference [RFC8627]
+     * @reference [RFC 8627]
      */
     const DESCRIPTION = 'audio/flexfec';
 }

@@ -16,7 +16,7 @@ class Type_Application_cmw_cose
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-rats-msg-wrap-22]
+     * @reference [RFC 9999, Section 4.1]
      */
     const DESCRIPTION = 'application/cmw+cose';
 }

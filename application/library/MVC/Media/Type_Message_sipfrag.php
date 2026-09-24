@@ -16,7 +16,7 @@ class Type_Message_sipfrag
     use TraitMediaType;
 
     /**
-     * @reference [RFC3420]
+     * @reference [RFC 3420]
      */
     const DESCRIPTION = 'message/sipfrag';
 }

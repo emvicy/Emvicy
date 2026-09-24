@@ -16,7 +16,7 @@ class Type_Application_v3c
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-avtcore-rtp-v3c-17]
+     * @reference [RFC 10034]
      */
     const DESCRIPTION = 'application/v3c';
 }

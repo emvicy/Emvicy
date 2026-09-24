@@ -16,7 +16,7 @@ class Type_Application_nasdata
     use TraitMediaType;
 
     /**
-     * @reference [RFC4707]
+     * @reference [RFC 4707]
      */
     const DESCRIPTION = 'application/nasdata';
 }

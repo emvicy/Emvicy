@@ -16,7 +16,7 @@ class Type_Application_mp21
     use TraitMediaType;
 
     /**
-     * @reference [RFC6381][David_Singer]
+     * @reference [RFC 6381][David_Singer]
      */
     const DESCRIPTION = 'application/mp21';
 }

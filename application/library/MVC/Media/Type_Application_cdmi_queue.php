@@ -16,7 +16,7 @@ class Type_Application_cdmi_queue
     use TraitMediaType;
 
     /**
-     * @reference [RFC6208]
+     * @reference [RFC 6208]
      */
     const DESCRIPTION = 'application/cdmi-queue';
 }

@@ -16,7 +16,7 @@ class Type_Application_pskc_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6030]
+     * @reference [RFC 6030]
      */
     const DESCRIPTION = 'application/pskc+xml';
 }

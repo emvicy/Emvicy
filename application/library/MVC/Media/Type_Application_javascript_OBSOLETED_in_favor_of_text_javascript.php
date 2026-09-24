@@ -16,7 +16,7 @@ class Type_Application_javascript_OBSOLETED_in_favor_of_text_javascript
     use TraitMediaType;
 
     /**
-     * @reference [RFC4329][RFC9239]
+     * @reference [RFC 4329][RFC 9239]
 	 * @deprecated OBSOLETED in favor of text/javascript
      */
     const DESCRIPTION = 'application/javascript';

@@ -16,7 +16,7 @@ class Type_Application_timestamped_data
     use TraitMediaType;
 
     /**
-     * @reference [RFC5955]
+     * @reference [RFC 5955]
      */
     const DESCRIPTION = 'application/timestamped-data';
 }

@@ -16,7 +16,7 @@ class Type_Application_beep_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3080]
+     * @reference [RFC 3080]
      */
     const DESCRIPTION = 'application/beep+xml';
 }

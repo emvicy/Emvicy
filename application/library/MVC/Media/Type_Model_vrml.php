@@ -16,7 +16,7 @@ class Type_Model_vrml
     use TraitMediaType;
 
     /**
-     * @reference [RFC2077]
+     * @reference [RFC 2077]
      */
     const DESCRIPTION = 'model/vrml';
 }

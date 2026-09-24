@@ -16,7 +16,7 @@ class Type_Audio_mpeg
     use TraitMediaType;
 
     /**
-     * @reference [RFC3003]
+     * @reference [RFC 3003]
      */
     const DESCRIPTION = 'audio/mpeg';
 }

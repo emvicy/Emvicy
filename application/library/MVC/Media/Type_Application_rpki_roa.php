@@ -16,7 +16,7 @@ class Type_Application_rpki_roa
     use TraitMediaType;
 
     /**
-     * @reference [RFC9582]
+     * @reference [RFC 9582]
      */
     const DESCRIPTION = 'application/rpki-roa';
 }

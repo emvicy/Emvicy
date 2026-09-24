@@ -16,7 +16,7 @@ class Type_Application_batch_SMTP
     use TraitMediaType;
 
     /**
-     * @reference [RFC2442]
+     * @reference [RFC 2442]
      */
     const DESCRIPTION = 'application/batch-SMTP';
 }

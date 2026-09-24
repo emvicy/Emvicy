@@ -16,7 +16,7 @@ class Type_Video_SMPTE292M
     use TraitMediaType;
 
     /**
-     * @reference [RFC3497]
+     * @reference [RFC 3497]
      */
     const DESCRIPTION = 'video/SMPTE292M';
 }

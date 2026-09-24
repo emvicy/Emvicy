@@ -16,7 +16,7 @@ class Type_Text_ecmascript_OBSOLETED_in_favor_of_text_javascript
     use TraitMediaType;
 
     /**
-     * @reference [RFC9239]
+     * @reference [RFC 9239]
 	 * @deprecated OBSOLETED in favor of text/javascript
      */
     const DESCRIPTION = 'text/ecmascript';

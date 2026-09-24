@@ -16,7 +16,7 @@ class Type_Application_pkix_attr_cert
     use TraitMediaType;
 
     /**
-     * @reference [RFC5877]
+     * @reference [RFC 5877]
      */
     const DESCRIPTION = 'application/pkix-attr-cert';
 }

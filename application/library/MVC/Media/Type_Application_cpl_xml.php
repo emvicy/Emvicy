@@ -16,7 +16,7 @@ class Type_Application_cpl_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3880]
+     * @reference [RFC 3880]
      */
     const DESCRIPTION = 'application/cpl+xml';
 }

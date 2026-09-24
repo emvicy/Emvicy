@@ -16,7 +16,7 @@ class Type_Application_EmergencyCallData_eCall_MSD
     use TraitMediaType;
 
     /**
-     * @reference [RFC8147]
+     * @reference [RFC 8147]
      */
     const DESCRIPTION = 'application/EmergencyCallData.eCall.MSD';
 }

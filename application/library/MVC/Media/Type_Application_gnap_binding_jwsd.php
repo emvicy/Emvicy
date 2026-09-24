@@ -16,7 +16,7 @@ class Type_Application_gnap_binding_jwsd
     use TraitMediaType;
 
     /**
-     * @reference [RFC9635]
+     * @reference [RFC 9635]
      */
     const DESCRIPTION = 'application/gnap-binding-jwsd';
 }

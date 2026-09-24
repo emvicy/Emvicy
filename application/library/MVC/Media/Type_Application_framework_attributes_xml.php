@@ -16,7 +16,7 @@ class Type_Application_framework_attributes_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6230]
+     * @reference [RFC 6230]
      */
     const DESCRIPTION = 'application/framework-attributes+xml';
 }

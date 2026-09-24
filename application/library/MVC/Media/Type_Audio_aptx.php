@@ -16,7 +16,7 @@ class Type_Audio_aptx
     use TraitMediaType;
 
     /**
-     * @reference [RFC7310]
+     * @reference [RFC 7310]
      */
     const DESCRIPTION = 'audio/aptx';
 }

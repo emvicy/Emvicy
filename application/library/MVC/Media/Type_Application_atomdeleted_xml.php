@@ -16,7 +16,7 @@ class Type_Application_atomdeleted_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6721]
+     * @reference [RFC 6721]
      */
     const DESCRIPTION = 'application/atomdeleted+xml';
 }

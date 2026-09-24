@@ -16,7 +16,7 @@ class Type_Application_jscontact_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9553]
+     * @reference [RFC 9553]
      */
     const DESCRIPTION = 'application/jscontact+json';
 }

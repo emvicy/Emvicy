@@ -16,7 +16,7 @@ class Type_Audio_t38
     use TraitMediaType;
 
     /**
-     * @reference [RFC4612]
+     * @reference [RFC 4612]
      */
     const DESCRIPTION = 'audio/t38';
 }

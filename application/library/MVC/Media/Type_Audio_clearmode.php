@@ -16,7 +16,7 @@ class Type_Audio_clearmode
     use TraitMediaType;
 
     /**
-     * @reference [RFC4040]
+     * @reference [RFC 4040]
      */
     const DESCRIPTION = 'audio/clearmode';
 }

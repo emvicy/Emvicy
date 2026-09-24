@@ -16,7 +16,7 @@ class Type_Application_call_completion
     use TraitMediaType;
 
     /**
-     * @reference [RFC6910]
+     * @reference [RFC 6910]
      */
     const DESCRIPTION = 'application/call-completion';
 }

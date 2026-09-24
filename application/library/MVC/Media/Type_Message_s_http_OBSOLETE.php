@@ -16,7 +16,7 @@ class Type_Message_s_http_OBSOLETE
     use TraitMediaType;
 
     /**
-     * @reference [RFC2660][Status change of HTTP experiments to Historic]
+     * @reference [RFC 2660][Status change of HTTP experiments to Historic]
 	 * @deprecated OBSOLETE
      */
     const DESCRIPTION = 'message/s-http';

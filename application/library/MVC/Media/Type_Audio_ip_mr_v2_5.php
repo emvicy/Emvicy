@@ -16,7 +16,7 @@ class Type_Audio_ip_mr_v2_5
     use TraitMediaType;
 
     /**
-     * @reference [RFC6262]
+     * @reference [RFC 6262]
      */
     const DESCRIPTION = 'audio/ip-mr_v2.5';
 }

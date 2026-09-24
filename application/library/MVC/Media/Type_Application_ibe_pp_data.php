@@ -16,7 +16,7 @@ class Type_Application_ibe_pp_data
     use TraitMediaType;
 
     /**
-     * @reference [RFC5408]
+     * @reference [RFC 5408]
      */
     const DESCRIPTION = 'application/ibe-pp-data';
 }

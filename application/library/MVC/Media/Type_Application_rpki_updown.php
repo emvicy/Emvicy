@@ -16,7 +16,7 @@ class Type_Application_rpki_updown
     use TraitMediaType;
 
     /**
-     * @reference [RFC6492]
+     * @reference [RFC 6492]
      */
     const DESCRIPTION = 'application/rpki-updown';
 }

@@ -16,7 +16,7 @@ class Type_Application_auth_policy_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4745]
+     * @reference [RFC 4745]
      */
     const DESCRIPTION = 'application/auth-policy+xml';
 }

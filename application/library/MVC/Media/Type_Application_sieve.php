@@ -16,7 +16,7 @@ class Type_Application_sieve
     use TraitMediaType;
 
     /**
-     * @reference [RFC5228]
+     * @reference [RFC 5228]
      */
     const DESCRIPTION = 'application/sieve';
 }

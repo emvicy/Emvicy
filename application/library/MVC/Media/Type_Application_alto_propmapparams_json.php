@@ -16,7 +16,7 @@ class Type_Application_alto_propmapparams_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9240]
+     * @reference [RFC 9240]
      */
     const DESCRIPTION = 'application/alto-propmapparams+json';
 }

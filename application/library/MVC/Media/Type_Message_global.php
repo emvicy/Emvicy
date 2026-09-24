@@ -16,7 +16,7 @@ class Type_Message_global
     use TraitMediaType;
 
     /**
-     * @reference [RFC6532]
+     * @reference [RFC 6532]
      */
     const DESCRIPTION = 'message/global';
 }

@@ -16,7 +16,7 @@ class Type_Multipart_multilingual
     use TraitMediaType;
 
     /**
-     * @reference [RFC8255]
+     * @reference [RFC 8255]
      */
     const DESCRIPTION = 'multipart/multilingual';
 }

@@ -16,7 +16,7 @@ class Type_Application_jrd_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7033]
+     * @reference [RFC 7033]
      */
     const DESCRIPTION = 'application/jrd+json';
 }

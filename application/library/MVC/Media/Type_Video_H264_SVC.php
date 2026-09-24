@@ -16,7 +16,7 @@ class Type_Video_H264_SVC
     use TraitMediaType;
 
     /**
-     * @reference [RFC6190]
+     * @reference [RFC 6190]
      */
     const DESCRIPTION = 'video/H264-SVC';
 }

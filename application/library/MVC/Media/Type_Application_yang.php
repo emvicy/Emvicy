@@ -16,7 +16,7 @@ class Type_Application_yang
     use TraitMediaType;
 
     /**
-     * @reference [RFC6020]
+     * @reference [RFC 6020]
      */
     const DESCRIPTION = 'application/yang';
 }

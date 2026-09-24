@@ -16,7 +16,7 @@ class Type_Audio_MELP2400
     use TraitMediaType;
 
     /**
-     * @reference [RFC8130]
+     * @reference [RFC 8130]
      */
     const DESCRIPTION = 'audio/MELP2400';
 }

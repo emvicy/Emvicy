@@ -16,7 +16,7 @@ class Type_Audio_G719
     use TraitMediaType;
 
     /**
-     * @reference [RFC5404][RFC Errata 3245]
+     * @reference [RFC 5404][RFC Errata 3245]
      */
     const DESCRIPTION = 'audio/G719';
 }

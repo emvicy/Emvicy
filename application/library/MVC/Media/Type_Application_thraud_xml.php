@@ -16,7 +16,7 @@ class Type_Application_thraud_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5941]
+     * @reference [RFC 5941]
      */
     const DESCRIPTION = 'application/thraud+xml';
 }

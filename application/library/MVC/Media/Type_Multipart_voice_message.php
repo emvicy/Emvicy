@@ -16,7 +16,7 @@ class Type_Multipart_voice_message
     use TraitMediaType;
 
     /**
-     * @reference [RFC3801]
+     * @reference [RFC 3801]
      */
     const DESCRIPTION = 'multipart/voice-message';
 }

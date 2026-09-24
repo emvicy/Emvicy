@@ -16,7 +16,7 @@ class Type_Application_pkcs8_encrypted
     use TraitMediaType;
 
     /**
-     * @reference [RFC8351]
+     * @reference [RFC 8351]
      */
     const DESCRIPTION = 'application/pkcs8-encrypted';
 }

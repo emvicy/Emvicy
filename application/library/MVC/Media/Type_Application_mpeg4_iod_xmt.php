@@ -16,7 +16,7 @@ class Type_Application_mpeg4_iod_xmt
     use TraitMediaType;
 
     /**
-     * @reference [RFC4337]
+     * @reference [RFC 4337]
      */
     const DESCRIPTION = 'application/mpeg4-iod-xmt';
 }

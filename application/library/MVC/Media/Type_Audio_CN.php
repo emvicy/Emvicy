@@ -16,7 +16,7 @@ class Type_Audio_CN
     use TraitMediaType;
 
     /**
-     * @reference [RFC3389]
+     * @reference [RFC 3389]
      */
     const DESCRIPTION = 'audio/CN';
 }

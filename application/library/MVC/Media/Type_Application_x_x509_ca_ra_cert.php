@@ -16,7 +16,7 @@ class Type_Application_x_x509_ca_ra_cert
     use TraitMediaType;
 
     /**
-     * @reference [RFC8894]
+     * @reference [RFC 8894]
      */
     const DESCRIPTION = 'application/x-x509-ca-ra-cert';
 }

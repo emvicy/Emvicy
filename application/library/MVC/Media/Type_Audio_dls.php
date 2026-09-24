@@ -16,7 +16,7 @@ class Type_Audio_dls
     use TraitMediaType;
 
     /**
-     * @reference [RFC4613]
+     * @reference [RFC 4613]
      */
     const DESCRIPTION = 'audio/dls';
 }

@@ -16,7 +16,7 @@ class Type_Application_geo_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7946]
+     * @reference [RFC 7946]
      */
     const DESCRIPTION = 'application/geo+json';
 }

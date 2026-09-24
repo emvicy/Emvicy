@@ -16,7 +16,7 @@ class Type_Text_plain
     use TraitMediaType;
 
     /**
-     * @reference [RFC2046][RFC3676][RFC5147]
+     * @reference [RFC 2046][RFC 3676][RFC 5147]
      */
     const DESCRIPTION = 'text/plain';
 }

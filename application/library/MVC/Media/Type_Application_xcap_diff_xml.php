@@ -16,7 +16,7 @@ class Type_Application_xcap_diff_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5874]
+     * @reference [RFC 5874]
      */
     const DESCRIPTION = 'application/xcap-diff+xml';
 }

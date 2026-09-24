@@ -16,7 +16,7 @@ class Type_Application_reginfo_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3680]
+     * @reference [RFC 3680]
      */
     const DESCRIPTION = 'application/reginfo+xml';
 }

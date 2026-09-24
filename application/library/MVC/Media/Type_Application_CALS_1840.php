@@ -16,7 +16,7 @@ class Type_Application_CALS_1840
     use TraitMediaType;
 
     /**
-     * @reference [RFC1895]
+     * @reference [RFC 1895]
      */
     const DESCRIPTION = 'application/CALS-1840';
 }

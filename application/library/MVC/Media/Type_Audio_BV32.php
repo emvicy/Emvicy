@@ -16,7 +16,7 @@ class Type_Audio_BV32
     use TraitMediaType;
 
     /**
-     * @reference [RFC4298]
+     * @reference [RFC 4298]
      */
     const DESCRIPTION = 'audio/BV32';
 }

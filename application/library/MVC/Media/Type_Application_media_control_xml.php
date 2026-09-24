@@ -16,7 +16,7 @@ class Type_Application_media_control_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5168]
+     * @reference [RFC 5168]
      */
     const DESCRIPTION = 'application/media_control+xml';
 }

@@ -16,7 +16,7 @@ class Type_Audio_ulpfec
     use TraitMediaType;
 
     /**
-     * @reference [RFC5109]
+     * @reference [RFC 5109]
      */
     const DESCRIPTION = 'audio/ulpfec';
 }

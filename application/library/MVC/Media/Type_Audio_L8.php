@@ -16,7 +16,7 @@ class Type_Audio_L8
     use TraitMediaType;
 
     /**
-     * @reference [RFC4856]
+     * @reference [RFC 4856]
      */
     const DESCRIPTION = 'audio/L8';
 }

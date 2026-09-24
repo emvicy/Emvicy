@@ -16,7 +16,7 @@ class Type_Application_font_tdpfr
     use TraitMediaType;
 
     /**
-     * @reference [RFC3073]
+     * @reference [RFC 3073]
      */
     const DESCRIPTION = 'application/font-tdpfr';
 }

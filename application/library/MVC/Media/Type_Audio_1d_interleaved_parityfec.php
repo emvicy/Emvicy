@@ -16,7 +16,7 @@ class Type_Audio_1d_interleaved_parityfec
     use TraitMediaType;
 
     /**
-     * @reference [RFC6015]
+     * @reference [RFC 6015]
      */
     const DESCRIPTION = 'audio/1d-interleaved-parityfec';
 }

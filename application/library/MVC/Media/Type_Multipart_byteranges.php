@@ -16,7 +16,7 @@ class Type_Multipart_byteranges
     use TraitMediaType;
 
     /**
-     * @reference [RFC9110]
+     * @reference [RFC 9110]
      */
     const DESCRIPTION = 'multipart/byteranges';
 }

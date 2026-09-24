@@ -16,7 +16,7 @@ class Type_Application_ccmp_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6503]
+     * @reference [RFC 6503]
      */
     const DESCRIPTION = 'application/ccmp+xml';
 }

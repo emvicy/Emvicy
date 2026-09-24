@@ -16,7 +16,7 @@ class Type_Application_token_introspection_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC9701]
+     * @reference [RFC 9701]
      */
     const DESCRIPTION = 'application/token-introspection+jwt';
 }

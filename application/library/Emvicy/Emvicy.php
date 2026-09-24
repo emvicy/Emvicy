@@ -302,13 +302,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetWorkerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetWorkerFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{class}" ' . $sTargetWorkerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{class}/' . $sClass . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{class}" ' . $sTargetWorkerFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{class}/' . $sClass . '/g"'
         );
 
         echo '✔ Worker class created: ' . $sTargetWorkerFile;nl(2);
@@ -372,13 +372,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetPolicyFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetPolicyFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{class}" ' . $sTargetPolicyFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{class}/' . $sClass . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{class}" ' . $sTargetPolicyFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{class}/' . $sClass . '/g"'
         );
 
         echo '✔ Policy class created: ' . $sTargetPolicyFile;nl(2);
@@ -625,13 +625,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetControllerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetControllerFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{controller}" ' . $sTargetControllerFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{controller}/' . $sController . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{controller}" ' . $sTargetControllerFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{controller}/' . $sController . '/g"'
         );
 
         echo '✔ Controller created: ' . $sTargetControllerFile;
@@ -691,13 +691,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetModelFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetModelFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{model}" ' . $sTargetModelFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{model}/' . $sModel . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{model}" ' . $sTargetModelFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{model}/' . $sModel . '/g"'
         );
 
         echo '✔ Model created: ' . $sTargetModelFile;
@@ -757,13 +757,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetViewFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetViewFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{view}" ' . $sTargetViewFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{view}/' . $sView . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{view}" ' . $sTargetViewFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{view}/' . $sView . '/g"'
         );
 
         echo '✔ View created: ' . $sTargetViewFile;
@@ -827,13 +827,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{table}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{table}/' . $sTable . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{table}" ' . $sTargetTableFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{table}/' . $sTable . '/g"'
         );
 
         echo '✔ Table class created: ' . $sTargetTableFile;nl();
@@ -848,13 +848,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetTraitTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetTraitTableFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{table}" ' . $sTargetTraitTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{table}/' . $sTable . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{table}" ' . $sTargetTraitTableFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{table}/' . $sTable . '/g"'
         );
 
         echo '✔ TraitTable class created: ' . $sTargetTraitTableFile;nl(2);
@@ -926,13 +926,13 @@ class Emvicy
         );
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $sTargetTableFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{class}" ' . $sTargetTableFile . ' | '
-                             . whereis('xargs') . ' '
-                             . whereis('sed') . ' -i "s/{class}/' . $sClass . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{class}" ' . $sTargetTableFile . ' | '
+                             . which('xargs') . ' '
+                             . which('sed') . ' -i "s/{class}/' . $sClass . '/g"'
         );
 
         echo '✔ DB table collection class created: ' . $sTargetTableFile;nl(2);
@@ -988,10 +988,10 @@ class Emvicy
             exit();
         }
 
-        $sCmd = whereis('find') . ' ' . $sPath . ' -type f -name "*.php" '
+        $sCmd = which('find') . ' ' . $sPath . ' -type f -name "*.php" '
                 . ' -exec ' . PHP_BINARY . ' -l {} \;'
                 .' 2>&1 '
-                #. '| (! ' . whereis('grep') . ' -v "errors detected")'
+                #. '| (! ' . which('grep') . ' -v "errors detected")'
         ;
         $sResult = self::shellExecute($sCmd, false);
         $aMessage = preg_split("@\n@", $sResult, -1, PREG_SPLIT_NO_EMPTY);
@@ -1038,7 +1038,7 @@ class Emvicy
      */
     public static function update(): void
     {
-        $xGit = whereis('git');
+        $xGit = which('git');
 
         UPDATE_FRAMEWORK: {
 
@@ -1110,11 +1110,11 @@ class Emvicy
 
         // sort with awk on 8. field (Emvicy Log increment number)
         $sCmd = "cd " . Config::get_MVC_LOG_FILE_DIR() . "; "
-                . whereis('grep') .  " " . $sLogId . " *.log "
-                . "| " . whereis('awk') . " '{ print $0 | \"" . whereis('sort') . " -nk8\"}'";
+                . which('grep') .  " " . $sLogId . " *.log "
+                . "| " . which('awk') . " '{ print $0 | \"" . which('sort') . " -nk8\"}'";
 
         // replace string \n in output by a real linebreak
-        (true === $bNewline) ? $sCmd.= " | " . whereis('sed') . " -E 's/" . '\\\n' . "/" . '\n' . "/g'" : false;
+        (true === $bNewline) ? $sCmd.= " | " . which('sed') . " -E 's/" . '\\\n' . "/" . '\n' . "/g'" : false;
 
         hr();
         echo $sCmd;

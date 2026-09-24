@@ -16,7 +16,7 @@ class Type_Audio_AMR
     use TraitMediaType;
 
     /**
-     * @reference [RFC4867]
+     * @reference [RFC 4867]
      */
     const DESCRIPTION = 'audio/AMR';
 }

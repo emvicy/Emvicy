@@ -16,7 +16,7 @@ class Type_Application_watcherinfo_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3858]
+     * @reference [RFC 3858]
      */
     const DESCRIPTION = 'application/watcherinfo+xml';
 }

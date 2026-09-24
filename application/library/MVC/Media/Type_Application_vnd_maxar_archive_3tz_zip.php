@@ -16,7 +16,7 @@ class Type_Application_vnd_maxar_archive_3tz_zip
     use TraitMediaType;
 
     /**
-     * @reference [Erik_Dahlström]
+     * @reference [Björn_Blissing]
      */
     const DESCRIPTION = 'application/vnd.maxar.archive.3tz+zip';
 }

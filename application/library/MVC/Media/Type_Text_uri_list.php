@@ -16,7 +16,7 @@ class Type_Text_uri_list
     use TraitMediaType;
 
     /**
-     * @reference [RFC2483]
+     * @reference [RFC 2483]
      */
     const DESCRIPTION = 'text/uri-list';
 }

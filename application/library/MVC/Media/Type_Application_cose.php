@@ -16,7 +16,7 @@ class Type_Application_cose
     use TraitMediaType;
 
     /**
-     * @reference [RFC9052]
+     * @reference [RFC 9052]
      */
     const DESCRIPTION = 'application/cose';
 }

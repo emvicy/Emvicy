@@ -16,7 +16,7 @@ class Type_Application_yang_data_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9254]
+     * @reference [RFC 9254]
      */
     const DESCRIPTION = 'application/yang-data+cbor';
 }

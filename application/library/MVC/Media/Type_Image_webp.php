@@ -16,7 +16,7 @@ class Type_Image_webp
     use TraitMediaType;
 
     /**
-     * @reference [RFC9649]
+     * @reference [RFC 9649]
      */
     const DESCRIPTION = 'image/webp';
 }

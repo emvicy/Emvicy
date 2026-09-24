@@ -16,7 +16,7 @@ class Type_Application_cfw
     use TraitMediaType;
 
     /**
-     * @reference [RFC6230]
+     * @reference [RFC 6230]
      */
     const DESCRIPTION = 'application/cfw';
 }

@@ -16,7 +16,7 @@ class Type_Video_scip
     use TraitMediaType;
 
     /**
-     * @reference [RFC9607]
+     * @reference [RFC 9607]
      */
     const DESCRIPTION = 'video/scip';
 }

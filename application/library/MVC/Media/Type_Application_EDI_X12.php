@@ -16,7 +16,7 @@ class Type_Application_EDI_X12
     use TraitMediaType;
 
     /**
-     * @reference [RFC1767]
+     * @reference [RFC 1767]
      */
     const DESCRIPTION = 'application/EDI-X12';
 }

@@ -16,7 +16,7 @@ class Type_Application_font_woff_DEPRECATED_in_favor_of_font_woff
     use TraitMediaType;
 
     /**
-     * @reference [W3C][RFC8081]
+     * @reference [W3C][RFC 8081]
      */
     const DESCRIPTION = 'application/font-woff';
 }

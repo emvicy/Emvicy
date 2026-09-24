@@ -16,7 +16,7 @@ class Type_Video_mp4
     use TraitMediaType;
 
     /**
-     * @reference [RFC4337][RFC6381]
+     * @reference [RFC 4337][RFC 6381]
      */
     const DESCRIPTION = 'video/mp4';
 }

@@ -16,7 +16,7 @@ class Type_Application_xcon_conference_info_diff_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6502]
+     * @reference [RFC 6502]
      */
     const DESCRIPTION = 'application/xcon-conference-info-diff+xml';
 }

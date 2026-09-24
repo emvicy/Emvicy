@@ -16,7 +16,7 @@ class Type_Application_remote_printing_OBSOLETE
     use TraitMediaType;
 
     /**
-     * @reference [RFC1486][Marshall_Rose][Moving TPC.INT and NSAP.INT infrastructure domains to historic]
+     * @reference [RFC 1486][Marshall_Rose][Moving TPC.INT and NSAP.INT infrastructure domains to historic]
 	 * @deprecated OBSOLETE
      */
     const DESCRIPTION = 'application/remote-printing';

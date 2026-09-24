@@ -16,7 +16,7 @@ class Type_Application_ace_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9200]
+     * @reference [RFC 9200]
      */
     const DESCRIPTION = 'application/ace+cbor';
 }

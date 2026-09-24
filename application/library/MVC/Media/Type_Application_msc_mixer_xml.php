@@ -16,7 +16,7 @@ class Type_Application_msc_mixer_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6505]
+     * @reference [RFC 6505]
      */
     const DESCRIPTION = 'application/msc-mixer+xml';
 }

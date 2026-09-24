@@ -16,7 +16,7 @@ class Type_Audio_QCELP
     use TraitMediaType;
 
     /**
-     * @reference [RFC3555][RFC3625]
+     * @reference [RFC 3555][RFC 3625]
      */
     const DESCRIPTION = 'audio/QCELP';
 }

@@ -16,7 +16,7 @@ class Type_Multipart_encrypted
     use TraitMediaType;
 
     /**
-     * @reference [RFC1847]
+     * @reference [RFC 1847]
      */
     const DESCRIPTION = 'multipart/encrypted';
 }

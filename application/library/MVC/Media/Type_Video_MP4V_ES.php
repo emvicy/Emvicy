@@ -16,7 +16,7 @@ class Type_Video_MP4V_ES
     use TraitMediaType;
 
     /**
-     * @reference [RFC6416]
+     * @reference [RFC 6416]
      */
     const DESCRIPTION = 'video/MP4V-ES';
 }

@@ -16,7 +16,7 @@ class Type_Application_yaml
     use TraitMediaType;
 
     /**
-     * @reference [YAML][RFC9512]
+     * @reference [YAML][RFC 9512]
      */
     const DESCRIPTION = 'application/yaml';
 }

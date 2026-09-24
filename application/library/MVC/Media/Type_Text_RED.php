@@ -16,7 +16,7 @@ class Type_Text_RED
     use TraitMediaType;
 
     /**
-     * @reference [RFC4102]
+     * @reference [RFC 4102]
      */
     const DESCRIPTION = 'text/RED';
 }

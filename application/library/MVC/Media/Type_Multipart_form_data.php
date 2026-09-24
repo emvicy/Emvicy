@@ -16,7 +16,7 @@ class Type_Multipart_form_data
     use TraitMediaType;
 
     /**
-     * @reference [RFC7578]
+     * @reference [RFC 7578]
      */
     const DESCRIPTION = 'multipart/form-data';
 }

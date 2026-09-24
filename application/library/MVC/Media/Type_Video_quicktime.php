@@ -16,7 +16,7 @@ class Type_Video_quicktime
     use TraitMediaType;
 
     /**
-     * @reference [RFC6381][Paul_Lindner]
+     * @reference [RFC 6381][Paul_Lindner]
      */
     const DESCRIPTION = 'video/quicktime';
 }

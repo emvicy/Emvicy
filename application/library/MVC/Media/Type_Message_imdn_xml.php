@@ -16,7 +16,7 @@ class Type_Message_imdn_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5438]
+     * @reference [RFC 5438]
      */
     const DESCRIPTION = 'message/imdn+xml';
 }

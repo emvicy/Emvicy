@@ -16,7 +16,7 @@ class Type_Application_nlsml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6787]
+     * @reference [RFC 6787]
      */
     const DESCRIPTION = 'application/nlsml+xml';
 }

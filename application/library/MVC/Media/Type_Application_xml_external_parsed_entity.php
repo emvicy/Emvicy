@@ -16,7 +16,7 @@ class Type_Application_xml_external_parsed_entity
     use TraitMediaType;
 
     /**
-     * @reference [RFC7303]
+     * @reference [RFC 7303]
      */
     const DESCRIPTION = 'application/xml-external-parsed-entity';
 }

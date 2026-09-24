@@ -16,7 +16,7 @@ class Type_Video_FFV1
     use TraitMediaType;
 
     /**
-     * @reference [RFC9043]
+     * @reference [RFC 9043]
      */
     const DESCRIPTION = 'video/FFV1';
 }

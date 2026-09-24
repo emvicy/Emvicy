@@ -16,7 +16,7 @@ class Type_Application_multipart_core
     use TraitMediaType;
 
     /**
-     * @reference [RFC8710]
+     * @reference [RFC 8710]
      */
     const DESCRIPTION = 'application/multipart-core';
 }

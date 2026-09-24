@@ -16,7 +16,7 @@ class Type_Application_spirits_event_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3910]
+     * @reference [RFC 3910]
      */
     const DESCRIPTION = 'application/spirits-event+xml';
 }

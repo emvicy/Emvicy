@@ -16,7 +16,7 @@ class Type_Application_ipp
     use TraitMediaType;
 
     /**
-     * @reference [RFC8010]
+     * @reference [RFC 8010]
      */
     const DESCRIPTION = 'application/ipp';
 }

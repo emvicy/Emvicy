@@ -16,7 +16,7 @@ class Type_Application_ppsp_tracker_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7846]
+     * @reference [RFC 7846]
      */
     const DESCRIPTION = 'application/ppsp-tracker+json';
 }

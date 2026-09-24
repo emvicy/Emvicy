@@ -16,7 +16,7 @@ class Type_Image_tiff_fx
     use TraitMediaType;
 
     /**
-     * @reference [RFC3950]
+     * @reference [RFC 3950]
      */
     const DESCRIPTION = 'image/tiff-fx';
 }

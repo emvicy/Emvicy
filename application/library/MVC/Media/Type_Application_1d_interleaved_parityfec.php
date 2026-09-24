@@ -16,7 +16,7 @@ class Type_Application_1d_interleaved_parityfec
     use TraitMediaType;
 
     /**
-     * @reference [RFC6015]
+     * @reference [RFC 6015]
      */
     const DESCRIPTION = 'application/1d-interleaved-parityfec';
 }

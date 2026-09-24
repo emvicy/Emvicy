@@ -16,7 +16,7 @@ class Type_Application_vnd_pwg_multiplexed
     use TraitMediaType;
 
     /**
-     * @reference [RFC3391]
+     * @reference [RFC 3391]
      */
     const DESCRIPTION = 'application/vnd.pwg-multiplexed';
 }

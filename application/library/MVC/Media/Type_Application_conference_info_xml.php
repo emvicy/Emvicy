@@ -16,7 +16,7 @@ class Type_Application_conference_info_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4575]
+     * @reference [RFC 4575]
      */
     const DESCRIPTION = 'application/conference-info+xml';
 }

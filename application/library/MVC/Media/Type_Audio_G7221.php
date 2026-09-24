@@ -16,7 +16,7 @@ class Type_Audio_G7221
     use TraitMediaType;
 
     /**
-     * @reference [RFC5577]
+     * @reference [RFC 5577]
      */
     const DESCRIPTION = 'audio/G7221';
 }

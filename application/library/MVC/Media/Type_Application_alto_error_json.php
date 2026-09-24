@@ -16,7 +16,7 @@ class Type_Application_alto_error_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7285]
+     * @reference [RFC 7285]
      */
     const DESCRIPTION = 'application/alto-error+json';
 }

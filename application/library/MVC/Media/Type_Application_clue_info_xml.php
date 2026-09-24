@@ -16,7 +16,7 @@ class Type_Application_clue_info_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC8846]
+     * @reference [RFC 8846]
      */
     const DESCRIPTION = 'application/clue_info+xml';
 }

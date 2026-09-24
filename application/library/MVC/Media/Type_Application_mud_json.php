@@ -16,7 +16,7 @@ class Type_Application_mud_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8520]
+     * @reference [RFC 8520]
      */
     const DESCRIPTION = 'application/mud+json';
 }

@@ -16,7 +16,7 @@ class Type_Application_rdap_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9083]
+     * @reference [RFC 9083]
      */
     const DESCRIPTION = 'application/rdap+json';
 }

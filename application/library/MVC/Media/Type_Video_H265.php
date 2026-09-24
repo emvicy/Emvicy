@@ -16,7 +16,7 @@ class Type_Video_H265
     use TraitMediaType;
 
     /**
-     * @reference [RFC7798]
+     * @reference [RFC 7798]
      */
     const DESCRIPTION = 'video/H265';
 }

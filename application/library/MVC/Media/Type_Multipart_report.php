@@ -16,7 +16,7 @@ class Type_Multipart_report
     use TraitMediaType;
 
     /**
-     * @reference [RFC6522]
+     * @reference [RFC 6522]
      */
     const DESCRIPTION = 'multipart/report';
 }

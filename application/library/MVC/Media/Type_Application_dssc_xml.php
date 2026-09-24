@@ -16,7 +16,7 @@ class Type_Application_dssc_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5698]
+     * @reference [RFC 5698]
      */
     const DESCRIPTION = 'application/dssc+xml';
 }

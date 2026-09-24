@@ -16,7 +16,7 @@ class Type_Message_global_disposition_notification
     use TraitMediaType;
 
     /**
-     * @reference [RFC6533]
+     * @reference [RFC 6533]
      */
     const DESCRIPTION = 'message/global-disposition-notification';
 }

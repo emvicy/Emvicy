@@ -16,7 +16,7 @@ class Type_Application_shf_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4194]
+     * @reference [RFC 4194]
      */
     const DESCRIPTION = 'application/shf+xml';
 }

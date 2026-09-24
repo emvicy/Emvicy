@@ -16,7 +16,7 @@ class Type_Application_ocsp_request
     use TraitMediaType;
 
     /**
-     * @reference [RFC6960]
+     * @reference [RFC 6960]
      */
     const DESCRIPTION = 'application/ocsp-request';
 }

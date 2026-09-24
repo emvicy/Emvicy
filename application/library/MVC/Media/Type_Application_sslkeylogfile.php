@@ -16,7 +16,7 @@ class Type_Application_sslkeylogfile
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-tls-keylogfile-05]
+     * @reference [RFC 9850]
      */
     const DESCRIPTION = 'application/sslkeylogfile';
 }

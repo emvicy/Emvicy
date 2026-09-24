@@ -16,7 +16,7 @@ class Type_Application_im_iscomposing_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3994]
+     * @reference [RFC 3994]
      */
     const DESCRIPTION = 'application/im-iscomposing+xml';
 }

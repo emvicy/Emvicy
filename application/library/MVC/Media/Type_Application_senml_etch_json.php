@@ -16,7 +16,7 @@ class Type_Application_senml_etch_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8790]
+     * @reference [RFC 8790]
      */
     const DESCRIPTION = 'application/senml-etch+json';
 }

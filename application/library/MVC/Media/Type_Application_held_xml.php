@@ -16,7 +16,7 @@ class Type_Application_held_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5985]
+     * @reference [RFC 5985]
      */
     const DESCRIPTION = 'application/held+xml';
 }

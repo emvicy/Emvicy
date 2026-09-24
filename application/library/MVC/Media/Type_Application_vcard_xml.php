@@ -16,7 +16,7 @@ class Type_Application_vcard_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6351]
+     * @reference [RFC 6351]
      */
     const DESCRIPTION = 'application/vcard+xml';
 }

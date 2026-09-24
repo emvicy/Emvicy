@@ -16,7 +16,7 @@ class Type_Application_pkcs10
     use TraitMediaType;
 
     /**
-     * @reference [RFC5967]
+     * @reference [RFC 5967]
      */
     const DESCRIPTION = 'application/pkcs10';
 }

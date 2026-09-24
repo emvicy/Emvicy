@@ -16,7 +16,7 @@ class Type_Application_moss_signature
     use TraitMediaType;
 
     /**
-     * @reference [RFC1848]
+     * @reference [RFC 1848]
      */
     const DESCRIPTION = 'application/moss-signature';
 }

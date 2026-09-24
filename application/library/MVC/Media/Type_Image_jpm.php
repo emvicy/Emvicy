@@ -16,7 +16,7 @@ class Type_Image_jpm
     use TraitMediaType;
 
     /**
-     * @reference [RFC3745]
+     * @reference [RFC 3745]
      */
     const DESCRIPTION = 'image/jpm';
 }

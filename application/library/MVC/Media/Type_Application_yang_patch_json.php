@@ -16,7 +16,7 @@ class Type_Application_yang_patch_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8072]
+     * @reference [RFC 8072]
      */
     const DESCRIPTION = 'application/yang-patch+json';
 }

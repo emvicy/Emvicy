@@ -16,7 +16,7 @@ class Type_Application_xacml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC7061]
+     * @reference [RFC 7061]
      */
     const DESCRIPTION = 'application/xacml+xml';
 }

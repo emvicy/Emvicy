@@ -16,7 +16,7 @@ class Type_Audio_32kadpcm
     use TraitMediaType;
 
     /**
-     * @reference [RFC3802][RFC2421]
+     * @reference [RFC 3802][RFC 2421]
      */
     const DESCRIPTION = 'audio/32kadpcm';
 }

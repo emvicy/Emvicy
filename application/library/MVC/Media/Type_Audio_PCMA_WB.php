@@ -16,7 +16,7 @@ class Type_Audio_PCMA_WB
     use TraitMediaType;
 
     /**
-     * @reference [RFC5391]
+     * @reference [RFC 5391]
      */
     const DESCRIPTION = 'audio/PCMA-WB';
 }

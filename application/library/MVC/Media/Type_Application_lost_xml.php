@@ -16,7 +16,7 @@ class Type_Application_lost_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5222]
+     * @reference [RFC 5222]
      */
     const DESCRIPTION = 'application/lost+xml';
 }

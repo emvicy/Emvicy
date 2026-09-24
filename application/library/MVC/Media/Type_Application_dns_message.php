@@ -16,7 +16,7 @@ class Type_Application_dns_message
     use TraitMediaType;
 
     /**
-     * @reference [RFC8484]
+     * @reference [RFC 8484]
      */
     const DESCRIPTION = 'application/dns-message';
 }

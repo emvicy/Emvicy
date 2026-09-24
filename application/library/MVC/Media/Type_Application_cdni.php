@@ -16,7 +16,7 @@ class Type_Application_cdni
     use TraitMediaType;
 
     /**
-     * @reference [RFC7736]
+     * @reference [RFC 7736]
      */
     const DESCRIPTION = 'application/cdni';
 }

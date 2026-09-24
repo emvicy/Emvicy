@@ -16,7 +16,7 @@ class Type_Application_jwk_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7517]
+     * @reference [RFC 7517]
      */
     const DESCRIPTION = 'application/jwk+json';
 }

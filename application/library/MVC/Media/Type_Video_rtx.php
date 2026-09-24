@@ -16,7 +16,7 @@ class Type_Video_rtx
     use TraitMediaType;
 
     /**
-     * @reference [RFC4588]
+     * @reference [RFC 4588]
      */
     const DESCRIPTION = 'video/rtx';
 }

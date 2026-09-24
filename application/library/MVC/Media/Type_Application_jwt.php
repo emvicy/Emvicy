@@ -16,7 +16,7 @@ class Type_Application_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC7519]
+     * @reference [RFC 7519]
      */
     const DESCRIPTION = 'application/jwt';
 }

@@ -16,7 +16,7 @@ class Type_Text_directory_DEPRECATED_by_RFC6350
     use TraitMediaType;
 
     /**
-     * @reference [RFC2425][RFC6350]
+     * @reference [RFC 2425][RFC 6350]
      */
     const DESCRIPTION = 'text/directory';
 }

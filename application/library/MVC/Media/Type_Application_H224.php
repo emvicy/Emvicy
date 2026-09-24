@@ -16,7 +16,7 @@ class Type_Application_H224
     use TraitMediaType;
 
     /**
-     * @reference [RFC4573]
+     * @reference [RFC 4573]
      */
     const DESCRIPTION = 'application/H224';
 }

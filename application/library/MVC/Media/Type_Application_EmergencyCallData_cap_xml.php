@@ -16,7 +16,7 @@ class Type_Application_EmergencyCallData_cap_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC8876]
+     * @reference [RFC 8876]
      */
     const DESCRIPTION = 'application/EmergencyCallData.cap+xml';
 }

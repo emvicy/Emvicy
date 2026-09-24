@@ -16,7 +16,7 @@ class Type_Video_evc
     use TraitMediaType;
 
     /**
-     * @reference [RFC9584]
+     * @reference [RFC 9584]
      */
     const DESCRIPTION = 'video/evc';
 }

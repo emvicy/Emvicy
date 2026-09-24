@@ -16,7 +16,7 @@ class Type_Application_EmergencyCallData_ProviderInfo_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC7852]
+     * @reference [RFC 7852]
      */
     const DESCRIPTION = 'application/EmergencyCallData.ProviderInfo+xml';
 }

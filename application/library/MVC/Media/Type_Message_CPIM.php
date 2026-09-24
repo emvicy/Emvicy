@@ -16,7 +16,7 @@ class Type_Message_CPIM
     use TraitMediaType;
 
     /**
-     * @reference [RFC3862]
+     * @reference [RFC 3862]
      */
     const DESCRIPTION = 'message/CPIM';
 }

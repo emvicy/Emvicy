@@ -16,7 +16,7 @@ class Type_Application_xml_patch_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC7351]
+     * @reference [RFC 7351]
      */
     const DESCRIPTION = 'application/xml-patch+xml';
 }

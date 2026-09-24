@@ -16,7 +16,7 @@ class Type_Application_dialog_info_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4235]
+     * @reference [RFC 4235]
      */
     const DESCRIPTION = 'application/dialog-info+xml';
 }

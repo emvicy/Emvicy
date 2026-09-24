@@ -16,7 +16,7 @@ class Type_Application_tzif
     use TraitMediaType;
 
     /**
-     * @reference [RFC9636]
+     * @reference [RFC 9636]
      */
     const DESCRIPTION = 'application/tzif';
 }

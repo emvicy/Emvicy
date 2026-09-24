@@ -16,7 +16,7 @@ class Type_Image_t38
     use TraitMediaType;
 
     /**
-     * @reference [RFC3362]
+     * @reference [RFC 3362]
      */
     const DESCRIPTION = 'image/t38';
 }

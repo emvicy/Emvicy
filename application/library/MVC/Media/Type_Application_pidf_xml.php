@@ -16,7 +16,7 @@ class Type_Application_pidf_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3863]
+     * @reference [RFC 3863]
      */
     const DESCRIPTION = 'application/pidf+xml';
 }

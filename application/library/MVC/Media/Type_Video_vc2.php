@@ -16,7 +16,7 @@ class Type_Video_vc2
     use TraitMediaType;
 
     /**
-     * @reference [RFC8450]
+     * @reference [RFC 8450]
      */
     const DESCRIPTION = 'video/vc2';
 }

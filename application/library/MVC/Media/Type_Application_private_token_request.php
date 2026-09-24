@@ -16,7 +16,7 @@ class Type_Application_private_token_request
     use TraitMediaType;
 
     /**
-     * @reference [RFC9578]
+     * @reference [RFC 9578]
      */
     const DESCRIPTION = 'application/private-token-request';
 }

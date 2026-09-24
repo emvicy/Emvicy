@@ -16,7 +16,7 @@ class Type_Application_ssml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4267]
+     * @reference [RFC 4267]
      */
     const DESCRIPTION = 'application/ssml+xml';
 }

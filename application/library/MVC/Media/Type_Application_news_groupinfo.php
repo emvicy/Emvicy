@@ -16,7 +16,7 @@ class Type_Application_news_groupinfo
     use TraitMediaType;
 
     /**
-     * @reference [RFC5537]
+     * @reference [RFC 5537]
      */
     const DESCRIPTION = 'application/news-groupinfo';
 }

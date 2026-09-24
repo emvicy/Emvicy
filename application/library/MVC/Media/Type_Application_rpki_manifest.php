@@ -16,7 +16,7 @@ class Type_Application_rpki_manifest
     use TraitMediaType;
 
     /**
-     * @reference [RFC6481]
+     * @reference [RFC 6481]
      */
     const DESCRIPTION = 'application/rpki-manifest';
 }

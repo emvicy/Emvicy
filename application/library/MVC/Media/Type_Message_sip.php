@@ -16,7 +16,7 @@ class Type_Message_sip
     use TraitMediaType;
 
     /**
-     * @reference [RFC3261]
+     * @reference [RFC 3261]
      */
     const DESCRIPTION = 'message/sip';
 }

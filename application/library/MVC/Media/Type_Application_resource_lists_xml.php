@@ -16,7 +16,7 @@ class Type_Application_resource_lists_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4826]
+     * @reference [RFC 4826]
      */
     const DESCRIPTION = 'application/resource-lists+xml';
 }

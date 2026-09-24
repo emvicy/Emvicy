@@ -16,7 +16,7 @@ class Type_Application_rfc_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC7991]
+     * @reference [RFC 7991]
      */
     const DESCRIPTION = 'application/rfc+xml';
 }

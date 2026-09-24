@@ -16,7 +16,7 @@ class Type_Audio_opus
     use TraitMediaType;
 
     /**
-     * @reference [RFC7587]
+     * @reference [RFC 7587]
      */
     const DESCRIPTION = 'audio/opus';
 }

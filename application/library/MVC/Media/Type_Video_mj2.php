@@ -16,7 +16,7 @@ class Type_Video_mj2
     use TraitMediaType;
 
     /**
-     * @reference [RFC3745]
+     * @reference [RFC 3745]
      */
     const DESCRIPTION = 'video/mj2';
 }

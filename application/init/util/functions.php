@@ -287,42 +287,47 @@ function mvcConfigLoader(array $aConfig = array())
 
 /**
  * locates source/binary for a specified file
+ * @param string $sWhichItem
+ * @return string
+ * @throws \ReflectionException
+ */
+function which(string $sWhichItem = '')
+{
+    ob_start();
+    system(command: '/bin/bash -c "type -p which"');
+    $mWhich = ob_get_contents();
+    ob_end_clean();
+
+    $sResult = trim(((false === $mWhich) ? '' : $mWhich));
+
+    if (false === empty($sResult))
+    {
+        ob_start();
+        system(command: $sResult . ' ' . escapeshellarg(trim($sWhichItem)));
+        $mWhich = ob_get_contents();
+        ob_end_clean();
+
+        $sResult = trim(((false === $mWhich) ? '' : $mWhich));
+    }
+
+    if (true === empty($sResult))
+    {
+        \MVC\Error::error('function `' . __FUNCTION__ . '()` > requested program `' . escapeshellarg(trim($sWhichItem)) . '` not found.');
+    }
+
+    return $sResult;
+}
+
+/**
+ * @deprecated use instead: which()
+ * locates source/binary for a specified file
  * @param string $sWhereIsItem
  * @return string
  * @throws \ReflectionException
  */
 function whereis(string $sWhereIsItem = '')
 {
-    $sWhereIsItem = escapeshellarg(trim($sWhereIsItem));
-
-    ob_start();
-    system('/bin/bash -c "type -p ' . $sWhereIsItem . '"', $iCode);
-    $mResult = ob_get_contents();
-    $sResult = trim(((false === $mResult) ? '' : $mResult));
-    ob_end_clean();
-
-    if (true === empty($sResult))
-    {
-        ob_start();
-        system('/bin/bash -c "type -p whereis"', $iCode);
-        $mWhereis = ob_get_contents();
-        $sWhereis = trim(((false === $mWhereis) ? '' : $mWhereis));
-        ob_end_clean();
-
-        if (false === empty($sWhereis))
-        {
-            $sCmd = $sWhereis . ' ' . $sWhereIsItem;
-            $sResult = \Emvicy\Emvicy::shellExecute($sCmd);
-            list($sItem, $sResult) = array_filter(explode(' ', $sResult));
-        }
-
-        if (true === empty($sResult))
-        {
-            \MVC\Error::warning('function `' . __FUNCTION__ . '()` > requested program `' . $sWhereIsItem . '` not found.');
-        }
-    }
-
-    return (string) $sResult;
+    return which($sWhereIsItem);
 }
 
 /**

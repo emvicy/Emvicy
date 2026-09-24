@@ -16,7 +16,7 @@ class Type_Application_ace_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9431]
+     * @reference [RFC 9431]
      */
     const DESCRIPTION = 'application/ace+json';
 }

@@ -16,7 +16,7 @@ class Type_Application_coap_payload
     use TraitMediaType;
 
     /**
-     * @reference [RFC8075]
+     * @reference [RFC 8075]
      */
     const DESCRIPTION = 'application/coap-payload';
 }

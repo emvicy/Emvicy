@@ -16,7 +16,7 @@ class Type_Application_ODA
     use TraitMediaType;
 
     /**
-     * @reference [RFC1494]
+     * @reference [RFC 1494]
      */
     const DESCRIPTION = 'application/ODA';
 }

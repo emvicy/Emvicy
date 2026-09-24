@@ -16,7 +16,7 @@ class Type_Application_tzif_leap
     use TraitMediaType;
 
     /**
-     * @reference [RFC9636]
+     * @reference [RFC 9636][RFC Errata 9028]
      */
     const DESCRIPTION = 'application/tzif-leap';
 }

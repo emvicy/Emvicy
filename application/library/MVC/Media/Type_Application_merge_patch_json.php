@@ -16,7 +16,7 @@ class Type_Application_merge_patch_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7396]
+     * @reference [RFC 7396]
      */
     const DESCRIPTION = 'application/merge-patch+json';
 }

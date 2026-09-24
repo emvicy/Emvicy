@@ -16,7 +16,7 @@ class Type_Application_marc
     use TraitMediaType;
 
     /**
-     * @reference [RFC2220]
+     * @reference [RFC 2220]
      */
     const DESCRIPTION = 'application/marc';
 }

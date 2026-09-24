@@ -16,7 +16,7 @@ class Type_Application_metalink4_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5854]
+     * @reference [RFC 5854]
      */
     const DESCRIPTION = 'application/metalink4+xml';
 }

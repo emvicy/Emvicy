@@ -16,7 +16,7 @@ class Type_Message_bhttp
     use TraitMediaType;
 
     /**
-     * @reference [RFC9292]
+     * @reference [RFC 9292]
      */
     const DESCRIPTION = 'message/bhttp';
 }

@@ -16,7 +16,7 @@ class Type_Text_troff
     use TraitMediaType;
 
     /**
-     * @reference [RFC4263]
+     * @reference [RFC 4263]
      */
     const DESCRIPTION = 'text/troff';
 }

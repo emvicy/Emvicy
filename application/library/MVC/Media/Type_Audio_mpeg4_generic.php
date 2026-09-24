@@ -16,7 +16,7 @@ class Type_Audio_mpeg4_generic
     use TraitMediaType;
 
     /**
-     * @reference [RFC3640][RFC5691][RFC6295]
+     * @reference [RFC 3640][RFC 5691][RFC 6295]
      */
     const DESCRIPTION = 'audio/mpeg4-generic';
 }

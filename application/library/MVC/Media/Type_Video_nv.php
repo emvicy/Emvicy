@@ -16,7 +16,7 @@ class Type_Video_nv
     use TraitMediaType;
 
     /**
-     * @reference [RFC4856]
+     * @reference [RFC 4856]
      */
     const DESCRIPTION = 'video/nv';
 }

@@ -16,7 +16,7 @@ class Type_Application_SGML
     use TraitMediaType;
 
     /**
-     * @reference [RFC1874]
+     * @reference [RFC 1874]
      */
     const DESCRIPTION = 'application/SGML';
 }

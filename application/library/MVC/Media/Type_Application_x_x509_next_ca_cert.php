@@ -16,7 +16,7 @@ class Type_Application_x_x509_next_ca_cert
     use TraitMediaType;
 
     /**
-     * @reference [RFC8894]
+     * @reference [RFC 8894]
      */
     const DESCRIPTION = 'application/x-x509-next-ca-cert';
 }

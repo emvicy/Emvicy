@@ -16,7 +16,7 @@ class Type_Application_webpush_options_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8292]
+     * @reference [RFC 8292]
      */
     const DESCRIPTION = 'application/webpush-options+json';
 }

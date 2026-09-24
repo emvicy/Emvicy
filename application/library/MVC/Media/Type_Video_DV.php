@@ -16,7 +16,7 @@ class Type_Video_DV
     use TraitMediaType;
 
     /**
-     * @reference [RFC6469]
+     * @reference [RFC 6469]
      */
     const DESCRIPTION = 'video/DV';
 }

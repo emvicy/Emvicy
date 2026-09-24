@@ -16,7 +16,7 @@ class Type_Application_dicom
     use TraitMediaType;
 
     /**
-     * @reference [RFC3240]
+     * @reference [RFC 3240]
      */
     const DESCRIPTION = 'application/dicom';
 }

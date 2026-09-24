@@ -16,7 +16,7 @@ class Type_Application_pkcs7_mime
     use TraitMediaType;
 
     /**
-     * @reference [RFC8551][RFC7114]
+     * @reference [RFC 8551][RFC 7114]
      */
     const DESCRIPTION = 'application/pkcs7-mime';
 }

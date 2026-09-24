@@ -16,7 +16,7 @@ class Type_Video_VP8
     use TraitMediaType;
 
     /**
-     * @reference [RFC7741]
+     * @reference [RFC 7741]
      */
     const DESCRIPTION = 'video/VP8';
 }

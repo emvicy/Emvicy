@@ -16,7 +16,7 @@ class Type_Application_cms
     use TraitMediaType;
 
     /**
-     * @reference [RFC7193]
+     * @reference [RFC 7193]
      */
     const DESCRIPTION = 'application/cms';
 }

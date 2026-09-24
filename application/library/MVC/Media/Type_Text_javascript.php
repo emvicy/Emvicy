@@ -16,7 +16,7 @@ class Type_Text_javascript
     use TraitMediaType;
 
     /**
-     * @reference [RFC9239]
+     * @reference [RFC 9239]
      */
     const DESCRIPTION = 'text/javascript';
 }

@@ -16,7 +16,7 @@ class Type_Application_missing_blocks_cbor_seq
     use TraitMediaType;
 
     /**
-     * @reference [RFC9177]
+     * @reference [RFC 9177]
      */
     const DESCRIPTION = 'application/missing-blocks+cbor-seq';
 }

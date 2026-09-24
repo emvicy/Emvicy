@@ -16,7 +16,7 @@ class Type_Text_rfc822_headers
     use TraitMediaType;
 
     /**
-     * @reference [RFC6522]
+     * @reference [RFC 6522]
      */
     const DESCRIPTION = 'text/rfc822-headers';
 }

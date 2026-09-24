@@ -16,7 +16,7 @@ class Type_Image_jpx
     use TraitMediaType;
 
     /**
-     * @reference [RFC3745][ISO-IEC_JTC_1_SC_29_WG_1]
+     * @reference [RFC 3745][ISO-IEC_JTC_1_SC_29_WG_1]
      */
     const DESCRIPTION = 'image/jpx';
 }

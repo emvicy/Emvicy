@@ -16,7 +16,7 @@ class Type_Text_calendar
     use TraitMediaType;
 
     /**
-     * @reference [RFC5545]
+     * @reference [RFC 5545]
      */
     const DESCRIPTION = 'text/calendar';
 }

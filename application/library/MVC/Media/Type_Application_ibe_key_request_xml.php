@@ -16,7 +16,7 @@ class Type_Application_ibe_key_request_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5408]
+     * @reference [RFC 5408]
      */
     const DESCRIPTION = 'application/ibe-key-request+xml';
 }

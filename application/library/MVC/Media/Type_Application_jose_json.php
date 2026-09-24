@@ -16,7 +16,7 @@ class Type_Application_jose_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7515]
+     * @reference [RFC 7515]
      */
     const DESCRIPTION = 'application/jose+json';
 }

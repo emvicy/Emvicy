@@ -16,7 +16,7 @@ class Type_Message_tracking_status
     use TraitMediaType;
 
     /**
-     * @reference [RFC3886]
+     * @reference [RFC 3886]
      */
     const DESCRIPTION = 'message/tracking-status';
 }

@@ -16,7 +16,7 @@ class Type_Application_cmw_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-rats-msg-wrap-22]
+     * @reference [RFC9999, Sections 3.1, 3.2, 3.3]
      */
     const DESCRIPTION = 'application/cmw+cbor';
 }

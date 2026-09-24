@@ -16,7 +16,7 @@ class Type_Application_cwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC8392]
+     * @reference [RFC 8392]
      */
     const DESCRIPTION = 'application/cwt';
 }

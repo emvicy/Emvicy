@@ -16,7 +16,7 @@ class Type_Text_grammar_ref_list
     use TraitMediaType;
 
     /**
-     * @reference [RFC6787]
+     * @reference [RFC 6787]
      */
     const DESCRIPTION = 'text/grammar-ref-list';
 }

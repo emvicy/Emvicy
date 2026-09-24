@@ -16,7 +16,7 @@ class Type_Application_xcap_caps_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4825]
+     * @reference [RFC 4825]
      */
     const DESCRIPTION = 'application/xcap-caps+xml';
 }

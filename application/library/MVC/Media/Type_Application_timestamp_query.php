@@ -16,7 +16,7 @@ class Type_Application_timestamp_query
     use TraitMediaType;
 
     /**
-     * @reference [RFC3161]
+     * @reference [RFC 3161]
      */
     const DESCRIPTION = 'application/timestamp-query';
 }

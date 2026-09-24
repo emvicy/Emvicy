@@ -16,7 +16,7 @@ class Type_Application_mediaservercontrol_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5022]
+     * @reference [RFC 5022]
      */
     const DESCRIPTION = 'application/mediaservercontrol+xml';
 }

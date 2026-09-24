@@ -16,7 +16,7 @@ class Type_Application_ccxml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4267]
+     * @reference [RFC 4267]
      */
     const DESCRIPTION = 'application/ccxml+xml';
 }

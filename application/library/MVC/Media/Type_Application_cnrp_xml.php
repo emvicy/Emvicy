@@ -16,7 +16,7 @@ class Type_Application_cnrp_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3367]
+     * @reference [RFC 3367]
      */
     const DESCRIPTION = 'application/cnrp+xml';
 }

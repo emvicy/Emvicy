@@ -16,7 +16,7 @@ class Type_Application_coap_group_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7390]
+     * @reference [RFC 7390]
      */
     const DESCRIPTION = 'application/coap-group+json';
 }

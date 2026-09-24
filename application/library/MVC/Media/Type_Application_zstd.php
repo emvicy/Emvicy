@@ -16,7 +16,7 @@ class Type_Application_zstd
     use TraitMediaType;
 
     /**
-     * @reference [RFC8878]
+     * @reference [RFC 8878]
      */
     const DESCRIPTION = 'application/zstd';
 }

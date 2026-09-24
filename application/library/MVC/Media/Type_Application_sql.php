@@ -16,7 +16,7 @@ class Type_Application_sql
     use TraitMediaType;
 
     /**
-     * @reference [RFC6922]
+     * @reference [RFC 6922]
      */
     const DESCRIPTION = 'application/sql';
 }

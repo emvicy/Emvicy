@@ -16,7 +16,7 @@ class Type_Application_problem_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9457]
+     * @reference [RFC 9457]
      */
     const DESCRIPTION = 'application/problem+json';
 }

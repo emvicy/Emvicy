@@ -16,7 +16,7 @@ class Type_Application_scvp_cv_request
     use TraitMediaType;
 
     /**
-     * @reference [RFC5055]
+     * @reference [RFC 5055]
      */
     const DESCRIPTION = 'application/scvp-cv-request';
 }

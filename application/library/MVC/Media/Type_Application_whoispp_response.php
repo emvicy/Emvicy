@@ -16,7 +16,7 @@ class Type_Application_whoispp_response
     use TraitMediaType;
 
     /**
-     * @reference [RFC2958]
+     * @reference [RFC 2958]
      */
     const DESCRIPTION = 'application/whoispp-response';
 }

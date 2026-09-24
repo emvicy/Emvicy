@@ -16,7 +16,7 @@ class Type_Application_tei_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6129]
+     * @reference [RFC 6129]
      */
     const DESCRIPTION = 'application/tei+xml';
 }

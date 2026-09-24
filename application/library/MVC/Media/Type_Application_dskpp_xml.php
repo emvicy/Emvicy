@@ -16,7 +16,7 @@ class Type_Application_dskpp_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6063]
+     * @reference [RFC 6063]
      */
     const DESCRIPTION = 'application/dskpp+xml';
 }

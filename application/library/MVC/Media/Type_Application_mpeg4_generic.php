@@ -16,7 +16,7 @@ class Type_Application_mpeg4_generic
     use TraitMediaType;
 
     /**
-     * @reference [RFC3640]
+     * @reference [RFC 3640]
      */
     const DESCRIPTION = 'application/mpeg4-generic';
 }

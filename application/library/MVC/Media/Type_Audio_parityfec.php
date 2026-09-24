@@ -16,7 +16,7 @@ class Type_Audio_parityfec
     use TraitMediaType;
 
     /**
-     * @reference [RFC3009]
+     * @reference [RFC 3009]
      */
     const DESCRIPTION = 'audio/parityfec';
 }

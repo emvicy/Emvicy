@@ -16,7 +16,7 @@ class Type_Application_soap_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3902]
+     * @reference [RFC 3902]
      */
     const DESCRIPTION = 'application/soap+xml';
 }

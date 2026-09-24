@@ -16,7 +16,7 @@ class Type_Audio_GSM_HR_08
     use TraitMediaType;
 
     /**
-     * @reference [RFC5993]
+     * @reference [RFC 5993]
      */
     const DESCRIPTION = 'audio/GSM-HR-08';
 }

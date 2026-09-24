@@ -16,7 +16,7 @@ class Type_Application_vcard_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7095]
+     * @reference [RFC 7095]
      */
     const DESCRIPTION = 'application/vcard+json';
 }

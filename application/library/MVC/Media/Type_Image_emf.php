@@ -16,7 +16,7 @@ class Type_Image_emf
     use TraitMediaType;
 
     /**
-     * @reference [RFC7903]
+     * @reference [RFC 7903]
      */
     const DESCRIPTION = 'image/emf';
 }

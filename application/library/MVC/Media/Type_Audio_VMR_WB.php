@@ -16,7 +16,7 @@ class Type_Audio_VMR_WB
     use TraitMediaType;
 
     /**
-     * @reference [RFC4348][RFC4424]
+     * @reference [RFC 4348][RFC 4424]
      */
     const DESCRIPTION = 'audio/VMR-WB';
 }

@@ -16,7 +16,7 @@ class Type_Audio_EVRCWB1
     use TraitMediaType;
 
     /**
-     * @reference [RFC5188]
+     * @reference [RFC 5188]
      */
     const DESCRIPTION = 'audio/EVRCWB1';
 }

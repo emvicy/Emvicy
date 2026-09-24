@@ -16,7 +16,7 @@ class Type_Application_measured_component_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-rats-eat-measured-component-12]
+     * @reference [RFC 10013]
      */
     const DESCRIPTION = 'application/measured-component+json';
 }

@@ -16,7 +16,7 @@ class Type_Video_matroska_3d
     use TraitMediaType;
 
     /**
-     * @reference [RFC9559]
+     * @reference [RFC 9559]
      */
     const DESCRIPTION = 'video/matroska-3d';
 }

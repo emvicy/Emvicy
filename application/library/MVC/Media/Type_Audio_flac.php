@@ -16,7 +16,7 @@ class Type_Audio_flac
     use TraitMediaType;
 
     /**
-     * @reference [RFC9639]
+     * @reference [RFC 9639]
      */
     const DESCRIPTION = 'audio/flac';
 }

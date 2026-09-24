@@ -16,7 +16,7 @@ class Type_Video_H264_RCDO
     use TraitMediaType;
 
     /**
-     * @reference [RFC6185]
+     * @reference [RFC 6185]
      */
     const DESCRIPTION = 'video/H264-RCDO';
 }

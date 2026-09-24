@@ -16,7 +16,7 @@ class Type_Application_vq_rtcpxr
     use TraitMediaType;
 
     /**
-     * @reference [RFC6035]
+     * @reference [RFC 6035]
      */
     const DESCRIPTION = 'application/vq-rtcpxr';
 }

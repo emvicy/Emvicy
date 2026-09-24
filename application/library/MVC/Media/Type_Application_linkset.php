@@ -16,7 +16,7 @@ class Type_Application_linkset
     use TraitMediaType;
 
     /**
-     * @reference [RFC9264]
+     * @reference [RFC 9264]
      */
     const DESCRIPTION = 'application/linkset';
 }

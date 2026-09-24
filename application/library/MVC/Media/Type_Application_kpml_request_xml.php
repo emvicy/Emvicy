@@ -16,7 +16,7 @@ class Type_Application_kpml_request_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4730]
+     * @reference [RFC 4730]
      */
     const DESCRIPTION = 'application/kpml-request+xml';
 }

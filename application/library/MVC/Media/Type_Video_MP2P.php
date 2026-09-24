@@ -16,7 +16,7 @@ class Type_Video_MP2P
     use TraitMediaType;
 
     /**
-     * @reference [RFC3555]
+     * @reference [RFC 3555]
      */
     const DESCRIPTION = 'video/MP2P';
 }

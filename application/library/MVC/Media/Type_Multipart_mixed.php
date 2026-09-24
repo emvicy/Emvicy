@@ -16,7 +16,7 @@ class Type_Multipart_mixed
     use TraitMediaType;
 
     /**
-     * @reference [RFC2046][RFC2045]
+     * @reference [RFC 2046][RFC 2045]
      */
     const DESCRIPTION = 'multipart/mixed';
 }

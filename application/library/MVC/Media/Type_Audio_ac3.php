@@ -16,7 +16,7 @@ class Type_Audio_ac3
     use TraitMediaType;
 
     /**
-     * @reference [RFC4184]
+     * @reference [RFC 4184]
      */
     const DESCRIPTION = 'audio/ac3';
 }

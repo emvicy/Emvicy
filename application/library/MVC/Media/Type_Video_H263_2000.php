@@ -16,7 +16,7 @@ class Type_Video_H263_2000
     use TraitMediaType;
 
     /**
-     * @reference [RFC4629]
+     * @reference [RFC 4629]
      */
     const DESCRIPTION = 'video/H263-2000';
 }

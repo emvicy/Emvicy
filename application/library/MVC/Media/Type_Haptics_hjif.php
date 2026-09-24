@@ -16,7 +16,7 @@ class Type_Haptics_hjif
     use TraitMediaType;
 
     /**
-     * @reference [RFC9695]
+     * @reference [RFC 9695]
      */
     const DESCRIPTION = 'haptics/hjif';
 }

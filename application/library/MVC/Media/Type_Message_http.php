@@ -16,7 +16,7 @@ class Type_Message_http
     use TraitMediaType;
 
     /**
-     * @reference [RFC9112]
+     * @reference [RFC 9112]
      */
     const DESCRIPTION = 'message/http';
 }

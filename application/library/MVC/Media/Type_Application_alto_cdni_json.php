@@ -16,7 +16,7 @@ class Type_Application_alto_cdni_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9241]
+     * @reference [RFC 9241]
      */
     const DESCRIPTION = 'application/alto-cdni+json';
 }

@@ -16,7 +16,7 @@ class Type_Audio_EVRC_QCP
     use TraitMediaType;
 
     /**
-     * @reference [RFC3625]
+     * @reference [RFC 3625]
      */
     const DESCRIPTION = 'audio/EVRC-QCP';
 }

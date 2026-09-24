@@ -16,7 +16,7 @@ class Type_Application_dots_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9132]
+     * @reference [RFC 9132]
      */
     const DESCRIPTION = 'application/dots+cbor';
 }

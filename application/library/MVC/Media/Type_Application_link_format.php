@@ -16,7 +16,7 @@ class Type_Application_link_format
     use TraitMediaType;
 
     /**
-     * @reference [RFC6690]
+     * @reference [RFC 6690]
      */
     const DESCRIPTION = 'application/link-format';
 }

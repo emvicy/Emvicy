@@ -16,7 +16,7 @@ class Type_Audio_example
     use TraitMediaType;
 
     /**
-     * @reference [RFC4735]
+     * @reference [RFC 4735]
      */
     const DESCRIPTION = 'audio/example';
 }

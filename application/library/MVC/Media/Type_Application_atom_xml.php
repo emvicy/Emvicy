@@ -16,7 +16,7 @@ class Type_Application_atom_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4287][RFC5023]
+     * @reference [RFC 4287][RFC 5023]
      */
     const DESCRIPTION = 'application/atom+xml';
 }

@@ -16,7 +16,7 @@ class Type_Model_mesh
     use TraitMediaType;
 
     /**
-     * @reference [RFC2077]
+     * @reference [RFC 2077]
      */
     const DESCRIPTION = 'model/mesh';
 }

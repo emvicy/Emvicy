@@ -16,7 +16,7 @@ class Type_Application_msc_ivr_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6231]
+     * @reference [RFC 6231]
      */
     const DESCRIPTION = 'application/msc-ivr+xml';
 }

@@ -16,7 +16,7 @@ class Type_Application_secevent_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC8417]
+     * @reference [RFC 8417]
      */
     const DESCRIPTION = 'application/secevent+jwt';
 }

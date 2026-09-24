@@ -16,7 +16,7 @@ class Type_Audio_L24
     use TraitMediaType;
 
     /**
-     * @reference [RFC3190]
+     * @reference [RFC 3190]
      */
     const DESCRIPTION = 'audio/L24';
 }

@@ -16,7 +16,7 @@ class Type_Image_ief
     use TraitMediaType;
 
     /**
-     * @reference [RFC1314]
+     * @reference [RFC 1314]
      */
     const DESCRIPTION = 'image/ief';
 }

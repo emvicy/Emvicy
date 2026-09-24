@@ -16,7 +16,7 @@ class Type_Audio_ATRAC_ADVANCED_LOSSLESS
     use TraitMediaType;
 
     /**
-     * @reference [RFC5584]
+     * @reference [RFC 5584]
      */
     const DESCRIPTION = 'audio/ATRAC-ADVANCED-LOSSLESS';
 }

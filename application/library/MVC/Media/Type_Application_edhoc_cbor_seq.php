@@ -16,7 +16,7 @@ class Type_Application_edhoc_cbor_seq
     use TraitMediaType;
 
     /**
-     * @reference [RFC9528]
+     * @reference [RFC 9528]
      */
     const DESCRIPTION = 'application/edhoc+cbor-seq';
 }

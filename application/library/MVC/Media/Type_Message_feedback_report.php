@@ -16,7 +16,7 @@ class Type_Message_feedback_report
     use TraitMediaType;
 
     /**
-     * @reference [RFC5965]
+     * @reference [RFC 5965]
      */
     const DESCRIPTION = 'message/feedback-report';
 }

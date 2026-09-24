@@ -16,7 +16,7 @@ class Type_Application_tamp_community_update
     use TraitMediaType;
 
     /**
-     * @reference [RFC5934]
+     * @reference [RFC 5934]
      */
     const DESCRIPTION = 'application/tamp-community-update';
 }

@@ -16,7 +16,7 @@ class Type_Application_rpki_checklist
     use TraitMediaType;
 
     /**
-     * @reference [RFC9323]
+     * @reference [RFC 9323]
      */
     const DESCRIPTION = 'application/rpki-checklist';
 }

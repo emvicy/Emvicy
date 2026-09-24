@@ -16,7 +16,7 @@ class Type_Video_raw
     use TraitMediaType;
 
     /**
-     * @reference [RFC4175]
+     * @reference [RFC 4175]
      */
     const DESCRIPTION = 'video/raw';
 }

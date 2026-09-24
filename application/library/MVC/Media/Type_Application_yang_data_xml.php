@@ -16,7 +16,7 @@ class Type_Application_yang_data_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC8040]
+     * @reference [RFC 8040]
      */
     const DESCRIPTION = 'application/yang-data+xml';
 }

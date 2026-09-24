@@ -16,7 +16,7 @@ class Type_Audio_tone
     use TraitMediaType;
 
     /**
-     * @reference [RFC4733]
+     * @reference [RFC 4733]
      */
     const DESCRIPTION = 'audio/tone';
 }

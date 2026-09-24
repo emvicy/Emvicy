@@ -16,7 +16,7 @@ class Type_Application_sensml_exi
     use TraitMediaType;
 
     /**
-     * @reference [RFC8428]
+     * @reference [RFC 8428]
      */
     const DESCRIPTION = 'application/sensml-exi';
 }

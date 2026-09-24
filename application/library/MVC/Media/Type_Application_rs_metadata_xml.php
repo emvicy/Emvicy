@@ -16,7 +16,7 @@ class Type_Application_rs_metadata_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC7865][RFC9806]
+     * @reference [RFC 7865][RFC 9806]
      */
     const DESCRIPTION = 'application/rs-metadata+xml';
 }

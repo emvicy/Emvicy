@@ -16,7 +16,7 @@ class Type_Audio_iLBC
     use TraitMediaType;
 
     /**
-     * @reference [RFC3952]
+     * @reference [RFC 3952]
      */
     const DESCRIPTION = 'audio/iLBC';
 }

@@ -16,7 +16,7 @@ class Type_Application_yang_sid_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9595]
+     * @reference [RFC 9595]
      */
     const DESCRIPTION = 'application/yang-sid+json';
 }

@@ -16,7 +16,7 @@ class Type_Application_reputon_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7071]
+     * @reference [RFC 7071]
      */
     const DESCRIPTION = 'application/reputon+json';
 }

@@ -16,7 +16,7 @@ class Type_Application_sbml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3823]
+     * @reference [RFC 3823]
      */
     const DESCRIPTION = 'application/sbml+xml';
 }

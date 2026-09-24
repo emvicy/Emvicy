@@ -16,7 +16,7 @@ class Type_Application_oauth_authz_req_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC9101]
+     * @reference [RFC 9101]
      */
     const DESCRIPTION = 'application/oauth-authz-req+jwt';
 }

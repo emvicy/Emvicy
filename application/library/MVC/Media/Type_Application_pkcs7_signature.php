@@ -16,7 +16,7 @@ class Type_Application_pkcs7_signature
     use TraitMediaType;
 
     /**
-     * @reference [RFC8551]
+     * @reference [RFC 8551]
      */
     const DESCRIPTION = 'application/pkcs7-signature';
 }

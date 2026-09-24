@@ -16,7 +16,7 @@ class Type_Text_SGML
     use TraitMediaType;
 
     /**
-     * @reference [RFC1874]
+     * @reference [RFC 1874]
      */
     const DESCRIPTION = 'text/SGML';
 }

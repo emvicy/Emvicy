@@ -240,7 +240,7 @@ class Process
             return false;
         }
 
-        $sCmd = whereis('ps') . ' --pid ' . $iPid . '  > /dev/null; echo "$?";';
+        $sCmd = which('ps') . ' --pid ' . $iPid . '  > /dev/null; echo "$?";';
         exec($sCmd, $aOutput);
 
         return (current($aOutput) == 1) ? false : true;
@@ -256,9 +256,9 @@ class Process
     {
         $sCmd = 'cd ' . self::getPidFileFolder() . '; ' .
                 'aPid=`ls`; for iPid in ${aPid}; ' .
-                'do ' . whereis('ps') . ' --pid $iPid  > /dev/null; ' .
+                'do ' . which('ps') . ' --pid $iPid  > /dev/null; ' .
                 'if [ "$?" -eq 0 ]; then ' .
-                'sDate=`' . whereis('date') . ' -r $iPid "+%Y-%m-%d %H:%M:%S";`; ' .
+                'sDate=`' . which('date') . ' -r $iPid "+%Y-%m-%d %H:%M:%S";`; ' .
                 'echo "' . addslashes($sRunningSymbol) . ' Running: $iPid since <code>$sDate</code>"; ' .
                 'else echo "' . addslashes($sZombieSymbol) . ' Zombie: <span class=\"text-black-50\">$iPid</span>"; ' .
                 'fi; ' .
@@ -294,7 +294,7 @@ class Process
      */
     protected static function getPidFileArray(int $iFlag = 1): array
     {
-        $sCmd = 'cd ' . self::getPidFileFolder() . '; aPid=`ls`; for iPid in ${aPid}; do ' . whereis('ps') . ' --pid $iPid > /dev/null; if [ "$?" -eq ' . $iFlag . ' ]; then echo "$iPid"; fi; done;';
+        $sCmd = 'cd ' . self::getPidFileFolder() . '; aPid=`ls`; for iPid in ${aPid}; do ' . which('ps') . ' --pid $iPid > /dev/null; if [ "$?" -eq ' . $iFlag . ' ]; then echo "$iPid"; fi; done;';
         $aPid = array_filter(explode("\n", (string) shell_exec($sCmd)));
 
         return array_map(

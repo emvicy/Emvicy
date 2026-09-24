@@ -16,7 +16,7 @@ class Type_Multipart_related
     use TraitMediaType;
 
     /**
-     * @reference [RFC2387]
+     * @reference [RFC 2387]
      */
     const DESCRIPTION = 'multipart/related';
 }

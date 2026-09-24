@@ -16,7 +16,7 @@ class Type_Application_dpop_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC9449]
+     * @reference [RFC 9449]
      */
     const DESCRIPTION = 'application/dpop+jwt';
 }

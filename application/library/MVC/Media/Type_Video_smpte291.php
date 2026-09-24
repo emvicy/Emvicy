@@ -16,7 +16,7 @@ class Type_Video_smpte291
     use TraitMediaType;
 
     /**
-     * @reference [RFC8331]
+     * @reference [RFC 8331]
      */
     const DESCRIPTION = 'video/smpte291';
 }

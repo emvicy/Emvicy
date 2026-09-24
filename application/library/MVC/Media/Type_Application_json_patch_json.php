@@ -16,7 +16,7 @@ class Type_Application_json_patch_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC6902]
+     * @reference [RFC 6902]
      */
     const DESCRIPTION = 'application/json-patch+json';
 }

@@ -16,7 +16,7 @@ class Type_Application_poc_settings_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4354]
+     * @reference [RFC 4354]
      */
     const DESCRIPTION = 'application/poc-settings+xml';
 }

@@ -16,7 +16,7 @@ class Type_Audio_UEMCLIP
     use TraitMediaType;
 
     /**
-     * @reference [RFC5686]
+     * @reference [RFC 5686]
      */
     const DESCRIPTION = 'audio/UEMCLIP';
 }

@@ -16,7 +16,7 @@ class Type_Video_rtploopback
     use TraitMediaType;
 
     /**
-     * @reference [RFC6849]
+     * @reference [RFC 6849]
      */
     const DESCRIPTION = 'video/rtploopback';
 }

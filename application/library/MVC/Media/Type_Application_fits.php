@@ -16,7 +16,7 @@ class Type_Application_fits
     use TraitMediaType;
 
     /**
-     * @reference [RFC4047]
+     * @reference [RFC 4047]
      */
     const DESCRIPTION = 'application/fits';
 }

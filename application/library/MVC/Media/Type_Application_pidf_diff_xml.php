@@ -16,7 +16,7 @@ class Type_Application_pidf_diff_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5262]
+     * @reference [RFC 5262]
      */
     const DESCRIPTION = 'application/pidf-diff+xml';
 }

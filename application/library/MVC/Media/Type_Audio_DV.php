@@ -16,7 +16,7 @@ class Type_Audio_DV
     use TraitMediaType;
 
     /**
-     * @reference [RFC6469]
+     * @reference [RFC 6469]
      */
     const DESCRIPTION = 'audio/DV';
 }

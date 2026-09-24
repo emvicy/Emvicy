@@ -16,7 +16,7 @@ class Type_Text_markdown
     use TraitMediaType;
 
     /**
-     * @reference [RFC7763]
+     * @reference [RFC 7763]
      */
     const DESCRIPTION = 'text/markdown';
 }

@@ -16,7 +16,7 @@ class Type_Application_vnd_radisys_msml_dialog_speech_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5707]
+     * @reference [RFC 5707]
      */
     const DESCRIPTION = 'application/vnd.radisys.msml-dialog-speech+xml';
 }

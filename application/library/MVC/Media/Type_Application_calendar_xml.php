@@ -16,7 +16,7 @@ class Type_Application_calendar_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6321]
+     * @reference [RFC 6321]
      */
     const DESCRIPTION = 'application/calendar+xml';
 }

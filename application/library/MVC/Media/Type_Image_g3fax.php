@@ -16,7 +16,7 @@ class Type_Image_g3fax
     use TraitMediaType;
 
     /**
-     * @reference [RFC1494]
+     * @reference [RFC 1494]
      */
     const DESCRIPTION = 'image/g3fax';
 }

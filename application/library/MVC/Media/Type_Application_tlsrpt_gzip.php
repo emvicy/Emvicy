@@ -16,7 +16,7 @@ class Type_Application_tlsrpt_gzip
     use TraitMediaType;
 
     /**
-     * @reference [RFC8460]
+     * @reference [RFC 8460]
      */
     const DESCRIPTION = 'application/tlsrpt+gzip';
 }

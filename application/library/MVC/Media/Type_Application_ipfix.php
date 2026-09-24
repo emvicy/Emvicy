@@ -16,7 +16,7 @@ class Type_Application_ipfix
     use TraitMediaType;
 
     /**
-     * @reference [RFC5655]
+     * @reference [RFC 5655]
      */
     const DESCRIPTION = 'application/ipfix';
 }

@@ -16,7 +16,7 @@ class Type_Message_mls
     use TraitMediaType;
 
     /**
-     * @reference [RFC9420]
+     * @reference [RFC 9420]
      */
     const DESCRIPTION = 'message/mls';
 }

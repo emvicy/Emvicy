@@ -16,7 +16,7 @@ class Type_Application_csrattrs
     use TraitMediaType;
 
     /**
-     * @reference [RFC7030]
+     * @reference [RFC 7030]
      */
     const DESCRIPTION = 'application/csrattrs';
 }

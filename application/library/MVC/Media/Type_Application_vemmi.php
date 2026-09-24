@@ -16,7 +16,7 @@ class Type_Application_vemmi
     use TraitMediaType;
 
     /**
-     * @reference [RFC2122]
+     * @reference [RFC 2122]
      */
     const DESCRIPTION = 'application/vemmi';
 }

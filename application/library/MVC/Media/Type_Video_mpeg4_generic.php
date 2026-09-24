@@ -16,7 +16,7 @@ class Type_Video_mpeg4_generic
     use TraitMediaType;
 
     /**
-     * @reference [RFC3640]
+     * @reference [RFC 3640]
      */
     const DESCRIPTION = 'video/mpeg4-generic';
 }

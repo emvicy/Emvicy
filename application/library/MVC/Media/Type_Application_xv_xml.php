@@ -16,7 +16,7 @@ class Type_Application_xv_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4374]
+     * @reference [RFC 4374]
      */
     const DESCRIPTION = 'application/xv+xml';
 }

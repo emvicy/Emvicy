@@ -16,7 +16,7 @@ class Type_Application_rpki_publication
     use TraitMediaType;
 
     /**
-     * @reference [RFC8181]
+     * @reference [RFC 8181]
      */
     const DESCRIPTION = 'application/rpki-publication';
 }

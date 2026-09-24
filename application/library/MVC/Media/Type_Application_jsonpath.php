@@ -16,7 +16,7 @@ class Type_Application_jsonpath
     use TraitMediaType;
 
     /**
-     * @reference [RFC9535]
+     * @reference [RFC 9535]
      */
     const DESCRIPTION = 'application/jsonpath';
 }

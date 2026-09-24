@@ -16,7 +16,7 @@ class Type_Application_expect_ct_report_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9163]
+     * @reference [RFC 9163]
      */
     const DESCRIPTION = 'application/expect-ct-report+json';
 }

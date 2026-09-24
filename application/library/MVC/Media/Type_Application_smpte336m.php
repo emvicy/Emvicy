@@ -16,7 +16,7 @@ class Type_Application_smpte336m
     use TraitMediaType;
 
     /**
-     * @reference [RFC6597]
+     * @reference [RFC 6597]
      */
     const DESCRIPTION = 'application/smpte336m';
 }

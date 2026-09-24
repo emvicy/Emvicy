@@ -16,7 +16,7 @@ class Type_Application_scitt_receipt_cose
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-scitt-architecture-21]
+     * @reference [RFC 9943]
      */
     const DESCRIPTION = 'application/scitt-receipt+cose';
 }

@@ -16,7 +16,7 @@ class Type_Application_rpki_signed_tal
     use TraitMediaType;
 
     /**
-     * @reference [RFC9691]
+     * @reference [RFC 9691]
      */
     const DESCRIPTION = 'application/rpki-signed-tal';
 }

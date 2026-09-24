@@ -16,7 +16,7 @@ class Type_Application_alto_updatestreamcontrol_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8895]
+     * @reference [RFC 8895]
      */
     const DESCRIPTION = 'application/alto-updatestreamcontrol+json';
 }

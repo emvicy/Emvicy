@@ -16,7 +16,7 @@ class Type_Application_kb_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC9901]
+     * @reference [RFC 9901]
      */
     const DESCRIPTION = 'application/kb+jwt';
 }

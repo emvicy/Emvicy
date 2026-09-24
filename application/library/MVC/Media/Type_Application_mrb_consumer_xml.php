@@ -16,7 +16,7 @@ class Type_Application_mrb_consumer_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6917]
+     * @reference [RFC 6917]
      */
     const DESCRIPTION = 'application/mrb-consumer+xml';
 }

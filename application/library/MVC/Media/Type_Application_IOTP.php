@@ -16,7 +16,7 @@ class Type_Application_IOTP
     use TraitMediaType;
 
     /**
-     * @reference [RFC2935]
+     * @reference [RFC 2935]
      */
     const DESCRIPTION = 'application/IOTP';
 }

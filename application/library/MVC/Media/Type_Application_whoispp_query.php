@@ -16,7 +16,7 @@ class Type_Application_whoispp_query
     use TraitMediaType;
 
     /**
-     * @reference [RFC2957]
+     * @reference [RFC 2957]
      */
     const DESCRIPTION = 'application/whoispp-query';
 }

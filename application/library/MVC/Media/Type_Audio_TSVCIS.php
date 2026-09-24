@@ -16,7 +16,7 @@ class Type_Audio_TSVCIS
     use TraitMediaType;
 
     /**
-     * @reference [RFC8817]
+     * @reference [RFC 8817]
      */
     const DESCRIPTION = 'audio/TSVCIS';
 }

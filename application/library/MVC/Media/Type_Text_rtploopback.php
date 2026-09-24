@@ -16,7 +16,7 @@ class Type_Text_rtploopback
     use TraitMediaType;
 
     /**
-     * @reference [RFC6849]
+     * @reference [RFC 6849]
      */
     const DESCRIPTION = 'text/rtploopback';
 }

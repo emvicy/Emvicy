@@ -16,7 +16,7 @@ class Type_Audio_MPA
     use TraitMediaType;
 
     /**
-     * @reference [RFC3555]
+     * @reference [RFC 3555]
      */
     const DESCRIPTION = 'audio/MPA';
 }

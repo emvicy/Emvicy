@@ -16,7 +16,7 @@ class Type_Application_http
     use TraitMediaType;
 
     /**
-     * @reference [RFC9112]
+     * @reference [RFC 9112]
      */
     const DESCRIPTION = 'application/http';
 }

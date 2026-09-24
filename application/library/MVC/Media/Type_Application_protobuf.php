@@ -16,7 +16,7 @@ class Type_Application_protobuf
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-dispatch-mime-protobuf-06]
+     * @reference [RFC 9996]
      */
     const DESCRIPTION = 'application/protobuf';
 }

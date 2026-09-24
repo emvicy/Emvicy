@@ -16,7 +16,7 @@ class Type_Application_ogg
     use TraitMediaType;
 
     /**
-     * @reference [RFC5334][RFC7845]
+     * @reference [RFC 5334][RFC 7845]
      */
     const DESCRIPTION = 'application/ogg';
 }

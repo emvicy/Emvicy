@@ -16,7 +16,7 @@ class Type_Application_fdt_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6726]
+     * @reference [RFC 6726]
      */
     const DESCRIPTION = 'application/fdt+xml';
 }

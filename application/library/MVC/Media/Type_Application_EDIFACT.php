@@ -16,7 +16,7 @@ class Type_Application_EDIFACT
     use TraitMediaType;
 
     /**
-     * @reference [RFC1767]
+     * @reference [RFC 1767]
      */
     const DESCRIPTION = 'application/EDIFACT';
 }

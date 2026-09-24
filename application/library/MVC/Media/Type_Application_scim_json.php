@@ -16,7 +16,7 @@ class Type_Application_scim_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC7644]
+     * @reference [RFC 7644]
      */
     const DESCRIPTION = 'application/scim+json';
 }

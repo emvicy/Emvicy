@@ -16,7 +16,7 @@ class Type_Video_H266
     use TraitMediaType;
 
     /**
-     * @reference [RFC9328]
+     * @reference [RFC 9328]
      */
     const DESCRIPTION = 'video/H266';
 }

@@ -16,7 +16,7 @@ class Type_Application_cose_x509
     use TraitMediaType;
 
     /**
-     * @reference [RFC9360]
+     * @reference [RFC 9360]
      */
     const DESCRIPTION = 'application/cose-x509';
 }

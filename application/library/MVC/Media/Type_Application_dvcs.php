@@ -16,7 +16,7 @@ class Type_Application_dvcs
     use TraitMediaType;
 
     /**
-     * @reference [RFC3029]
+     * @reference [RFC 3029]
      */
     const DESCRIPTION = 'application/dvcs';
 }

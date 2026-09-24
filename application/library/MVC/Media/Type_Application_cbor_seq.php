@@ -16,7 +16,7 @@ class Type_Application_cbor_seq
     use TraitMediaType;
 
     /**
-     * @reference [RFC8742]
+     * @reference [RFC 8742]
      */
     const DESCRIPTION = 'application/cbor-seq';
 }

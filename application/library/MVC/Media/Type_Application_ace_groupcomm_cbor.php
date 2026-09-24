@@ -16,7 +16,7 @@ class Type_Application_ace_groupcomm_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9594]
+     * @reference [RFC 9594]
      */
     const DESCRIPTION = 'application/ace-groupcomm+cbor';
 }

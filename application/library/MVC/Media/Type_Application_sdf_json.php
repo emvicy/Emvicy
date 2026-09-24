@@ -16,7 +16,7 @@ class Type_Application_sdf_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9880]
+     * @reference [RFC 9880]
      */
     const DESCRIPTION = 'application/sdf+json';
 }

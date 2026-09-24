@@ -16,7 +16,7 @@ class Type_Application_ace_trl_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9770]
+     * @reference [RFC 9770]
      */
     const DESCRIPTION = 'application/ace-trl+cbor';
 }

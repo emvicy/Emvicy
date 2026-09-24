@@ -16,7 +16,7 @@ class Type_Audio_mobile_xmf
     use TraitMediaType;
 
     /**
-     * @reference [RFC4723]
+     * @reference [RFC 4723]
      */
     const DESCRIPTION = 'audio/mobile-xmf';
 }

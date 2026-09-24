@@ -16,7 +16,7 @@ class Type_Application_rlmi_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4662]
+     * @reference [RFC 4662]
      */
     const DESCRIPTION = 'application/rlmi+xml';
 }

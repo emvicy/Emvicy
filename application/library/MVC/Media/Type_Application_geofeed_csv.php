@@ -16,7 +16,7 @@ class Type_Application_geofeed_csv
     use TraitMediaType;
 
     /**
-     * @reference [RFC9877]
+     * @reference [RFC 9877]
      */
     const DESCRIPTION = 'application/geofeed+csv';
 }

@@ -16,7 +16,7 @@ class Type_Video_3gpp_tt
     use TraitMediaType;
 
     /**
-     * @reference [RFC4396]
+     * @reference [RFC 4396]
      */
     const DESCRIPTION = 'video/3gpp-tt';
 }

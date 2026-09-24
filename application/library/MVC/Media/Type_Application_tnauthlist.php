@@ -16,7 +16,7 @@ class Type_Application_tnauthlist
     use TraitMediaType;
 
     /**
-     * @reference [RFC8226]
+     * @reference [RFC 8226]
      */
     const DESCRIPTION = 'application/tnauthlist';
 }

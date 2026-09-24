@@ -16,7 +16,7 @@ class Type_Application_lgr_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC7940]
+     * @reference [RFC 7940]
      */
     const DESCRIPTION = 'application/lgr+xml';
 }

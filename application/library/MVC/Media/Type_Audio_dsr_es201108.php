@@ -16,7 +16,7 @@ class Type_Audio_dsr_es201108
     use TraitMediaType;
 
     /**
-     * @reference [RFC3557]
+     * @reference [RFC 3557]
      */
     const DESCRIPTION = 'audio/dsr-es201108';
 }

@@ -16,7 +16,7 @@ class Type_Application_EDI_consent
     use TraitMediaType;
 
     /**
-     * @reference [RFC1767]
+     * @reference [RFC 1767]
      */
     const DESCRIPTION = 'application/EDI-consent';
 }

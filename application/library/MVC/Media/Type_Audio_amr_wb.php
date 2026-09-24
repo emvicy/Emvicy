@@ -16,7 +16,7 @@ class Type_Audio_amr_wb
     use TraitMediaType;
 
     /**
-     * @reference [RFC4352]
+     * @reference [RFC 4352]
      */
     const DESCRIPTION = 'audio/amr-wb+';
 }

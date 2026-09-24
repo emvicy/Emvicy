@@ -16,7 +16,7 @@ class Type_Message_delivery_status
     use TraitMediaType;
 
     /**
-     * @reference [RFC1894]
+     * @reference [RFC 1894]
      */
     const DESCRIPTION = 'message/delivery-status';
 }

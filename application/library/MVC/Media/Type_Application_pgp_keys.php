@@ -16,7 +16,7 @@ class Type_Application_pgp_keys
     use TraitMediaType;
 
     /**
-     * @reference [RFC3156]
+     * @reference [RFC 3156]
      */
     const DESCRIPTION = 'application/pgp-keys';
 }

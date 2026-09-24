@@ -16,7 +16,7 @@ class Type_Application_mbox
     use TraitMediaType;
 
     /**
-     * @reference [RFC4155]
+     * @reference [RFC 4155]
      */
     const DESCRIPTION = 'application/mbox';
 }

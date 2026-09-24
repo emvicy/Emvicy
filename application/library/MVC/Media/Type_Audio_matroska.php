@@ -16,7 +16,7 @@ class Type_Audio_matroska
     use TraitMediaType;
 
     /**
-     * @reference [RFC9559]
+     * @reference [RFC 9559]
      */
     const DESCRIPTION = 'audio/matroska';
 }

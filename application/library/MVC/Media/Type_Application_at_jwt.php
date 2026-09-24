@@ -16,7 +16,7 @@ class Type_Application_at_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC9068]
+     * @reference [RFC 9068]
      */
     const DESCRIPTION = 'application/at+jwt';
 }

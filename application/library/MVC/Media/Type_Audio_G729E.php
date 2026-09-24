@@ -16,7 +16,7 @@ class Type_Audio_G729E
     use TraitMediaType;
 
     /**
-     * @reference [RFC4856]
+     * @reference [RFC 4856]
      */
     const DESCRIPTION = 'audio/G729E';
 }

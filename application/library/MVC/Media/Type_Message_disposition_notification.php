@@ -16,7 +16,7 @@ class Type_Message_disposition_notification
     use TraitMediaType;
 
     /**
-     * @reference [RFC8098]
+     * @reference [RFC 8098]
      */
     const DESCRIPTION = 'message/disposition-notification';
 }

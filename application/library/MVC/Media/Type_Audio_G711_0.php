@@ -16,7 +16,7 @@ class Type_Audio_G711_0
     use TraitMediaType;
 
     /**
-     * @reference [RFC7655]
+     * @reference [RFC 7655]
      */
     const DESCRIPTION = 'audio/G711-0';
 }

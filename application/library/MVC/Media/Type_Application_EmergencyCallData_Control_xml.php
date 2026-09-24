@@ -16,7 +16,7 @@ class Type_Application_EmergencyCallData_Control_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC8147]
+     * @reference [RFC 8147]
      */
     const DESCRIPTION = 'application/EmergencyCallData.Control+xml';
 }

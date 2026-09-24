@@ -16,7 +16,7 @@ class Type_Audio_telephone_event
     use TraitMediaType;
 
     /**
-     * @reference [RFC4733]
+     * @reference [RFC 4733]
      */
     const DESCRIPTION = 'audio/telephone-event';
 }

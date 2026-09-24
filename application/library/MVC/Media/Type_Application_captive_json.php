@@ -16,7 +16,7 @@ class Type_Application_captive_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8908]
+     * @reference [RFC 8908]
      */
     const DESCRIPTION = 'application/captive+json';
 }

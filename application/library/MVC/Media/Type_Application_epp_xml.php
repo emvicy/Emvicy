@@ -16,7 +16,7 @@ class Type_Application_epp_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5730]
+     * @reference [RFC 5730]
      */
     const DESCRIPTION = 'application/epp+xml';
 }

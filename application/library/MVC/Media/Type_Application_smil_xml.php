@@ -16,7 +16,7 @@ class Type_Application_smil_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4536]
+     * @reference [RFC 4536]
      */
     const DESCRIPTION = 'application/smil+xml';
 }

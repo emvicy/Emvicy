@@ -16,7 +16,7 @@ class Type_Application_QSIG
     use TraitMediaType;
 
     /**
-     * @reference [RFC3204]
+     * @reference [RFC 3204]
      */
     const DESCRIPTION = 'application/QSIG';
 }

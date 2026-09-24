@@ -16,7 +16,7 @@ class Type_Application_simple_filter_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4661]
+     * @reference [RFC 4661]
      */
     const DESCRIPTION = 'application/simple-filter+xml';
 }

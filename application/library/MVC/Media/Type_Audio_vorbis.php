@@ -16,7 +16,7 @@ class Type_Audio_vorbis
     use TraitMediaType;
 
     /**
-     * @reference [RFC5215]
+     * @reference [RFC 5215]
      */
     const DESCRIPTION = 'audio/vorbis';
 }

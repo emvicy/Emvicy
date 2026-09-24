@@ -16,7 +16,7 @@ class Type_Application_senml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC8428]
+     * @reference [RFC 8428]
      */
     const DESCRIPTION = 'application/senml+xml';
 }

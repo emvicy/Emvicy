@@ -16,7 +16,7 @@ class Type_Application_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC8949]
+     * @reference [RFC 8949]
      */
     const DESCRIPTION = 'application/cbor';
 }

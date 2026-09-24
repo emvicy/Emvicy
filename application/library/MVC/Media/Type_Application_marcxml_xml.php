@@ -16,7 +16,7 @@ class Type_Application_marcxml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6207]
+     * @reference [RFC 6207]
      */
     const DESCRIPTION = 'application/marcxml+xml';
 }

@@ -16,7 +16,7 @@ class Type_Text_vcard
     use TraitMediaType;
 
     /**
-     * @reference [RFC6350]
+     * @reference [RFC 6350]
      */
     const DESCRIPTION = 'text/vcard';
 }

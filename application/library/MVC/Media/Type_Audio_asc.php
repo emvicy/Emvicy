@@ -16,7 +16,7 @@ class Type_Audio_asc
     use TraitMediaType;
 
     /**
-     * @reference [RFC6295]
+     * @reference [RFC 6295]
      */
     const DESCRIPTION = 'audio/asc';
 }

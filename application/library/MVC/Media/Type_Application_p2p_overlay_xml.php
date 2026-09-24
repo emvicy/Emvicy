@@ -16,7 +16,7 @@ class Type_Application_p2p_overlay_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6940]
+     * @reference [RFC 6940]
      */
     const DESCRIPTION = 'application/p2p-overlay+xml';
 }

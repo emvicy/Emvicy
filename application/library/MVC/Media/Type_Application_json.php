@@ -16,7 +16,7 @@ class Type_Application_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC8259]
+     * @reference [RFC 8259]
      */
     const DESCRIPTION = 'application/json';
 }

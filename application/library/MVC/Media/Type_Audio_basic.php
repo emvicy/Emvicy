@@ -16,7 +16,7 @@ class Type_Audio_basic
     use TraitMediaType;
 
     /**
-     * @reference [RFC2045][RFC2046]
+     * @reference [RFC 2045][RFC 2046]
      */
     const DESCRIPTION = 'audio/basic';
 }

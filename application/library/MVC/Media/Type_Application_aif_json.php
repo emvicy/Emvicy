@@ -16,7 +16,7 @@ class Type_Application_aif_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9237]
+     * @reference [RFC 9237]
      */
     const DESCRIPTION = 'application/aif+json';
 }

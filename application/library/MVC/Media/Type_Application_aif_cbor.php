@@ -16,7 +16,7 @@ class Type_Application_aif_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9237]
+     * @reference [RFC 9237]
      */
     const DESCRIPTION = 'application/aif+cbor';
 }

@@ -16,7 +16,7 @@ class Type_Application_geo_json_seq
     use TraitMediaType;
 
     /**
-     * @reference [RFC8142]
+     * @reference [RFC 8142]
      */
     const DESCRIPTION = 'application/geo+json-seq';
 }

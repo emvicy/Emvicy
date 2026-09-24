@@ -16,7 +16,7 @@ class Type_Image_x_emf_DEPRECATED_in_favor_of_image_emf
     use TraitMediaType;
 
     /**
-     * @reference [RFC7903]
+     * @reference [RFC 7903]
      */
     const DESCRIPTION = 'image/x-emf';
 }

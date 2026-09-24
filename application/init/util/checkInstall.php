@@ -261,7 +261,7 @@ class MyMVCInstaller
     size=250k
 }";
         file_put_contents($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf', $sLogrotate);
-        $sCmdLogrotate = '#!' . whereis('bash') . "\n" . whereis('logrotate') . ' -v -s /tmp/' . uniqid() . ' ' . $this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf';
+        $sCmdLogrotate = '#!' . which('bash') . "\n" . which('logrotate') . ' -v -s /tmp/' . uniqid() . ' ' . $this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.conf';
         file_put_contents($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh', $sCmdLogrotate);
         chmod($this->_aConfig['MVC_APPLICATION_PATH'] . '/logrotate.sh',0744);
 

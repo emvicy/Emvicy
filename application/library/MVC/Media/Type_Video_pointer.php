@@ -16,7 +16,7 @@ class Type_Video_pointer
     use TraitMediaType;
 
     /**
-     * @reference [RFC2862]
+     * @reference [RFC 2862]
      */
     const DESCRIPTION = 'video/pointer';
 }

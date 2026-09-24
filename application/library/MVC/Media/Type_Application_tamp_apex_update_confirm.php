@@ -16,7 +16,7 @@ class Type_Application_tamp_apex_update_confirm
     use TraitMediaType;
 
     /**
-     * @reference [RFC5934]
+     * @reference [RFC 5934]
      */
     const DESCRIPTION = 'application/tamp-apex-update-confirm';
 }

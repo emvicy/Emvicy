@@ -16,7 +16,7 @@ class Type_Audio_SMV
     use TraitMediaType;
 
     /**
-     * @reference [RFC3558]
+     * @reference [RFC 3558]
      */
     const DESCRIPTION = 'audio/SMV';
 }

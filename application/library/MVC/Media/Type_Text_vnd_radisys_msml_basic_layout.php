@@ -16,7 +16,7 @@ class Type_Text_vnd_radisys_msml_basic_layout
     use TraitMediaType;
 
     /**
-     * @reference [RFC5707]
+     * @reference [RFC 5707]
      */
     const DESCRIPTION = 'text/vnd.radisys.msml-basic-layout';
 }

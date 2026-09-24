@@ -16,7 +16,7 @@ class Type_Application_patch_ops_error_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC5261]
+     * @reference [RFC 5261]
      */
     const DESCRIPTION = 'application/patch-ops-error+xml';
 }

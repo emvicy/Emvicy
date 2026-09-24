@@ -16,7 +16,7 @@ class Type_Application_mikey
     use TraitMediaType;
 
     /**
-     * @reference [RFC3830]
+     * @reference [RFC 3830]
      */
     const DESCRIPTION = 'application/mikey';
 }

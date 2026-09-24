@@ -16,7 +16,7 @@ class Type_Message_ohttp_req
     use TraitMediaType;
 
     /**
-     * @reference [RFC9458]
+     * @reference [RFC 9458]
      */
     const DESCRIPTION = 'message/ohttp-req';
 }

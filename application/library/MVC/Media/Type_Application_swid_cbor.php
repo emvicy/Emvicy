@@ -16,7 +16,7 @@ class Type_Application_swid_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9393]
+     * @reference [RFC 9393]
      */
     const DESCRIPTION = 'application/swid+cbor';
 }

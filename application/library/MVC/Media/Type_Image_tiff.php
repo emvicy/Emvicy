@@ -16,7 +16,7 @@ class Type_Image_tiff
     use TraitMediaType;
 
     /**
-     * @reference [RFC3302]
+     * @reference [RFC 3302]
      */
     const DESCRIPTION = 'image/tiff';
 }

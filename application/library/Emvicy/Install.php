@@ -41,21 +41,21 @@ class Install
         Dir::recursiveCopy($aConfig['MVC_APPLICATION_INIT_DIR'] . '/skeleton/Module', $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName);
 
         // replace placeholder
-        Emvicy::shellExecute(whereis('grep') . ' -rl "{module}" ' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . ' | '
-                   . whereis('xargs') . ' '
-                   . whereis('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
+        Emvicy::shellExecute(which('grep') . ' -rl "{module}" ' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . ' | '
+                   . which('xargs') . ' '
+                   . which('sed') . ' -i "s/{module}/' . $sModuleName . '/g"'
         );
 
         // rename folder
-        Emvicy::shellExecute(whereis('mv') . ' "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/{module}" "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/' . $sModuleName . '"')  ;
+        Emvicy::shellExecute(which('mv') . ' "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/{module}" "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/' . $sModuleName . '"')  ;
 
         // rename config file
-        Emvicy::shellExecute(whereis('mv') . ' "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/' . $sModuleName . '/config/_example" "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/' . $sModuleName . '/config/' . getenv('MVC_ENV') . '.php"')  ;
+        Emvicy::shellExecute(which('mv') . ' "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/' . $sModuleName . '/config/_example" "' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/etc/config/' . $sModuleName . '/config/' . getenv('MVC_ENV') . '.php"')  ;
 
         // rename files from *.phtml to *.php using mv command
         Emvicy::shellExecute(
-            whereis('find') . ' ' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/ -depth -name "*.phtml" '
-            . ' -exec ' . whereis('sh') . ' -c \'f="{}"; ' . whereis('mv') . ' -- "$f" "${f%.phtml}.php"\' \;'
+            which('find') . ' ' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/ -depth -name "*.phtml" '
+            . ' -exec ' . which('sh') . ' -c \'f="{}"; ' . which('mv') . ' -- "$f" "${f%.phtml}.php"\' \;'
         );
 
         if (false === $bPrimary)
@@ -112,7 +112,7 @@ class Install
         }
 
         // copy new module skeleton
-        Emvicy::shellExecute(whereis('cp') . ' ' . $aConfig['MVC_APPLICATION_INIT_DIR'] . '/skeleton/Module/Controller/Index.phtml' . ' ' . $sControllerFile);
+        Emvicy::shellExecute(which('cp') . ' ' . $aConfig['MVC_APPLICATION_INIT_DIR'] . '/skeleton/Module/Controller/Index.phtml' . ' ' . $sControllerFile);
         Emvicy::shellExecute(Config::get_MVC_BIN_FIND() . ' ' . $aConfig['MVC_MODULES_DIR'] . '/' . $sModuleName . '/ -name "*.phtml" -exec rename \'s/.phtml$/.php/\' {} \;');
 
         echo " ✔ Controller created: " . $sControllerFile . "\n\n";

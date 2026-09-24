@@ -16,7 +16,7 @@ class Type_Application_pdf
     use TraitMediaType;
 
     /**
-     * @reference [RFC8118]
+     * @reference [RFC 8118]
      */
     const DESCRIPTION = 'application/pdf';
 }

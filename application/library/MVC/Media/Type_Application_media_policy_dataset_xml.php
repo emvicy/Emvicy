@@ -16,7 +16,7 @@ class Type_Application_media_policy_dataset_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC6796]
+     * @reference [RFC 6796]
      */
     const DESCRIPTION = 'application/media-policy-dataset+xml';
 }

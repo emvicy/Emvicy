@@ -16,7 +16,7 @@ class Type_Application_ohttp_keys
     use TraitMediaType;
 
     /**
-     * @reference [RFC9458]
+     * @reference [RFC 9458]
      */
     const DESCRIPTION = 'application/ohttp-keys';
 }

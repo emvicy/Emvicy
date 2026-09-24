@@ -16,7 +16,7 @@ class Type_Application_pkixcmp
     use TraitMediaType;
 
     /**
-     * @reference [RFC9811]
+     * @reference [RFC 9811]
      */
     const DESCRIPTION = 'application/pkixcmp';
 }

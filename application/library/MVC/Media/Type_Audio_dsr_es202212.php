@@ -16,7 +16,7 @@ class Type_Audio_dsr_es202212
     use TraitMediaType;
 
     /**
-     * @reference [RFC4060]
+     * @reference [RFC 4060]
      */
     const DESCRIPTION = 'audio/dsr-es202212';
 }

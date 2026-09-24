@@ -16,7 +16,7 @@ class Type_Application_pkix_pkipath
     use TraitMediaType;
 
     /**
-     * @reference [RFC6066]
+     * @reference [RFC 6066]
      */
     const DESCRIPTION = 'application/pkix-pkipath';
 }

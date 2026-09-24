@@ -16,7 +16,7 @@ class Type_Audio_raptorfec
     use TraitMediaType;
 
     /**
-     * @reference [RFC6682]
+     * @reference [RFC 6682]
      */
     const DESCRIPTION = 'audio/raptorfec';
 }

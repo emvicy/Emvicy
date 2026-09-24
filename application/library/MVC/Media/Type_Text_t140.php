@@ -16,7 +16,7 @@ class Type_Text_t140
     use TraitMediaType;
 
     /**
-     * @reference [RFC4103]
+     * @reference [RFC 4103]
      */
     const DESCRIPTION = 'text/t140';
 }

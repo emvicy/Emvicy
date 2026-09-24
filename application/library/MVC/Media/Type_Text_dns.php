@@ -16,7 +16,7 @@ class Type_Text_dns
     use TraitMediaType;
 
     /**
-     * @reference [RFC4027]
+     * @reference [RFC 4027]
      */
     const DESCRIPTION = 'text/dns';
 }

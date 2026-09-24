@@ -16,7 +16,7 @@ class Type_Application_json_seq
     use TraitMediaType;
 
     /**
-     * @reference [RFC7464]
+     * @reference [RFC 7464]
      */
     const DESCRIPTION = 'application/json-seq';
 }

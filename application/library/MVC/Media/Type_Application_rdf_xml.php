@@ -16,7 +16,7 @@ class Type_Application_rdf_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3870]
+     * @reference [RFC 3870]
      */
     const DESCRIPTION = 'application/rdf+xml';
 }

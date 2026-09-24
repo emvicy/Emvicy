@@ -16,7 +16,7 @@ class Type_Application_ujcs_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC9781]
+     * @reference [RFC 9781]
      */
     const DESCRIPTION = 'application/ujcs+json';
 }

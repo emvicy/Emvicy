@@ -16,7 +16,7 @@ class Type_Audio_t140c
     use TraitMediaType;
 
     /**
-     * @reference [RFC4351]
+     * @reference [RFC 4351]
      */
     const DESCRIPTION = 'audio/t140c';
 }

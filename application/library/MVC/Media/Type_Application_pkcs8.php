@@ -16,7 +16,7 @@ class Type_Application_pkcs8
     use TraitMediaType;
 
     /**
-     * @reference [RFC5958]
+     * @reference [RFC 5958]
      */
     const DESCRIPTION = 'application/pkcs8';
 }

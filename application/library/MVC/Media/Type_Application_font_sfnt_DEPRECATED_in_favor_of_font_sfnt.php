@@ -16,7 +16,7 @@ class Type_Application_font_sfnt_DEPRECATED_in_favor_of_font_sfnt
     use TraitMediaType;
 
     /**
-     * @reference [Levantovsky][ISO-IEC_JTC_1][RFC8081]
+     * @reference [Levantovsky][ISO-IEC_JTC_1][RFC 8081]
      */
     const DESCRIPTION = 'application/font-sfnt';
 }

@@ -16,7 +16,7 @@ class Type_Application_mxf
     use TraitMediaType;
 
     /**
-     * @reference [RFC4539]
+     * @reference [RFC 4539]
      */
     const DESCRIPTION = 'application/mxf';
 }

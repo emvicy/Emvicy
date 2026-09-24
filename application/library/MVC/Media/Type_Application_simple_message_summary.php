@@ -16,7 +16,7 @@ class Type_Application_simple_message_summary
     use TraitMediaType;
 
     /**
-     * @reference [RFC3842]
+     * @reference [RFC 3842]
      */
     const DESCRIPTION = 'application/simple-message-summary';
 }

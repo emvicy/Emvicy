@@ -16,7 +16,7 @@ class Type_Text_parameters
     use TraitMediaType;
 
     /**
-     * @reference [RFC7826]
+     * @reference [RFC 7826]
      */
     const DESCRIPTION = 'text/parameters';
 }

@@ -16,7 +16,7 @@ class Type_Audio_mpa_robust
     use TraitMediaType;
 
     /**
-     * @reference [RFC5219]
+     * @reference [RFC 5219]
      */
     const DESCRIPTION = 'audio/mpa-robust';
 }

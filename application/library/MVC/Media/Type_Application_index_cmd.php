@@ -16,7 +16,7 @@ class Type_Application_index_cmd
     use TraitMediaType;
 
     /**
-     * @reference [RFC2652]
+     * @reference [RFC 2652]
      */
     const DESCRIPTION = 'application/index.cmd';
 }

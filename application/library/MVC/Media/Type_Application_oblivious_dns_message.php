@@ -16,7 +16,7 @@ class Type_Application_oblivious_dns_message
     use TraitMediaType;
 
     /**
-     * @reference [RFC9230]
+     * @reference [RFC 9230]
      */
     const DESCRIPTION = 'application/oblivious-dns-message';
 }

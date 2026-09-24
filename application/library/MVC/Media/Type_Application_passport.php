@@ -16,7 +16,7 @@ class Type_Application_passport
     use TraitMediaType;
 
     /**
-     * @reference [RFC8225]
+     * @reference [RFC 8225]
      */
     const DESCRIPTION = 'application/passport';
 }

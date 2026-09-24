@@ -16,7 +16,7 @@ class Type_Application_oscore
     use TraitMediaType;
 
     /**
-     * @reference [RFC8613]
+     * @reference [RFC 8613]
      */
     const DESCRIPTION = 'application/oscore';
 }

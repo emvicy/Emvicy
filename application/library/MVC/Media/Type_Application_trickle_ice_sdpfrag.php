@@ -16,7 +16,7 @@ class Type_Application_trickle_ice_sdpfrag
     use TraitMediaType;
 
     /**
-     * @reference [RFC8840]
+     * @reference [RFC 8840]
      */
     const DESCRIPTION = 'application/trickle-ice-sdpfrag';
 }

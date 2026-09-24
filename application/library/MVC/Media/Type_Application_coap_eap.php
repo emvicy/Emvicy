@@ -16,7 +16,7 @@ class Type_Application_coap_eap
     use TraitMediaType;
 
     /**
-     * @reference [RFC9820]
+     * @reference [RFC 9820]
      */
     const DESCRIPTION = 'application/coap-eap';
 }

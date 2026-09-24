@@ -16,7 +16,7 @@ class Type_Audio_vnd_qcelp_DEPRECATED_in_favor_of_audio_qcelp
     use TraitMediaType;
 
     /**
-     * @reference [RFC3625]
+     * @reference [RFC 3625]
      */
     const DESCRIPTION = 'audio/vnd.qcelp';
 }

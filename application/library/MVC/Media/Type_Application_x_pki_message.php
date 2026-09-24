@@ -16,7 +16,7 @@ class Type_Application_x_pki_message
     use TraitMediaType;
 
     /**
-     * @reference [RFC8894]
+     * @reference [RFC 8894]
      */
     const DESCRIPTION = 'application/x-pki-message';
 }

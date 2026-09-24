@@ -16,7 +16,7 @@ class Type_Audio_fwdred
     use TraitMediaType;
 
     /**
-     * @reference [RFC6354]
+     * @reference [RFC 6354]
      */
     const DESCRIPTION = 'audio/fwdred';
 }

@@ -16,7 +16,7 @@ class Type_Text_enriched
     use TraitMediaType;
 
     /**
-     * @reference [RFC1896]
+     * @reference [RFC 1896]
      */
     const DESCRIPTION = 'text/enriched';
 }

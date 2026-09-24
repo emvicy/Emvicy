@@ -16,7 +16,7 @@ class Type_Application_pem_certificate_chain
     use TraitMediaType;
 
     /**
-     * @reference [RFC8555]
+     * @reference [RFC 8555]
      */
     const DESCRIPTION = 'application/pem-certificate-chain';
 }

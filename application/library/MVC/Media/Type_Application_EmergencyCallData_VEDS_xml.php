@@ -16,7 +16,7 @@ class Type_Application_EmergencyCallData_VEDS_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC8148][RFC Errata 6500]
+     * @reference [RFC 8148][RFC Errata 6500]
      */
     const DESCRIPTION = 'application/EmergencyCallData.VEDS+xml';
 }

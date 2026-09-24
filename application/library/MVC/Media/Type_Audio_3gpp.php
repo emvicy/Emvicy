@@ -16,7 +16,7 @@ class Type_Audio_3gpp
     use TraitMediaType;
 
     /**
-     * @reference [RFC3839][RFC6381]
+     * @reference [RFC 3839][RFC 6381]
      */
     const DESCRIPTION = 'audio/3gpp';
 }

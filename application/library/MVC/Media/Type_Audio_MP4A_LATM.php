@@ -16,7 +16,7 @@ class Type_Audio_MP4A_LATM
     use TraitMediaType;
 
     /**
-     * @reference [RFC6416]
+     * @reference [RFC 6416]
      */
     const DESCRIPTION = 'audio/MP4A-LATM';
 }

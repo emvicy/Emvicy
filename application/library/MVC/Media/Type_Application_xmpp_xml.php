@@ -16,7 +16,7 @@ class Type_Application_xmpp_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC3923]
+     * @reference [RFC 3923]
      */
     const DESCRIPTION = 'application/xmpp+xml';
 }

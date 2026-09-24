@@ -16,7 +16,7 @@ class Type_Video_H264
     use TraitMediaType;
 
     /**
-     * @reference [RFC6184]
+     * @reference [RFC 6184]
      */
     const DESCRIPTION = 'video/H264';
 }

@@ -72,7 +72,7 @@ class File
             return '';
         }
 
-        $sCmd = whereis('file') . ' -bi -- ' . escapeshellarg($sFileAbsolute);
+        $sCmd = which('file') . ' -bi -- ' . escapeshellarg($sFileAbsolute);
         $mMimeType = strtok(Emvicy::shellExecute($sCmd),';');
 
         return (false === $mMimeType) ? '' : $mMimeType;

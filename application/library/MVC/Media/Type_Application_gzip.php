@@ -16,7 +16,7 @@ class Type_Application_gzip
     use TraitMediaType;
 
     /**
-     * @reference [RFC6713]
+     * @reference [RFC 6713]
      */
     const DESCRIPTION = 'application/gzip';
 }

@@ -16,7 +16,7 @@ class Type_Audio_speex
     use TraitMediaType;
 
     /**
-     * @reference [RFC5574]
+     * @reference [RFC 5574]
      */
     const DESCRIPTION = 'audio/speex';
 }

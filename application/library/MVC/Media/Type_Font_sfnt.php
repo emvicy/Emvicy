@@ -16,7 +16,7 @@ class Type_Font_sfnt
     use TraitMediaType;
 
     /**
-     * @reference [RFC8081]
+     * @reference [RFC 8081]
      */
     const DESCRIPTION = 'font/sfnt';
 }

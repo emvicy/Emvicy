@@ -16,7 +16,7 @@ class Type_Video_jpeg2000
     use TraitMediaType;
 
     /**
-     * @reference [RFC5371][RFC5372]
+     * @reference [RFC 5371][RFC 5372]
      */
     const DESCRIPTION = 'video/jpeg2000';
 }

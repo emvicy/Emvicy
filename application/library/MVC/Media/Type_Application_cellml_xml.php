@@ -16,7 +16,7 @@ class Type_Application_cellml_xml
     use TraitMediaType;
 
     /**
-     * @reference [RFC4708]
+     * @reference [RFC 4708]
      */
     const DESCRIPTION = 'application/cellml+xml';
 }
