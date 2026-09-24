@@ -328,7 +328,7 @@ class Strings
      * @param string $sString
      * @return bool
      */
-    public static function isXml(string $sString = '')
+    public static function isXml(string $sString = ''): bool
     {
         libxml_use_internal_errors(true);
         $oSimpleXMLElement = simplexml_load_string($sString);
