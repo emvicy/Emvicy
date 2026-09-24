@@ -4,6 +4,7 @@ public/Installers
 public/Installers/*
 application/init/util/bootstrap2.php
 translation
+_Storage
 QChain
 lint.sh
 .git
