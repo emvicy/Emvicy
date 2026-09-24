@@ -32,6 +32,7 @@ $aConfig['MVC_CORE'] = array(
         'fileinfo',
         'filter',
         'iconv',
+        'intl',
         'json',
         'mbstring',
         'PDO',

@@ -289,6 +289,7 @@ function mvcConfigLoader(array $aConfig = array())
  * locates source/binary for a specified file
  * @param string $sWhichItem
  * @return string
+ * @throws \ReflectionException
  */
 function which(string $sWhichItem = '')
 {
@@ -311,13 +312,18 @@ function which(string $sWhichItem = '')
 
     if (true === empty($sResult))
     {
-        $sErrorLogFile = realpath(__DIR__ . '/../../') . '/log/error.log';
-        if (false === file_exists($sErrorLogFile)) {touch($sErrorLogFile);}
-        file_put_contents(
-            $sErrorLogFile,
-            date('Y-m-d H:i:s') . "\t" . 'function `' . __FUNCTION__ . '()` > requested program `' . escapeshellarg(trim($sWhichItem)) . '` not found.' . "\n",
-            FILE_APPEND
-        );
+        $sMessage = 'function `' . __FUNCTION__ . '()` > requested program `' . escapeshellarg(trim($sWhichItem)) . '` not found.';
+
+        if (true === class_exists('\MVC\Error'))
+        {
+            \MVC\Error::error($sMessage);
+        }
+        else
+        {
+            $sErrorLogFile = realpath(__DIR__ . '/../../') . '/log/error.log';
+            if (false === file_exists($sErrorLogFile)) {touch($sErrorLogFile);}
+            file_put_contents($sErrorLogFile, date('Y-m-d H:i:s') . "\t" . $sMessage . "\n", FILE_APPEND);
+        }
     }
 
     return $sResult;
