@@ -147,17 +147,17 @@ class InfoTool
         $a_MVC_SESSION_OPTIONS = Config::get_MVC_SESSION_OPTIONS();
 
         $_POST = ($_POST ?? []);
-        ksort($aConstants['user'], SORT_STRING|SORT_FLAG_CASE);
-        ksort($aGetEnv, SORT_STRING|SORT_FLAG_CASE);
-        ksort($_SERVER, SORT_STRING|SORT_FLAG_CASE);
-        ksort($_REQUEST, SORT_STRING|SORT_FLAG_CASE);
-        ksort($_COOKIE, SORT_STRING|SORT_FLAG_CASE);
-        ksort($_POST, SORT_STRING|SORT_FLAG_CASE);
-        ksort($_GET, SORT_STRING|SORT_FLAG_CASE);
-        ksort($_SESSION, SORT_STRING|SORT_FLAG_CASE);
-        ksort($_ENV, SORT_STRING|SORT_FLAG_CASE);
-        ksort($aRegistry, SORT_STRING|SORT_FLAG_CASE);
-        ksort($a_MVC_SESSION_OPTIONS, SORT_STRING|SORT_FLAG_CASE);
+        (is_array($aConstants['user'])) ? ksort($aConstants['user'], SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($aGetEnv)) ? ksort($aGetEnv, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($_SERVER)) ? ksort($_SERVER, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($_REQUEST)) ? ksort($_REQUEST, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($_COOKIE)) ? ksort($_COOKIE, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($_POST)) ? ksort($_POST, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($_GET)) ? ksort($_GET, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($_SESSION)) ? ksort($_SESSION, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($_ENV)) ? ksort($_ENV, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($aRegistry)) ? ksort($aRegistry, SORT_STRING|SORT_FLAG_CASE) : false;
+        (is_array($a_MVC_SESSION_OPTIONS)) ? ksort($a_MVC_SESSION_OPTIONS, SORT_STRING|SORT_FLAG_CASE) : false;
 
         $aMethod = get_class_methods('MVC\Config');
         $aTmp = array();

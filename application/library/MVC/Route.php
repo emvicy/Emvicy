@@ -266,4 +266,57 @@ class Route extends AbstractRouteConcrete
     {
         self::$sRouteClassConcrete::setPathParam($aPathParam);
     }
+
+    #-----------------
+
+    /**
+     * @return \MVC\DataType\DTRoute[]
+     */
+    public static function get_aRoute()
+    {
+        return self::$sRouteClassConcrete::get_aRoute();
+    }
+
+    /**
+     * @return array
+     */
+    public static function get_aMethod()
+    {
+        return self::$sRouteClassConcrete::get_aMethod();
+    }
+
+    /**
+     * @return array
+     */
+    public static function get_aMethodRoute()
+    {
+        return self::$sRouteClassConcrete::get_aMethodRoute();
+    }
+
+    /**
+     * @param array $aRoute
+     * @return void
+     */
+    public static function set_aRoute(array $aRoute = array())
+    {
+        self::$sRouteClassConcrete::$aRoute = $aRoute;
+    }
+
+    /**
+     * @param array $aMethod
+     * @return void
+     */
+    public static function set_aMethod(array $aMethod = array())
+    {
+        self::$sRouteClassConcrete::$aMethod = $aMethod;
+    }
+
+    /**
+     * @param array $aMethodRoute
+     * @return void
+     */
+    public static function set_aMethodRoute(array $aMethodRoute = array())
+    {
+        self::$sRouteClassConcrete::$aMethodRoute = $aMethodRoute;
+    }
 }

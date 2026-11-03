@@ -548,4 +548,57 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
         $oDTRequestIn->set_pathParamArray($aPathParam);
         Registry::set('oDTRequestIn', $oDTRequestIn);
     }
+
+    #-----
+
+    /**
+     * @return \MVC\DataType\DTRoute[]
+     */
+    public static function get_aRoute()
+    {
+        return self::$aRoute;
+    }
+
+    /**
+     * @return array
+     */
+    public static function get_aMethod()
+    {
+        return self::$aMethod;
+    }
+
+    /**
+     * @return array
+     */
+    public static function get_aMethodRoute()
+    {
+        return self::$aMethodRoute;
+    }
+
+    /**
+     * @param array $aRoute
+     * @return void
+     */
+    public static function set_aRoute(array $aRoute = array())
+    {
+        self::$aRoute = $aRoute;
+    }
+
+    /**
+     * @param array $aMethod
+     * @return void
+     */
+    public static function set_aMethod(array $aMethod = array())
+    {
+        self::$aMethod = $aMethod;
+    }
+
+    /**
+     * @param array $aMethodRoute
+     * @return void
+     */
+    public static function set_aMethodRoute(array $aMethodRoute = array())
+    {
+        self::$aMethodRoute = $aMethodRoute;
+    }
 }

@@ -6,7 +6,6 @@ use MVC\Application;
 use MVC\Cache;
 use MVC\Config;
 use MVC\Convert;
-use MVC\DataType\DTContainer;
 use MVC\DataType\DTRoute;
 use MVC\Debug;
 use MVC\Dir;
@@ -17,8 +16,6 @@ use MVC\Policy;
 use MVC\Process;
 use MVC\Route;
 use MVC\Strings;
-
-#------------------------------------
 
 class Emvicy
 {
@@ -1276,10 +1273,11 @@ class Emvicy
         if ('list' === $sOption)
         {
             echo "\n# Route List\n";
+            echo C_CYAN . 'MVC_ROUTE_CLASS: ' .$GLOBALS['aConfig']['MVC_ROUTE_CLASS'] . C_RESET;
         }
 
         Route::init();
-        $aIndex = Route::$aMethodRoute;
+        $aIndex = Route::get_aMethodRoute();
 
         if (true === empty($aIndex))
         {
@@ -1304,16 +1302,16 @@ class Emvicy
                 foreach ($aRoute as $sRoute => $oDTRoute)
                 {
                     // skip faulty ones
-                    if (null === $oDTRoute || false === in_array($sRoute, array_keys(Route::$aRoute)))
+                    if (null === $oDTRoute || false === in_array($sRoute, array_keys(Route::get_aRoute())))
                     {
                         continue;
                     }
 
                     $aRouteList[] = [
                         'sMethod' => $sMethod,
-                        'aMethodsAssigned' => Route::$aRoute[$sRoute]->get_methodsAssigned(),
+                        'aMethodsAssigned' => Route::get_aRoute()[$sRoute]->get_methodsAssigned(),
                         'sRoute' => $sRoute,
-                        'sTarget' => $oDTRoute->get_class() . '::' .$oDTRoute->get_method(),
+                        'sTarget' => $oDTRoute->get_class() . '::' . $oDTRoute->get_method(),
                         'sTag' => $oDTRoute->get_tag(),
                     ];
                 }
