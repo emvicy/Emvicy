@@ -16,7 +16,7 @@ class Type_Multipart_x_mixed_replace
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Robin_Berjon]
+     * @reference [W3C]; [Robin_Berjon]
      */
     const DESCRIPTION = 'multipart/x-mixed-replace';
 }

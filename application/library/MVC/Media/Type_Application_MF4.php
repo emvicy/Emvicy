@@ -16,7 +16,7 @@ class Type_Application_MF4
     use TraitMediaType;
 
     /**
-     * @reference [ASAM][Bernd_Wenzel]
+     * @reference [ASAM]; [Bernd_Wenzel]
      */
     const DESCRIPTION = 'application/MF4';
 }

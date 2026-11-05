@@ -16,7 +16,7 @@ class Type_Image_vnd_radiance
     use TraitMediaType;
 
     /**
-     * @reference [Randolph_Fritz][Greg_Ward]
+     * @reference [Randolph_Fritz]; [Greg_Ward]
      */
     const DESCRIPTION = 'image/vnd.radiance';
 }

@@ -16,7 +16,7 @@ class Type_Text_cql
     use TraitMediaType;
 
     /**
-     * @reference [HL7][Bryn_Rhodes]
+     * @reference [HL7]; [Bryn_Rhodes]
      */
     const DESCRIPTION = 'text/cql';
 }

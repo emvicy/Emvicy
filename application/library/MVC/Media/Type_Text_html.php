@@ -16,7 +16,7 @@ class Type_Text_html
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Robin_Berjon]
+     * @reference [W3C]; [Robin_Berjon]
      */
     const DESCRIPTION = 'text/html';
 }

@@ -16,7 +16,7 @@ class Type_Image_avci
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1][David_Singer]
+     * @reference [ISO-IEC_JTC_1]; [David_Singer]
      */
     const DESCRIPTION = 'image/avci';
 }

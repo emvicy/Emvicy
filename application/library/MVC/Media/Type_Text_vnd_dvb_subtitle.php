@@ -16,7 +16,7 @@ class Type_Text_vnd_dvb_subtitle
     use TraitMediaType;
 
     /**
-     * @reference [Peter_Siebert][Michael_Lagally]
+     * @reference [Peter_Siebert]; [Michael_Lagally]
      */
     const DESCRIPTION = 'text/vnd.dvb.subtitle';
 }

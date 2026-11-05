@@ -16,7 +16,7 @@ class Type_Application_3gpp_mbs_user_service_descriptions_json
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP_TSG_SA_WG4][Dongwook_Kim]
+     * @reference [_3GPP_TSG_SA_WG4]; [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/3gpp-mbs-user-service-descriptions+json';
 }

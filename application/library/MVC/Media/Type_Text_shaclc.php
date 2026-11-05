@@ -16,7 +16,7 @@ class Type_Text_shaclc
     use TraitMediaType;
 
     /**
-     * @reference [W3C_SHACL_Community_Group][Vladimir_Alexiev]
+     * @reference [W3C_SHACL_Community_Group]; [Vladimir_Alexiev]
      */
     const DESCRIPTION = 'text/shaclc';
 }

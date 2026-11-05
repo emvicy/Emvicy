@@ -16,7 +16,7 @@ class Type_Model_x3d_vrml
     use TraitMediaType;
 
     /**
-     * @reference [Web3D][Web3D_X3D]
+     * @reference [Web3D]; [Web3D_X3D]
      */
     const DESCRIPTION = 'model/x3d-vrml';
 }

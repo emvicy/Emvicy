@@ -16,7 +16,7 @@ class Type_Application_ttml_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][W3C_Timed_Text_WG]
+     * @reference [W3C]; [W3C_Timed_Text_WG]
      */
     const DESCRIPTION = 'application/ttml+xml';
 }

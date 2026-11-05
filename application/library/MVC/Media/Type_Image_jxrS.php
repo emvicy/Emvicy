@@ -16,7 +16,7 @@ class Type_Image_jxrS
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1][ITU-T]
+     * @reference [ISO-IEC_JTC_1]; [ITU-T]
      */
     const DESCRIPTION = 'image/jxrS';
 }

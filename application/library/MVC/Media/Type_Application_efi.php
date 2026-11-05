@@ -16,7 +16,7 @@ class Type_Application_efi
     use TraitMediaType;
 
     /**
-     * @reference [UEFI_Forum][Samer_El-Haj-Mahmoud]
+     * @reference [UEFI_Forum]; [Samer_El-Haj-Mahmoud]
      */
     const DESCRIPTION = 'application/efi';
 }

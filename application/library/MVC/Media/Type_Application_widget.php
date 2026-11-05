@@ -16,7 +16,7 @@ class Type_Application_widget
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Steven_Pemberton][W3C-Widgets-2012]
+     * @reference [W3C]; [Steven_Pemberton]; [W3C-Widgets-2012]
      */
     const DESCRIPTION = 'application/widget';
 }

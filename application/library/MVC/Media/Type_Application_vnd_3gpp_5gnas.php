@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_5gnas
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Jones_Lu_Yunjie]
+     * @reference [_3GPP]; [Jones_Lu_Yunjie]
      */
     const DESCRIPTION = 'application/vnd.3gpp.5gnas';
 }

@@ -16,7 +16,7 @@ class Type_Application_kbl_xml
     use TraitMediaType;
 
     /**
-     * @reference [prostep_ivip][Nora_Tazir]
+     * @reference [prostep_ivip]; [Nora_Tazir]
      */
     const DESCRIPTION = 'application/kbl+xml';
 }

@@ -16,7 +16,7 @@ class Type_Application_p21_zip
     use TraitMediaType;
 
     /**
-     * @reference [ISO-TC_184-SC_4][Dana_Tripp]
+     * @reference [ISO-TC_184-SC_4]; [Dana_Tripp]
      */
     const DESCRIPTION = 'application/p21+zip';
 }

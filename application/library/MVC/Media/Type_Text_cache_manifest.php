@@ -16,7 +16,7 @@ class Type_Text_cache_manifest
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Robin_Berjon]
+     * @reference [W3C]; [Robin_Berjon]
      */
     const DESCRIPTION = 'text/cache-manifest';
 }

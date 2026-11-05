@@ -16,7 +16,7 @@ class Type_Text_hl7v2
     use TraitMediaType;
 
     /**
-     * @reference [HL7][Marc_Duteau]
+     * @reference [HL7]; [Marc_Duteau]
      */
     const DESCRIPTION = 'text/hl7v2';
 }

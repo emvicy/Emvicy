@@ -16,7 +16,7 @@ class Type_Text_wgsl
     use TraitMediaType;
 
     /**
-     * @reference [W3C][David_Neto]
+     * @reference [W3C]; [David_Neto]
      */
     const DESCRIPTION = 'text/wgsl';
 }

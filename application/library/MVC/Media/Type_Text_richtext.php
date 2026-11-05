@@ -16,7 +16,7 @@ class Type_Text_richtext
     use TraitMediaType;
 
     /**
-     * @reference [RFC 2045][RFC 2046]
+     * @reference [RFC 2045]; [RFC 2046]
      */
     const DESCRIPTION = 'text/richtext';
 }

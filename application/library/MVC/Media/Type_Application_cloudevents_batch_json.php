@@ -16,7 +16,7 @@ class Type_Application_cloudevents_batch_json
     use TraitMediaType;
 
     /**
-     * @reference [Linux_Foundation][CloudEvents_Maintainers]
+     * @reference [Linux_Foundation]; [CloudEvents_Maintainers]
      */
     const DESCRIPTION = 'application/cloudevents-batch+json';
 }

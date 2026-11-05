@@ -16,7 +16,7 @@ class Type_Application_vnd_las
     use TraitMediaType;
 
     /**
-     * @reference [NCGIS][Bryan_Blank]
+     * @reference [NCGIS]; [Bryan_Blank]
      */
     const DESCRIPTION = 'application/vnd.las';
 }

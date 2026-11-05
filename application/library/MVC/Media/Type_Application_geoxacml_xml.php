@@ -16,7 +16,7 @@ class Type_Application_geoxacml_xml
     use TraitMediaType;
 
     /**
-     * @reference [OGC][Scott_Simmons]
+     * @reference [OGC]; [Scott_Simmons]
      */
     const DESCRIPTION = 'application/geoxacml+xml';
 }

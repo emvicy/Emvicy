@@ -16,7 +16,7 @@ class Type_Application_AML
     use TraitMediaType;
 
     /**
-     * @reference [ASAM][Bernd_Wenzel]
+     * @reference [ASAM]; [Bernd_Wenzel]
      */
     const DESCRIPTION = 'application/AML';
 }

@@ -325,21 +325,14 @@ class Strings
     }
 
     /**
+     * @deprecated use instead: Xml::isValid()
      * @param string $sString
      * @return bool
+     * @throws \ReflectionException
      */
     public static function isXml(string $sString = ''): bool
     {
-        libxml_use_internal_errors(true);
-        $oSimpleXMLElement = simplexml_load_string($sString);
-
-        if ($oSimpleXMLElement === false)
-        {
-            libxml_clear_errors();
-            return false;
-        }
-
-        return true;
+        return Xml::isValid($sString);
     }
 
     /**

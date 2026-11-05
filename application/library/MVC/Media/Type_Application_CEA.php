@@ -16,7 +16,7 @@ class Type_Application_CEA
     use TraitMediaType;
 
     /**
-     * @reference [ASAM][Bernd_Wenzel]
+     * @reference [ASAM]; [Bernd_Wenzel]
      */
     const DESCRIPTION = 'application/CEA';
 }

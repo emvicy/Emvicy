@@ -16,7 +16,7 @@ class Type_Image_vnd_pco_b16
     use TraitMediaType;
 
     /**
-     * @reference [PCO_AG][Jan_Zeman]
+     * @reference [PCO_AG]; [Jan_Zeman]
      */
     const DESCRIPTION = 'image/vnd.pco.b16';
 }

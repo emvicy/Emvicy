@@ -16,7 +16,7 @@ class Type_Model_vnd_sap_vds
     use TraitMediaType;
 
     /**
-     * @reference [SAP_SE][Igor_Afanasyev]
+     * @reference [SAP_SE]; [Igor_Afanasyev]
      */
     const DESCRIPTION = 'model/vnd.sap.vds';
 }

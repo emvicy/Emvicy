@@ -16,7 +16,7 @@ class Type_Application_EmergencyCallData_LegacyESN_json
     use TraitMediaType;
 
     /**
-     * @reference [NENA][Randall_Gellens]
+     * @reference [NENA]; [Randall_Gellens]
      */
     const DESCRIPTION = 'application/EmergencyCallData.LegacyESN+json';
 }

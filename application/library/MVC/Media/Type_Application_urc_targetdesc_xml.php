@@ -16,7 +16,7 @@ class Type_Application_urc_targetdesc_xml
     use TraitMediaType;
 
     /**
-     * @reference [Gottfried_Zimmermann][ISO-IEC_JTC_1]
+     * @reference [Gottfried_Zimmermann]; [ISO-IEC_JTC_1]
      */
     const DESCRIPTION = 'application/urc-targetdesc+xml';
 }

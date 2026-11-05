@@ -16,7 +16,7 @@ class Type_Application_lpf_zip
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Ivan_Herman]
+     * @reference [W3C]; [Ivan_Herman]
      */
     const DESCRIPTION = 'application/lpf+zip';
 }

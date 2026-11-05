@@ -16,7 +16,7 @@ class Type_Application_elm_json
     use TraitMediaType;
 
     /**
-     * @reference [HL7][Bryn_Rhodes]
+     * @reference [HL7]; [Bryn_Rhodes]
      */
     const DESCRIPTION = 'application/elm+json';
 }

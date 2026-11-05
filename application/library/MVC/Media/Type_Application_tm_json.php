@@ -16,7 +16,7 @@ class Type_Application_tm_json
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Sebastian_Kaebisch]
+     * @reference [W3C]; [Sebastian_Kaebisch]
      */
     const DESCRIPTION = 'application/tm+json';
 }

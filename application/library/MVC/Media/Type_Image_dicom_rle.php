@@ -16,7 +16,7 @@ class Type_Image_dicom_rle
     use TraitMediaType;
 
     /**
-     * @reference [DICOM_Standard_Committee][David_Clunie]
+     * @reference [DICOM_Standard_Committee]; [David_Clunie]
      */
     const DESCRIPTION = 'image/dicom-rle';
 }

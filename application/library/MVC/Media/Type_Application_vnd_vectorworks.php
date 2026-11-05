@@ -16,7 +16,7 @@ class Type_Application_vnd_vectorworks
     use TraitMediaType;
 
     /**
-     * @reference [Lyndsey_Ferguson][Biplab_Sarkar]
+     * @reference [Lyndsey_Ferguson]; [Biplab_Sarkar]
      */
     const DESCRIPTION = 'application/vnd.vectorworks';
 }

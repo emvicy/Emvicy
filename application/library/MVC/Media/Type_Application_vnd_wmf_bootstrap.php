@@ -16,7 +16,7 @@ class Type_Application_vnd_wmf_bootstrap
     use TraitMediaType;
 
     /**
-     * @reference [Thinh_Nguyenphu][Prakash_Iyer]
+     * @reference [Thinh_Nguyenphu]; [Prakash_Iyer]
      */
     const DESCRIPTION = 'application/vnd.wmf.bootstrap';
 }

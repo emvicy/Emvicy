@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Application_vnd_edulith_edux_json.php
+ * Type_Application_vnd_penguin_pn_theuip.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,12 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Application_vnd_edulith_edux_json
+class Type_Application_vnd_penguin_pn_theuip
 {
     use TraitMediaType;
 
     /**
-     * @reference [Heike_Håland_Østensen]
+     * @reference [Penguin_Web_Messaging_Maintainer]
      */
-    const DESCRIPTION = 'application/vnd.edulith.edux+json';
+    const DESCRIPTION = 'application/vnd.penguin-pn.theuip';
 }

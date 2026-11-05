@@ -16,7 +16,7 @@ class Type_Application_spdx3_json
     use TraitMediaType;
 
     /**
-     * @reference [Linux_Foundation][Arthit_Suriyawongkul]
+     * @reference [Linux_Foundation]; [Arthit_Suriyawongkul]
      */
     const DESCRIPTION = 'application/spdx3+json';
 }

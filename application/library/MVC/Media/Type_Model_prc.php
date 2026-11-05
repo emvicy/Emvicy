@@ -16,7 +16,7 @@ class Type_Model_prc
     use TraitMediaType;
 
     /**
-     * @reference [ISO-TC_171-SC_2][Betsy_Fanning]
+     * @reference [ISO-TC_171-SC_2]; [Betsy_Fanning]
      */
     const DESCRIPTION = 'model/prc';
 }

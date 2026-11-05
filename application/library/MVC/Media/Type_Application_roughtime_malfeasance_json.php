@@ -16,7 +16,7 @@ class Type_Application_roughtime_malfeasance_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-ntp-roughtime-19]
+     * @reference [RFC 10049]
      */
     const DESCRIPTION = 'application/roughtime-malfeasance+json';
 }

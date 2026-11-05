@@ -16,7 +16,7 @@ class Type_Application_bufr
     use TraitMediaType;
 
     /**
-     * @reference [World_Meterological_Organization][Anna_Milan]
+     * @reference [World_Meterological_Organization]; [Anna_Milan]
      */
     const DESCRIPTION = 'application/bufr';
 }

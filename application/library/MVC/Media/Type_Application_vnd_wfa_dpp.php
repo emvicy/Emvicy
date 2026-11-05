@@ -16,7 +16,7 @@ class Type_Application_vnd_wfa_dpp
     use TraitMediaType;
 
     /**
-     * @reference [Wi-Fi_Alliance][Dr._Jun_Tian]
+     * @reference [Wi-Fi_Alliance]; [Dr._Jun_Tian]
      */
     const DESCRIPTION = 'application/vnd.wfa.dpp';
 }

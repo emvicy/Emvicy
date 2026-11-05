@@ -16,7 +16,7 @@ class Type_Application_sarif_external_properties_json
     use TraitMediaType;
 
     /**
-     * @reference [OASIS][David_Keaton][Michael_C._Fanning]
+     * @reference [OASIS]; [David_Keaton]; [Michael_C._Fanning]
      */
     const DESCRIPTION = 'application/sarif-external-properties+json';
 }

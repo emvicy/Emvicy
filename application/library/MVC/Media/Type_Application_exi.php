@@ -16,7 +16,7 @@ class Type_Application_exi
     use TraitMediaType;
 
     /**
-     * @reference [W3C][http://www.w3.org/TR/2009/CR-exi-20091208/#mediaTypeRegistration]
+     * @reference [W3C]; [http://www.w3.org/TR/2009/CR-exi-20091208/#mediaTypeRegistration]
      */
     const DESCRIPTION = 'application/exi';
 }

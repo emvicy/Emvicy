@@ -16,7 +16,7 @@ class Type_Application_fastsoap
     use TraitMediaType;
 
     /**
-     * @reference [ITU-T_ASN.1_Rapporteur][ISO-IEC_JTC_1_SC_6_ASN.1_Rapporteur]
+     * @reference [ITU-T_ASN.1_Rapporteur]; [ISO-IEC_JTC_1_SC_6_ASN.1_Rapporteur]
      */
     const DESCRIPTION = 'application/fastsoap';
 }

@@ -16,7 +16,7 @@ class Type_Application_hl7v2_xml
     use TraitMediaType;
 
     /**
-     * @reference [HL7][Marc_Duteau]
+     * @reference [HL7]; [Marc_Duteau]
      */
     const DESCRIPTION = 'application/hl7v2+xml';
 }

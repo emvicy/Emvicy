@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_seal_ue_config_info_xml
     use TraitMediaType;
 
     /**
-     * @reference [Sapan_Shah]
+     * @reference [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp.seal-ue-config-info+xml';
 }

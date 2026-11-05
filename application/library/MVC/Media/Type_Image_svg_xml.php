@@ -16,7 +16,7 @@ class Type_Image_svg_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][http://www.w3.org/TR/SVG/mimereg.html]
+     * @reference [W3C]; [http://www.w3.org/TR/SVG/mimereg.html]
      */
     const DESCRIPTION = 'image/svg+xml';
 }

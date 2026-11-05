@@ -16,7 +16,7 @@ class Type_Application_sbe
     use TraitMediaType;
 
     /**
-     * @reference [FIX_Trading_Community][Donald_L._Mendelson]
+     * @reference [FIX_Trading_Community]; [Donald_L._Mendelson]
      */
     const DESCRIPTION = 'application/sbe';
 }

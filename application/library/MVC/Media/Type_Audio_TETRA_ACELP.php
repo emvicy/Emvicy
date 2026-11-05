@@ -16,7 +16,7 @@ class Type_Audio_TETRA_ACELP
     use TraitMediaType;
 
     /**
-     * @reference [ETSI][Miguel_Angel_Reina_Ortega]
+     * @reference [ETSI]; [Miguel_Angel_Reina_Ortega]
      */
     const DESCRIPTION = 'audio/TETRA_ACELP';
 }

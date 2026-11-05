@@ -16,7 +16,7 @@ class Type_Application_vnd_geogebra_slides
     use TraitMediaType;
 
     /**
-     * @reference [GeoGebra][Michael_Borcherds][Markus_Hohenwarter]
+     * @reference [GeoGebra]; [Michael_Borcherds]; [Markus_Hohenwarter]
      */
     const DESCRIPTION = 'application/vnd.geogebra.slides';
 }

@@ -16,7 +16,7 @@ class Type_Application_activity_json
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Benjamin_Goering]
+     * @reference [W3C]; [Benjamin_Goering]
      */
     const DESCRIPTION = 'application/activity+json';
 }

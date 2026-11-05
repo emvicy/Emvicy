@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_drm_risd_xml
     use TraitMediaType;
 
     /**
-     * @reference [Uwe_Rauschenbach][Open_Mobile_Naming_Authority]
+     * @reference [Uwe_Rauschenbach]; [Open_Mobile_Naming_Authority]
      */
     const DESCRIPTION = 'application/vnd.oma.drm.risd+xml';
 }

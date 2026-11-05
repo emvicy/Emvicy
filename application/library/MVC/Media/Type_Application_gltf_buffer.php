@@ -16,7 +16,7 @@ class Type_Application_gltf_buffer
     use TraitMediaType;
 
     /**
-     * @reference [Khronos][Saurabh_Bhatia]
+     * @reference [Khronos]; [Saurabh_Bhatia]
      */
     const DESCRIPTION = 'application/gltf-buffer';
 }

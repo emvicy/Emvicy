@@ -16,7 +16,7 @@ class Type_Message_rfc822
     use TraitMediaType;
 
     /**
-     * @reference [RFC 2045][RFC 2046]
+     * @reference [RFC 2045]; [RFC 2046]
      */
     const DESCRIPTION = 'message/rfc822';
 }

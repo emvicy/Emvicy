@@ -16,7 +16,7 @@ class Type_Application_sparql_results_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][http://www.w3.org/TR/2007/CR-rdf-sparql-XMLres-20070925/#mime]
+     * @reference [W3C]; [http://www.w3.org/TR/2007/CR-rdf-sparql-XMLres-20070925/#mime]
      */
     const DESCRIPTION = 'application/sparql-results+xml';
 }

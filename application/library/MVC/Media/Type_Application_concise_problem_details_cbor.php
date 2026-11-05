@@ -16,7 +16,7 @@ class Type_Application_concise_problem_details_cbor
     use TraitMediaType;
 
     /**
-     * @reference [RFC9290, Section 6.3]
+     * @reference [RFC 9290, Section 6.3]
      */
     const DESCRIPTION = 'application/concise-problem-details+cbor';
 }

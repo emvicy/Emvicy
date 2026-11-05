@@ -16,7 +16,7 @@ class Type_Application_stix_json
     use TraitMediaType;
 
     /**
-     * @reference [OASIS][Chet_Ensign]
+     * @reference [OASIS]; [Chet_Ensign]
      */
     const DESCRIPTION = 'application/stix+json';
 }

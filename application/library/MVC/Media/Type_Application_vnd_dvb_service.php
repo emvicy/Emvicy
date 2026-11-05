@@ -16,7 +16,7 @@ class Type_Application_vnd_dvb_service
     use TraitMediaType;
 
     /**
-     * @reference [Peter_Siebert][Michael_Lagally]
+     * @reference [Peter_Siebert]; [Michael_Lagally]
      */
     const DESCRIPTION = 'application/vnd.dvb.service';
 }

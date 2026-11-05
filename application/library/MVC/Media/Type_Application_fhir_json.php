@@ -16,7 +16,7 @@ class Type_Application_fhir_json
     use TraitMediaType;
 
     /**
-     * @reference [HL7][Grahame_Grieve]
+     * @reference [HL7]; [Grahame_Grieve]
      */
     const DESCRIPTION = 'application/fhir+json';
 }

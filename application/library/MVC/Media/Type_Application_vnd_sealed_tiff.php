@@ -16,7 +16,7 @@ class Type_Application_vnd_sealed_tiff
     use TraitMediaType;
 
     /**
-     * @reference [John_Kwan][Martin_Lambert]
+     * @reference [John_Kwan]; [Martin_Lambert]
      */
     const DESCRIPTION = 'application/vnd.sealed.tiff';
 }

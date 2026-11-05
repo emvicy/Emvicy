@@ -16,7 +16,7 @@ class Type_Image_ktx
     use TraitMediaType;
 
     /**
-     * @reference [Khronos][Mark_Callow]
+     * @reference [Khronos]; [Mark_Callow]
      */
     const DESCRIPTION = 'image/ktx';
 }

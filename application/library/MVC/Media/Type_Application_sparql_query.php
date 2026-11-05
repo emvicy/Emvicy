@@ -16,7 +16,7 @@ class Type_Application_sparql_query
     use TraitMediaType;
 
     /**
-     * @reference [W3C][http://www.w3.org/TR/2007/CR-rdf-sparql-query-20070614/#mediaType]
+     * @reference [W3C]; [http://www.w3.org/TR/2007/CR-rdf-sparql-query-20070614/#mediaType]
      */
     const DESCRIPTION = 'application/sparql-query';
 }

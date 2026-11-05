@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_pfcp
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Bruno_Landais]
+     * @reference [_3GPP]; [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp.pfcp';
 }

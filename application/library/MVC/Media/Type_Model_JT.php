@@ -16,7 +16,7 @@ class Type_Model_JT
     use TraitMediaType;
 
     /**
-     * @reference [ISO-TC_184-SC_4][Michael_Zink]
+     * @reference [ISO-TC_184-SC_4]; [Michael_Zink]
      */
     const DESCRIPTION = 'model/JT';
 }

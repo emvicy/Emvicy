@@ -16,7 +16,7 @@ class Type_Application_asyncapi_yaml
     use TraitMediaType;
 
     /**
-     * @reference [Linux_Foundation][AsyncAPI_Initiative]
+     * @reference [Linux_Foundation]; [AsyncAPI_Initiative]
      */
     const DESCRIPTION = 'application/asyncapi+yaml';
 }

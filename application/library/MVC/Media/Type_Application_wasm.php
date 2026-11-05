@@ -16,7 +16,7 @@ class Type_Application_wasm
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Eric_Prudhommeaux]
+     * @reference [W3C]; [Eric_Prudhommeaux]
      */
     const DESCRIPTION = 'application/wasm';
 }

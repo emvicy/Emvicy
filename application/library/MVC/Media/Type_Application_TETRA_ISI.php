@@ -16,7 +16,7 @@ class Type_Application_TETRA_ISI
     use TraitMediaType;
 
     /**
-     * @reference [ETSI][Miguel_Angel_Reina_Ortega]
+     * @reference [ETSI]; [Miguel_Angel_Reina_Ortega]
      */
     const DESCRIPTION = 'application/TETRA_ISI';
 }

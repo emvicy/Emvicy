@@ -16,7 +16,7 @@ class Type_Application_3gpdash_qoe_report_xml
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Ozgur_Oyman]
+     * @reference [_3GPP]; [Ozgur_Oyman]
      */
     const DESCRIPTION = 'application/3gpdash-qoe-report+xml';
 }

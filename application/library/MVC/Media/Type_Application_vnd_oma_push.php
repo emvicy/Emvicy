@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_push
     use TraitMediaType;
 
     /**
-     * @reference [Bryan_Sullivan][OMA]
+     * @reference [Bryan_Sullivan]; [OMA]
      */
     const DESCRIPTION = 'application/vnd.oma.push';
 }

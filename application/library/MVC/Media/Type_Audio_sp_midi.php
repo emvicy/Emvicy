@@ -16,7 +16,7 @@ class Type_Audio_sp_midi
     use TraitMediaType;
 
     /**
-     * @reference [Athan_Billias][MIDI_Association]
+     * @reference [Athan_Billias]; [MIDI_Association]
      */
     const DESCRIPTION = 'audio/sp-midi';
 }

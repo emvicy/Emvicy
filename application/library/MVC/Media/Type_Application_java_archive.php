@@ -16,7 +16,7 @@ class Type_Application_java_archive
     use TraitMediaType;
 
     /**
-     * @reference [JCP][Iris_Clark]
+     * @reference [JCP]; [Iris_Clark]
      */
     const DESCRIPTION = 'application/java-archive';
 }

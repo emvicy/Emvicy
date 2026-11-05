@@ -16,7 +16,7 @@ class Type_Application_vc
     use TraitMediaType;
 
     /**
-     * @reference [W3C_Verifiable_Credentials_WG][Ivan_Herman]
+     * @reference [W3C_Verifiable_Credentials_WG]; [Ivan_Herman]
      */
     const DESCRIPTION = 'application/vc';
 }

@@ -16,7 +16,7 @@ class Type_Application_swid_xml
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1][David_Waltermire][Ron_Brill]
+     * @reference [ISO-IEC_JTC_1]; [David_Waltermire]; [Ron_Brill]
      */
     const DESCRIPTION = 'application/swid+xml';
 }

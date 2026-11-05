@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_bcast_associated_procedure_parameter_xml
     use TraitMediaType;
 
     /**
-     * @reference [Uwe_Rauschenbach][Open_Mobile_Naming_Authority]
+     * @reference [Uwe_Rauschenbach]; [Open_Mobile_Naming_Authority]
      */
     const DESCRIPTION = 'application/vnd.oma.bcast.associated-procedure-parameter+xml';
 }

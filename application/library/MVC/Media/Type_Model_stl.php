@@ -16,7 +16,7 @@ class Type_Model_stl
     use TraitMediaType;
 
     /**
-     * @reference [DICOM_Standard_Committee][DICOM_WG_17][Carolyn_Hull]
+     * @reference [DICOM_Standard_Committee]; [DICOM_WG_17]; [Carolyn_Hull]
      */
     const DESCRIPTION = 'model/stl';
 }

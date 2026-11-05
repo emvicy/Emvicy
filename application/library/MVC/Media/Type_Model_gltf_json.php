@@ -16,7 +16,7 @@ class Type_Model_gltf_json
     use TraitMediaType;
 
     /**
-     * @reference [Khronos][Uli_Klumpp]
+     * @reference [Khronos]; [Uli_Klumpp]
      */
     const DESCRIPTION = 'model/gltf+json';
 }

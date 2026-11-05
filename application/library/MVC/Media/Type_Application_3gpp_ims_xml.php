@@ -16,7 +16,7 @@ class Type_Application_3gpp_ims_xml
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Dongwook_Kim]
+     * @reference [_3GPP]; [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/3gpp-ims+xml';
 }

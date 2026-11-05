@@ -16,7 +16,7 @@ class Type_Application_emotionml_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Kazuyuki_Ashimura]
+     * @reference [W3C]; [Kazuyuki_Ashimura]
      */
     const DESCRIPTION = 'application/emotionml+xml';
 }

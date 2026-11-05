@@ -16,7 +16,7 @@ class Type_Application_provenance_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Ivan_Herman]
+     * @reference [W3C]; [Ivan_Herman]
      */
     const DESCRIPTION = 'application/provenance+xml';
 }

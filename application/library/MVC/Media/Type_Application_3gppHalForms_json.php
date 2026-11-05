@@ -16,7 +16,7 @@ class Type_Application_3gppHalForms_json
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Ulrich_Wiehe]
+     * @reference [_3GPP]; [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/3gppHalForms+json';
 }

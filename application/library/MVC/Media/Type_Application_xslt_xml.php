@@ -16,7 +16,7 @@ class Type_Application_xslt_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][http://www.w3.org/TR/2007/REC-xslt20-20070123/#media-type-registration]
+     * @reference [W3C]; [http://www.w3.org/TR/2007/REC-xslt20-20070123/#media-type-registration]
      */
     const DESCRIPTION = 'application/xslt+xml';
 }

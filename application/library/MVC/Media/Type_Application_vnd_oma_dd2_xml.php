@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_dd2_xml
     use TraitMediaType;
 
     /**
-     * @reference [Jun_Sato][Open_Mobile_Alliance_BAC_DLDRM_WG]
+     * @reference [Jun_Sato]; [Open_Mobile_Alliance_BAC_DLDRM_WG]
      */
     const DESCRIPTION = 'application/vnd.oma.dd2+xml';
 }

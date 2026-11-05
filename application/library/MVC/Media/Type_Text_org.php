@@ -16,7 +16,7 @@ class Type_Text_org
     use TraitMediaType;
 
     /**
-     * @reference [Org_Mode][Jeffrey_Gipson][4]
+     * @reference [Org_Mode]; [Jeffrey_Gipson][4]
      */
     const DESCRIPTION = 'text/org';
 }

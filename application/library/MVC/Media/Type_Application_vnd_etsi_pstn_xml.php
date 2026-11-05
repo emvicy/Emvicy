@@ -16,7 +16,7 @@ class Type_Application_vnd_etsi_pstn_xml
     use TraitMediaType;
 
     /**
-     * @reference [Jiwan_Han][Thomas_Belling]
+     * @reference [Jiwan_Han]; [Thomas_Belling]
      */
     const DESCRIPTION = 'application/vnd.etsi.pstn+xml';
 }

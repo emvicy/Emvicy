@@ -16,7 +16,7 @@ class Type_Text_csv
     use TraitMediaType;
 
     /**
-     * @reference [RFC 4180][RFC 7111]
+     * @reference [RFC 4180]; [RFC 7111]
      */
     const DESCRIPTION = 'text/csv';
 }

@@ -16,7 +16,7 @@ class Type_Audio_EVS
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Kyunghun_Jung]
+     * @reference [_3GPP]; [Kyunghun_Jung]
      */
     const DESCRIPTION = 'audio/EVS';
 }

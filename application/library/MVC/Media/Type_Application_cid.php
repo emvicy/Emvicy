@@ -16,7 +16,7 @@ class Type_Application_cid
     use TraitMediaType;
 
     /**
-     * @reference [W3C_Verifiable_Credentials_WG][Michael_B_Jones]
+     * @reference [W3C_Verifiable_Credentials_WG]; [Michael_B_Jones]
      */
     const DESCRIPTION = 'application/cid';
 }

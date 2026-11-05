@@ -16,7 +16,7 @@ class Type_Application_manifest_json
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Marcos_Caceres]
+     * @reference [W3C]; [Marcos_Caceres]
      */
     const DESCRIPTION = 'application/manifest+json';
 }

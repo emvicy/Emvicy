@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_lpp
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Jones_Lu_Yunjie]
+     * @reference [_3GPP]; [Jones_Lu_Yunjie]
      */
     const DESCRIPTION = 'application/vnd.3gpp.lpp';
 }

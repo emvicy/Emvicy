@@ -16,7 +16,7 @@ class Type_Application_vnd_syncml_dm_xml
     use TraitMediaType;
 
     /**
-     * @reference [Bindu_Rama_Rao][OMA-DM_Work_Group]
+     * @reference [Bindu_Rama_Rao]; [OMA-DM_Work_Group]
      */
     const DESCRIPTION = 'application/vnd.syncml.dm+xml';
 }

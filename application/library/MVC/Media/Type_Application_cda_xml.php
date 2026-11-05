@@ -16,7 +16,7 @@ class Type_Application_cda_xml
     use TraitMediaType;
 
     /**
-     * @reference [HL7][Marc_Duteau]
+     * @reference [HL7]; [Marc_Duteau]
      */
     const DESCRIPTION = 'application/cda+xml';
 }

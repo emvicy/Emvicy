@@ -16,7 +16,7 @@ class Type_Application_vnd_frogans_fnc_OBSOLETE
     use TraitMediaType;
 
     /**
-     * @reference [OP3FT][Alexis_Tamas]
+     * @reference [OP3FT]; [Alexis_Tamas]
 	 * @deprecated OBSOLETE
      */
     const DESCRIPTION = 'application/vnd.frogans.fnc';

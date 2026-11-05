@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_cab_feature_handler_xml
     use TraitMediaType;
 
     /**
-     * @reference [Hao_Wang][OMA]
+     * @reference [Hao_Wang]; [OMA]
      */
     const DESCRIPTION = 'application/vnd.oma.cab-feature-handler+xml';
 }

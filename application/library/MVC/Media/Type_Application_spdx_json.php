@@ -16,7 +16,7 @@ class Type_Application_spdx_json
     use TraitMediaType;
 
     /**
-     * @reference [Linux_Foundation][Rose_Judge]
+     * @reference [Linux_Foundation]; [Rose_Judge]
      */
     const DESCRIPTION = 'application/spdx+json';
 }

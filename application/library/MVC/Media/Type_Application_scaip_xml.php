@@ -16,7 +16,7 @@ class Type_Application_scaip_xml
     use TraitMediaType;
 
     /**
-     * @reference [SIS][Oskar_Jonsson]
+     * @reference [SIS]; [Oskar_Jonsson]
      */
     const DESCRIPTION = 'application/scaip+xml';
 }

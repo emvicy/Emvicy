@@ -14,6 +14,7 @@ lint.sh
 .env
 .test
 *.sql
+.cache
 ._create.php
 .http-status-codes-1.csv
 .ddev
@@ -64,6 +65,7 @@ _phanlistcreate.sh
 _curl.php
 Changelog.md
 gource.sh
+_updateEmvicyLibs.sh
 *.mp4
 #**/*.min.css
 #**/*.min.js

@@ -16,7 +16,7 @@ class Type_Haptics_hmpg
     use TraitMediaType;
 
     /**
-     * @reference [RFC 9695][RFC 9993]
+     * @reference [RFC 9695]; [RFC 9993]
      */
     const DESCRIPTION = 'haptics/hmpg';
 }

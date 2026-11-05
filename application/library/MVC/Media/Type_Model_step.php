@@ -16,7 +16,7 @@ class Type_Model_step
     use TraitMediaType;
 
     /**
-     * @reference [ISO-TC_184-SC_4][Dana_Tripp]
+     * @reference [ISO-TC_184-SC_4]; [Dana_Tripp]
      */
     const DESCRIPTION = 'model/step';
 }

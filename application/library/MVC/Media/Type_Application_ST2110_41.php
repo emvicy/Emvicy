@@ -16,7 +16,7 @@ class Type_Application_ST2110_41
     use TraitMediaType;
 
     /**
-     * @reference [SMPTE][SMPTE_Director_of_Standards_Development]
+     * @reference [SMPTE]; [SMPTE_Director_of_Standards_Development]
      */
     const DESCRIPTION = 'application/ST2110-41';
 }

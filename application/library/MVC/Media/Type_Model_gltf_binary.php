@@ -16,7 +16,7 @@ class Type_Model_gltf_binary
     use TraitMediaType;
 
     /**
-     * @reference [Khronos][Saurabh_Bhatia]
+     * @reference [Khronos]; [Saurabh_Bhatia]
      */
     const DESCRIPTION = 'model/gltf-binary';
 }

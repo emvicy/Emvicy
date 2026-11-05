@@ -16,7 +16,7 @@ class Type_Application_sep_exi
     use TraitMediaType;
 
     /**
-     * @reference [Robby_Simpson][IEEE]
+     * @reference [Robby_Simpson]; [IEEE]
      */
     const DESCRIPTION = 'application/sep-exi';
 }

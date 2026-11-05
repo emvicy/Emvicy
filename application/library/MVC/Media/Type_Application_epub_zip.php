@@ -16,7 +16,7 @@ class Type_Application_epub_zip
     use TraitMediaType;
 
     /**
-     * @reference [W3C][EPUB_3_WG]
+     * @reference [W3C]; [EPUB_3_WG]
      */
     const DESCRIPTION = 'application/epub+zip';
 }

@@ -16,7 +16,7 @@ class Type_Application_oebps_package_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][EPUB_3_WG]
+     * @reference [W3C]; [EPUB_3_WG]
      */
     const DESCRIPTION = 'application/oebps-package+xml';
 }

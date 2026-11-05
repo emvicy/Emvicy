@@ -16,7 +16,7 @@ class Type_Audio_sofa
     use TraitMediaType;
 
     /**
-     * @reference [AES][Piotr_Majdak]
+     * @reference [AES]; [Piotr_Majdak]
      */
     const DESCRIPTION = 'audio/sofa';
 }

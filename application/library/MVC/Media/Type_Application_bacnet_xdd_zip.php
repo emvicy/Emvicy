@@ -16,7 +16,7 @@ class Type_Application_bacnet_xdd_zip
     use TraitMediaType;
 
     /**
-     * @reference [ASHRAE][Dave_Robin]
+     * @reference [ASHRAE]; [Dave_Robin]
      */
     const DESCRIPTION = 'application/bacnet-xdd+zip';
 }

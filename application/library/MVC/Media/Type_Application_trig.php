@@ -16,7 +16,7 @@ class Type_Application_trig
     use TraitMediaType;
 
     /**
-     * @reference [W3C][W3C_RDF_WG]
+     * @reference [W3C]; [W3C_RDF_WG]
      */
     const DESCRIPTION = 'application/trig';
 }

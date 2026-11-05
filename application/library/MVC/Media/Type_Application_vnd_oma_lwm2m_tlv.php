@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_lwm2m_tlv
     use TraitMediaType;
 
     /**
-     * @reference [Open_Mobile_Naming_Authority][John_Mudge]
+     * @reference [Open_Mobile_Naming_Authority]; [John_Mudge]
      */
     const DESCRIPTION = 'application/vnd.oma.lwm2m+tlv';
 }

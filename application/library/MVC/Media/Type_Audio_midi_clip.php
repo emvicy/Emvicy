@@ -16,7 +16,7 @@ class Type_Audio_midi_clip
     use TraitMediaType;
 
     /**
-     * @reference [MIDI_Association][Benjamin_Israel]
+     * @reference [MIDI_Association]; [Benjamin_Israel]
      */
     const DESCRIPTION = 'audio/midi-clip';
 }

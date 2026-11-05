@@ -16,7 +16,7 @@ class Type_Application_c2pa
     use TraitMediaType;
 
     /**
-     * @reference [C2PA][Leonard_Rosenthol]
+     * @reference [C2PA]; [Leonard_Rosenthol]
      */
     const DESCRIPTION = 'application/c2pa';
 }

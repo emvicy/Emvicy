@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_xcap_directory_xml
     use TraitMediaType;
 
     /**
-     * @reference [Sean_Kelley][OMA_Presence_and_Availability_PAG_WG]
+     * @reference [Sean_Kelley]; [OMA_Presence_and_Availability_PAG_WG]
      */
     const DESCRIPTION = 'application/vnd.oma.xcap-directory+xml';
 }

@@ -16,7 +16,7 @@ class Type_Application_vnd_software602_filler_form_xml_zip
     use TraitMediaType;
 
     /**
-     * @reference [Jakub_Hytka][Martin_Vondrous]
+     * @reference [Jakub_Hytka]; [Martin_Vondrous]
      */
     const DESCRIPTION = 'application/vnd.software602.filler.form-xml-zip';
 }

@@ -16,7 +16,7 @@ class Type_Text_vtt
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Silvia_Pfeiffer]
+     * @reference [W3C]; [Silvia_Pfeiffer]
      */
     const DESCRIPTION = 'text/vtt';
 }

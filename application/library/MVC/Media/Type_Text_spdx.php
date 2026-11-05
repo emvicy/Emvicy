@@ -16,7 +16,7 @@ class Type_Text_spdx
     use TraitMediaType;
 
     /**
-     * @reference [Linux_Foundation][Rose_Judge]
+     * @reference [Linux_Foundation]; [Rose_Judge]
      */
     const DESCRIPTION = 'text/spdx';
 }

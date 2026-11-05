@@ -16,7 +16,7 @@ class Type_Text_css
     use TraitMediaType;
 
     /**
-     * @reference [W3C][https://www.w3.org/TR/css]
+     * @reference [W3C]; [https://www.w3.org/TR/css]
      */
     const DESCRIPTION = 'text/css';
 }

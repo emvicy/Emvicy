@@ -16,7 +16,7 @@ class Type_Image_aces
     use TraitMediaType;
 
     /**
-     * @reference [SMPTE][Howard_Lukk]
+     * @reference [SMPTE]; [Howard_Lukk]
      */
     const DESCRIPTION = 'image/aces';
 }

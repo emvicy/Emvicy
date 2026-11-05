@@ -16,7 +16,7 @@ class Type_Application_xliff_xml
     use TraitMediaType;
 
     /**
-     * @reference [OASIS][Chet_Ensign]
+     * @reference [OASIS]; [Chet_Ensign]
      */
     const DESCRIPTION = 'application/xliff+xml';
 }

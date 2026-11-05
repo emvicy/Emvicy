@@ -16,7 +16,7 @@ class Type_Model_mtl
     use TraitMediaType;
 
     /**
-     * @reference [DICOM_Standard_Committee][DICOM_WG_17][Carolyn_Hull]
+     * @reference [DICOM_Standard_Committee]; [DICOM_WG_17]; [Carolyn_Hull]
      */
     const DESCRIPTION = 'model/mtl';
 }

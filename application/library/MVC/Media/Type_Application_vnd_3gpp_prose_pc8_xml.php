@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_prose_pc8_xml
     use TraitMediaType;
 
     /**
-     * @reference [Haorui_Yang]
+     * @reference [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp-prose-pc8+xml';
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Type_Message_news_OBSOLETED_by_RFC5537.php
+ * Type_Audio_prs_elupon_eua.php
  * @package Emvicy
  * @copyright ueffing.net
  * @author Guido K.B.W. Üffing <emvicy@ueffing.net>
@@ -11,13 +11,12 @@ namespace MVC\Media;
 
 use MVC\MVCTrait\TraitMediaType;
 
-class Type_Message_news_OBSOLETED_by_RFC5537
+class Type_Audio_prs_elupon_eua
 {
     use TraitMediaType;
 
     /**
-     * @reference [RFC5537][Henry_Spencer]
-	 * @deprecated OBSOLETED by RFC5537
+     * @reference [Artem_Sladkih]
      */
-    const DESCRIPTION = 'message/news';
+    const DESCRIPTION = 'audio/prs.elupon-eua';
 }

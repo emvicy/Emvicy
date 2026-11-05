@@ -16,7 +16,7 @@ class Type_Application_odm_xml
     use TraitMediaType;
 
     /**
-     * @reference [CDISC][Sam_Hume]
+     * @reference [CDISC]; [Sam_Hume]
      */
     const DESCRIPTION = 'application/odm+xml';
 }

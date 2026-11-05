@@ -16,7 +16,7 @@ class Type_Image_apng
     use TraitMediaType;
 
     /**
-     * @reference [W3C][W3C_PNG_WG]
+     * @reference [W3C]; [W3C_PNG_WG]
      */
     const DESCRIPTION = 'image/apng';
 }

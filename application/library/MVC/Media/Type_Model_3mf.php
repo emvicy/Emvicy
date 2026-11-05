@@ -16,7 +16,7 @@ class Type_Model_3mf
     use TraitMediaType;
 
     /**
-     * @reference [http://www.3mf.io/specification][_3MF][Michael_Sweet]
+     * @reference [http://www.3mf.io/specification]; [_3MF]; [Michael_Sweet]
      */
     const DESCRIPTION = 'model/3mf';
 }

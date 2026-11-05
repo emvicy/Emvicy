@@ -16,7 +16,7 @@ class Type_Application_fdf
     use TraitMediaType;
 
     /**
-     * @reference [ISO-TC_171-SC_2][Betsy_Fanning]
+     * @reference [ISO-TC_171-SC_2]; [Betsy_Fanning]
      */
     const DESCRIPTION = 'application/fdf';
 }

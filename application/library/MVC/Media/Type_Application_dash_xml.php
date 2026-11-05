@@ -16,7 +16,7 @@ class Type_Application_dash_xml
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1][Thomas_Stockhammer]
+     * @reference [ISO-IEC_JTC_1]; [Thomas_Stockhammer]
      */
     const DESCRIPTION = 'application/dash+xml';
 }

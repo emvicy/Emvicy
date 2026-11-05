@@ -16,7 +16,7 @@ class Type_Application_roughtime_server_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-ntp-roughtime-19]
+     * @reference [RFC 10049]
      */
     const DESCRIPTION = 'application/roughtime-server+json';
 }

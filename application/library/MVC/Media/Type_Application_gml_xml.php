@@ -16,7 +16,7 @@ class Type_Application_gml_xml
     use TraitMediaType;
 
     /**
-     * @reference [OGC][Clemens_Portele]
+     * @reference [OGC]; [Clemens_Portele]
      */
     const DESCRIPTION = 'application/gml+xml';
 }

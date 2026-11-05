@@ -16,7 +16,7 @@ class Type_Application_geopackage_sqlite3
     use TraitMediaType;
 
     /**
-     * @reference [OGC][Scott_Simmons]
+     * @reference [OGC]; [Scott_Simmons]
      */
     const DESCRIPTION = 'application/geopackage+sqlite3';
 }

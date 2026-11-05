@@ -16,7 +16,7 @@ class Type_Image_hsj2_OBSOLETE
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1][ITU-T]
+     * @reference [ISO-IEC_JTC_1]; [ITU-T]
 	 * @deprecated OBSOLETE
      */
     const DESCRIPTION = 'image/hsj2';

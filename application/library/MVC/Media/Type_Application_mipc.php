@@ -16,7 +16,7 @@ class Type_Application_mipc
     use TraitMediaType;
 
     /**
-     * @reference [NCGIS][Bryan_Blank]
+     * @reference [NCGIS]; [Bryan_Blank]
      */
     const DESCRIPTION = 'application/mipc';
 }

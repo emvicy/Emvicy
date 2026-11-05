@@ -16,7 +16,7 @@ class Type_Audio_usac
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1][Max_Neuendorf]
+     * @reference [ISO-IEC_JTC_1]; [Max_Neuendorf]
      */
     const DESCRIPTION = 'audio/usac';
 }

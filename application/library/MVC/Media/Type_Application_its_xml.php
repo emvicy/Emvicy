@@ -16,7 +16,7 @@ class Type_Application_its_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][ITS-IG-W3C]
+     * @reference [W3C]; [ITS-IG-W3C]
      */
     const DESCRIPTION = 'application/its+xml';
 }

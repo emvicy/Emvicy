@@ -16,7 +16,7 @@ class Type_Application_mathml_content_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][http://www.w3.org/TR/MathML3/appendixb.html]
+     * @reference [W3C]; [http://www.w3.org/TR/MathML3/appendixb.html]
      */
     const DESCRIPTION = 'application/mathml-content+xml';
 }

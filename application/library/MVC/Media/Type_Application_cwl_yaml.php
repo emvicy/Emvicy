@@ -16,7 +16,7 @@ class Type_Application_cwl_yaml
     use TraitMediaType;
 
     /**
-     * @reference [CWL_Project][Michael_R._Crusoe]
+     * @reference [CWL_Project]; [Michael_R._Crusoe]
      */
     const DESCRIPTION = 'application/cwl+yaml';
 }

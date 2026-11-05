@@ -16,7 +16,7 @@ class Type_Application_explicit_registration_response_jwt
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_Artifact_Binding_WG][Michael_B_Jones]
+     * @reference [OpenID_Foundation_Artifact_Binding_WG]; [Michael_B_Jones]
      */
     const DESCRIPTION = 'application/explicit-registration-response+jwt';
 }

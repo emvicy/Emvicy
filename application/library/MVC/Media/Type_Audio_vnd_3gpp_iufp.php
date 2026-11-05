@@ -16,7 +16,7 @@ class Type_Audio_vnd_3gpp_iufp
     use TraitMediaType;
 
     /**
-     * @reference [Thomas_Belling]
+     * @reference [Dongwook_Kim]
      */
     const DESCRIPTION = 'audio/vnd.3gpp.iufp';
 }

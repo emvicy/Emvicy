@@ -16,7 +16,7 @@ class Type_Text_provenance_notation
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Ivan_Herman]
+     * @reference [W3C]; [Ivan_Herman]
      */
     const DESCRIPTION = 'text/provenance-notation';
 }

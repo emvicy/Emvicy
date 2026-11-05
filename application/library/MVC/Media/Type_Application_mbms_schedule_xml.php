@@ -16,7 +16,7 @@ class Type_Application_mbms_schedule_xml
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP][Eric_Turcotte]
+     * @reference [_3GPP]; [Eric_Turcotte]
      */
     const DESCRIPTION = 'application/mbms-schedule+xml';
 }

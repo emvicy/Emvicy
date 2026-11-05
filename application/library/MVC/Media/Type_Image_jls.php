@@ -16,7 +16,7 @@ class Type_Image_jls
     use TraitMediaType;
 
     /**
-     * @reference [DICOM_Standard_Committee][David_Clunie]
+     * @reference [DICOM_Standard_Committee]; [David_Clunie]
      */
     const DESCRIPTION = 'image/jls';
 }

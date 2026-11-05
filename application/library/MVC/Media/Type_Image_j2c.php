@@ -16,7 +16,7 @@ class Type_Image_j2c
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1_SC_29_WG_1][ISO-IEC_JTC_1][ITU-T]
+     * @reference [ISO-IEC_JTC_1_SC_29_WG_1]; [ISO-IEC_JTC_1]; [ITU-T]
      */
     const DESCRIPTION = 'image/j2c';
 }

@@ -16,7 +16,7 @@ class Type_Text_csv_schema
     use TraitMediaType;
 
     /**
-     * @reference [National_Archives_UK][David_Underdown]
+     * @reference [National_Archives_UK]; [David_Underdown]
      */
     const DESCRIPTION = 'text/csv-schema';
 }

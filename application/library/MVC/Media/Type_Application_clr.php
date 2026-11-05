@@ -16,7 +16,7 @@ class Type_Application_clr
     use TraitMediaType;
 
     /**
-     * @reference [IMS_Global][Andy_Miller]
+     * @reference [IMS_Global]; [Andy_Miller]
      */
     const DESCRIPTION = 'application/clr';
 }

@@ -16,7 +16,7 @@ class Type_Application_xenc_xml
     use TraitMediaType;
 
     /**
-     * @reference [Joseph_Reagle][XENC_WG]
+     * @reference [Joseph_Reagle]; [XENC_WG]
      */
     const DESCRIPTION = 'application/xenc+xml';
 }

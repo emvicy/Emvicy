@@ -16,7 +16,7 @@ class Type_Application_vnd_efi_iso
     use TraitMediaType;
 
     /**
-     * @reference [UEFI_Forum][Fu_Siyuan]
+     * @reference [UEFI_Forum]; [Fu_Siyuan]
      */
     const DESCRIPTION = 'application/vnd.efi.iso';
 }

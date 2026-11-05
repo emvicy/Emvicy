@@ -16,7 +16,7 @@ class Type_Application_provided_claims_jwt
     use TraitMediaType;
 
     /**
-     * @reference [OpenID_Foundation_eKYC_and_IDA_WG][Daniel_Fett]
+     * @reference [OpenID_Foundation_eKYC_and_IDA_WG]; [Daniel_Fett]
      */
     const DESCRIPTION = 'application/provided-claims+jwt';
 }

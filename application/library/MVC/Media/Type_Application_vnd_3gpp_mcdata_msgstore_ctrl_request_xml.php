@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_mcdata_msgstore_ctrl_request_xml
     use TraitMediaType;
 
     /**
-     * @reference [Kiran_Kapale]
+     * @reference [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp.mcdata-msgstore-ctrl-request+xml';
 }

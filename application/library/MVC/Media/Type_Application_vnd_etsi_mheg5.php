@@ -16,7 +16,7 @@ class Type_Application_vnd_etsi_mheg5
     use TraitMediaType;
 
     /**
-     * @reference [Miguel_Angel_Reina_Ortega][Ian_Medland]
+     * @reference [Miguel_Angel_Reina_Ortega]; [Ian_Medland]
      */
     const DESCRIPTION = 'application/vnd.etsi.mheg5';
 }

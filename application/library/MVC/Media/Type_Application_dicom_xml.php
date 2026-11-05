@@ -16,7 +16,7 @@ class Type_Application_dicom_xml
     use TraitMediaType;
 
     /**
-     * @reference [DICOM_Standard_Committee][David_Clunie]
+     * @reference [DICOM_Standard_Committee]; [David_Clunie]
      */
     const DESCRIPTION = 'application/dicom+xml';
 }

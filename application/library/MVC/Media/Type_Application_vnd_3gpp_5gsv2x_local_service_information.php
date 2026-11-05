@@ -16,7 +16,7 @@ class Type_Application_vnd_3gpp_5gsv2x_local_service_information
     use TraitMediaType;
 
     /**
-     * @reference [_3GPP_CT1][Dongwook_Kim]
+     * @reference [_3GPP_CT1]; [Dongwook_Kim]
      */
     const DESCRIPTION = 'application/vnd.3gpp.5gsv2x-local-service-information';
 }

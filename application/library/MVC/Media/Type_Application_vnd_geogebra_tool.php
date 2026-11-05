@@ -16,7 +16,7 @@ class Type_Application_vnd_geogebra_tool
     use TraitMediaType;
 
     /**
-     * @reference [GeoGebra][Yves_Kreis]
+     * @reference [GeoGebra]; [Yves_Kreis]
      */
     const DESCRIPTION = 'application/vnd.geogebra.tool';
 }

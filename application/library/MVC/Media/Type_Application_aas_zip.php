@@ -16,7 +16,7 @@ class Type_Application_aas_zip
     use TraitMediaType;
 
     /**
-     * @reference [Industrial_Digital_Twin_Association][Sandeep_Rudra]
+     * @reference [Industrial_Digital_Twin_Association]; [Sandeep_Rudra]
      */
     const DESCRIPTION = 'application/aas+zip';
 }

@@ -16,7 +16,7 @@ class Type_Application_td_json
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Matthias_Kovatsch]
+     * @reference [W3C]; [Matthias_Kovatsch]
      */
     const DESCRIPTION = 'application/td+json';
 }

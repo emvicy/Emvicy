@@ -16,7 +16,7 @@ class Type_Message_news_OBSOLETED_by_RFC_5537
     use TraitMediaType;
 
     /**
-     * @reference [RFC 5537][Henry_Spencer]
+     * @reference [RFC 5537]; [Henry_Spencer]
 	 * @deprecated OBSOLETED by RFC 5537
      */
     const DESCRIPTION = 'message/news';

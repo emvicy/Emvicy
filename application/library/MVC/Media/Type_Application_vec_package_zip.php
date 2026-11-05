@@ -16,7 +16,7 @@ class Type_Application_vec_package_zip
     use TraitMediaType;
 
     /**
-     * @reference [prostep_ivip][Nora_Tazir]
+     * @reference [prostep_ivip]; [Nora_Tazir]
      */
     const DESCRIPTION = 'application/vec-package+zip';
 }

@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_dcd
     use TraitMediaType;
 
     /**
-     * @reference [Avi_Primo][Open_Mobile_Naming_Authority]
+     * @reference [Avi_Primo]; [Open_Mobile_Naming_Authority]
      */
     const DESCRIPTION = 'application/vnd.oma.dcd';
 }

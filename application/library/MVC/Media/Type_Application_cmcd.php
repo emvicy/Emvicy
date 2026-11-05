@@ -16,7 +16,7 @@ class Type_Application_cmcd
     use TraitMediaType;
 
     /**
-     * @reference [CTA][Alexandra_Blasgen]
+     * @reference [CTA]; [Alexandra_Blasgen]
      */
     const DESCRIPTION = 'application/cmcd';
 }

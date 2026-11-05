@@ -16,7 +16,7 @@ class Type_Image_jaii
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1_SC_29_WG_1][Ye-Kui_Wang]
+     * @reference [ISO-IEC_JTC_1_SC_29_WG_1]; [Ye-Kui_Wang]
      */
     const DESCRIPTION = 'image/jaii';
 }

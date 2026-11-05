@@ -16,7 +16,7 @@ class Type_Video_vnd_dvb_file
     use TraitMediaType;
 
     /**
-     * @reference [Peter_Siebert][Kevin_Murray]
+     * @reference [Peter_Siebert]; [Kevin_Murray]
      */
     const DESCRIPTION = 'video/vnd.dvb.file';
 }

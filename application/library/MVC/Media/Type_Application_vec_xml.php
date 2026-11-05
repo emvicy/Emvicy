@@ -16,7 +16,7 @@ class Type_Application_vec_xml
     use TraitMediaType;
 
     /**
-     * @reference [prostep_ivip][Nora_Tazir]
+     * @reference [prostep_ivip]; [Nora_Tazir]
      */
     const DESCRIPTION = 'application/vec+xml';
 }

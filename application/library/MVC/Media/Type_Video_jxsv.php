@@ -16,7 +16,7 @@ class Type_Video_jxsv
     use TraitMediaType;
 
     /**
-     * @reference [RFC 9134]
+     * @reference [RFC-ietf-avtcore-rtp-jpegxs-3ed-08]
      */
     const DESCRIPTION = 'video/jxsv';
 }

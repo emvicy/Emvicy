@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_scidm_messages_xml
     use TraitMediaType;
 
     /**
-     * @reference [Wenjun_Zeng][Open_Mobile_Naming_Authority]
+     * @reference [Wenjun_Zeng]; [Open_Mobile_Naming_Authority]
      */
     const DESCRIPTION = 'application/vnd.oma.scidm.messages+xml';
 }

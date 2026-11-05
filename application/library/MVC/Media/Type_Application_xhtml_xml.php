@@ -16,7 +16,7 @@ class Type_Application_xhtml_xml
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Robin_Berjon]
+     * @reference [W3C]; [Robin_Berjon]
      */
     const DESCRIPTION = 'application/xhtml+xml';
 }

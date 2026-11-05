@@ -16,7 +16,7 @@ class Type_Application_n_quads
     use TraitMediaType;
 
     /**
-     * @reference [W3C][Eric_Prudhommeaux]
+     * @reference [W3C]; [Eric_Prudhommeaux]
      */
     const DESCRIPTION = 'application/n-quads';
 }

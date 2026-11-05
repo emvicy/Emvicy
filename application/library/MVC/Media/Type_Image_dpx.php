@@ -16,7 +16,7 @@ class Type_Image_dpx
     use TraitMediaType;
 
     /**
-     * @reference [SMPTE][SMPTE_Director_of_Standards_Development]
+     * @reference [SMPTE]; [SMPTE_Director_of_Standards_Development]
      */
     const DESCRIPTION = 'image/dpx';
 }

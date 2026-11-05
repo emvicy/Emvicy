@@ -16,7 +16,7 @@ class Type_Audio_mhas
     use TraitMediaType;
 
     /**
-     * @reference [ISO-IEC_JTC_1][Nils_Peters][Ingo_Hofmann]
+     * @reference [ISO-IEC_JTC_1]; [Nils_Peters]; [Ingo_Hofmann]
      */
     const DESCRIPTION = 'audio/mhas';
 }

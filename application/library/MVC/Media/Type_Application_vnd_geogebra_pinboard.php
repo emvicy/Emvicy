@@ -16,7 +16,7 @@ class Type_Application_vnd_geogebra_pinboard
     use TraitMediaType;
 
     /**
-     * @reference [GeoGebra][Michael_Borcherds]
+     * @reference [GeoGebra]; [Michael_Borcherds]
      */
     const DESCRIPTION = 'application/vnd.geogebra.pinboard';
 }

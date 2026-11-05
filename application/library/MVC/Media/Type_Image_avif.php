@@ -16,7 +16,7 @@ class Type_Image_avif
     use TraitMediaType;
 
     /**
-     * @reference [Alliance_for_Open_Media][Cyril_Concolato]
+     * @reference [Alliance_for_Open_Media]; [Cyril_Concolato]
      */
     const DESCRIPTION = 'image/avif';
 }

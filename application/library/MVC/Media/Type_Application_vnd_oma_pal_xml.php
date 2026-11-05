@@ -16,7 +16,7 @@ class Type_Application_vnd_oma_pal_xml
     use TraitMediaType;
 
     /**
-     * @reference [Brian_McColgan][Open_Mobile_Naming_Authority]
+     * @reference [Brian_McColgan]; [Open_Mobile_Naming_Authority]
      */
     const DESCRIPTION = 'application/vnd.oma.pal+xml';
 }

@@ -16,7 +16,7 @@ class Type_Model_u3d
     use TraitMediaType;
 
     /**
-     * @reference [PDF_Association][Peter_Wyatt]
+     * @reference [PDF_Association]; [Peter_Wyatt]
      */
     const DESCRIPTION = 'model/u3d';
 }

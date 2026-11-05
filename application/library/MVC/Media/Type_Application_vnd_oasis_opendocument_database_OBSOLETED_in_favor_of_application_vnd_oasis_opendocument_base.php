@@ -16,7 +16,7 @@ class Type_Application_vnd_oasis_opendocument_database_OBSOLETED_in_favor_of_app
     use TraitMediaType;
 
     /**
-     * @reference [OASIS_TC_Admin][OASIS]
+     * @reference [OASIS_TC_Admin]; [OASIS]
 	 * @deprecated OBSOLETED in favor of application/vndoasisopendocumentbase
      */
     const DESCRIPTION = 'application/vnd.oasis.opendocument.database';
