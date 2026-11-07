@@ -16,7 +16,7 @@ class Type_Application_voucher_cms_json
     use TraitMediaType;
 
     /**
-     * @reference [RFC 8366]
+     * @reference [RFC-ietf-anima-rfc8366bis-39]
      */
     const DESCRIPTION = 'application/voucher-cms+json';
 }
