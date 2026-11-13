@@ -49,7 +49,10 @@ class Xml
 
             if ($oSimpleXmlElement instanceof \SimpleXMLElement)
             {
-                return self::decode($oSimpleXmlElement);
+                $mResult = self::decode($oSimpleXmlElement);
+                (true === is_string($mResult)) ? $mResult = trim($mResult) : false;
+
+                return (true === empty($mResult)) ? array() : $mResult;
             }
         }
 
