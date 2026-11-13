@@ -57,6 +57,21 @@ class Xml
     }
 
     /**
+     * @param string $sXml
+     * @return string
+     * @throws \DOMException
+     */
+    public static function beautify(string $sXml)
+    {
+        $oDOMDocument = new \DOMDocument();
+        $oDOMDocument->preserveWhiteSpace = false;
+        $oDOMDocument->formatOutput = true;
+        $oDOMDocument->loadXML(trim($sXml));
+
+        return (string) $oDOMDocument->saveXml();
+    }
+
+    /**
      * @credits taken from https://stackoverflow.com/a/72917254,
      *          author https://stackoverflow.com/users/14051509/covaleski
      *          (slightly refactored by https://github.com/gueff)
