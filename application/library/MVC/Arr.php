@@ -73,24 +73,24 @@ class Arr
     /**
      * changes case keys in a multidimensional array
      * @param array $aData
-     * @param int   $iCase default=CASE_LOWER; use CASE_LOWER|CASE_UPPER;
+     * @param int   $iKeyCase default=CASE_LOWER; use CASE_LOWER|CASE_UPPER;
      * @return array|array[]
      */
-    public static function changeKeyCase(array $aData = array(), int $iCase = CASE_LOWER)
+    public static function changeKeyCase(array $aData = array(), int $iKeyCase = CASE_LOWER)
     {
-        $iCase = (abs($iCase) > CASE_UPPER) ? CASE_UPPER : CASE_LOWER;
+        $iKeyCase = (abs($iKeyCase) >= CASE_UPPER) ? CASE_UPPER : CASE_LOWER;
 
         return array_map(
-            function($mItem) use ($iCase) {
+            function($mItem) use ($iKeyCase) {
 
                 if (true === is_array($mItem))
                 {
-                    $mItem = self::changeKeyCase($mItem, $iCase);
+                    $mItem = self::changeKeyCase($mItem, $iKeyCase);
                 }
 
                 return $mItem;
             },
-            array_change_key_case($aData, $iCase)
+            array_change_key_case($aData, $iKeyCase)
         );
     }
 }
