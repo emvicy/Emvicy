@@ -11,8 +11,6 @@
 namespace MVC;
 
 
-use function Foo\Controller\xml2array;
-
 class Xml
 {
     /**
@@ -37,29 +35,39 @@ class Xml
     }
 
     /**
-     * @param string $sXml
+     * converts an XML String in to an assoc array
+     * @param string   $sXml
+     * @param int|null $iKeyCase default=null (unchanged); use CASE_LOWER|CASE_UPPER
      * @return array
-     * @throws \ReflectionException
      */
-    public static function toArray(string $sXml = ''): array
+    public static function toArray(string $sXml = '', ?int $iKeyCase = null): array
     {
-        if (true === self::isValid($sXml))
+        $oXml = simplexml_load_string(
+            data: $sXml,
+            class_name: "SimpleXMLElement",
+            options: LIBXML_NOCDATA
+        );
+        $sJson = json_encode(value: $oXml);
+        $sJson = str_replace(
+            search: '"@attributes":',
+            replace: '"attributes":',
+            subject: $sJson
+        );
+        $aXml = json_decode(
+            json: $sJson,
+            associative: true
+        );
+
+        if (true === is_int($iKeyCase) && ($iKeyCase === 0 || $iKeyCase === 1))
         {
-            $oSimpleXmlElement = simplexml_load_string($sXml);
-
-            if ($oSimpleXmlElement instanceof \SimpleXMLElement)
-            {
-                $mResult = self::decode($oSimpleXmlElement);
-                (true === is_string($mResult)) ? $mResult = trim($mResult) : false;
-
-                return (true === empty($mResult)) ? array() : $mResult;
-            }
+            $aXml = Arr::changeKeyCaseRecursively($aXml, $iKeyCase);
         }
 
-        return array();
+        return $aXml;
     }
 
     /**
+     * beautifies XML String
      * @param string $sXml
      * @return string
      * @throws \DOMException
@@ -75,80 +83,33 @@ class Xml
     }
 
     /**
-     * @credits taken from https://stackoverflow.com/a/72917254,
-     *          author https://stackoverflow.com/users/14051509/covaleski
-     *          (slightly refactored by https://github.com/gueff)
-     * @param \SimpleXMLElement $oSimpleXMLElement
-     * @param bool              $bAttrKey
-     * @param bool              $bReduce
-     * @param array             $aAlways
-     * @param array             $aValueKey
-     * @return string|array
+     * replaces double colon `:` tags
+     * (e.g. <soap:Header>..</soap:Header>)
+     * and attributes (e.g. `<item xmlns:m="http://www.example.org/stock">..</item>`)
+     * in an xml string
+     * @param string $sXml the XML String
+     * @param bool   $bLeaveDCPre default=false. true: leaves the part before ":" untouched; e.g. "<soap:" will not be replaced
+     * @param string $sReplaceDCBy default=''
+     * @return string
+     * @throws \ReflectionException
      */
-    protected static function decode(\SimpleXMLElement $oSimpleXMLElement, bool $bAttrKey = true, bool $bReduce = true, array $aAlways = array(), array $aValueKey = array()): string|array
+    public static function replaceDC(string $sXml = '', bool $bLeaveDCPre = false, string $sReplaceDCBy = '')
     {
-        $aXml = array();
-        $sXmlName = $oSimpleXMLElement->getName();
-
-        foreach ($oSimpleXMLElement->attributes() as $sKey => $sValue)
+        if (false === self::isValid($sXml))
         {
-            if (true === $bAttrKey)
-            {
-                $aXml['attributes'][strval($sKey)] = strval($sValue);
-            }
-            else
-            {
-                $aXml[strval($sKey)] = strval($sValue);
-            }
+            return $sXml;
         }
 
-        $iChildCount = $oSimpleXMLElement->children()->count();
-
-        if ($iChildCount == 0)
+        // leaves the part before ":" untouched; e.g. "<soap:" will not be replaced
+        if (true === $bLeaveDCPre)
         {
-            if (count($aXml) > 0)
-            {
-                $sKey = $aValueKey[$sXmlName] ?? $aValueKey['*'] ?? "value";
-                $aXml[$sKey] = strval($oSimpleXMLElement);
-            }
-            else
-            {
-                $aXml = strval($oSimpleXMLElement);
-            }
+            $sXml = preg_replace('~(</?|\s)([[:alnum:]]+):~isu', '$1$2' . $sReplaceDCBy, $sXml);
         }
         else
         {
-            $aChildName = array();
-
-            foreach ($oSimpleXMLElement->children() as $oChild)
-            {
-                in_array($oChild->getName(), $aChildName) or $aChildName[] = $oChild->getName();
-            }
-
-            $bReducible = (empty($aXml) && count($aChildName) === 1);
-
-            foreach ($oSimpleXMLElement->children() as $oChild)
-            {
-                $sName = $oChild->getName();
-
-                if ($oSimpleXMLElement->$sName->count() > 1 || in_array($sName, $aAlways))
-                {
-                    if (true === $bReduce && true === $bReducible)
-                    {
-                        $aXml[] = self::decode($oChild, $bAttrKey, $bReduce, $aAlways, $aValueKey);
-                    }
-                    else
-                    {
-                        $aXml[$sName][] = self::decode($oChild, $bAttrKey, $bReduce, $aAlways, $aValueKey);
-                    }
-                }
-                else
-                {
-                    $aXml[$sName] = self::decode($oChild, $bAttrKey, $bReduce, $aAlways, $aValueKey);
-                }
-            }
+            $sXml = preg_replace('~(</?|\s)([[:alnum:]]+):~isu', '$1' . $sReplaceDCBy, $sXml);
         }
 
-        return $aXml;
+        return (string) $sXml;
     }
 }

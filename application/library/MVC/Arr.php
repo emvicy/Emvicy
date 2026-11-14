@@ -59,19 +59,33 @@ class Arr
     }
 
     /**
+     * @deprecated use instead: Arr::changeKeyCase()
      * changes case keys in a multidimensional array
      * @param array $aData
-     * @param       $iCase CASE_LOWER|CASE_UPPER; default=CASE_LOWER
+     * @param       $iCase default=CASE_LOWER; use CASE_LOWER|CASE_UPPER;
      * @return array|array[]
      */
     public static function changeKeyCaseRecursively(array $aData = array(), $iCase = CASE_LOWER)
     {
+        return self::changeKeyCase($aData, $iCase);
+    }
+
+    /**
+     * changes case keys in a multidimensional array
+     * @param array $aData
+     * @param int   $iCase default=CASE_LOWER; use CASE_LOWER|CASE_UPPER;
+     * @return array|array[]
+     */
+    public static function changeKeyCase(array $aData = array(), int $iCase = CASE_LOWER)
+    {
+        $iCase = (abs($iCase) > CASE_UPPER) ? CASE_UPPER : CASE_LOWER;
+
         return array_map(
             function($mItem) use ($iCase) {
 
                 if (true === is_array($mItem))
                 {
-                    $mItem = self::changeKeyCaseRecursively($mItem, $iCase);
+                    $mItem = self::changeKeyCase($mItem, $iCase);
                 }
 
                 return $mItem;
