@@ -71,7 +71,7 @@ class Arr
     }
 
     /**
-     * changes case keys in a multidimensional array
+     * changes case of keys in an array; multidimensional ones as well
      * @param array $aData
      * @param int   $iKeyCase default=CASE_LOWER; use CASE_LOWER|CASE_UPPER;
      * @return array|array[]
