@@ -60,7 +60,7 @@ class Xml
 
         if (true === is_int($iKeyCase) && ($iKeyCase === 0 || $iKeyCase === 1))
         {
-            $aXml = Arr::changeKeyCaseRecursively($aXml, $iKeyCase);
+            $aXml = Arr::changeKeyCase($aXml, $iKeyCase);
         }
 
         return $aXml;
