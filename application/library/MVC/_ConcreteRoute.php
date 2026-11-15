@@ -195,7 +195,7 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
             ->set_tag($sTag)
         ;
 
-        self::$aRoute[$sPath] = $oDTRoute;
+        self::add_Route($oDTRoute);
 
         #--------------------------
 
@@ -600,5 +600,15 @@ class _ConcreteRoute extends MVCAbstract\AbstractRouteConcrete
     public static function set_aMethodRoute(array $aMethodRoute = array())
     {
         self::$aMethodRoute = $aMethodRoute;
+    }
+
+    /**
+     * @param \MVC\DataType\DTRoute $oDTRoute
+     * @return void
+     * @throws \ReflectionException
+     */
+    public static function add_Route(DTRoute $oDTRoute)
+    {
+        self::$aRoute[$oDTRoute->get_path()] = $oDTRoute;
     }
 }

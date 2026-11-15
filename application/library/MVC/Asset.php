@@ -29,13 +29,6 @@ class Asset extends ArrDot
      */
     public static function init(string $sPathAbs = '')
     {
-        // backwards compatibility (prior 2026-04-06); returns first element of array
-        /** @deprecated wil be rmoved in upcoming releases */
-        if (true === empty($sPathAbs))
-        {
-            return array_first(self::$_aInstance);
-        }
-
         if (false === in_array($sPathAbs, self::$_aInstance))
         {
             self::$_aInstance[$sPathAbs] = new self(

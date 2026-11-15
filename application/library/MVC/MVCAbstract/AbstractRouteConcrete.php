@@ -21,20 +21,17 @@ abstract class AbstractRouteConcrete implements InterfaceRoute
     protected static $sRouteClassConcrete = '\MVC\_ConcreteRoute';
 
     /**
-     * @deprecated use getter/setter instead
      * @var DTRoute[]
      */
-    public static array $aRoute = array();
+    protected static array $aRoute = array();
 
     /**
-     * @deprecated use getter/setter instead
      * @var array
      */
-    public static array $aMethod = array();
+    protected static array $aMethod = array();
 
     /**
-     * @deprecated use getter/setter instead
      * @var array
      */
-    public static array $aMethodRoute = array();
+    protected static array $aMethodRoute = array();
 }

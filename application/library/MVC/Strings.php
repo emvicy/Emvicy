@@ -66,17 +66,6 @@ class Strings
     }
 
     /**
-     * @deprecated use instead: \MVC\Strings::parsedown()
-     * converts "markdown" syntax into markup
-     * @param string $sMarkdown
-     * @return string
-     */
-    public static function markdown(string $sMarkdown) : string
-    {
-        return self::parsedown($sMarkdown);
-    }
-
-    /**
      * converts "markdown" syntax into markup
      * @param string $sMarkdown
      * @return string
@@ -325,17 +314,6 @@ class Strings
     }
 
     /**
-     * @deprecated use instead: Xml::isValid()
-     * @param string $sString
-     * @return bool
-     * @throws \ReflectionException
-     */
-    public static function isXml(string $sString = ''): bool
-    {
-        return Xml::isValid($sString);
-    }
-
-    /**
      * cuts off a string at given limit, appends a custom string if string to cut off is longer than limit, can purify
      * broken markup string before return
      * @param string $sString
@@ -521,35 +499,6 @@ class Strings
         $sMarkup.= '</ul>';
 
         return $sMarkup;
-    }
-
-    /**
-     * @deprecated use instead: Strings::random()
-     * creates a password
-     * @param int    $iLength               default=15 (minimum is 4)
-     * @param string $sCharSpecial          default='#*!$.'
-     * @param int    $iMandatoryStringLower amount of mandatory lower strings
-     * @param int    $iMandatoryStringUpper amount of mandatory upper strings
-     * @param int    $iMandatoryInt         amount of mandatory int
-     * @param int    $iMandatorySpecial     amount of mandatory special chars
-     * @param string $sCharLower            default='abcdefghijklmnopqrstuvwxyz'
-     * @param string $sCharUpper            default='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-     * @param string $sCharInt              default='123467890'
-     * @return string
-     */
-    public static function createPassword(
-        int $iLength = 15,
-        string $sCharSpecial = '#*!$.',
-        int $iMandatoryStringLower = 1,
-        int $iMandatoryStringUpper = 1,
-        int $iMandatoryInt = 1,
-        int $iMandatorySpecial = 1,
-        string $sCharLower = 'abcdefghijklmnopqrstuvwxyz',
-        string $sCharUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-        string $sCharInt = '123467890'
-    ) : string
-    {
-        return self::random($iLength, $sCharSpecial, $iMandatoryStringLower, $iMandatoryStringUpper, $iMandatoryInt, $iMandatorySpecial, $sCharLower, $sCharUpper, $sCharInt);
     }
 
     /**

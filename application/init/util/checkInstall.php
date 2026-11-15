@@ -44,6 +44,12 @@ class MyMVCInstaller
      */
 	public function __construct (array $aConfig = array())
 	{
+        // nothing to do
+        if (true === self::checkInstallFileExists())
+        {
+            return;
+        }
+
         $this->_aConfig = $aConfig;
 		$this->setupDirsAndFiles();
 		$this->checkForPHPExtensions();
@@ -114,6 +120,8 @@ class MyMVCInstaller
 
         if (empty($aModule) || empty($aModulePrimary))
         {
+            self::removeCheckinstallFile();
+
             $this->prepareForOutput();
             $this->_text("\n<br><span class='text-info'><b>🛈</b> You need to install at least one Module as primary to be able to work.</span>");
             $this->_text("\n<hr><i><u>Example</u>: create the primary module 'Foo'</i>");
@@ -121,6 +129,8 @@ class MyMVCInstaller
             $this->_text("Afterwards, reload this page");
             exit();
         }
+
+        self::saveCheckinstallFile();
     }
 
     /**
@@ -231,6 +241,16 @@ class MyMVCInstaller
 		(!file_exists ($this->_aConfig['MVC_SMARTY_TEMPLATE_CACHE_DIR'])) ? mkdir ($this->_aConfig['MVC_SMARTY_TEMPLATE_CACHE_DIR']) : false;
 		(!file_exists ($this->_aConfig['MVC_CONFIG_DIR'])) ? mkdir ($this->_aConfig['MVC_CONFIG_DIR']) : false;
 		(!file_exists ($this->_aConfig['MVC_LOG_FILE_DIR'])) ? mkdir ($this->_aConfig['MVC_LOG_FILE_DIR']) : false;
+
+        $aDefaultLogFile = array('default','error','warning','notice','request','cron','event','policy','process','sql');
+
+        foreach ($aDefaultLogFile as $sLogFile)
+        {
+            if (false === file_exists($this->_aConfig['MVC_LOG_FILE_DIR'] . $sLogFile . '.log'))
+            {
+                touch($this->_aConfig['MVC_LOG_FILE_DIR'] . $sLogFile . '.log');
+            }
+        }
 
 		return false;
     }
@@ -517,4 +537,31 @@ class MyMVCInstaller
             echo '<script>text("' . str_replace("\n", '<br>', trim($sText)) . '");</script>';
 		}
 	}
+
+    /**
+     * @return void
+     */
+    private static function saveCheckinstallFile()
+    {
+        touch (realpath(__DIR__) . '/.checkInstall');
+    }
+
+    /**
+     * @return void
+     */
+    private static function removeCheckinstallFile()
+    {
+        if (true === self::checkInstallFileExists())
+        {
+            unlink (realpath(__DIR__) . '/.checkInstall');
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    private static function checkInstallFileExists()
+    {
+        return (true === file_exists(realpath(__DIR__) . '/.checkInstall'));
+    }
 }

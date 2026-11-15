@@ -73,20 +73,6 @@ class DTConfig
         return $oDTValue->get_mValue();
     }
 
-    /**
-     * @deprecated use instead: add_class()
-     * @param \MVC\DataType\DTClass $oDTClass
-     * @return $this
-     * @throws \ReflectionException
-     */
-    public function add_DTClass(\MVC\DataType\DTClass $oDTClass)
-    {
-        $oDTValue = DTValue::create()->set_mValue($oDTClass); \MVC\Event::RUN ('DTConfig.add_DTClass.before', $oDTValue);
-        $this->add_class($oDTValue->get_mValue());
-
-        return $this;
-    }
-
 	/**
 	 * @param string $mValue 
 	 * @return $this

@@ -59,18 +59,6 @@ class Arr
     }
 
     /**
-     * @deprecated use instead: Arr::changeKeyCase()
-     * changes case keys in a multidimensional array
-     * @param array $aData
-     * @param       $iCase default=CASE_LOWER; use CASE_LOWER|CASE_UPPER;
-     * @return array|array[]
-     */
-    public static function changeKeyCaseRecursively(array $aData = array(), $iCase = CASE_LOWER)
-    {
-        return self::changeKeyCase($aData, $iCase);
-    }
-
-    /**
      * changes case of keys in an array; multidimensional ones as well
      * @param array $aData
      * @param int   $iKeyCase default=CASE_LOWER; use CASE_LOWER|CASE_UPPER;

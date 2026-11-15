@@ -43,17 +43,6 @@ class Process
     }
 
     /**
-     * @deprecated
-     * @param string $sRoute
-     * @return void
-     * @throws \ReflectionException
-     */
-    public static function callRouteAsync(string $sRoute = ''): void
-    {
-        self::callRoute($sRoute);
-    }
-
-    /**
      * @param string $sRoute Route (path)
      * @return int PID
      * @throws \ReflectionException
