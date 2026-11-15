@@ -25,7 +25,7 @@ class Route extends AbstractRouteConcrete
         Event::run('mvc.route.init.before');
 
         #---------------------------------------------------------------------------------------------------------------
-//        // TableRouteObject
+        // TableRouteObject
 //        $sDbCollectionClass = $GLOBALS['aConfig']['MVC_MODULE_PRIMARY_NAME'] . '\Model\DB\Collection\DB';
 //        /** @var \RouteDB\Model\DB\Table\Route $oRouteDBModelDBTableRoute */
 //        $oRouteDBModelDBTableRoute = $sDbCollectionClass::use()->oRouteDBModelDBTableRoute;
