@@ -12,8 +12,7 @@ lint.sh
 .bak
 .trash
 .env
-.test
-*.sql
+.test*.sql
 .cache
 ._create.php
 .http-status-codes-1.csv
@@ -69,3 +68,4 @@ _updateEmvicyLibs.sh
 *.mp4
 #**/*.min.css
 #**/*.min.js
+.checkInstall
