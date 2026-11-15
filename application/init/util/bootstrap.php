@@ -48,7 +48,10 @@ MVC_INSTALL: {
 
     // check install status.
     // if necessary, auto create folders, run composer, install required libraries
-    require_once __DIR__ . '/checkInstall.php';
+    if (false === file_exists(realpath(__DIR__) . '/.checkInstall'))
+    {
+        require_once __DIR__ . '/checkInstall.php';
+    }
 }
 
 MVC_AUTOLOADING: {
