@@ -16,7 +16,7 @@ class Type_Application_client_authentication_jwt
     use TraitMediaType;
 
     /**
-     * @reference [RFC-ietf-oauth-rfc7523bis-11]
+     * @reference [RFC 10070]
      */
     const DESCRIPTION = 'application/client-authentication+jwt';
 }
