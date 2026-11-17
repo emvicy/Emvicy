@@ -18,7 +18,7 @@
                 </h1>
                 <p class="fs-4">
                     {* @see https://fontawesome.com/icons/php?f=brands&s=solid *}
-                    done by <img src="/favicon-32x32.png" style="border: none;margin-top: 5px;margin-right: 2px;"><b>Emvicy</b>, PHP <i class="fa-brands fa-php"></i> MVC Framework
+                    done by <img src="/favicon-32x32.png" style="border: none;margin-top: 5px;margin-right: 2px;"><b>Emvicy {getenv('Emvicy')}</b>, PHP <i class="fa-brands fa-php"></i> MVC Framework
                     <br>
                 </p>
                 <p>
