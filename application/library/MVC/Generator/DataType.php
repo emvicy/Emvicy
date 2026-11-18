@@ -179,7 +179,7 @@ class DataType
                 }
             }
 
-            $oDTDataTypeGeneratorConfig->add_DTClass($oDTDataTypeGeneratorClass);
+            $oDTDataTypeGeneratorConfig->add_class($oDTDataTypeGeneratorClass);
         }
 
         return $oDTDataTypeGeneratorConfig;
