@@ -76,7 +76,7 @@ class Route extends AbstractRouteConcrete
     {
         foreach ($aMethod as $sMethod)
         {
-            self::$sRouteClassConcrete::add(strtoupper($sMethod), $sPath, $sClassMethod, $mOptional, $sTag);
+            self::$sRouteClassConcrete::add(strtoupper($sMethod), $sPath, $sClassMethod, $mOptional, strtolower($sMethod) . '-' . $sTag);
         }
     }
 
