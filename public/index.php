@@ -9,7 +9,3 @@
 define('MVC_START_MICROTIME', microtime(true));
 require '../application/init/util/bootstrap.php';
 new \MVC\Application();
-
-//display(
-//    round((microtime(true) - MVC_START_MICROTIME), 3)
-//);
