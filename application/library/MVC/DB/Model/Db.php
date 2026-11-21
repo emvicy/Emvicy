@@ -164,7 +164,7 @@ class Db
 
         if ($this->sCacheValueTableName !== Cache::getCache($this->sCacheKeyTableName))
         {
-            (false === filter_var($this->exists ($this->sTableName), FILTER_VALIDATE_BOOLEAN))
+            (false === filter_var($this->tableExists ($this->sTableName), FILTER_VALIDATE_BOOLEAN))
                 ? $this->createTable($this->sTableName, $aFields, $aAlterTable)
                 : false;
 
@@ -446,11 +446,40 @@ class Db
     }
 
     /**
+     * @param string $sDatabase
+     * @param array  $aConfig
+     * @return bool
+     * @throws \ReflectionException
+     */
+    public static function databaseExists(string $sDatabase = '', array $aConfig = []) : bool
+    {
+        (true === empty($aConfig))
+            ? $aConfig = DbCollection::getConfig()
+            : false
+        ;
+        $bExists = false;
+        $oMysqli = new \mysqli($aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
+        $oMysqliStmt = $oMysqli->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?");
+        $oMysqliStmt->bind_param('s', $sDatabase);
+        $oMysqliStmt->execute();
+        $oResult = $oMysqliStmt->get_result();
+
+        if ($oResult->num_rows > 0)
+        {
+            $bExists = true;
+        }
+
+        $oMysqliStmt->close();
+
+        return $bExists;
+    }
+
+    /**
      * @param string $sTable
      * @return bool
      * @throws \ReflectionException
      */
-    public function exists(string $sTable = '') : bool
+    public function tableExists(string $sTable = '') : bool
     {
         if (true === empty($sTable))
         {
