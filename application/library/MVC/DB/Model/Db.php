@@ -496,10 +496,7 @@ class Db
         {
             $oPDO = new \PDO($aConfig['db']['type'] . ':' . 'host=' . $aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
             $oPDO->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            $oStmt = $oPDO->prepare("CREATE DATABASE = :dbname");
-            $oStmt->bindValue(':dbname', $aConfig['db']['dbname'], \PDO::PARAM_STR);
-            $oStmt->execute();
-            $oStmt->closeCursor();
+            $oPDO->exec(sprintf("CREATE DATABASE `%s`", $aConfig['db']['dbname']));
             $bCreated = true;
         }
         catch(\PDOException $oPDOException)
