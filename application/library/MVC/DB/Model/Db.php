@@ -446,6 +446,7 @@ class Db
     }
 
     /**
+     * @usage \MVC\DB\Model\Db::databaseExists()
      * @param string $sDatabase
      * @param array  $aConfig
      * @return bool
@@ -458,30 +459,26 @@ class Db
             : false
         ;
         $bExists = false;
-        $oMysqli = new \mysqli($aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
 
-        if ($oMysqli->connect_error)
+        try
         {
-            Error::error($oMysqli->connect_error);
-            die('Connection failed: ' . $oMysqli->connect_error);
+            $oPDO = new \PDO($aConfig['db']['type'] . ':' . 'host=' . $aConfig['db']['host'] . ';', $aConfig['db']['username'], $aConfig['db']['password']);
+            $oPDO->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $oStmt = $oPDO->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = :dbname");
+            $oStmt->bindValue(':dbname', $aConfig['db']['dbname'], \PDO::PARAM_STR);
+            $bExists = (true === $oStmt->execute() && $oStmt->rowCount() > 0);
+            $oStmt->closeCursor();
         }
-
-        $oMysqliStmt = $oMysqli->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?");
-        $oMysqliStmt->bind_param('s', $aConfig['db']['dbname']);
-        $oMysqliStmt->execute();
-        $oResult = $oMysqliStmt->get_result();
-
-        if ((false === (false === $oResult)) && $oResult->num_rows > 0)
+        catch(\PDOException $oPDOException)
         {
-            $bExists = true;
+            Error::error($oPDOException->getMessage());
         }
-
-        $oMysqliStmt->close();
 
         return $bExists;
     }
 
     /**
+     * \MVC\DB\Model\Db::createDatabase()
      * @param string $sDatabase
      * @param array  $aConfig
      * @return bool success
@@ -494,27 +491,21 @@ class Db
             : false
         ;
         $bCreated = false;
-        $oMysqli = new \mysqli($aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
 
-        if ($oMysqli->connect_error)
+        try
         {
-            Error::error($oMysqli->connect_error);
-
-            return $bCreated;
-        }
-
-        $mResult = $oMysqli->query("CREATE DATABASE " . $aConfig['db']['dbname']);
-
-        if (true === $mResult)
-        {
+            $oPDO = new \PDO($aConfig['db']['type'] . ':' . 'host=' . $aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
+            $oPDO->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            $oStmt = $oPDO->prepare("CREATE DATABASE = :dbname");
+            $oStmt->bindValue(':dbname', $aConfig['db']['dbname'], \PDO::PARAM_STR);
+            $oStmt->execute();
+            $oStmt->closeCursor();
             $bCreated = true;
         }
-        else
+        catch(\PDOException $oPDOException)
         {
-            Error::error('creation of database failed: ' . $aConfig['db']['dbname']);
+            Error::error($oPDOException->getMessage());
         }
-
-        $oMysqli->close();
 
         return $bCreated;
     }
