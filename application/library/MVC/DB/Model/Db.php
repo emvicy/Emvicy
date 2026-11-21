@@ -451,7 +451,7 @@ class Db
      * @return bool
      * @throws \ReflectionException
      */
-    public static function databaseExists(string $sDatabase = '', array $aConfig = []) : bool
+    public static function databaseExists(array $aConfig = []) : bool
     {
         (true === empty($aConfig))
             ? $aConfig = DbCollection::getConfig()
@@ -459,12 +459,19 @@ class Db
         ;
         $bExists = false;
         $oMysqli = new \mysqli($aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
+
+        if ($oMysqli->connect_error)
+        {
+            Error::error($oMysqli->connect_error);
+            die('Connection failed: ' . $oMysqli->connect_error);
+        }
+
         $oMysqliStmt = $oMysqli->prepare("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = ?");
-        $oMysqliStmt->bind_param('s', $sDatabase);
+        $oMysqliStmt->bind_param('s', $aConfig['db']['dbname']);
         $oMysqliStmt->execute();
         $oResult = $oMysqliStmt->get_result();
 
-        if ($oResult->num_rows > 0)
+        if ((false === (false === $oResult)) && $oResult->num_rows > 0)
         {
             $bExists = true;
         }
@@ -472,6 +479,44 @@ class Db
         $oMysqliStmt->close();
 
         return $bExists;
+    }
+
+    /**
+     * @param string $sDatabase
+     * @param array  $aConfig
+     * @return bool success
+     * @throws \ReflectionException
+     */
+    public static function createDatabase(array $aConfig = [])
+    {
+        (true === empty($aConfig))
+            ? $aConfig = DbCollection::getConfig()
+            : false
+        ;
+        $bCreated = false;
+        $oMysqli = new \mysqli($aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
+
+        if ($oMysqli->connect_error)
+        {
+            Error::error($oMysqli->connect_error);
+
+            return $bCreated;
+        }
+
+        $mResult = $oMysqli->query("CREATE DATABASE " . $aConfig['db']['dbname']);
+
+        if (true === $mResult)
+        {
+            $bCreated = true;
+        }
+        else
+        {
+            Error::error('creation of database failed: ' . $aConfig['db']['dbname']);
+        }
+
+        $oMysqli->close();
+
+        return $bCreated;
     }
 
     /**
