@@ -478,7 +478,7 @@ class Db
     }
 
     /**
-     * \MVC\DB\Model\Db::createDatabase()
+     * @usage \MVC\DB\Model\Db::createDatabase()
      * @param string $sDatabase
      * @param array  $aConfig
      * @return bool success
