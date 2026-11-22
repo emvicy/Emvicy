@@ -490,21 +490,48 @@ class Db
             ? $aConfig = DbCollection::getConfig()
             : false
         ;
-        $bCreated = false;
-
         try
         {
             $oPDO = new \PDO($aConfig['db']['type'] . ':' . 'host=' . $aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password']);
             $oPDO->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $oPDO->exec(sprintf("CREATE DATABASE `%s`", $aConfig['db']['dbname']));
-            $bCreated = true;
+
+            return true;
         }
         catch(\PDOException $oPDOException)
         {
             Error::error($oPDOException->getMessage());
         }
 
-        return $bCreated;
+        return false;
+    }
+
+    /**
+     * @param array $aConfig
+     * @return bool connected
+     * @throws \ReflectionException
+     */
+    public static function isConnected(array $aConfig = [])
+    {
+        (true === empty($aConfig))
+            ? $aConfig = DbCollection::getConfig()
+            : false
+        ;
+        try {
+            // Connect to the server without selecting a database
+            new \PDO($aConfig['db']['type'] . ':' . 'host=' . $aConfig['db']['host'], $aConfig['db']['username'], $aConfig['db']['password'], [
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_EMULATE_PREPARES => false
+            ]);
+
+            return true;
+        }
+        catch(\PDOException $oPDOException)
+        {
+            Error::error($oPDOException->getMessage());
+        }
+
+        return false;
     }
 
     /**
