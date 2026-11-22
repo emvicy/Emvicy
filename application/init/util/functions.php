@@ -122,8 +122,9 @@ if (!function_exists('getallheaders'))
 /**
  * reads environment key/values from a given file
  * and stores them via putenv so that they will be accessible via getenv()
+ * returns an array of environment key/values
  * @param string $sEnvFile
- * @return string|void
+ * @return array|void
  */
 function mvcStoreEnv(string $sEnvFile = '')
 {
@@ -168,7 +169,7 @@ function mvcStoreEnv(string $sEnvFile = '')
     $sEnvFile = null;
     unset($sEnvFile);
 
-    return $sContent;
+    return (array) parse_ini_string($sContent);
 }
 
 /**
