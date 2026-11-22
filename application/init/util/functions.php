@@ -123,10 +123,12 @@ if (!function_exists('getallheaders'))
  * reads environment key/values from a given file
  * and stores them via putenv so that they will be accessible via getenv()
  * @param string $sEnvFile
- * @return void
+ * @return string|void
  */
 function mvcStoreEnv(string $sEnvFile = '')
 {
+    $sContent = '';
+
     (true === empty($sEnvFile))
         ? $sEnvFile = realpath(__DIR__ . '/../../../') . '/.env'
         : false
@@ -148,6 +150,7 @@ function mvcStoreEnv(string $sEnvFile = '')
 
             // simply set
             putenv($sLine);
+            $sContent .= $sLine . "\n";
             $sLine = null;
             unset ($sLine);
         }
@@ -164,6 +167,8 @@ function mvcStoreEnv(string $sEnvFile = '')
 
     $sEnvFile = null;
     unset($sEnvFile);
+
+    return $sContent;
 }
 
 /**
