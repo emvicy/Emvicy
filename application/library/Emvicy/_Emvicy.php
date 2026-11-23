@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 mvcStoreEnv(realpath(Config::get_MVC_APPLICATION_PATH() . '/../') . '/.version');
 \MVC\Application::setServerVarsForCli();
-$oSymfonyComponentConsoleApplication = new Application('Emvicy', getenv('Emvicy'));
+$oSymfonyComponentConsoleApplication = new Application('Emvicy ', getenv('Emvicy') . ', PHP ' . phpversion());
 $oSymfonyComponentConsoleApplication->getDefinition()->setOptions();
 
 #---
