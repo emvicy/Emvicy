@@ -878,6 +878,8 @@ class DataType
         }
 
         $sVar = trim(preg_replace("/[^[:alnum:][:space:]_\\\]/ui", '', $oProperty->get_var()));
+        ('null' == $sVar) ? $sVar = '' : false;
+
         $sRight2 = substr($oProperty->get_var(), -2);
         $sContent = '';
         $sNullableBefore = (true === $oProperty->get_nullable()) ? ' (false === is_null($oDTValue->get_mValue())) ? ' : '';
@@ -885,12 +887,10 @@ class DataType
 
         if ('[]' !== $sRight2 && 'array' !== $oProperty->get_var())
         {
-            $sContent.= "\t/**\n" . "\t * @param " . $sVar . (('null' === $oProperty->get_value() || false === $oProperty->get_forceCasting() || true === $oProperty->get_nullable()) ? '|null' : false) .' $mValue ' . "\n" . "\t * @return " . '$this' . "\n" . "\t * @throws \ReflectionException\n" . "\t */" . "\n";
+            $sContent.= "\t/**\n" . "\t * @param " . $sVar . ( (false === empty($sVar) && ('null' === $oProperty->get_value() || false === $oProperty->get_forceCasting() || true === $oProperty->get_nullable())) ? '|null' : false) .' $mValue ' . "\n" . "\t * @return " . '$this' . "\n" . "\t * @throws \ReflectionException\n" . "\t */" . "\n";
             $sContent.= "\tpublic function set_" . $oProperty->get_key() . '(';
-
-            $sContent.= ( ((false === $oProperty->get_forceCasting() && ($sVar !== 'mixed')) || true === $oProperty->get_nullable()) ? '?' : false );
-
-            $sContent.= $sVar . ' ';
+            $sContent.= ( ((false === $oProperty->get_forceCasting() && ($sVar !== 'mixed')) || true === $oProperty->get_nullable()) ? '?' : '' );
+            $sContent.= ((false === empty($sVar)) ? $sVar . ' ' : '');
             $sContent.= '$mValue';
             (('null' === $oProperty->get_value() || true === $oProperty->get_nullable()) ? $sContent.= ' = null' : false);
             $sContent.= ')' . "\n" . "\t{" . "\n\t\t";
