@@ -58,6 +58,7 @@ application/library/MVC/Process.php
 application/library/MVC/MVCInterface/InterfaceRoute.php
 application/library/MVC/MVCInterface/InterfaceWorker.php
 application/library/MVC/MVCInterface/InterfaceController.php
+application/library/MVC/Env.php
 application/library/MVC/Http/Status_Created_201.php
 application/library/MVC/Http/Status_Expectation_Failed_417.php
 application/library/MVC/Http/Status_Loop_Detected_508.php
