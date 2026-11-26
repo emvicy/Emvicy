@@ -129,8 +129,8 @@ class Debug
                     onmouseover="this.style.opacity=1.0;this.style.transition=\'opacity 0.5s ease\'"
                     onmouseout="this.style.opacity=0.8;this.style.transition=\'opacity 0.5s ease\'"                    
                 ><b>';
-            $sHighlight = highlight_string('<?php' . "\n" . $mData, true);
-            echo trim(str_replace('&lt;?php', '', $sHighlight));
+            $mData = str_replace('<code ', '<code class="nohighlight" ', trim(str_replace('&lt;?php', '', highlight_string('<?php' . "\n" . $mData, true))));
+            echo $mData;
             echo '</b></div>
 			</div>';
         }

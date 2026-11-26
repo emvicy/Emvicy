@@ -301,3 +301,6 @@ ul.quickjump li:first-child {
 	word-wrap: break-word;
 	hyphens: auto;
 }
+.nohighlight {
+	background-color: transparent !important;
+}
